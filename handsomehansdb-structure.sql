@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Värd: 127.0.0.1
--- Tid vid skapande: 07 apr 2016 kl 16:38
+-- Tid vid skapande: 07 apr 2016 kl 16:57
 -- Serverversion: 5.6.26
 -- PHP-version: 5.6.12
 
@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS `admin` (
 CREATE TABLE IF NOT EXISTS `category` (
   `id` int(11) NOT NULL,
   `name` varchar(100) COLLATE utf8_bin NOT NULL,
-  `description` varchar(1000) COLLATE utf8_bin NOT NULL
+  `description` varchar(1000) COLLATE utf8_bin DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
@@ -74,7 +74,7 @@ CREATE TABLE IF NOT EXISTS `product` (
   `price` int(11) NOT NULL,
   `image` varchar(400) COLLATE utf8_bin DEFAULT NULL,
   `description` varchar(800) COLLATE utf8_bin NOT NULL,
-  `shortDescription` varchar(300) COLLATE utf8_bin NOT NULL,
+  `shortDescription` varchar(300) COLLATE utf8_bin DEFAULT NULL,
   `quantity` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
