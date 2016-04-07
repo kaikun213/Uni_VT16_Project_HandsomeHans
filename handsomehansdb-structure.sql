@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Värd: 127.0.0.1
--- Tid vid skapande: 07 apr 2016 kl 16:01
+-- Tid vid skapande: 07 apr 2016 kl 16:38
 -- Serverversion: 5.6.26
 -- PHP-version: 5.6.12
 
@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS `admin` (
 CREATE TABLE IF NOT EXISTS `category` (
   `id` int(11) NOT NULL,
   `name` varchar(100) COLLATE utf8_bin NOT NULL,
-  `info` varchar(1000) COLLATE utf8_bin NOT NULL
+  `description` varchar(1000) COLLATE utf8_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
@@ -53,9 +53,9 @@ CREATE TABLE IF NOT EXISTS `category` (
 
 CREATE TABLE IF NOT EXISTS `order` (
   `id` int(11) NOT NULL,
-  `shippingDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `orderDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `deliverDate` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `shippingDate` varchar(100) COLLATE utf8_bin NOT NULL,
+  `orderDate` varchar(100) COLLATE utf8_bin NOT NULL,
+  `deliverDate` varchar(100) COLLATE utf8_bin NOT NULL,
   `products` text COLLATE utf8_bin NOT NULL,
   `productCount` int(11) NOT NULL,
   `totalPrice` int(11) NOT NULL
@@ -70,12 +70,12 @@ CREATE TABLE IF NOT EXISTS `order` (
 CREATE TABLE IF NOT EXISTS `product` (
   `id` int(11) NOT NULL,
   `name` varchar(100) COLLATE utf8_bin NOT NULL,
-  `category` varchar(100) COLLATE utf8_bin NOT NULL,
+  `category` int(11) NOT NULL,
   `price` int(11) NOT NULL,
   `image` varchar(400) COLLATE utf8_bin DEFAULT NULL,
-  `longInfo` varchar(800) COLLATE utf8_bin NOT NULL,
-  `shortInfo` varchar(300) COLLATE utf8_bin NOT NULL,
-  `stock` int(11) NOT NULL DEFAULT '0'
+  `description` varchar(800) COLLATE utf8_bin NOT NULL,
+  `shortDescription` varchar(300) COLLATE utf8_bin NOT NULL,
+  `quantity` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
