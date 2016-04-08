@@ -30,7 +30,6 @@ public class Product {
 		quantity = 0;
 	}
 
-	// Test push
 
 	/**
 	 * This method returns product name
