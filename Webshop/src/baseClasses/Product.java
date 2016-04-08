@@ -30,21 +30,6 @@ public class Product {
 		quantity = 0;
 	}
 
-	/**
-	 * Constructor With Parameters
-	 * 
-	 * @param productName
-	 * @param category
-	 * @param price
-	 * @param quantity
-	 */
-	public Product(String productName, String category, double price, int quantity) {
-		this.productName = productName;
-		this.category = category;
-		this.price = price;
-		this.quantity = quantity;
-	}
-
 	// Below are Getters and Setters
 
 	/**
