@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Date;
 
 /**
+ * This class represents an order.
+ *
  * @author Paulius
  *
  */
