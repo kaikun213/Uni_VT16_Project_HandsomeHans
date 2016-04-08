@@ -30,7 +30,7 @@ public class Product {
 		quantity = 0;
 	}
 
-	// Below are Getters and Setters
+	// Test push
 
 	/**
 	 * This method returns product name
