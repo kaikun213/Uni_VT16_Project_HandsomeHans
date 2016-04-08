@@ -14,6 +14,9 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="lib" path="/home/kaikun/MEGA/MEGAsync/java/jars/mysql-connector-java-5.1.38/mysql-connector-java-5.1.38-bin.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JBoss 10.0.10.Final"/>
+	<classpathentry kind="var" path="USER_HOME/MEGA/MEGAsync/java/jars/junit-4.12.jar"/>
+	<classpathentry kind="var" path="USER_HOME/MEGA/MEGAsync/java/jars/hamcrest-all-1.3.jar"/>
+	<classpathentry kind="var" path="USER_HOME/MEGA/MEGAsync/java/jars/hamcrest-junit-2.0.0.0.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
