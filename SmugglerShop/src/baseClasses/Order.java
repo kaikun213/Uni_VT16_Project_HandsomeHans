@@ -14,24 +14,25 @@ public class Order {
 
     private long orderId;
     private List<Product> orderList;
-    private enum orderStatus;
+    private enum orderStatus {New,Shippable,Delivered};
+    private orderStatus status;
     private Date orderDate;
 
     public Order() {
     }
 
-    public Order(long orderId, List<Product> orderList, enum status, Date orderDate) {
+    public Order(long orderId, List<Product> orderList, orderStatus status, Date orderDate) {
         this.orderId = orderId;
         this.orderList = orderList;
-        this.orderStatus = orderStatus;
+        this.status = status;
         this.orderDate = orderDate;
     }
 
-    public int getOrderId() {
+    public long getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(int orderId) {
+    public void setOrderId(long orderId) {
         this.orderId = orderId;
     }
 
@@ -43,12 +44,12 @@ public class Order {
         this.orderList = orderList;
     }
 
-    public enum getOrderStatus() {
-        return orderStatus;
+    public orderStatus getOrderStatus() {
+        return status;
     }
 
-    public void setOrderStatus(enum orderStatus) {
-        this.setOrderStatus = orderStatus;
+    public void setOrderStatus(orderStatus orderStatus) {
+        this.status = orderStatus;
     }
 
     public Date getOrderDate() {
@@ -61,10 +62,9 @@ public class Order {
 
     @Override
     public String toString() {
-        return "Order{"
-                "id = " + id +
+        return "Order{" +
+                "id = " + orderId +
                 ", status = '" + status + '\'' +
-                ", userId = " + userId +
                 ", orderDate = " + orderDate +
                 '}';
     }
