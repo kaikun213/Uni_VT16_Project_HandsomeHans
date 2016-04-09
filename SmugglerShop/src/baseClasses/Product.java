@@ -30,7 +30,6 @@ public class Product {
 		quantity = 0;
 	}
 
-
 	/**
 	 * This method returns product name
 	 * 
@@ -147,6 +146,9 @@ public class Product {
 		this.quantity = quantity;
 	}
 
+	/**
+	 * Return true if object is equals to product else false.
+	 */
 	@Override
 	public boolean equals(Object o) {
 		if (o instanceof Product) {
@@ -157,6 +159,9 @@ public class Product {
 		return false;
 	}
 
+	/**
+	 * Represent a nice print out of product
+	 */
 	@Override
 	public String toString() {
 		return productName + "  " + category + "  " + price + "\n" + description;
