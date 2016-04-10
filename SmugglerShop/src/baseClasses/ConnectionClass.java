@@ -37,13 +37,33 @@ public class ConnectionClass {
 	/**
 	 * 
 	 * @param sqlQuery 
-	 * @return ResultSet, which represents the given rows from the DB.
+	 * @return ResultSet, which is just readable_forward_Only and is not sensitive to updates in the DB.
 	 */
 	public ResultSet fetch(String sqlQuery){
 		PreparedStatement stat;
 		
 		try {
 			stat = connectionDB.prepareStatement(sqlQuery);
+			stat.execute();
+			return stat.getResultSet();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+		
+	}
+	
+	/**
+	 * 
+	 * @param sqlQuery 
+	 * @return ResultSet, which is changeable, sensitive to updates in the DB.
+	 */
+	public ResultSet update(String sqlQuery){
+		PreparedStatement stat;
+		
+		try {
+			stat = connectionDB.prepareStatement(sqlQuery,ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
 			stat.execute();
 			return stat.getResultSet();
 		} catch (SQLException e) {

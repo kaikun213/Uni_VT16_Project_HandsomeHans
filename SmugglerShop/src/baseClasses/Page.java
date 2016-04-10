@@ -13,20 +13,17 @@ import java.sql.ResultSet;
 /* unfinished ! */
 public abstract class Page {
 	
-	ConnectionClass conn;
-	
 	/**
-	 * Constructor method establishes the connection
+	 * Establishes a connection at creation
 	 */
-	public Page(){
-		conn = new ConnectionClass();
-	}
+	protected ConnectionClass conn = new ConnectionClass();
+	protected ResultSet content;
 	
 	/**
 	 * 
 	 * @param sql query to the database e.g. "SELECT * FROM product;" 
 	 * @return the ResultSet of the requested rows
 	 */
-	abstract ResultSet fetch(String sql);
+	protected abstract void setContent(String sql);
 
 }
