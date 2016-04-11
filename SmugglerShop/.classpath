@@ -14,8 +14,8 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry exported="true" kind="lib" path="/home/kaikun/MEGA/MEGAsync/java/jars/junit-4.12.jar"/>
-	<classpathentry exported="true" kind="lib" path="/home/kaikun/MEGA/MEGAsync/java/jars/hamcrest-all-1.3.jar"/>
-	<classpathentry exported="true" kind="lib" path="/home/kaikun/MEGA/MEGAsync/java/jars/mysql-connector-java-5.1.38/mysql-connector-java-5.1.38-bin.jar"/>
+	<classpathentry kind="lib" path="/home/kaikun/workspace/GitHub/HandsomeHans/jars/junit-4.12.jar"/>
+	<classpathentry kind="lib" path="/home/kaikun/workspace/GitHub/HandsomeHans/jars/hamcrest-all-1.3.jar"/>
+	<classpathentry kind="lib" path="/home/kaikun/workspace/GitHub/HandsomeHans/jars/mysql-connector-java-5.1.38/mysql-connector-java-5.1.38-bin.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
