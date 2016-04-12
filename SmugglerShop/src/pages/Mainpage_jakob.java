@@ -4,7 +4,7 @@
 package pages;
 
 import java.io.Serializable;
-import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,45 +22,25 @@ import baseClasses.Product;
 @Named
 @SessionScoped
 public class Mainpage_jakob extends Page implements Serializable {
-
+	
+	private List<Product> allProducts = new ArrayList<Product>();
+	
 	/**
 	 * Default serialVersionID generated from eclipse
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public void setContent(String sql) {
-		content = conn.fetch(sql);
+	public void setAllProducts(String sql) {
+		setContent(sql);
+		try {
+			allProducts = toProducts(content);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
-	public ResultSet getContent(){
-		setContent("SELECT * FROM webshopDB.product;");
-		return content;
-	}
-	
-	public List<Product> getProducts(){
-		List<Product> arr = new ArrayList<Product>();
-		Product test = new Product();
-		test.setProductName("test");
-		test.setDescription("Describe the product");
-		arr.add(test);
-		
-		Product test1 = new Product();
-		test1.setProductName("test");
-		test1.setDescription("Describe the product");
-		arr.add(test1);
-		
-		
-		Product test2 = new Product();
-		test2.setProductName("test");
-		test2.setDescription("Describe the product");
-		arr.add(test2);
-		
-		Product test3 = new Product();
-		test3.setProductName("test");
-		test3.setDescription("Describe the product");
-		arr.add(test3);
-		
-		return arr;
-	}
-
+	public List<Product> getAllProducts(){
+		setAllProducts("select * from webshopDB.product");
+		return allProducts;
+	}	
 }

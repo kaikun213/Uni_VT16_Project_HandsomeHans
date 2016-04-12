@@ -16,7 +16,7 @@ public class Order {
 
     private long orderId;
     private List<Product> orderList;
-    private enum orderStatus {New,Shippable,Delivered};
+    public enum orderStatus {New,Shippable,Delivered};
     private orderStatus status;
     private Date orderDate;
 

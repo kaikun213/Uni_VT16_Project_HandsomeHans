@@ -11,7 +11,7 @@ import javafx.scene.image.Image;
 public class Product {
 
 	// Fields
-	private String productName;
+	private String name;
 	private String category;
 	private double price;
 	private String description;
@@ -22,12 +22,24 @@ public class Product {
 	 * Empty Constructor
 	 */
 	public Product() {
-		productName = "";
+		name = "";
 		category = "";
 		price = 0;
 		description = "";
 		image = null;
 		quantity = 0;
+	}
+	
+	/**
+	 * Full Constructor
+	 */
+	public Product(String pname, String cat, double pric, String descr, Image img, int amount) {
+		name = pname;
+		category = cat;
+		price = pric;
+		description = descr;
+		image = img;
+		quantity = amount;
 	}
 
 	/**
@@ -35,8 +47,8 @@ public class Product {
 	 * 
 	 * @return String
 	 */
-	public String getProductName() {
-		return productName;
+	public String getName() {
+		return name;
 	}
 
 	/**
@@ -44,8 +56,8 @@ public class Product {
 	 * 
 	 * @param productName
 	 */
-	public void setProductName(String productName) {
-		this.productName = productName;
+	public void setName(String productName) {
+		this.name = productName;
 	}
 
 	/**
@@ -83,7 +95,7 @@ public class Product {
 	public void setPrice(double price) {
 		if (price <= 0.0)
 			throw new IllegalArgumentException(
-					"Please check the product price. Product name: " + this.productName + "  Price: " + price);
+					"Please check the product price. Product name: " + this.name + "  Price: " + price);
 		this.price = price;
 	}
 
@@ -121,7 +133,7 @@ public class Product {
 	 */
 	public void setImage(Image image) {
 		if (image == null)
-			throw new IllegalArgumentException("No product image. Product name: " + this.productName);
+			throw new IllegalArgumentException("No product image. Product name: " + this.name);
 		this.image = image;
 	}
 
@@ -141,7 +153,7 @@ public class Product {
 	 */
 	public void setQuantity(int quantity) {
 		if (quantity < 0)
-			throw new IllegalArgumentException("Please check the product quantity.  Product name: " + this.productName
+			throw new IllegalArgumentException("Please check the product quantity.  Product name: " + this.name
 					+ "  Quantity: " + quantity);
 		this.quantity = quantity;
 	}
@@ -153,7 +165,7 @@ public class Product {
 	public boolean equals(Object o) {
 		if (o instanceof Product) {
 			Product product = (Product) o;
-			return this.productName.equals(product.productName) && this.price == product.price
+			return this.name.equals(product.name) && this.price == product.price
 					&& this.category.equals(product.category);
 		}
 		return false;
@@ -164,7 +176,7 @@ public class Product {
 	 */
 	@Override
 	public String toString() {
-		return productName + "  " + category + "  " + price + "\n" + description;
+		return name + "  " + category + "  " + price + "\n" + description;
 	}
 
 }
