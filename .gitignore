@@ -3,3 +3,9 @@
 
 # JDT-specific (Eclipse Java Development Tools)
 SmugglerShop/.classpath
+
+# bin folder
+SmugglerShop/bin
+
+# build/classes folder
+SmugglerShop/build

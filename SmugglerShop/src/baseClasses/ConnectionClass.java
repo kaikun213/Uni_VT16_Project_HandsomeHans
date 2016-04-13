@@ -30,7 +30,6 @@ public class ConnectionClass {
 	 * Constructor method creates a connection to the database.
 	 */
 	public ConnectionClass(){
-		Connection();
 	}
 
 	
@@ -40,6 +39,7 @@ public class ConnectionClass {
 	 * @return ResultSet, which is just readable_forward_Only and is not sensitive to updates in the DB.
 	 */
 	public ResultSet fetch(String sqlQuery){
+		Connection();
 		PreparedStatement stat;
 		
 		try {
@@ -49,7 +49,6 @@ public class ConnectionClass {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
 		return null;
 		
 	}
@@ -60,6 +59,7 @@ public class ConnectionClass {
 	 * @return ResultSet, which is changeable, sensitive to updates in the DB.
 	 */
 	public ResultSet update(String sqlQuery){
+		Connection();
 		PreparedStatement stat;
 		
 		try {
@@ -89,6 +89,14 @@ public class ConnectionClass {
 			e.printStackTrace();
 		}
 		
+	}
+	
+	public void closeConnection(){
+		try {
+			connectionDB.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	

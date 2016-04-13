@@ -27,7 +27,7 @@ public abstract class Page {
 	 * @return the ResultSet of the requested rows, sets the content of the page
 	 */
 	protected void setContent(String sql) {
-		content = conn.fetch(sql);		
+		content = conn.fetch(sql);
 	}
 
 	/**	converts a ResultSet into a List of products.

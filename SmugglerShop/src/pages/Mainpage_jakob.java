@@ -23,24 +23,26 @@ import baseClasses.Product;
 @SessionScoped
 public class Mainpage_jakob extends Page implements Serializable {
 	
-	private List<Product> allProducts = new ArrayList<Product>();
+	private List<Product> products = new ArrayList<Product>();
 	
 	/**
 	 * Default serialVersionID generated from eclipse
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public void setAllProducts(String sql) {
+	public void setProducts(String sql) {
 		setContent(sql);
 		try {
-			allProducts = toProducts(content);
+			products = toProducts(content);
+			conn.closeConnection();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public List<Product> getAllProducts(){
-		setAllProducts("select * from webshopDB.product");
-		return allProducts;
+	public List<Product> getProducts(){
+		setProducts("select * from webshopDB.product");
+		products.add(new Product("test", "test", 123, "test", null, 300));
+		return products;
 	}	
 }

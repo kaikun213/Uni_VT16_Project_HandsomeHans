@@ -13,22 +13,15 @@
 <body> 
 <h:form>
 <div id="testline"> This is a test</div>
-
-<h:dataTable value="#{mainpage_jakob.allProducts}" var="p"
-   styleClass="order-table"
-   headerClass="order-table-header"
-   rowClasses="order-table-odd-row,order-table-even-row" >
-   <h:column>    				
-      <f:facet name="header">Name</f:facet>    				
-      #{p}
-   </h:column>
-   <h:column>
-      <f:facet name="header">Description</f:facet>
-      #{p}
-   </h:column>
-   
-</h:dataTable>
-
+<ul>
+<ui:repeat value="#{mainpage_jakob.products}" var="product">
+ 		<li>
+             <h:link value="#{product}" outcome="product">
+                <f:param name="price" value="#{product}" />
+            </h:link>
+        </li>
+</ui:repeat>
+</ul>
 </h:form>
 </body> 
 </html>
