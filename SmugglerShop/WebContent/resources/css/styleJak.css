@@ -32,3 +32,44 @@
 	background-color: green;
 	color: blue;
 }
+
+div.container {
+	width: 100%;
+	margin: 0px;
+	border: 1px solid grey;
+	line-height: 150%;
+}
+
+div.header, div.footer {
+	padding : 0.5em;
+	color: white;
+	background-color:#cc9900;
+	clear:left;
+}
+
+div.headerBar{
+	width: 100%;
+	color: black;
+	background-color: white;
+	border : 2px solid black;
+	margin-bottom: 5px;
+}
+
+div.left{
+	float: left;
+	width: 160px;
+	margin:0;
+	padding: 1em;
+}
+
+div.content{
+	margin-left: 190px;
+	border-left: 1px solid gray;
+	padding: 1em;
+}
+
+.figure{
+	border: 1px solid;
+	border-radius: 1 px;
+	box-shadow: 10px 10px 5px #888888;
+}
