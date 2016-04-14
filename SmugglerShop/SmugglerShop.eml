@@ -2,8 +2,4 @@
 <component jdk="1.8" jdk_type="JavaSDK">
 	<exclude-output/>
 	<contentEntry url="file://$MODULE_DIR$"/>
-	<lib name="JBoss 10.0.10.Final" scope="PROVIDED"/>
-	<levels>
-		<level name="JBoss 10.0.10.Final" value="application_server_libraries"/>
-	</levels>
 </component>
