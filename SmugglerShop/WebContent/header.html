@@ -1,5 +1,6 @@
 <html>
 <head>
+<title>Header</title>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="resources/css/bootstrap.min.css">
@@ -10,16 +11,22 @@
 <body>
 	<header>
 		<div class="container-fluid">
-			<a href="mainpage.xhtml"><img class="col-xs-3"
+			<a href="mainpage.xhtml"><img class="col-xs-2"
 				src="resources/img/HeaderLogo.png" alt="resources/img/logo.png"></a>
-			<h1>Smugglers</h1>
-			<form action="productView.xhtml">
-				<input type="text" class="col-xs-5" placeholder="Search by product">
+			<h3>Smugglers</h3>
+			<form class="navbar-form navbar-left" role="search"
+				action="productView.xhtml">
+				<div class="form-group">
+					<input type="text" class="form-control"
+						placeholder="Search by product">
+				</div>
+				<button type="submit" class="btn btn-default">Go!</button>
 			</form>
-			<div class="col-xs-6" style="height: 30px;"></div>
+
+			<div class="col-xs-5"></div>
 			<a class="btn btn-primary" href="basket.xhtml">Basket</a> <a
 				class="btn btn-primary" href="admin.xhtml">Login</a> <a
-				class="btn btn-primary" href="searchOrder.xhtml">Search Order</a>
+				class="btn btn-primary" href="searchOrder.xhtml">My page/orders</a>
 		</div>
 		<nav class="navbar navbar-default">
 			<div class="collapse navbar-collapse"
