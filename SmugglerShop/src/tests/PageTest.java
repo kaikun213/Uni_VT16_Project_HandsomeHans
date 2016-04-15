@@ -8,13 +8,13 @@ import java.util.List;
 import org.junit.Test;
 
 import baseClasses.Product;
-import pages.Mainpage_jakob;
+import pages.Mainpage;
 
 public class PageTest {
 
 	@Test
 	public void testGetProducts() {
-		Mainpage_jakob test = new Mainpage_jakob();
+		Mainpage test = new Mainpage();
 		List<Product> testList = test.getProducts();
 		Iterator<Product> testIterator = testList.iterator();
 		while (testIterator.hasNext()) {

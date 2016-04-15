@@ -21,7 +21,7 @@ import baseClasses.Product;
 
 @Named
 @SessionScoped
-public class Mainpage_jakob extends Page implements Serializable {
+public class Mainpage extends Page implements Serializable {
 	
 	private List<Product> products = new ArrayList<Product>();
 	
