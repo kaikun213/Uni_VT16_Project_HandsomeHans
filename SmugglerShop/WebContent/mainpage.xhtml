@@ -33,6 +33,20 @@
 <body> 
 	<div id="includedHeader"></div>
 	<h1>Welcome to the mainpage of the webstore</h1>
+	
+	<h4> sample product show for henry (with database import but just works when eclipse/wildfly is configured)</h4>
+	
+	<ul>
+	<ui:repeat var="product" value="#{mainpage.products}">
+	<li>
+		Name : #{product.name} <br />
+		Price : #{product.price} <br />
+		Description : #{product.description} <br />
+		
+	</li>
+	</ui:repeat>
+	</ul>
+	
 	<div id="includedFooter"></div>
 </body> 
 </html>
