@@ -1,7 +1,8 @@
-package mano_uzduotys_mokantis;
+package baseClasses;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.NoSuchElementException;
 
@@ -17,9 +18,8 @@ public class Order {
     private enum OrderStatus{IN_PROCESS, SHIPPED, DELIVERED}
     private OrderStatus orderStatus;
     private long orderId;
-    private List<Product> orderList = new List<Product>();
+    private List<Product> orderList = new ArrayList<Product>();
     private Date orderDate;
-    private int size;
 
     /**
      *  Empty constructor.
