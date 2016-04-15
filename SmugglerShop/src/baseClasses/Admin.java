@@ -8,17 +8,14 @@ package baseClasses;
  */
 public class Admin {
 	// Fields
-	private String userName;
-	private String email;
-	private String password;
+	private String userName= "";
+	private String email= "";
+	private String password= "";
 
 	/**
 	 * Empty constructor
 	 */
 	public Admin() {
-		userName = "";
-		email = "";
-		password = "";
 	}
 
 	/**

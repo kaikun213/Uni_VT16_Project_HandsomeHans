@@ -20,6 +20,7 @@ public class Order {
     private long orderId;
     private List<Product> orderList = new ArrayList<Product>();
     private Date orderDate;
+    
 
     /**
      *  Empty constructor.
