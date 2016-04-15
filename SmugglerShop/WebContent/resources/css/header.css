@@ -1,4 +1,19 @@
 header {
-	background-color: silver;
+	background-color: lightblue;
+}
+nav > ul {
+	list-style: none;
+
+}
+nav > ul > li {
+	/*float: left;*/
+	width: 10%;
 }
 
+nav > ul > li > ul {
+	display: none;
+	list-style: none;
+}
+nav > ul > li:hover > ul {
+	display: block;
+}
