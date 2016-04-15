@@ -8,9 +8,9 @@ package baseClasses;
  */
 public class Admin {
 	// Fields
-	private String userName= "";
-	private String email= "";
-	private String password= "";
+	private String userName = "";
+	private String email = "";
+	private String password = "";
 
 	/**
 	 * Empty constructor
@@ -19,23 +19,16 @@ public class Admin {
 	}
 
 	/**
-	 * Full constructor, throw error if given email and username belong to other
-	 * user or null as well as if password is null.
+	 * Full constructor
 	 * 
 	 * @param userName
 	 * @param email
 	 * @param password
 	 */
 	public Admin(String userName, String email, String password) {
-		if (userName == null || email == null || password == null)
-			throw new IllegalArgumentException(
-					"Invalid details.\nUSERNAME: " + userName + "\nEmail: " + email + "\nPASSWORD: " + password);
-		else if (checkUserName(userName) && checkEmail(email) == true) {
-			this.userName = userName;
-			this.email = email;
-			this.password = password;
-		} else
-			throw new IllegalArgumentException("Change the details.");
+		this.userName = userName;
+		this.email = email;
+		this.password = password;
 	}
 
 	/**
@@ -48,13 +41,11 @@ public class Admin {
 	}
 
 	/**
-	 * Set admin username, throw error if given username belongs to other user
+	 * Set admin username
 	 * 
 	 * @param userName
 	 */
 	public void setUserName(String userName) {
-		if (checkUserName(userName) == false)
-			throw new IllegalArgumentException("Change username.");
 		this.userName = userName;
 	}
 
@@ -68,13 +59,11 @@ public class Admin {
 	}
 
 	/**
-	 * Set admin email, throw error if given email belongs to other user
+	 * Set admin email
 	 * 
 	 * @param email
 	 */
 	public void setEmail(String email) {
-		if (checkEmail(email) == false)
-			throw new IllegalArgumentException("Change email address.");
 		this.email = email;
 	}
 
@@ -93,18 +82,7 @@ public class Admin {
 	 * @param password
 	 */
 	public void setPassword(String password) {
-		if (password == null)
-			throw new IllegalArgumentException("Please set the password.");
 		this.password = password;
-	}
-
-	/**
-	 * Remove the admin
-	 */
-	public void removeAdmin() {
-		this.userName = "";
-		this.email = "";
-		this.password = "";
 	}
 
 	/**
@@ -113,34 +91,6 @@ public class Admin {
 	@Override
 	public String toString() {
 		return "userName: " + userName + "\n email: " + email + "\n password: " + password;
-	}
-
-	/**
-	 * Return true if given username does not belong to other user, else false.
-	 * 
-	 * @param userName
-	 * @return boolean
-	 */
-	private boolean checkUserName(String userName) {
-		if (this.userName.equals(userName)) {
-			System.err.println("Given username is already selected by other user.");
-			return false;
-		} else
-			return true;
-	}
-
-	/**
-	 * Return true if given email does not belong to other user, else false.
-	 * 
-	 * @param email
-	 * @return
-	 */
-	private boolean checkEmail(String email) {
-		if (this.email.equals(email)) {
-			System.err.println("Given email is already selected by other user.");
-			return false;
-		} else
-			return true;
 	}
 
 }
