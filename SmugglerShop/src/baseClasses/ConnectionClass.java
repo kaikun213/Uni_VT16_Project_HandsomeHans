@@ -5,6 +5,7 @@ package baseClasses;
 
 import java.sql.DriverManager;
 import java.util.Properties;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -25,7 +26,7 @@ public class ConnectionClass {
 	private String username = "root";
 	private String password = "team2";
 	private Connection connectionDB;
-	
+
 	/**
 	 * Constructor method creates a connection to the database.
 	 */
@@ -39,17 +40,17 @@ public class ConnectionClass {
 	 * @return ResultSet, which is just readable_forward_Only and is not sensitive to updates in the DB.
 	 */
 	public ResultSet fetch(String sqlQuery){
-		Connection();
-		PreparedStatement stat;
+		if (connectionDB == null) Connection();
+		ResultSet rs = null;
 		
 		try {
-			stat = connectionDB.prepareStatement(sqlQuery);
+			PreparedStatement stat = connectionDB.prepareStatement(sqlQuery);
 			stat.execute();
-			return stat.getResultSet();
+			rs = stat.getResultSet();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return null;
+		return rs;
 		
 	}
 	
@@ -59,18 +60,18 @@ public class ConnectionClass {
 	 * @return ResultSet, which is changeable, sensitive to updates in the DB.
 	 */
 	public ResultSet update(String sqlQuery){
-		Connection();
-		PreparedStatement stat;
+		if (connectionDB == null) Connection();
+		ResultSet rs = null;
 		
 		try {
-			stat = connectionDB.prepareStatement(sqlQuery,ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
+			PreparedStatement stat = connectionDB.prepareStatement(sqlQuery,ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
 			stat.execute();
-			return stat.getResultSet();
+			rs = stat.getResultSet();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
-		return null;
+		return rs;
 		
 	}
 	
@@ -90,15 +91,17 @@ public class ConnectionClass {
 		}
 		
 	}
-	
+	/**
+	 * Closes an open connection 
+	 */
 	public void closeConnection(){
 		try {
 			connectionDB.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+
 	}
-	
 	
 		
 

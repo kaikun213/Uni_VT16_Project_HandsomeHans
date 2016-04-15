@@ -10,14 +10,17 @@ import org.junit.Test;
 import baseClasses.Product;
 import pages.Mainpage_jakob;
 
-public class MainpageTest {
+public class PageTest {
 
 	@Test
-	public void testAbstractPage() {
+	public void testGetProducts() {
 		Mainpage_jakob test = new Mainpage_jakob();
 		List<Product> testList = test.getProducts();
 		Iterator<Product> testIterator = testList.iterator();
-		while (testIterator.hasNext()) System.out.println(testIterator.next().getName());
+		while (testIterator.hasNext()) {
+			assertNotNull(testIterator.next());
+			System.out.println(testIterator.next().getName());
+		}
 
 	}
 

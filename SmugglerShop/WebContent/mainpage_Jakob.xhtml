@@ -17,7 +17,21 @@
 <div class="header"> <p><h:graphicImage name="img/HeaderLogo.png" alt="Logo" height="300"/></p></div>
 <div class="headerBar"> Headerbar with dropdown menu</div>
 <div class="left"> Here are the categories</div>
-<div class="content"> here is the content</div>
+<div class="content"> 
+
+
+<h:dataTable value="#{mainpage_jakob.products}" var="product"
+   styleClass="order-table"
+   headerClass="order-table-header"
+   rowClasses="order-table-even-row,order-table-odd-row">
+   <h:column>    				
+      <f:facet name="header">Name</f:facet>    				
+      #{product.name}
+   </h:column>
+</h:dataTable>
+
+
+</div>
 
 <div class="footer"> This is the footer</div>
 </div>

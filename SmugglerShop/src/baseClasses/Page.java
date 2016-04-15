@@ -37,7 +37,7 @@ public abstract class Page {
 	 * @throws SQLException when it is now a ResultSet from ordinary products
 	 */
 	protected ArrayList<Product> toProducts(ResultSet products) throws SQLException{
-		// if (!products.getMetaData().getColumnName(2).equals("category")) throw new SQLException("This is not a product List");
+		if (!products.getMetaData().getTableName(1).equals("product")) throw new SQLException("This is not a product list");
 		ArrayList<Product> arr = new ArrayList<Product>();
 		while (products.next()) {
 			Product p = new Product(products.getString("name"),
@@ -53,6 +53,7 @@ public abstract class Page {
 	
 	/*
 	protected ArrayList<Order> toOrders(ResultSet orders){
+		if (!products.getMetaData().getTableName(1).equals("order")) throw new SQLException("This is not a product list");
 		ArrayList<Product> arr = new ArrayList<Product>();
 		try {
 			while (orders.next()) {
