@@ -33,7 +33,7 @@ public class Product {
 	/**
 	 * Full Constructor
 	 */
-	public Product(String pname, String cat, double pric, String descr, Image img, int amount) {
+	public Product(String pname, String cat, double pric, String descr,Image img, int amount) {
 		name = pname;
 		category = cat;
 		price = pric;
@@ -127,13 +127,11 @@ public class Product {
 	}
 
 	/**
-	 * Set product image, throw error if image is null.
+	 * Set product image
 	 * 
 	 * @param image
 	 */
 	public void setImage(Image image) {
-		if (image == null)
-			throw new IllegalArgumentException("No product image. Product name: " + this.name);
 		this.image = image;
 	}
 
