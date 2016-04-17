@@ -39,7 +39,7 @@ public abstract class Page {
 	protected ArrayList<Product> toProducts(ResultSet products) throws SQLException{
 		if (!products.getMetaData().getTableName(1).equals("product")) throw new SQLException("This is not a product list");
 		ArrayList<Product> arr = new ArrayList<Product>();
-		while (products.next()) {
+	while (products.next()) {
 			Product p = new Product(products.getString("name"),
 					products.getString("category"),
 					products.getDouble("price"),

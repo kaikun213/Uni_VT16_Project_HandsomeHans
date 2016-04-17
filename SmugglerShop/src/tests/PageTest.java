@@ -19,7 +19,7 @@ public class PageTest {
 		Iterator<Product> testIterator = testList.iterator();
 		while (testIterator.hasNext()) {
 			assertNotNull(testIterator.next());
-			System.out.println(testIterator.next().getName());
+			//System.out.println(testIterator.next().getName());
 		}
 
 	}
