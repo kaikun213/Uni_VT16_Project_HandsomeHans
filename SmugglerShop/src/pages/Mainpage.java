@@ -39,7 +39,6 @@ public class Mainpage extends Page implements Serializable {
 		try {
 			setContent("select * from webshopDB.product");
 			products = toProducts(content);
-			conn.closeConnection();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
