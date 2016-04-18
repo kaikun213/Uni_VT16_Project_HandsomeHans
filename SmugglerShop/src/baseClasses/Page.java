@@ -6,8 +6,9 @@ package baseClasses;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import baseClasses.Order;
 
-import baseClasses.Order.OrderStatus;
+
 
 /**
  * @author kaikun
@@ -85,7 +86,9 @@ public abstract class Page {
 			    					productList,
 			    					orders.getString("date"),
 			    					status);
+			  
 			  arr.add(o);    
+			
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

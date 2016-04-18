@@ -34,12 +34,16 @@ public class Product {
 	 * Full Constructor
 	 */
 	public Product(String pname, String cat, double pric, String descr,Image img, int amount) {
+		if(pric > 0 && amount > 0){
 		name = pname;
 		category = cat;
 		price = pric;
 		description = descr;
 		image = img;
 		quantity = amount;
+		}
+		else
+			throw new IllegalArgumentException("Price and quantity must be greater than 0.");
 	}
 
 	/**
@@ -150,7 +154,7 @@ public class Product {
 	 * @param quantity
 	 */
 	public void setQuantity(int quantity) {
-		if (quantity < 0)
+		if (quantity <= 0)
 			throw new IllegalArgumentException("Please check the product quantity.  Product name: " + this.name
 					+ "  Quantity: " + quantity);
 		this.quantity = quantity;
