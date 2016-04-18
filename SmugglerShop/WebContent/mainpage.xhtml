@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="resources/css/footer.css"/>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
 <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/journal/bootstrap.min.css" rel="stylesheet"  />
-<h:link rel="stylesheet" href="resources/css/mainpageDesign.css" />
+<link rel="stylesheet" href="resources/css/mainpageDesign.css" />
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" />
@@ -29,14 +29,17 @@
 <body> 
 <h:form>
 	<div id="includedHeader"></div>
-	<ol class="breadcrumb">
+	
+	<h1>Welcome to the mainpage of the webstore</h1>
+
+			<ol class="breadcrumb">
 		<!-- <li><a href="#">Home</a></li>
 		<li><a href="#">Library</a></li> -->
 		<li class="active">Home</li>
 	</ol>
-	<h1>Welcome to the mainpage of the webstore</h1>
-	
-	<div class="container body">
+
+
+		<div class="container body">
 		<section class="hot">
 			<h2>Fresh items!</h2>
 			<div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -76,7 +79,7 @@
 			</div>
 			<hr></hr>
 		</section>
-			<ul>
+			<ul id="items">
 				<ui:repeat var="product" value="#{mainpage.products}">
 					<li class="col-xs-12"><img src="#{product.image}"
 						alt="ProductImage" />
@@ -85,10 +88,10 @@
 						<p>#{product.description}</p></li>
 				</ui:repeat>
 			</ul>
+			
 		</div>
 	
-	
-	
+
 	<div id="includedFooter"></div>
 </h:form>
 </body> 

@@ -66,6 +66,7 @@ public abstract class Page {
 		try {
 			while (orders.next()) {
 				// get the products from the database by the IDs 
+				
 				ResultSet products = conn.fetch("SELECT * FROM product WHERE " +
 												"id=" + orders.getString("products") );
 				ArrayList<Product> productList = toProducts(products);

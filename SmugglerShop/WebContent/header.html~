@@ -1,5 +1,19 @@
+<<<<<<< Updated upstream
+<html>
+<head>
+<title>Header</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="resources/css/bootstrap.min.css">
+<link rel="stylesheet" href="resources/css/header.css">
+<script src="resources/js/jquery.min.js"></script>
+<script src="resources/js/bootstrap.min.js"></script>
+</head>
+	<header>
+=======
 
 <header>
+>>>>>>> Stashed changes
 		<div class="container-fluid">
 			<a href="mainpage.xhtml"><img class="col-xs-2"
 				src="resources/img/HeaderLogo.png" alt="resources/img/logo.png"></a>
@@ -38,4 +52,10 @@
 				</ul>
 			</div>
 		</nav>
-</header>
+	</header>
+<<<<<<< Updated upstream
+<body>
+</body>
+</html>
+=======
+>>>>>>> Stashed changes
