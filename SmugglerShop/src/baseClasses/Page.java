@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import baseClasses.Order.OrderStatus;
+
 /**
  * @author kaikun
  * Abstract page class 
@@ -51,15 +53,38 @@ public abstract class Page {
 		return arr;
 	}
 	
-	/*
-	protected ArrayList<Order> toOrders(ResultSet orders){
-		if (!products.getMetaData().getTableName(1).equals("order")) throw new SQLException("This is not a product list");
-		ArrayList<Product> arr = new ArrayList<Product>();
+	/** converts a ResultSet into a List of orders.
+	 * 
+	 * @param orders 
+	 * @return an Arraylist of Order
+	 * @throws SQLException when it is not a ResultSet of the order table
+	 */
+	protected ArrayList<Order> toOrders(ResultSet orders) throws SQLException{
+		if (!orders.getMetaData().getTableName(1).equals("order")) throw new SQLException("This is not a order list");
+		ArrayList<Order> arr = new ArrayList<Order>();
 		try {
 			while (orders.next()) {
+				// get the products from the database by the IDs 
+				ResultSet products = conn.fetch("SELECT * FROM product WHERE " +
+												"id=" + orders.getString("products") );
+				ArrayList<Product> productList = toProducts(products);
+				
+				OrderStatus status;
+				switch (orders.getInt("orderStatus")) {
+				case 1 : status = OrderStatus.IN_PROCESS;
+						break;
+				case 2 : status = OrderStatus.SHIPPED;
+						break;
+				case 3 : status = OrderStatus.DELIVERED;
+						break;
+				default : status = OrderStatus.IN_PROCESS;
+						break;
+				}
+								
 			    Order o = new Order(orders.getLong("orderId"),
-			    					orders.getString("products"),
-			    					orders.get);
+			    					productList,
+			    					orders.getString("date"),
+			    					status);
 			  arr.add(o);    
 			}
 		} catch (SQLException e) {
@@ -67,26 +92,30 @@ public abstract class Page {
 		}
 		return arr;
 	}
-	*/
-	/*
-	protected ArrayList<Admin> toAdmins(ResultSet admins){
-		ArrayList<Product> arr = new ArrayList<Product>();
+	
+	
+	/** converts a ResultSet into a List of admins.
+	 * 
+	 * @param admins
+	 * @return ArrayList of Admin
+	 * @throws SQLException when it is not a ResultSet of the admin table
+	 */
+	protected ArrayList<Admin> toAdmins(ResultSet admins) throws SQLException{
+		if (!admins.getMetaData().getTableName(1).equals("admin")) throw new SQLException("This is not a admin list");
+		ArrayList<Admin> arr = new ArrayList<Admin>();
 		try {
-			while (products.next()) {
-			    Product p = new Product(products.getString("name"),
-			    						products.getString("category"),
-			    						products.getDouble("price"),
-			    						products.getString("description"),
-			    						null,
-			    						products.getInt("quantity"));
-			  arr.add(p);    
+			while (admins.next()) {
+			    Admin a = new Admin(admins.getString("name"),
+			    					admins.getString("email"),
+			    					admins.getString("password"));
+			  arr.add(a);    
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return arr;
 	}
-	*/
+	
 
 }
 
