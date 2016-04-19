@@ -1,8 +1,10 @@
 package tests;
 
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Iterator;
 
 import org.junit.After;
 import org.junit.Before;
@@ -10,6 +12,7 @@ import org.junit.Test;
 
 import baseClasses.Order;
 import baseClasses.Product;
+import pages.Mainpage;
 public class OrderTest {
 
 	private static int test_count = 0;
@@ -26,19 +29,26 @@ public class OrderTest {
 	public void tearDown() {
 	}
 
-	/* Check size */
-	@SuppressWarnings("deprecation")
+	/*
 	@Test
-	public void testProductDetails() {
-		ArrayList<Order> list = new ArrayList<Order>();
-		
-		Date date = new Date(2016,4, 18);
-		for(int i = 0; i < 10; i++){
-		Order order = new Order();
+	public void toOrdersTest(){
+		Mainpage test = new Mainpage();
+		try {
+			ArrayList<Order> testList = test.testOrder();
+			Iterator<Order> it = testList.iterator();
+			while (it.hasNext()) {
+				Iterator<Product> it1 = it.next().getIterator();
+				while (it1.hasNext()) {
+					Product n = it1.next();
+					System.out.println(n.getName() + " : " + n.getQuantity());
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 		
 	}
-
+	*/
 
 	
 	

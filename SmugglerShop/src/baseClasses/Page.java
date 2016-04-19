@@ -16,7 +16,7 @@ import baseClasses.Order.OrderStatus;
  * Abstract page class 
  */
 
-/* unfinished ! */
+/* untested toOrder() method */
 public abstract class Page {
 	
 	/**
@@ -48,7 +48,7 @@ public abstract class Page {
 					products.getString("category"),
 					products.getDouble("price"),
 					products.getString("description"),
-					null,
+					products.getString("image"),
 					products.getInt("quantity"));
 			arr.add(p);
 		}
@@ -61,16 +61,35 @@ public abstract class Page {
 	 * @return an Arraylist of Order
 	 * @throws SQLException when it is not a ResultSet of the order table
 	 */
+	
+	// NOT TESTED !!!!!!!!!!!!!!!
 	protected ArrayList<Order> toOrders(ResultSet orders) throws SQLException{
 		if (!orders.getMetaData().getTableName(1).equals("order")) throw new SQLException("This is not a order list");
 		ArrayList<Order> arr = new ArrayList<Order>();
 		try {
 			while (orders.next()) {
 				// get the products from the database by the IDs 
-				
-				ResultSet products = conn.fetch("SELECT * FROM product WHERE " +
-												"id=" + orders.getString("products") );
+				StringBuilder sb = new StringBuilder(orders.getString("products"));
+				StringBuilder sqlProducts = new StringBuilder("SELECT * FROM product WHERE ");
+				int a = 0;
+				for (int i=0;i<sb.length();i++) {
+					if (Character.compare(sb.charAt(i), ':') == 0) sqlProducts.append("id='"+ sb.substring(a, i) +"'");
+					if (Character.compare(sb.charAt(i), ';') == 0) {
+						a=i+1;
+						if (i+1<sb.length()) sqlProducts.append(" AND ");
+					}
+				}
+				sqlProducts.append(";");
+				ResultSet products = conn.fetch(sqlProducts.toString());
 				ArrayList<Product> productList = toProducts(products);
+				
+				// change quantities in basket
+				a = 0;
+				int nr = 0;
+				for (int i=0;i<sb.length();i++) {
+					if (Character.compare(sb.charAt(i), ':') == 0) a=i;
+					if (Character.compare(sb.charAt(i), ';') == 0) productList.get(nr++).setQuantity(Integer.parseInt(sb.substring(a+1, i)));
+				}
 				
 				OrderStatus status;
 				switch (orders.getInt("orderStatus")) {
