@@ -14,7 +14,7 @@
 <link rel="stylesheet" href="resources/css/mainpageDesign.css" />
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" />
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <script> 
     $(function(){
       $("#includedHeader").load("header.html"); 
@@ -52,14 +52,14 @@
 			  <!-- Wrapper for slides -->
 			  <div class="carousel-inner" role="listbox">
 			    <div class="item active">
-			      <img src="resources/img/placeholder.png" alt="placeholder" />
+			      <img src="resources/img/CertificateLogo.jpg" alt="placeholder" />
 			      <div class="carousel-caption">
-			        <h3>Name</h3>
+			        <h3>A nice logo!</h3>
 			        <p>And some very short message</p>
 			      </div>
 			    </div>
 			    <div class="item">
-			      <img src="resources/img/placeholder.png" alt="placeholder" />
+			      <img src="resources/img/CertificateLogo.jpg" alt="placeholder" />
 			      <div class="carousel-caption">
 			        <h3>Name</h3>
 			        <p>But if i am too long i will simply go away</p>
@@ -81,11 +81,12 @@
 		</section>
 			<ul id="items">
 				<ui:repeat var="product" value="#{mainpage.products}">
-					<li class="col-xs-12"><img src="#{product.image}"
-						alt="ProductImage" />
-						<h3>#{product.name}</h3> <span>#{product.price} <i
-							class="fa fa-gg-circle"></i></span>
-						<p>#{product.description}</p></li>
+					<li class="col-xs-12">
+						<a href="productView.xhtml"><img class="col-xs-2" src="#{product.image}" alt="ProductImage" /></a>
+						<h3>#{product.name}</h3> 
+						<span>#{product.price} <i class="fa fa-gg-circle"></i></span>
+						<p>#{product.description}</p>
+					</li>
 				</ui:repeat>
 			</ul>
 			

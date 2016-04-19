@@ -1,7 +1,5 @@
 package baseClasses;
 
-import javafx.scene.image.Image;
-
 /**
  * This class represent a product.
  * 
@@ -15,7 +13,7 @@ public class Product {
 	private String category;
 	private double price;
 	private String description;
-	private Image image;
+	private String image;
 	private int quantity;
 
 	/**
@@ -33,7 +31,7 @@ public class Product {
 	/**
 	 * Full Constructor
 	 */
-	public Product(String pname, String cat, double pric, String descr,Image img, int amount) {
+	public Product(String pname, String cat, double pric, String descr,String img, int amount) {
 		if(price < 0 || amount < 0) throw new IllegalArgumentException("Price and quantity must be greater or equal than 0.");
 
 		name = pname;
@@ -125,7 +123,7 @@ public class Product {
 	 * 
 	 * @return Image
 	 */
-	public Image getImage() {
+	public String getImage() {
 		return image;
 	}
 
@@ -134,7 +132,7 @@ public class Product {
 	 * 
 	 * @param image
 	 */
-	public void setImage(Image image) {
+	public void setImage(String image) {
 		this.image = image;
 	}
 
