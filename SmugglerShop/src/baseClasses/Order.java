@@ -14,7 +14,7 @@ public class Order {
 
 	// Fields
 	public enum OrderStatus {
-		IN_PROCESS, SHIPPED, DELIVERED
+		IN_PROCESS, SHIPPED, DELAYED
 	}
 
 	protected OrderStatus orderStatus;
