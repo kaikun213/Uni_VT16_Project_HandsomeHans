@@ -32,10 +32,9 @@ public class ContactPage extends Page implements Serializable {
 	
 	
 	/**
-	 * sets the content to all available products from the web-shop
-	 * creates objects for all products in content and puts them into the <products> list.
+	 * Takes the contact details from the user to create an order
 	 */
-	public void setProducts() {
+	public void setOrder() {
 		try {
 			setContent("select * from webshopDB.product");
 			products = toProducts(content);
@@ -44,13 +43,16 @@ public class ContactPage extends Page implements Serializable {
 		}
 	}
 	
-	/**
-	 * Sets the content and the product list.
-	 * @return the list of products in the database. 
+	/**	Get the content of the users basket
+	 * 
+	 * @return the items of the basket and the total price.
 	 */
-	public List<Product> getProducts(){
-		setProducts();
+	public List<Product> getBasket(){
 		return products;
 	}	
+	
+	public int getPrice(){
+		return 0;
+	}
 	
 }

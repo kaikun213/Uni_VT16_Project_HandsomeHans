@@ -19,7 +19,7 @@ public class ConnectionTest {
 	public void testFetch() throws SQLException {
 		ConnectionClass conn = new ConnectionClass();
 		ResultSet test = conn.fetch("select * from webshopDB.product");
-		while (test.next()) System.out.println(test.getString("name"));//assertNotNull(test.getInt(1));
+		while (test.next()) System.out.println(test.getString("Name"));//assertNotNull(test.getInt(1));
 	}
 	
 	
@@ -29,7 +29,7 @@ public class ConnectionTest {
 		ResultSet test = conn.update("select * from webshopDB.product");
 		try {
 			test.first();
-			test.updateString("Name", "newUpdate");
+			test.updateString("Name", "Blaster Pistol");
 			test.updateRow();
 			assertEquals("newUpdate", test.getString("Name"));
 		} catch (SQLException e) {
