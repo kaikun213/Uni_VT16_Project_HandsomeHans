@@ -19,7 +19,7 @@ public class ConnectionTest {
 	public void testFetch() throws SQLException {
 		ConnectionClass conn = new ConnectionClass();
 		ResultSet test = conn.fetch("select * from webshopDB.product");
-		while (test.next()) assertNotNull(test.getInt(1));
+		while (test.next()) System.out.println(test.getString("name"));//assertNotNull(test.getInt(1));
 	}
 	
 	

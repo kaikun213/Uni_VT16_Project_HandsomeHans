@@ -1,10 +1,8 @@
-/**
- * 
- */
 package baseClasses;
 
+import java.util.Iterator;
 import java.util.List;
-import java.util.Date;
+import java.util.ArrayList;
 
 /**
  * This class represents an order.
@@ -14,60 +12,133 @@ import java.util.Date;
  */
 public class Order {
 
-    private long orderId;
-    private List<Product> orderList;
-    public enum orderStatus {New,Shippable,Delivered};
-    private orderStatus status;
-    private Date orderDate;
+	// Fields
+	public enum OrderStatus {
+		IN_PROCESS, SHIPPED, DELAYED
+	}
 
-    public Order() {
-    }
+	protected OrderStatus orderStatus;
+	private long orderId;
+	private List<Product> orderList = new ArrayList<Product>();
+	private String orderDate;
 
-    public Order(long orderId, List<Product> orderList, orderStatus status, Date orderDate) {
-        this.orderId = orderId;
-        this.orderList = orderList;
-        this.status = status;
-        this.orderDate = orderDate;
-    }
+	/**
+	 * Empty constructor.
+	 */
+	public Order() {
+	}
 
-    public long getOrderId() {
-        return orderId;
-    }
+	/**
+	 * Order constructor.
+	 *
+	 * @param orderId
+	 * @param orderList
+	 * @param orderDate
+	 * @param orderStatus
+	 */
+	public Order(long orderId, List<Product> orderList, String orderDate, OrderStatus orderStatus) {
+		this.orderStatus = orderStatus;
+		this.orderId = orderId;
+		this.orderList = orderList;
+		this.orderDate = orderDate;
+	}
 
-    public void setOrderId(long orderId) {
-        this.orderId = orderId;
-    }
+	// Getters and setters for fields below.
 
-    public List<Product> getOrderList() {
-        return orderList;
-    }
+	/**
+	 * Method returning order status.
+	 * 
+	 * @return OrderStatus
+	 */
+	public OrderStatus getOrderStatus() {
+		return orderStatus;
+	}
 
-    public void setOrderList(List<Product> orderList) {
-        this.orderList = orderList;
-    }
+	/**
+	 * Method to set the order status.
+	 * 
+	 * @param orderStatus
+	 */
+	public void setOrderStatus(OrderStatus orderStatus) {
+		this.orderStatus = orderStatus;
+	}
 
-    public orderStatus getOrderStatus() {
-        return status;
-    }
+	/**
+	 * Method returning order id.
+	 * 
+	 * @return long
+	 */
+	public long getOrderId() {
+		return orderId;
+	}
 
-    public void setOrderStatus(orderStatus orderStatus) {
-        this.status = orderStatus;
-    }
+	/**
+	 * Method setting order id.
+	 * 
+	 * @param orderId
+	 */
+	public void setOrderId(int orderId) {
+		this.orderId = orderId;
+	}
 
-    public Date getOrderDate() {
-        return orderDate;
-    }
+	/**
+	 * Method returning list of products.
+	 * 
+	 * @return List<Product>
+	 */
+	public List<Product> getOrderList() {
+		return orderList;
+	}
 
-    public void setOrderDate(Date orderDate) {
-        this.orderDate = orderDate;
-    }
+	/**
+	 * Method to set the list of products.
+	 * 
+	 * @param orderList
+	 */
+	public void setOrderList(List<Product> orderList) {
+		this.orderList = orderList;
+	}
 
-    @Override
-    public String toString() {
-        return "Order{" +
-                "id = " + orderId +
-                ", status = '" + status + '\'' +
-                ", orderDate = " + orderDate +
-                '}';
-    }
+	/**
+	 * Method returning the order date.
+	 * 
+	 * @return Date
+	 */
+	public String getOrderDate() {
+		return orderDate;
+	}
+
+	/**
+	 * Method to set the date of the order.
+	 * 
+	 * @param orderDate
+	 */
+	public void setOrderDate(String orderDate) {
+		this.orderDate = orderDate;
+	}
+
+	/**
+	 * Method to get the product by its position in the list.
+	 * 
+	 * @param n
+	 * @return Product
+	 */
+	public Product getProduct(int n) {
+		return orderList.get(n);
+	}
+
+	/**
+	 * Method returning the string output of the order.
+	 * 
+	 * @return String
+	 */
+	@Override
+	public String toString() {
+		return orderId + " " + " " + orderDate + " " + "\n" + orderList;
+	}
+
+	public Iterator<Product> getIterator() {
+		return orderList.iterator();
+	}
+
 }

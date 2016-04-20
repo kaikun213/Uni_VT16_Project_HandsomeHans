@@ -8,16 +8,18 @@ import java.util.List;
 import org.junit.Test;
 
 import baseClasses.Product;
-import pages.Mainpage_jakob;
+import pages.Mainpage;
 
-public class MainpageTest {
+public class PageTest {
 
 	@Test
-	public void testAbstractPage() {
-		Mainpage_jakob test = new Mainpage_jakob();
+	public void testGetProducts() {
+		Mainpage test = new Mainpage();
 		List<Product> testList = test.getProducts();
 		Iterator<Product> testIterator = testList.iterator();
-		while (testIterator.hasNext()) System.out.println(testIterator.next().getName());
+		while (testIterator.hasNext()) {
+			assertNotNull(testIterator.next());
+		}
 
 	}
 

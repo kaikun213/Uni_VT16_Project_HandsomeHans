@@ -6,13 +6,17 @@ package baseClasses;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import baseClasses.Order;
+import baseClasses.Order.OrderStatus;
+
+
 
 /**
  * @author kaikun
  * Abstract page class 
  */
 
-/* unfinished ! */
+/* untested toOrder() method */
 public abstract class Page {
 	
 	/**
@@ -37,55 +41,105 @@ public abstract class Page {
 	 * @throws SQLException when it is now a ResultSet from ordinary products
 	 */
 	protected ArrayList<Product> toProducts(ResultSet products) throws SQLException{
-		// if (!products.getMetaData().getColumnName(2).equals("category")) throw new SQLException("This is not a product List");
+		if (!products.getMetaData().getTableName(1).equals("product")) throw new SQLException("This is not a product list");
 		ArrayList<Product> arr = new ArrayList<Product>();
-		while (products.next()) {
+	while (products.next()) {
 			Product p = new Product(products.getString("name"),
 					products.getString("category"),
 					products.getDouble("price"),
 					products.getString("description"),
-					null,
+					products.getString("image"),
 					products.getInt("quantity"));
 			arr.add(p);
 		}
 		return arr;
 	}
 	
-	/*
-	protected ArrayList<Order> toOrders(ResultSet orders){
-		ArrayList<Product> arr = new ArrayList<Product>();
+	/** converts a ResultSet into a List of orders.
+	 * 
+	 * @param orders 
+	 * @return an Arraylist of Order
+	 * @throws SQLException when it is not a ResultSet of the order table
+	 */
+	
+	// NOT TESTED !!!!!!!!!!!!!!!
+	protected ArrayList<Order> toOrders(ResultSet orders) throws SQLException{
+		if (!orders.getMetaData().getTableName(1).equals("order")) throw new SQLException("This is not a order list");
+		ArrayList<Order> arr = new ArrayList<Order>();
 		try {
 			while (orders.next()) {
+				// get the products from the database by the IDs 
+				StringBuilder sb = new StringBuilder(orders.getString("products"));
+				StringBuilder sqlProducts = new StringBuilder("SELECT * FROM product WHERE ");
+				int a = 0;
+				for (int i=0;i<sb.length();i++) {
+					if (Character.compare(sb.charAt(i), ':') == 0) sqlProducts.append("id='"+ sb.substring(a, i) +"'");
+					if (Character.compare(sb.charAt(i), ';') == 0) {
+						a=i+1;
+						if (i+1<sb.length()) sqlProducts.append(" AND ");
+					}
+				}
+				sqlProducts.append(";");
+				ResultSet products = conn.fetch(sqlProducts.toString());
+				ArrayList<Product> productList = toProducts(products);
+				
+				// change quantities in basket
+				a = 0;
+				int nr = 0;
+				for (int i=0;i<sb.length();i++) {
+					if (Character.compare(sb.charAt(i), ':') == 0) a=i;
+					if (Character.compare(sb.charAt(i), ';') == 0) productList.get(nr++).setQuantity(Integer.parseInt(sb.substring(a+1, i)));
+				}
+				
+				OrderStatus status;
+				switch (orders.getInt("orderStatus")) {
+				case 1 : status = OrderStatus.IN_PROCESS;
+						break;
+				case 2 : status = OrderStatus.SHIPPED;
+						break;
+				case 3 : status = OrderStatus.DELAYED;
+						break;
+				default : status = OrderStatus.IN_PROCESS;
+						break;
+				}
+								
 			    Order o = new Order(orders.getLong("orderId"),
-			    					orders.getString("products"),
-			    					orders.get);
+			    					productList,
+			    					orders.getString("date"),
+			    					status);
+			  
 			  arr.add(o);    
+			
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return arr;
 	}
-	*/
-	/*
-	protected ArrayList<Admin> toAdmins(ResultSet admins){
-		ArrayList<Product> arr = new ArrayList<Product>();
+	
+	
+	/** converts a ResultSet into a List of admins.
+	 * 
+	 * @param admins
+	 * @return ArrayList of Admin
+	 * @throws SQLException when it is not a ResultSet of the admin table
+	 */
+	protected ArrayList<Admin> toAdmins(ResultSet admins) throws SQLException{
+		if (!admins.getMetaData().getTableName(1).equals("admin")) throw new SQLException("This is not a admin list");
+		ArrayList<Admin> arr = new ArrayList<Admin>();
 		try {
-			while (products.next()) {
-			    Product p = new Product(products.getString("name"),
-			    						products.getString("category"),
-			    						products.getDouble("price"),
-			    						products.getString("description"),
-			    						null,
-			    						products.getInt("quantity"));
-			  arr.add(p);    
+			while (admins.next()) {
+			    Admin a = new Admin(admins.getString("name"),
+			    					admins.getString("email"),
+			    					admins.getString("password"));
+			  arr.add(a);    
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return arr;
 	}
-	*/
+	
 
 }
 
