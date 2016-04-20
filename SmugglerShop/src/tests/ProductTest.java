@@ -64,9 +64,9 @@ public class ProductTest {
 		boolean price = false;
 		boolean quantity = false;
 
-		// set price = 0
+		// set price less than 0.
 		try {
-			product.setPrice(0.00);
+			product.setPrice(-1.00);
 		} catch (IllegalArgumentException a) {
 			price = true;
 		}
