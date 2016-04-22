@@ -28,7 +28,7 @@
 <h:form>
 	<div id="includedHeader"></div>
 	
-	<ui:repeat var="product" value="#{productView.magic(param['id'])}">
+	<ui:repeat var="product" value="#{productView.getOneProduct(param['id'])}">
 		<img class="col-xs-2" src="#{product.image}" alt="ProductImage" />
 		<h3>#{product.name}</h3> 
 		<span>#{product.price} <i class="fa fa-gg-circle"></i></span>
