@@ -49,7 +49,8 @@ public abstract class Page {
 					products.getDouble("price"),
 					products.getString("description"),
 					products.getString("image"),
-					products.getInt("quantity"));
+					products.getInt("quantity"),
+					products.getInt("id"));
 			arr.add(p);
 		}
 		return arr;

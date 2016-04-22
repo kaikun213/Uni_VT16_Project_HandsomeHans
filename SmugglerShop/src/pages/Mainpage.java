@@ -46,7 +46,7 @@ public class Mainpage extends Page implements Serializable {
 	
 	/**
 	 * Sets the content and the product list.
-	 * @return the list of products in the database. 
+	 * @return the list of products in the dataTease. 
 	 */
 	public List<Product> getProducts(){
 		setProducts();
