@@ -4,8 +4,13 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html"> 
 
+<<<<<<< HEAD
+
+<h:head>
+=======
 <head>
-<title>searchOrder page</title>
+>>>>>>> refs/remotes/origin/master
+<title>View one product page</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
 <link rel="stylesheet" href="resources/css/header.css" />
 <link rel="stylesheet" href="resources/css/footer.css"/>
@@ -17,9 +22,6 @@
 <script> 
     $(function(){
       $("#includedHeader").load("header.html"); 
-    });
-
-    $(function(){
       $("#includedFooter").load("footer.html"); 
     });
 </script>
@@ -27,7 +29,15 @@
 <body> 
 <h:form>
 	<div id="includedHeader"></div>
-	<h2>Welcome to searchOrder page</h2>
+	
+	<ui:repeat var="product" value="#{productView.magic(param['id'])}">
+		<img class="col-xs-2" src="#{product.image}" alt="ProductImage" />
+		<h3>#{product.name}</h3> 
+		<span>#{product.price} <i class="fa fa-gg-circle"></i></span>
+		<p>#{product.description}</p>
+	</ui:repeat>
+
+	
 	<div id="includedFooter"></div>
 </h:form>	
 </body> 

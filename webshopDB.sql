@@ -70,13 +70,13 @@ INSERT INTO `category` VALUES (1,'pistols','Pistols from everywhere in the galax
 UNLOCK TABLES;
 
 --
--- Table structure for table `order`
+-- Table structure for table `orders`
 --
 
-DROP TABLE IF EXISTS `order`;
+DROP TABLE IF EXISTS `orders`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `order` (
+CREATE TABLE `orders` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `orderStatus` int(3) NOT NULL COMMENT '1 - new\n2 - shipped\n3 - delivered',
   `products` varchar(100) COLLATE utf8_bin NOT NULL COMMENT 'product id''s listed seperated with a semicolon',
@@ -88,13 +88,13 @@ CREATE TABLE `order` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `order`
+-- Dumping data for table `orders`
 --
 
-LOCK TABLES `order` WRITE;
-/*!40000 ALTER TABLE `order` DISABLE KEYS */;
-INSERT INTO `order` VALUES (1,1,'1:1;2:1;',1500,'19/04/16'),(2,2,'2:2;3:10;',5000,'19/04/16');
-/*!40000 ALTER TABLE `order` ENABLE KEYS */;
+LOCK TABLES `orders` WRITE;
+/*!40000 ALTER TABLE `orders` DISABLE KEYS */;
+INSERT INTO `orders` VALUES (1,1,'1:1;2:1;',1500,'19/04/16'),(2,2,'2:2;3:10;',5000,'19/04/16');
+/*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -166,4 +166,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-04-19 18:21:51
+-- Dump completed on 2016-04-20  9:58:13

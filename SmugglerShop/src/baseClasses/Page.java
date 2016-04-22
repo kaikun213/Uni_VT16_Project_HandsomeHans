@@ -65,7 +65,7 @@ public abstract class Page {
 	
 	// NOT TESTED !!!!!!!!!!!!!!!
 	protected ArrayList<Order> toOrders(ResultSet orders) throws SQLException{
-		if (!orders.getMetaData().getTableName(1).equals("order")) throw new SQLException("This is not a order list");
+		if (!orders.getMetaData().getTableName(1).equals("orders")) throw new SQLException("This is not a order list");
 		ArrayList<Order> arr = new ArrayList<Order>();
 		try {
 			while (orders.next()) {
@@ -98,7 +98,7 @@ public abstract class Page {
 						break;
 				case 2 : status = OrderStatus.SHIPPED;
 						break;
-				case 3 : status = OrderStatus.DELIVERED;
+				case 3 : status = OrderStatus.DELAYED;
 						break;
 				default : status = OrderStatus.IN_PROCESS;
 						break;
