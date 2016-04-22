@@ -1,7 +1,4 @@
 package baseClasses;
-
-import java.sql.ResultSet;
-
 /**
  * This class represent a product.
  * 
@@ -36,18 +33,6 @@ public class Product {
 		image = null;
 		quantity = 0;
 		id = 0;
-	}
-	public Product(ResultSet rs){
-		try {
-			rs.next();
-			name = rs.getString("name");
-			description = rs.getString("description");
-			image = rs.getString("image");
-			category = rs.getString("category");
-			id = rs.getInt("id");
-			price = rs.getInt("price");
-			quantity = rs.getInt("quantity");
-		} catch (Exception e) { e.printStackTrace(); }
 	}
 	
 	/**
