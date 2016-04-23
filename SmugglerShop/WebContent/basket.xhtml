@@ -4,23 +4,22 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html">
 
-<head>
-<title>Basket page</title>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link rel="stylesheet" href="resources/css/header.css" />
-<link rel="stylesheet" href="resources/css/footer.css" />
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
-<link
-	href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/journal/bootstrap.min.css"
-	rel="stylesheet" />
-<link rel="stylesheet" href="resources/css/mainpageDesign.css" />
-
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"> </script>
-<script> 
+<h:head>
+	<title>Basket page</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" href="resources/css/header.css" />
+	<link rel="stylesheet" href="resources/css/footer.css" />
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+	<link
+		href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/journal/bootstrap.min.css"
+		rel="stylesheet" />
+	<link rel="stylesheet" href="resources/css/basket.css" />
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" />
+	<script>
     $(function(){
       $("#includedHeader").load("header.html"); 
     });
@@ -29,11 +28,25 @@
       $("#includedFooter").load("footer.html"); 
     });
 </script>
-</head>
+</h:head>
 <body>
 	<h:form>
 		<div id="includedHeader"></div>
-		<h2>Welcome to basket page</h2>
+		<h2>Your Smuggler shopping cart!</h2>
+		<hr size="5" width="100%"></hr>
+		<ul id="basketItems">
+			<ui:repeat var="product" value="#{mainpage.products}">
+				<li id="productImg" class="col-xs-12"><a
+					href="productView.xhtml"><img class="col-xs-2"
+						src="#{product.image}" alt="ProductImage" /></a>
+					<h3>#{product.name}</h3> <span>#{product.price} <i
+						class="fa fa-gg-circle"></i></span> <a id="btnremove"
+					class="btn btn-primary" href="basket.xhtml">Remove</a> 
+					 <input min="1" type="number"
+					id="quantity" name="quantity" value="1" /></li>
+				<hr size="5" width="85%"></hr>
+			</ui:repeat>
+		</ul>
 		<div id="includedFooter"></div>
 	</h:form>
 </body>
