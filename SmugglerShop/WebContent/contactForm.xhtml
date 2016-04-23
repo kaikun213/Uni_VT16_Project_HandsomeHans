@@ -93,36 +93,17 @@
 				<h3>Shopping Bag</h3>
 				<div class="container col-sm-12">
 					<ul class="list-group">
-
+						<ui:repeat var="basketItem" value="#{mainpage.products}">
 						<li class="list-group-item"><img
-							src="resources/img/CertificateLogo.jpg" class="img-rounded"
+							src="#{basketItem.image}" class="img-rounded"
 							alt="resources/img/HeaderLogo.png" width="50" height="50"
-							id="picture">Logo
+							id="picture">#{basketItem.name}
 								&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;&ensp;Qtn:
-								<h:outputFormat id="quantity">1</h:outputFormat>
+								<h:outputFormat id="quantity">#{basketItem.quantity}</h:outputFormat>
 								&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
 								$
-						<h:outputFormat id="price">100</h:outputFormat></img></li>
-
-						<li class="list-group-item"><img
-							src="resources/img/CertificateLogo.jpg" class="img-rounded"
-							alt="resources/img/HeaderLogo.png" width="50" height="50"
-							id="picture">Logo
-								&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;&ensp;Qtn:
-								<h:outputFormat id="quantity">1</h:outputFormat>
-								&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-								$
-						<h:outputFormat id="price">100</h:outputFormat></img></li>
-
-						<li class="list-group-item"><img
-							src="resources/img/CertificateLogo.jpg" class="img-rounded"
-							alt="resources/img/HeaderLogo.png" width="50" height="50"
-							id="picture">Logo
-								&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;&ensp;Qtn:
-								<h:outputFormat id="quantity">1</h:outputFormat>
-								&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-								$
-						<h:outputFormat id="price">100</h:outputFormat></img></li>
+						<h:outputFormat id="price">#{basketItem.price}</h:outputFormat></img></li>
+						</ui:repeat>
 					</ul>
 				</div>
 				<h3>Total: $300</h3>
