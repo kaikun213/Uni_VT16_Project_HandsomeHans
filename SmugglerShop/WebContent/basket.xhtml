@@ -39,14 +39,21 @@
 				<li id="productImg" class="col-xs-12"><a
 					href="productView.xhtml"><img class="col-xs-2"
 						src="#{product.image}" alt="ProductImage" /></a>
-					<h3>#{product.name}</h3> <span>#{product.price} <i
-						class="fa fa-gg-circle"></i></span> <a id="btnremove"
-					class="btn btn-primary" href="basket.xhtml">Remove</a> 
-					 <input min="1" type="number"
-					id="quantity" name="quantity" value="1" /></li>
+					<h3>#{product.name}</h3> <span>$#{product.price} <i></i></span><a
+					id="btnremove" class="btn btn-primary" href="basket.xhtml">Remove</a>
+					<label for="quantity">Quantity: </label> <input min="1"
+					type="number" id="quantity" name="quantity" value="1" /></li>
 				<hr size="5" width="85%"></hr>
 			</ui:repeat>
 		</ul>
+		<div2 id="checkoutinformation">
+			<h4>Subtotal: $1800</h4>
+			<h4>Shipping: $300</h4>
+			<h3>Total: $2100</h3>
+		<div id="btncheckout" class="btn btn-primary" href="mainpage.xhtml">Proceed
+			to checkout</div>
+		<div id="btnshopagain" class="btn btn-primary" href="mainpage.xhtml">Continue
+			shopping</div></div2>
 		<div id="includedFooter"></div>
 	</h:form>
 </body>
