@@ -1,14 +1,20 @@
 #btnremove {
-	position: absolete;
+	position: absolute;
 	top: 25%;
 	right: 8%;
 }
 
 #quantity {
-	position: absolete;
+	position: absolute;
 	top: 25%;
-	right: 28%;
+	right: 45%;
 	padding: 5px;
-	width: 10px;
-	border: 10px solid #555;
+	width: 60px;
+	border: 1px solid #555;
+}
+
+label {
+position: absolute;
+	top: 30%;
+	right: 50%;	
 }
