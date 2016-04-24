@@ -1,9 +1,6 @@
-#messageBox{
-	height:100px;
-}
 #bagTitle{
 	text-align:center;
 }
 #total{
-	text-align:center;
+	text-align:right;
 }
