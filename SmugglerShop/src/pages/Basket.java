@@ -4,12 +4,15 @@ import java.io.Serializable;
 
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
-import java.sql.SQLException;
+
+import baseClasses.Page;
+import baseClasses.Product;
+
 import java.util.ArrayList;
 import java.util.List;
 
 @Named
-@Sessionscoped
+@SessionScoped
 public class Basket extends Page implements Serializable{
 
     static List<Product> products = new ArrayList<Product>();
@@ -18,7 +21,7 @@ public class Basket extends Page implements Serializable{
      *
      * @return List<Products>
      */
-    public List<Products> getBasket(){
+    public List<Product> getBasket(){
         return products;
     }
 
@@ -31,7 +34,7 @@ public class Basket extends Page implements Serializable{
         int place = products.indexOf(old);
         //products.addAt(place, updated);
         products.remove(place);
-        product.add(updated);
+        products.add(updated);
     }
 
     /**
@@ -39,7 +42,7 @@ public class Basket extends Page implements Serializable{
      *
      */
 
-    public void remove(Product selected){
+    public void remove(Product selected, Product old){
         int place = products.indexOf(old);
         products.remove(place);
     }
@@ -50,6 +53,6 @@ public class Basket extends Page implements Serializable{
      */
 
     public void add(Product item){
-        product.add(item);
+        products.add(item);
     }
 }
