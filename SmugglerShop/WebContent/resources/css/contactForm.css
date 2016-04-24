@@ -1,13 +1,9 @@
 #messageBox{
 	height:100px;
 }
-#basket{
-    width: 650px;
-    padding: 5px;
-    border: 5px solid gray;
-    margin: 0;
-    height: 500px;
+#bagTitle{
+	text-align:center;
 }
-h3{
+#total{
 	text-align:center;
 }

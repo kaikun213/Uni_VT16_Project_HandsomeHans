@@ -89,24 +89,21 @@
 
 			<div class="col-sm-2"></div>
 
-			<div class="col-sm-6" id="basket">
-				<h3>Shopping Bag</h3>
-				<div class="container col-sm-12">
-					<ul class="list-group">
-						<ui:repeat var="basketItem" value="#{mainpage.products}">
-						<li class="list-group-item"><img
-							src="#{basketItem.image}" class="img-rounded"
-							alt="resources/img/HeaderLogo.png" width="50" height="50"
-							id="picture">#{basketItem.name}
-								&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;&ensp;Qtn:
-								<h:outputFormat id="quantity">#{basketItem.quantity}</h:outputFormat>
-								&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-								$
-						<h:outputFormat id="price">#{basketItem.price}</h:outputFormat></img></li>
-						</ui:repeat>
-					</ul>
-				</div>
-				<h3>Total: $300</h3>
+			<div class="col-sm-5">
+				<h3 id="bagTitle">Shopping Bag</h3>
+				<ul class="list-group">
+					<pre><ui:repeat var="basketItem" value="#{mainpage.products}">
+						<li class="list-group-item">
+						<img src="#{basketItem.image}" alt="resources/img/HeaderLogo.png"
+								width="200" height="100" id="picture" />
+								<h4>#{basketItem.name}        Qtn:<h:outputFormat
+										id="quantity">#{basketItem.quantity}</h:outputFormat>        $<h:outputFormat
+										id="price">#{basketItem.price}</h:outputFormat></h4>
+							</li>
+					</ui:repeat></pre>
+					<h3 id="total">Total: $300</h3>
+				</ul>
+			
 			</div>
 		</div>
 	</div>
