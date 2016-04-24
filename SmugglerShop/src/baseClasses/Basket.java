@@ -1,3 +1,4 @@
+package pages;
 
 import java.io.Serializable;
 
@@ -8,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Named
-@Sessionscoped
+@SessionScoped
 public class Basket extends Page implements Serializable{
 
     static List<Product> products = new ArrayList<Product>();
