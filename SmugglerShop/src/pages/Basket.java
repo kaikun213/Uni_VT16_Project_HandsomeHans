@@ -1,3 +1,4 @@
+package pages;
 
 import java.io.Serializable;
 
