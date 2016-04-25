@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.enterprise.context.SessionScoped;
+import javax.faces.event.AjaxBehaviorEvent;
 /**
  * Henry and Ben 22-04-16
  */
@@ -20,6 +21,7 @@ import javax.enterprise.context.SessionScoped;
 public class ProductView extends Page implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	private Product prod;
 	
 	// Array with hopefully 1 product
 	private List<Product> products = new ArrayList<Product>();
@@ -45,10 +47,27 @@ public class ProductView extends Page implements Serializable {
 		
 		//Dummy class if enter illegal ID
 		if(products.size()==0){
-			Product prod = new Product();			
+			Product prodTemp = new Product();
+			prod = prodTemp;
 			return prod;
 		}
-		return products.get(0);
-	}	
+		
+		prod = products.get(0);
+		return prod;
+	}
+	private String message = "messagages";
+	
+    public String getMessage() {
+    	
+        return message;
+    }
+	
+	public void addToBasket(AjaxBehaviorEvent event){
+		message = "bajs";
+		Basket bas = new Basket();
+		bas.add(prod);
+	}
+
+
 	
 }
