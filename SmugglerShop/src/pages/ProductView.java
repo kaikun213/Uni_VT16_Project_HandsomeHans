@@ -22,6 +22,7 @@ public class ProductView extends Page implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private Product prod;
+	private int pId;
 	
 	// Array with hopefully 1 product
 	private List<Product> products = new ArrayList<Product>();
@@ -38,7 +39,9 @@ public class ProductView extends Page implements Serializable {
 			e.printStackTrace();
 		}
 	}
-	
+	public int getId(){
+		return pId;
+	}
 	/*
 	 * Get int value ID from xhtml and fetch the product 
 	 */
@@ -51,8 +54,9 @@ public class ProductView extends Page implements Serializable {
 			prod = prodTemp;
 			return prod;
 		}
-		
+	
 		prod = products.get(0);
+		pId = id;
 		return prod;
 	}
 	private String message = "messagages";
@@ -63,9 +67,10 @@ public class ProductView extends Page implements Serializable {
     }
 	
 	public void addToBasket(AjaxBehaviorEvent event){
-		message = "bajs";
+		message = "productview id:"+pId+" prod id: "+prod.getId() +" new id:";
+		//pId = prod.getId();
 		Basket bas = new Basket();
-		bas.add(prod);
+		bas.add(pId);
 	}
 
 

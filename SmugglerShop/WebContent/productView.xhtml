@@ -40,7 +40,7 @@
 		<p>#{product.description}</p>
 		<span>$#{product.price} <i></i></span>
 		<h:commandButton value="Add one #{product.id}">
-			<f:ajax render="message" listener="#{basket.add(0)}"></f:ajax>		
+			<f:ajax render="message" listener="#{productView.addToBasket}"></f:ajax>		
 		</h:commandButton>
 		<h:outputText id="message" value="#{productView.message}" />
 	</h:column>
