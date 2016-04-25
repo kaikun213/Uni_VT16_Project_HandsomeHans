@@ -1,6 +1,7 @@
 package pages;
 
 import java.io.Serializable;
+import java.sql.SQLException;
 
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
@@ -55,8 +56,19 @@ public class Basket extends Page implements Serializable{
      *
      * @param Product item
      */
+    public void add(int productID){
+    	setContent("SELECT * FROM product WHERE id="+productID+";");
+		try {
+	    	ArrayList<Product> product = toProducts(content);
+	    	if (products.size() > 0) products.add(product.get(0));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+    }
+    
     public void add(Product item){
-        products.add(item);
+    	products.add(item);
     }
     
     public int getTotalPrice(){
