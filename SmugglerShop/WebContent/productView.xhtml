@@ -20,17 +20,20 @@
     });
 </script>
 </h:head> 
+<f:metadata>
+<f:viewParam name="id" required="true" value="#{productView.ID}"></f:viewParam>
+</f:metadata>
 <body> 
  <ui:include src="/header.xhtml" />	
 <h:form>	
-	<ui:repeat var="product" value="#{productView.getOneProduct(param['id'])}">
+	<ui:repeat var="product" value="#{productView.getOneProduct(productView.ID)}">
 		<img class="col-xs-2" src="#{product.image}" alt="ProductImage" />
 		<h3>#{product.name}</h3> 
 		<span>#{product.price} <i class="fa fa-gg-circle"></i></span>
 		<p>#{product.description}</p>
 		<span>$#{product.price} <i></i></span>
 		<h:commandButton value="Add one">
-		<f:ajax event="click" listener="#{basket.add(1)}" render="head"></f:ajax>
+		<f:ajax event="click" listener="#{basket.add(productView.ID)}" render="head"></f:ajax>
 		</h:commandButton>
 	</ui:repeat>
 
