@@ -24,13 +24,16 @@
     $(function(){
       $("#includedFooter").load("footer.html"); 
     });
+    $(function(){
+        $("#includedHeader").load("header.xhtml"); 
+      });
 </script>
 </head>
 <body>
-<ui:include src="/header.xhtml" />	
+<div id="includedHeader"></div>
 	<h:form>
 		<h2>About us bla bla bla</h2>
-		<div id="includedFooter"></div>
 	</h:form>
+		<div id="includedFooter"></div>
 </body>
 </html>
