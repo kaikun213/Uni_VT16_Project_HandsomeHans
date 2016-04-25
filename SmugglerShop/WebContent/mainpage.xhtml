@@ -17,10 +17,6 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <script> 
     $(function(){
-      $("#includedHeader").load("header.html"); 
-    });
-
-    $(function(){
       $("#includedFooter").load("footer.html"); 
     });
 </script>
@@ -28,8 +24,8 @@
 
 <body> 
 <h:form>
-	<div id="includedHeader"></div>
-	
+    <ui:include src="/header.xhtml" />	
+    
 	<ol class="breadcrumb">
 		<!-- <li><a href="#">Home</a></li>
 		<li><a href="#">Library</a></li> -->
@@ -82,10 +78,12 @@
 			<ul id="items">
 				<ui:repeat var="product" value="#{mainpage.products}">
 					<li class="col-xs-12">
-						<a href="productView.xhtml"><img class="col-xs-2" src="#{product.image}" alt="ProductImage" /></a>
-						<h3>#{product.name}</h3> 
-						<span>#{product.price} <i class="fa fa-gg-circle"></i></span>
-						<p>#{product.description}</p>
+						<a href="productView.xhtml?id=#{product.id}">
+							<img class="col-xs-2" src="#{product.image}" alt="ProductImage" />
+							<h3>#{product.name}</h3> 
+							<span>#{product.price} <i class="fa fa-gg-circle"></i></span>
+							<p>#{product.description}</p>
+						</a>
 					</li>
 				</ui:repeat>
 			</ul>

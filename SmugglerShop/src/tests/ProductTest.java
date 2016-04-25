@@ -30,7 +30,7 @@ public class ProductTest {
 
 	@Test
 	public void testOneProduct() {
-		Product product = new Product("Iphone", "Mobile", 199.99, "Made in China", null, 1);
+		Product product = new Product("Iphone", "Mobile", 199.99, "Made in China", null, 1, 0);
 
 		// check
 		assertEquals("Iphone", product.getName());
@@ -39,7 +39,9 @@ public class ProductTest {
 		assertEquals(null, product.getImage());
 		assertEquals("Made in China", product.getDescription());
 		assertEquals(1, product.getQuantity());
+		assertEquals(0, product.getId());
 
+		// ID is not updated, since it should never change -Ben
 		// update the product details
 		product.setName("Samsung");
 		product.setCategory("Mobile");
@@ -47,7 +49,7 @@ public class ProductTest {
 		product.setImage(null);
 		product.setDescription("Copy of iphone");
 		product.setQuantity(1);
-
+		
 		// check again
 		assertEquals("Samsung", product.getName());
 		assertEquals("Mobile", product.getCategory());
@@ -64,9 +66,9 @@ public class ProductTest {
 		boolean price = false;
 		boolean quantity = false;
 
-		// set price = 0
+		// set price less than 0.
 		try {
-			product.setPrice(0.00);
+			product.setPrice(-1.00);
 		} catch (IllegalArgumentException a) {
 			price = true;
 		}
@@ -86,8 +88,8 @@ public class ProductTest {
 	@Test
 	public void testEquals() {
 		// same products
-		Product product1 = new Product("Iphone", "Mobile", 199.99, "Made in China", null, 1);
-		Product product2 = new Product("Iphone", "Mobile", 199.99, "Made in China", null, 1);
+		Product product1 = new Product("Iphone", "Mobile", 199.99, "Made in China", null, 1, 0);
+		Product product2 = new Product("Iphone", "Mobile", 199.99, "Made in China", null, 1, 0);
 
 		assertEquals(true, product1.equals(product2));
 

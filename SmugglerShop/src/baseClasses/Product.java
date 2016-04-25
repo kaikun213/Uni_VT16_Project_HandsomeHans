@@ -1,5 +1,4 @@
 package baseClasses;
-
 /**
  * This class represent a product.
  * 
@@ -15,6 +14,13 @@ public class Product {
 	private String description;
 	private String image;
 	private int quantity;
+	private int id;
+	
+
+	public int getId() {
+		return id;
+	}
+
 
 	/**
 	 * Empty Constructor
@@ -26,12 +32,13 @@ public class Product {
 		description = "";
 		image = null;
 		quantity = 0;
+		id = 0;
 	}
 	
 	/**
 	 * Full Constructor
 	 */
-	public Product(String pname, String cat, double pric, String descr,String img, int amount) {
+	public Product(String pname, String cat, double pric, String descr,String img, int amount, int id) {
 		if(price < 0 || amount < 0) throw new IllegalArgumentException("Price and quantity must be greater or equal than 0.");
 
 		name = pname;
@@ -40,6 +47,7 @@ public class Product {
 		description = descr;
 		image = img;
 		quantity = amount;
+		this.id = id;
 		
 	}
 

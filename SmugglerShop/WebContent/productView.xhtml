@@ -25,9 +25,21 @@
 </script>
 </h:head> 
 <body> 
-<h:form>
+<h:form href="productView.xhtml?id=#{product.id}">
 	<div id="includedHeader"></div>
-	<h2>Welcome to one product in detail page</h2>
+	
+	<ui:repeat var="product" value="#{productView.getOneProduct(param['id'])}">
+		<img class="col-xs-2" src="#{product.image}" alt="ProductImage" />
+		<h3>#{product.name}</h3> 
+		<span>#{product.price} <i class="fa fa-gg-circle"></i></span>
+		<p>#{product.description}</p>
+		<span>$#{product.price} <i></i></span>
+		<h:commandButton action="#{basket.add()}" value="Add one">
+			<f:param name="pID" value="#{product.id}" />
+		</h:commandButton>
+	</ui:repeat>
+
+	
 	<div id="includedFooter"></div>
 </h:form>	
 </body> 

@@ -12,45 +12,36 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
 import baseClasses.Page;
-import baseClasses.Product;
+import baseClasses.User;
 
 /**
  * @author kaikun
- *
+ *			Prototype for future site for adding users to the database.
+ *			Missing: if a user already exists, always adds a new user
  */
 
 @Named
 @SessionScoped
 public class ContactPage extends Page implements Serializable {
-	
-	private List<Product> products = new ArrayList<Product>();
-	
+		
 	/**
 	 * Default serialVersionID generated from eclipse
 	 */
 	private static final long serialVersionUID = 1L;
+	private User user = new User();
 	
-	
-	/**
-	 * sets the content to all available products from the web-shop
-	 * creates objects for all products in content and puts them into the <products> list.
-	 */
-	public void setProducts() {
-		try {
-			setContent("select * from webshopDB.product");
-			products = toProducts(content);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+
+	public void setName(String u) {
+		user.setUserName(u);
 	}
 	
-	/**
-	 * Sets the content and the product list.
-	 * @return the list of products in the database. 
-	 */
-	public List<Product> getProducts(){
-		setProducts();
-		return products;
-	}	
+	public void setEmail(String e){
+		user.setEmail(e);
+	}
+	
+	public void setOrder(String o){
+		user.setOrder(user.getOrder() + ";" + o);
+	}
+	
 	
 }

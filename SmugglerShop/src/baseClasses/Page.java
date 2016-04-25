@@ -49,7 +49,8 @@ public abstract class Page {
 					products.getDouble("price"),
 					products.getString("description"),
 					products.getString("image"),
-					products.getInt("quantity"));
+					products.getInt("quantity"),
+					products.getInt("id"));
 			arr.add(p);
 		}
 		return arr;
@@ -64,7 +65,7 @@ public abstract class Page {
 	
 	// NOT TESTED !!!!!!!!!!!!!!!
 	protected ArrayList<Order> toOrders(ResultSet orders) throws SQLException{
-		if (!orders.getMetaData().getTableName(1).equals("order")) throw new SQLException("This is not a order list");
+		if (!orders.getMetaData().getTableName(1).equals("orders")) throw new SQLException("This is not a order list");
 		ArrayList<Order> arr = new ArrayList<Order>();
 		try {
 			while (orders.next()) {
