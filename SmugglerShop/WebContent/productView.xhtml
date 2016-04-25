@@ -16,10 +16,6 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" />
 <script> 
     $(function(){
-      $("#includedHeader").load("header.html"); 
-    });
-
-    $(function(){
       $("#includedFooter").load("footer.html"); 
     });
 </script>
@@ -27,8 +23,9 @@
 <body> 
 <h:form href="productView.xhtml?id=#{product.id}">
 	<div id="includedHeader"></div>
+
 	
-	<ui:repeat var="product" value="#{productView.getOneProduct(param['id'])}">
+	<ui:repeat var="product" value="">
 		<img class="col-xs-2" src="#{product.image}" alt="ProductImage" />
 		<h3>#{product.name}</h3> 
 		<span>#{product.price} <i class="fa fa-gg-circle"></i></span>

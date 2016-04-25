@@ -21,16 +21,12 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" />
 <script>
     $(function(){
-      $("#includedHeader").load("header.html");
-    });
-
-    $(function(){
       $("#includedFooter").load("footer.html");
     });
 </script>
 </head>
 <body>
-	<div id="includedHeader"></div>
+<ui:include src="/header.xhtml" />	
 	<h2>Welcome to contact Form page</h2>
 	<div class="container-fluid">
 		<div class="row">

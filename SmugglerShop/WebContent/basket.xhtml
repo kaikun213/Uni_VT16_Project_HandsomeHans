@@ -21,17 +21,13 @@
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" />
 	<script>
     $(function(){
-      $("#includedHeader").load("header.html");
-    });
-
-    $(function(){
       $("#includedFooter").load("footer.html");
     });
 </script>
 </h:head>
 <body>
+<ui:include src="/header.xhtml" />	
 	<h:form>
-		<div id="includedHeader"></div>
 		<h2>Your Smuggler shopping cart!</h2>
 		<hr size="5" width="100%"></hr>
 		<ul id="basketItems">
@@ -40,7 +36,7 @@
 					href="productView.xhtml?id=#{product.id}"><img class="col-xs-2"
 						src="#{basketItem.image}" alt="ProductImage" /></a>
 					<h3>#{basketItem.name}</h3> <span>$#{basketItem.price} <i></i></span><a
-					id="btnremove" class="btn btn-primary" href="basket.xhtml">Remove</a>
+					id="btnremove" class="btn btn-primary" href="#" action="#{basket.remove(param[basketItem.id])}">Remove</a>
 					<label for="quantity">Quantity: </label> <input min="1"
 					type="number" id="quantity" name="quantity" value="#{basketItem.quantity}" /></li>
 				<hr size="5" width="85%"></hr>
