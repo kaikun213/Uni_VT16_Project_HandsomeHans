@@ -22,9 +22,7 @@ import baseClasses.Product;
 @Named
 @SessionScoped
 public class ContactPage extends Page implements Serializable {
-	
-	private List<Product> products = new ArrayList<Product>();
-	
+		
 	/**
 	 * Default serialVersionID generated from eclipse
 	 */
@@ -35,12 +33,7 @@ public class ContactPage extends Page implements Serializable {
 	 * Takes the contact details from the user to create an order
 	 */
 	public void setOrder() {
-		try {
-			setContent("select * from webshopDB.product");
-			products = toProducts(content);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		
 	}
 	
 	/**	Get the content of the users basket
@@ -48,7 +41,7 @@ public class ContactPage extends Page implements Serializable {
 	 * @return the items of the basket and the total price.
 	 */
 	public List<Product> getBasket(){
-		return products;
+		return null;
 	}	
 	
 	public int getPrice(){

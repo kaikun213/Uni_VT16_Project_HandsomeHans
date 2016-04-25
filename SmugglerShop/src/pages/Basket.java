@@ -15,7 +15,12 @@ import java.util.List;
 @SessionScoped
 public class Basket extends Page implements Serializable{
 
-    static List<Product> products = new ArrayList<Product>();
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	static public List<Product> products = new ArrayList<Product>();
 
     /**
      *

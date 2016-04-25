@@ -35,14 +35,14 @@
 		<h2>Your Smuggler shopping cart!</h2>
 		<hr size="5" width="100%"></hr>
 		<ul id="basketItems">
-			<ui:repeat var="product" value="#{mainpage.products}">
-				<li id="productImg" class="col-xs-12"><a
-					href="productView.xhtml"><img class="col-xs-2"
-						src="#{product.image}" alt="ProductImage" /></a>
-					<h3>#{product.name}</h3> <span>$#{product.price} <i></i></span><a
+			<ui:repeat var="basketItem" value="#{basket.basket}">
+				<li id="productImage" class="col-xs-12"><a
+					href="productView.xhtml?id=#{product.id}"><img class="col-xs-2"
+						src="#{basketItem.image}" alt="ProductImage" /></a>
+					<h3>#{basketItem.name}</h3> <span>$#{basketItem.price} <i></i></span><a
 					id="btnremove" class="btn btn-primary" href="basket.xhtml">Remove</a>
 					<label for="quantity">Quantity: </label> <input min="1"
-					type="number" id="quantity" name="quantity" value="1" /></li>
+					type="number" id="quantity" name="quantity" value="#{basketItem.quantity}" /></li>
 				<hr size="5" width="85%"></hr>
 			</ui:repeat>
 		</ul>

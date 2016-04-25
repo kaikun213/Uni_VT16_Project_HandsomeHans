@@ -44,7 +44,7 @@
 					</div>
 
 					<div class="form-group">
-						<label for="email">Email</label> <input type="email"
+						<label for="email">Email</label> <input type="text"
 							class="form-control" id="email" />
 					</div>
 
@@ -90,9 +90,23 @@
 			<div class="col-sm-2"></div>
 
 			<div class="col-sm-4">
-			<pre><h3 id="bagTitle">Shopping Bag</h3><ul class="list-group"><ui:repeat var="basketItem" value="#{mainpage.products}"><li class="list-group-item"><img src="#{basketItem.image}" alt="resources/img/HeaderLogo.png"
-								width="150" height="150" class="img-thumbnail">    Qtn: #{basketItem.quantity}        $#{basketItem.price}<h5>#{basketItem.name}</h5></img></li></ui:repeat><h3 id="total">Total: $<h:outputText value="1000" /></h3></ul></pre>
-		</div>
+				<pre>
+					<h3 id="bagTitle">Shopping Bag</h3>
+					<ul class="list-group">
+			<ui:repeat var="basketItem" value="#{basket.basket}">
+			<li class="list-group-item">
+			<img src="#{basketItem.image}" alt="resources/img/HeaderLogo.png"
+								width="150" height="150" class="img-thumbnail">    
+								Qtn: #{basketItem.quantity}        $#{basketItem.price}
+								<h5>#{basketItem.name}</h5>
+								</img>
+			</li>
+			</ui:repeat>
+			<h3 id="total">Total: $<h:outputText value="1000" />
+						</h3>
+			</ul>
+			</pre>
+			</div>
 		</div>
 	</div>
 	<div id="includedFooter"></div>
