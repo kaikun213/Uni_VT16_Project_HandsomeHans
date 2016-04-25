@@ -53,4 +53,19 @@ public class Mainpage extends Page implements Serializable {
 		return products;
 	}	
 	
+	/**
+	 * returns a List with all the category names
+	 */
+	@Override
+	public List<String> getCategories(){
+		List<String> categories = new ArrayList<String>();
+		try {
+			categories = super.getCategories();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return categories;
+	}
+	
+	
 }

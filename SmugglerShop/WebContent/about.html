@@ -22,19 +22,18 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"> </script>
 <script> 
     $(function(){
-      $("#includedHeader").load("header.html"); 
-    });
-
-    $(function(){
       $("#includedFooter").load("footer.html"); 
     });
+    $(function(){
+        $("#includedHeader").load("header.xhtml"); 
+      });
 </script>
 </head>
 <body>
+<div id="includedHeader"></div>
 	<h:form>
-		<div id="includedHeader"></div>
 		<h2>About us bla bla bla</h2>
-		<div id="includedFooter"></div>
 	</h:form>
+		<div id="includedFooter"></div>
 </body>
 </html>

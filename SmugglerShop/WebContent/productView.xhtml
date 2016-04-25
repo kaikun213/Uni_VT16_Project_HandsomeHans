@@ -17,15 +17,12 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" />
 <script> 
     $(function(){
-      $("#includedHeader").load("header.html"); 
-    });
-
-    $(function(){
       $("#includedFooter").load("footer.html"); 
     });
 </script>
 </h:head> 
 <body> 
+<<<<<<< HEAD
 <h:form>
 	<div id="includedHeader"></div>
 	
@@ -35,12 +32,23 @@
 	rowClass="order-table-even-row order-table-odd-row">
 	<h:column>
 	<img class="col-xs-2" src="#{product.image}" alt="ProductImage" />
+=======
+ <ui:include src="/header.xhtml" />	
+<h:form>	
+	<ui:repeat var="product" value="#{productView.getOneProduct(param['id'])}">
+		<img class="col-xs-2" src="#{product.image}" alt="ProductImage" />
+>>>>>>> 522b791bacb6fc8665bc7b7268f1f799d722a878
 		<h3>#{product.name}</h3> 
 		<span>#{product.price} <i class="fa fa-gg-circle"></i></span>
 		<p>#{product.description}</p>
 		<span>$#{product.price} <i></i></span>
+<<<<<<< HEAD
 		<h:commandButton value="Add one #{product.id}">
 			<f:ajax render="message" listener="#{productView.addToBasket}"></f:ajax>		
+=======
+		<h:commandButton value="Add one">
+		<f:ajax event="click" listener="#{basket.add(1)}" render="head"></f:ajax>
+>>>>>>> 522b791bacb6fc8665bc7b7268f1f799d722a878
 		</h:commandButton>
 		<h:outputText id="message" value="#{productView.message}" />
 	</h:column>
