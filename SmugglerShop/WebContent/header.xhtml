@@ -35,12 +35,9 @@
 						data-toggle="dropdown" role="button" aria-haspopup="true"
 						aria-expanded="false">Category<span class="caret"></span></a>
 						<ul class="dropdown-menu" id="category">
-							<li><a href="mainpage.xhtml">Accessories</a></li>
-							<li><a href="mainpage.xhtml">Outdoors</a></li>
-							<li><a href="mainpage.xhtml">Sports</a></li>
-							<li><a href="mainpage.xhtml">Mobile</a></li>
-							<li><a href="mainpage.xhtml">Kitchen</a></li>
-							<li><a href="mainpage.xhtml">Guns</a></li>
+						<ui:repeat var="category" value="#{mainpage.categories}">
+							<li><a href="mainpage.xhtml">#{category}</a></li>
+							</ui:repeat>
 						</ul></li>
 					<li><a href="mainpage.xhtml">Home</a></li>
 				</ul>
