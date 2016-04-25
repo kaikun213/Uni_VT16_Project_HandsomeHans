@@ -2,22 +2,24 @@ package baseClasses;
 
 public class User {
 
-	private String userName;
+	private String name;
 	private String order;
 	private String email;
+	
+	public User(){};
 
 	public User(String userName, String order, String email) {
-		this.userName = userName;
+		this.name = userName;
 		this.order = order;
 		this.email = email;
 	}
 
 	public String getUserName() {
-		return userName;
+		return name;
 	}
 
 	public void setUserName(String userName) {
-		this.userName = userName;
+		this.name = userName;
 	}
 
 	public String getOrder() {
@@ -38,7 +40,7 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "UserName: " + userName + " Order: " + order + "Email: " + email;
+		return "UserName: " + name + " Order: " + order + "Email: " + email;
 	}
 
 }

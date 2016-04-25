@@ -17,10 +17,6 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <script> 
     $(function(){
-      $("#includedHeader").load("header.html"); 
-    });
-
-    $(function(){
       $("#includedFooter").load("footer.html"); 
     });
 </script>
@@ -28,8 +24,8 @@
 
 <body> 
 <h:form>
-	<div id="includedHeader"></div>
-	
+    <ui:include src="/header.xhtml" />	
+    
 	<ol class="breadcrumb">
 		<!-- <li><a href="#">Home</a></li>
 		<li><a href="#">Library</a></li> -->

@@ -12,11 +12,12 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
 import baseClasses.Page;
-import baseClasses.Product;
+import baseClasses.User;
 
 /**
  * @author kaikun
- *
+ *			Prototype for future site for adding users to the database.
+ *			Missing: if a user already exists, always adds a new user
  */
 
 @Named
@@ -27,25 +28,20 @@ public class ContactPage extends Page implements Serializable {
 	 * Default serialVersionID generated from eclipse
 	 */
 	private static final long serialVersionUID = 1L;
+	private User user = new User();
 	
-	
-	/**
-	 * Takes the contact details from the user to create an order
-	 */
-	public void setOrder() {
-		
+
+	public void setName(String u) {
+		user.setUserName(u);
 	}
 	
-	/**	Get the content of the users basket
-	 * 
-	 * @return the items of the basket and the total price.
-	 */
-	public List<Product> getBasket(){
-		return null;
-	}	
-	
-	public int getPrice(){
-		return 0;
+	public void setEmail(String e){
+		user.setEmail(e);
 	}
+	
+	public void setOrder(String o){
+		user.setOrder(user.getOrder() + ";" + o);
+	}
+	
 	
 }

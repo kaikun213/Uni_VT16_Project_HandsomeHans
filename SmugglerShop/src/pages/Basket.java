@@ -9,6 +9,7 @@ import baseClasses.Page;
 import baseClasses.Product;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @Named
@@ -35,11 +36,9 @@ public class Basket extends Page implements Serializable{
      ** @param  Product updated
      */
 
-    public void edit(Product old, Product updated){
+    public void editQuantity(Product old, int quantity){
         int place = products.indexOf(old);
-        //products.addAt(place, updated);
-        products.remove(place);
-        products.add(updated);
+        products.get(place).setQuantity(quantity);
     }
 
     /**
@@ -47,7 +46,7 @@ public class Basket extends Page implements Serializable{
      *
      */
 
-    public void remove(Product selected, Product old){
+    public void remove(Product old){
         int place = products.indexOf(old);
         products.remove(place);
     }
@@ -56,8 +55,22 @@ public class Basket extends Page implements Serializable{
      *
      * @param Product item
      */
-
     public void add(Product item){
         products.add(item);
     }
+    
+    public int getTotalPrice(){
+    	int result = 0;
+    	Iterator<Product> it = products.iterator();
+    	while (it.hasNext()) {
+    		Product p = it.next();
+    		result+=p.getPrice() * p.getQuantity();
+    	}
+    	return result;
+    }
+    
+    public int size(){
+    	return products.size();
+    }
+    
 }

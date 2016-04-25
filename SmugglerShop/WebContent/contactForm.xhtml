@@ -91,7 +91,7 @@
 
 			<div class="col-sm-4" id="basket">
 			<pre><h3 id="bagTitle">Shopping Bag</h3><ul class="list-group"><ui:repeat var="basketItem" value="#{basket.basket}"><li class="list-group-item"><img src="#{basketItem.image}" alt="resources/img/HeaderLogo.png"
-								width="150" height="150" class="img-thumbnail">    Qtn: #{basketItem.quantity}        $#{basketItem.price}<h5>#{basketItem.name}</h5></img></li></ui:repeat><h3 id="total">Total: $<h:outputText value="100000" /></h3></ul></pre>
+								width="150" height="150" class="img-thumbnail">    Qtn: #{basketItem.quantity}        $#{basketItem.price}<h5>#{basketItem.name}</h5></img></li></ui:repeat><h3 id="total">Total: $<h:outputText value="#{basket.totalPrice}" /></h3></ul></pre>
 		</div>
 		</div>
 	</div>
