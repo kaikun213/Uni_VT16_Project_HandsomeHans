@@ -33,6 +33,8 @@
 		<h3>#{product.name}</h3> 
 		<span>#{product.price} <i class="fa fa-gg-circle"></i></span>
 		<p>#{product.description}</p>
+		<span>$#{product.price} <i></i></span>
+		<h:commandButton action="#{basket.add(productView.getOneProduct(param['id']))}" value="Add one" />
 	</ui:repeat>
 
 	
