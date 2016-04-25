@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.sql.SQLException;
 
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
 import baseClasses.Page;
@@ -12,6 +13,7 @@ import baseClasses.Product;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 @Named
 @SessionScoped
@@ -57,18 +59,32 @@ public class Basket extends Page implements Serializable{
      * @param Product item
      */
     public void add(int productID){
-    	setContent("SELECT * FROM product WHERE id="+productID+";");
 		try {
-	    	ArrayList<Product> product = toProducts(content);
-	    	if (products.size() > 0) products.add(product.get(0));
+	    	setContent("SELECT * FROM webshopDB.product WHERE id="+productID);
+	    	ArrayList<Product> oneProduct = toProducts(content);
+	    	if (oneProduct.size() > 0) products.add(oneProduct.get(0));
+	    	else System.out.println("It is not working yet, product ID:" + productID);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
     }
     
     public void add(Product item){
     	products.add(item);
+    }
+    
+    public void add(){
+    	FacesContext fc = FacesContext.getCurrentInstance();
+    	Map<String,String> params = fc.getExternalContext().getRequestParameterMap();
+	  String productID = params.get("pID");
+	  try {
+	    	setContent("SELECT * FROM webshopDB.product WHERE id="+productID);
+	    	ArrayList<Product> oneProduct = toProducts(content);
+	    	if (oneProduct.size() > 0) products.add(oneProduct.get(0));
+	    	else System.out.println("It is not working yet, product ID:" + productID);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
     }
     
     public int getTotalPrice(){

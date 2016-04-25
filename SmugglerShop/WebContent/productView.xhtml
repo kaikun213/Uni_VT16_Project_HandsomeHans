@@ -25,7 +25,7 @@
 </script>
 </h:head> 
 <body> 
-<h:form>
+<h:form href="productView.xhtml?id=#{product.id}">
 	<div id="includedHeader"></div>
 	
 	<ui:repeat var="product" value="#{productView.getOneProduct(param['id'])}">
@@ -34,7 +34,9 @@
 		<span>#{product.price} <i class="fa fa-gg-circle"></i></span>
 		<p>#{product.description}</p>
 		<span>$#{product.price} <i></i></span>
-		<h:commandButton action="#{basket.add(productView.getOneProduct(param['id']))}" value="Add one" />
+		<h:commandButton action="#{basket.add()}" value="Add one">
+			<f:param name="pID" value="#{product.id}" />
+		</h:commandButton>
 	</ui:repeat>
 
 	
