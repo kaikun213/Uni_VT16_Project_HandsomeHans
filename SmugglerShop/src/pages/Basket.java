@@ -5,6 +5,7 @@ import java.sql.SQLException;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.inject.Named;
 
 import baseClasses.Page;
