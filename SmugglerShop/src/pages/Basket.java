@@ -68,17 +68,31 @@ public class Basket extends Page implements Serializable{
         int place = products.indexOf(old);
         products.remove(place);
     }
+    
+    public void remove(){
+    	FacesContext fc = FacesContext.getCurrentInstance();
+    	Map<String,String> params = fc.getExternalContext().getRequestParameterMap();
+    	String productID = params.get("pID");
+    	for (int i=0;i<products.size();i++) if (products.get(i).getId() == Integer.parseInt(productID)) products.remove(i);
+    }
 
     /** Add an Item to the basket, by just passing the individual item ID
      *
      * @param Product item
      */
     public void add(int productID){
+    	// if product already exists in basket increase quantity
+    	for (int i=0;i<products.size();i++) if (products.get(i).getId() == productID) {
+    		products.get(i).setQuantity(products.get(i).getQuantity()+1);
+    		return;
+    	}
+    	// otherwise add it to basket
 		try {
 	    	setContent("SELECT * FROM webshopDB.product WHERE id="+productID);
 	    	ArrayList<Product> oneProduct = toProducts(content);
-	    	if (oneProduct.size() > 0) products.add(oneProduct.get(0));
-	    	else System.out.println("It is not working yet, product ID:" + productID);
+	    	oneProduct.get(0).setQuantity(1);
+	    	products.add(oneProduct.get(0));
+	    	
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -88,6 +102,10 @@ public class Basket extends Page implements Serializable{
      * @param item
      */
     public void add(Product item){
+    	for (int i=0;i<products.size();i++) if (products.get(i).getId() == item.getId()) {
+    		products.get(i).setQuantity(products.get(i).getQuantity()+1);
+    		return;
+    	}
     	products.add(item);
     }
     /**
