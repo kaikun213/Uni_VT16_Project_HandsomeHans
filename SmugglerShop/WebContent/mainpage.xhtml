@@ -26,11 +26,12 @@
 </f:metadata>
 <body> 
  <ui:include src="/header.xhtml" />	
+ 	<h:form>
   	<ol class="breadcrumb">
-		<!-- <li><a href="#">Home</a></li>
-		<li><a href="#">Library</a></li> -->
-		<li class="active">Home</li>
-	</ol>  
+		<li><a href="mainpage.xhtml">Home</a></li>
+		<li class="active"><a href="mainpage.xhtml?category=#{mainpage.category}">#{mainpage.category}</a></li>
+	</ol> 
+	</h:form> 
 <h:form>
   <h1>Welcome to the mainpage of the webstore</h1>
 
