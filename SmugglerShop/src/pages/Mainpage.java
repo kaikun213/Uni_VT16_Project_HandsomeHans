@@ -64,6 +64,8 @@ public class Mainpage extends Page implements Serializable {
 			}
 			setProducts(id);
 		}
+		// Reset category to show all products by default again!
+		category = "";
 		return products;
 	}	
 
