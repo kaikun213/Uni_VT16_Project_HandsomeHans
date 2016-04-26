@@ -26,36 +26,38 @@
 </script>
 </h:head>
 <body>
-<ui:include src="/header.xhtml" />	
-	<h:form>
-		<h2>Your Smuggler shopping cart!</h2>
-		<hr size="5" width="100%"></hr>
-		<ul id="basketItems">
-			<ui:repeat var="basketItem" value="#{basket.basket}">
-				<li id="productImage" class="col-xs-12"><a
-					href="productView.xhtml?id=#{basketItem.id}"> <img
-						class="col-xs-2" src="#{basketItem.image}" alt="ProductImage" />
-				</a>
-					<h3>#{basketItem.name}</h3> <span>$#{basketItem.price} <i></i></span>
-					<h:commandButton action="#{basket.remove}" value="Remove"
-						class="btn btn-primary" href="#">
-						<f:param name="pID" value="#{basketItem.id}"></f:param>
-					</h:commandButton> 
-					<label for="quantity">Quantity: </label> 
-					<h:inputText min="1" type="number" id="quantity" name="quantity" value="#{basketItem.quantity}">
-						<f:ajax event="blur"></f:ajax>
-					</h:inputText>
-				</li>
-				<hr size="5" width="85%"></hr>
-			</ui:repeat>
-		</ul>
-		<div id="checkoutinformation">
-			<h3>Total: #{basket.totalPrice}</h3>
-		<a id="btncheckout" class="btn btn-primary" href="contactForm.xhtml">Proceed
-			to checkout</a>
-		<a id="btnshopagain" class="btn btn-primary" href="mainpage.xhtml">Continue
-			shopping</a></div>
+	<div id="container">
+		<ui:include src="/header.xhtml" />
+		<h:form>
+			<h2>Your Smuggler shopping cart!</h2>
+			<hr size="5" width="100%"></hr>
+			<ul id="basketItems">
+				<ui:repeat var="basketItem" value="#{basket.basket}">
+					<li id="productImage" class="col-xs-12"><a
+						href="productView.xhtml?id=#{basketItem.id}"> <img
+							class="col-xs-2" src="#{basketItem.image}" alt="ProductImage" />
+					</a>
+						<h3>#{basketItem.name}</h3> <span>$#{basketItem.price} <i></i></span>
+						<h:commandButton action="#{basket.remove}" value="Remove"
+							class="btn btn-primary" href="#">
+							<f:param name="pID" value="#{basketItem.id}"></f:param>
+						</h:commandButton> <label for="quantity">Quantity: </label> <h:inputText min="1"
+							type="number" id="quantity" name="quantity"
+							value="#{basketItem.quantity}">
+							<f:ajax event="blur"></f:ajax>
+						</h:inputText></li>
+					<hr size="5" width="85%"></hr>
+				</ui:repeat>
+			</ul>
+			<div id="checkoutinformation">
+				<h3>Total: #{basket.totalPrice}</h3>
+				<a id="btncheckout" class="btn btn-primary" href="contactForm.xhtml">Proceed
+					to checkout</a> <a id="btnshopagain" class="btn btn-primary"
+					href="mainpage.xhtml">Continue shopping</a>
+			</div>
+		</h:form>
+		<br /> <br /> <br /> <br />
 		<div id="includedFooter"></div>
-	</h:form>
+	</div>
 </body>
 </html>
