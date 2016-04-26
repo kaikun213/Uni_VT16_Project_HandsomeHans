@@ -11,14 +11,14 @@
 				src="resources/img/HeaderLogo.png" alt="resources/img/logo.png" /></a>
 			<BR />
 			<BR />
-			<form class="navbar-form navbar-left" role="search"
-				action="mainpage.xhtml">
+			<h:form class="navbar-form navbar-left" role="search"
+				action="mainpage.xhtml?search=#{mainpage.search}">
 				<div class="form-group">
-					<input type="text" class="form-control"
+					<h:inputText type="text" class="form-control"
 						placeholder="Search by product" size="70" />
 				</div>
 				<button type="submit" class="btn btn-default" style="background-color: lightgreen">Go!</button>
-			</form>
+			</h:form>
 
 			<h:form id="theHead">
 			<div class="col-xs-1"></div>

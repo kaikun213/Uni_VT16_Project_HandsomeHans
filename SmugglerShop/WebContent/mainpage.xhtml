@@ -23,6 +23,7 @@
 </h:head> 
 <f:metadata>
 <f:viewParam name="category" value="#{mainpage.category}"></f:viewParam>
+<f:viewParam name="search" value="#{mainpage.search}"></f:viewParam>
 </f:metadata>
 <body> 
  <ui:include src="/header.xhtml" />	
@@ -37,7 +38,7 @@
 
 
 		<div class="container body">
-			<h:form class="hot" rendered="#{empty mainpage.category}">
+			<h:form class="hot" rendered="#{empty mainpage.category and empty mainpage.search}">
 			<h2>Fresh items!</h2>
 			<div id="myCarousel" class="carousel slide" data-ride="carousel" >
 			  <!-- Indicators -->

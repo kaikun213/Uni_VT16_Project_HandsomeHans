@@ -26,6 +26,7 @@ public class Mainpage extends Page implements Serializable {
 	
 	private List<Product> products = new ArrayList<Product>();
 	private String category = "";
+	private String search = "";
 	
 	/**
 	 * Default serialVersionID generated from eclipse
@@ -33,14 +34,18 @@ public class Mainpage extends Page implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	
-	/**
-	 * sets the content to all available products from the web-shop
-	 * creates objects for all products in content and puts them into the <products> list.
+	/** b is true if there is no search or category selected -> show all items
+	 * sets the content to all available products or the searched/category ones from the web-shop
+	 * creates objects for all/selected products in content and puts them into the <products> list.
 	 */
-	public void setProducts(String s) {
+	public void setProducts(Boolean b) {
 		try {
-			if (s.isEmpty()) setContent("select * from webshopDB.product");
-			else setContent("select * from webshopDB.product WHERE category="+s);
+			// default : display all products
+			if (b) setContent("select * from webshopDB.product");
+			// category : display products from selected category
+			else if (!category.isEmpty()) setContent("select * from webshopDB.product, webshopDB.category WHERE product.category=category.id AND category.name=\""+category+"\";");
+			// search : display searched products
+			else setContent("select * from webshopDB.product");
 			products = toProducts(content);
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -49,23 +54,16 @@ public class Mainpage extends Page implements Serializable {
 	
 	/**
 	 * Sets the content and the product list.
-	 * @return the list of products in the dataTease. 
+	 * @return the list of products in the databease. 
 	 */
 	public List<Product> getProducts(){
-		String id = "";
-		if (category.isEmpty()) setProducts("");
-		else {
-			ResultSet rs = conn.fetch("SELECT * FROM webshopDB.category WHERE name=\""+category+"\";");
-			try {
-				rs.first();
-				id = rs.getString("id");
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-			setProducts(id);
-		}
+		// default : display all products
+		if (category.isEmpty() && search.isEmpty()) setProducts(true);
+		// search or category : display specific
+		else setProducts(false);
 		// Reset category to show all products by default again!
 		category = "";
+		search = "";
 		return products;
 	}	
 
@@ -92,5 +90,12 @@ public class Mainpage extends Page implements Serializable {
 		return category;
 	}
 	
+	public void setSearch(String s){
+		search = s;
+	}
+	
+	public String getSearch(){
+		return search;
+	}
 	
 }
