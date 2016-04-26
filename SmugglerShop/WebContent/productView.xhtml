@@ -33,7 +33,7 @@
 		<p>#{product.description}</p>
 		<span>$#{product.price} <i></i></span>
 		<h:commandButton value="Add one">
-		<f:ajax event="click" listener="#{basket.add(productView.ID)}" render="head"></f:ajax>
+		<f:ajax event="click" listener="#{basket.add(productView.ID)}" render="theHead"></f:ajax>
 		</h:commandButton>
 	</ui:repeat>
 
