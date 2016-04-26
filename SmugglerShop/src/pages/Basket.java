@@ -68,7 +68,9 @@ public class Basket extends Page implements Serializable{
         int place = products.indexOf(old);
         products.remove(place);
     }
-    
+    /**
+     * Remove an Item and get the Item ID from an f:param by clicking the commandButton
+     */
     public void remove(){
     	FacesContext fc = FacesContext.getCurrentInstance();
     	Map<String,String> params = fc.getExternalContext().getRequestParameterMap();
