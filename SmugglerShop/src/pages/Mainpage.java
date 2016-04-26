@@ -4,7 +4,6 @@
 package pages;
 
 import java.io.Serializable;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,8 +43,8 @@ public class Mainpage extends Page implements Serializable {
 			if (b) setContent("select * from webshopDB.product");
 			// category : display products from selected category
 			else if (!category.isEmpty()) setContent("select * from webshopDB.product, webshopDB.category WHERE product.category=category.id AND category.name=\""+category+"\";");
-			// search : display searched products
-			else setContent("select * from webshopDB.product");
+			// search : display searched products - not case-sensitive and searches substrings
+			else setContent("SELECT * FROM webshopDB.product WHERE UPPER(name) LIKE '%"+search.toUpperCase()+"%' OR UPPER(description) LIKE '%"+search.toUpperCase()+"%';");
 			products = toProducts(content);
 		} catch (SQLException e) {
 			e.printStackTrace();
