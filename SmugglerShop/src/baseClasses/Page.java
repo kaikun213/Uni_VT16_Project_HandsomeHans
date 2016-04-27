@@ -6,6 +6,8 @@ package baseClasses;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
+
 import baseClasses.Order;
 import baseClasses.Order.OrderStatus;
 
@@ -54,6 +56,18 @@ public abstract class Page {
 			arr.add(p);
 		}
 		return arr;
+	}
+	
+	/** Method to get a List of the category names
+	 * 
+	 * @return all categories from the database
+	 * @throws SQLException if the ResultSet is null
+	 */
+	protected List<String> getCategories() throws SQLException{
+		ArrayList<String> categories = new ArrayList<String>();
+		ResultSet rs = conn.fetch("SELECT * FROM webshopDB.category");
+		while(rs.next()) categories.add(rs.getString("name"));
+		return categories;
 	}
 	
 	/** converts a ResultSet into a List of orders.

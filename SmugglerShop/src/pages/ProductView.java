@@ -23,6 +23,15 @@ public class ProductView extends Page implements Serializable {
 	
 	// Array with hopefully 1 product
 	private List<Product> products = new ArrayList<Product>();
+	private int id;
+	
+	public void setID(int id){
+		this.id = id;
+	}
+	
+	public int getID(){
+		return id;
+	}
 	
 	/*
 	 * Command line to fetch the product

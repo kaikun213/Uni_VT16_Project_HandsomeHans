@@ -1,46 +1,47 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"> 
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
 
 <h:head>
-<title>View one product page</title>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
-<link rel="stylesheet" href="resources/css/header.css" />
-<link rel="stylesheet" href="resources/css/footer.css"/>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
-<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/journal/bootstrap.min.css" rel="stylesheet"  />
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" />
-<script> 
-    $(function(){
-      $("#includedHeader").load("header.html"); 
-    });
-
-    $(function(){
-      $("#includedFooter").load("footer.html"); 
-    });
-</script>
-</h:head> 
-<body> 
-<h:form href="productView.xhtml?id=#{product.id}">
-	<div id="includedHeader"></div>
-	
-	<ui:repeat var="product" value="#{productView.getOneProduct(param['id'])}">
-		<img class="col-xs-2" src="#{product.image}" alt="ProductImage" />
-		<h3>#{product.name}</h3> 
-		<span>#{product.price} <i class="fa fa-gg-circle"></i></span>
-		<p>#{product.description}</p>
-		<span>$#{product.price} <i></i></span>
-		<h:commandButton action="#{basket.add()}" value="Add one">
-			<f:param name="pID" value="#{product.id}" />
-		</h:commandButton>
-	</ui:repeat>
-
-	
-	<div id="includedFooter"></div>
-</h:form>	
-</body> 
+	<title>#{productView.getOneProduct(productView.ID)}</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" href="resources/css/style.css" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+	<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/journal/bootstrap.min.css" rel="stylesheet" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</h:head>
+<f:metadata>
+	<f:viewParam name="id" required="true" value="#{productView.ID}"></f:viewParam>
+</f:metadata>
+<body>
+	<ui:include src="/header.xhtml" />
+	<h:form>
+		<ui:repeat var="product"
+			value="#{productView.getOneProduct(productView.ID)}">
+			<div class="productImage">
+				<img id="item-display" src="#{product.image}" alt=""></img>
+			</div>
+			<div class="item-container">
+				<div class="col-md-7">
+					<h3>#{product.name}</h3>
+					<div class="product-desc">#{product.description}</div>
+					<hr></hr>
+					<div class="product-price">Price: $#{product.price}</div>
+					<hr></hr>
+					<div class="btn-group cart">
+						<h:commandButton value="Add to Basket" class="btn btn-primary"
+							href="#">
+							<f:ajax event="click" listener="#{basket.add(productView.ID)}"
+								render="theHead"></f:ajax>
+						</h:commandButton>
+					</div>
+				</div>
+			</div>
+		</ui:repeat>
+	</h:form>
+	<ui:include src="/footer.xhtml" />
+</body>
 </html>
