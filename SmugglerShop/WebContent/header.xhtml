@@ -6,21 +6,28 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
 	<header>
+		<!-- Container Part -->
 		<div class="container-fluid" style="background-color: #766A5E">
-			<a href="mainpage.xhtml"><img class="col-xs-3"
+		
+			<!-- Logo -->
+			<a href="mainpage.xhtml"><img class="col-xs-2"
 				src="resources/img/HeaderLogo.png" alt="resources/img/logo.png" /></a>
-			<BR /> <BR /> <BR /> <BR />
+			<!-- End Logo -->
+			
+			<!-- SearchBar -->
 			<h:form class="navbar-form navbar-left" role="search"
 				action="mainpage.xhtml?search=#{mainpage.search}">
 				<div class="form-group">
 					<h:inputText type="text" class="form-control"
-						placeholder="Search by product" size="70"
+						placeholder="Search by product" size="50"
 						value="#{mainpage.search}" />
 				</div>
 				<a class="btn" href="mainpage.xhtml?search=#{mainpage.search}" > <img
 					alt="resources/img/search.png" src="resources/img/search.png" height="40" width="30" /></a>
 			</h:form>
-
+			<!-- End SearchBar -->
+			
+			<!-- Home Buttons -->
 			<h:form id="theHead">
 				<div class="col-xs-1"></div>
 				<a class="btn" href="basket.xhtml"> <img
@@ -30,7 +37,11 @@
 				<a class="btn btn-primary" href="searchOrder.xhtml">Search
 					Orders</a>
 			</h:form>
+			<!-- End Home Buttons -->
 		</div>
+		<!-- End Container -->
+		
+		<!-- NavigationBar -->
 		<nav class="navbar navbar-default">
 			<div class="collapse navbar-collapse"
 				id="bs-example-navbar-collapse-1" style="background-color: #CDC0B4">
@@ -47,5 +58,6 @@
 				</ul>
 			</div>
 		</nav>
+		<!-- End NavigationBar -->
 	</header>
 </ui:composition>

@@ -5,34 +5,23 @@
 	xmlns:h="http://java.sun.com/jsf/html">
 
 <h:head>
-	<title>Home page</title>
+	<title>SmugglerShop</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<link rel="stylesheet" href="resources/css/header.css" />
-	<link rel="stylesheet" href="resources/css/footer.css" />
-	<link rel="stylesheet"
-		href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
-	<link
-		href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/journal/bootstrap.min.css"
-		rel="stylesheet" />
-	<link rel="stylesheet" href="resources/css/mainpageDesign.css" />
-
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-	<script
-		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-	<script> 
-    $(function(){
-      $("#includedFooter").load("footer.html"); 
-    });
-</script>
+	<link rel="stylesheet" href="resources/css/style.css" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+	<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/journal/bootstrap.min.css" rel="stylesheet" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 </h:head>
+
 <f:metadata>
 	<f:viewParam name="category" value="#{mainpage.category}"></f:viewParam>
 	<f:viewParam name="search" value="#{mainpage.search}"></f:viewParam>
 </f:metadata>
 <body>
-	<div id="container">
-		<ui:include src="/header.xhtml" />
+
+	<!-- Header part incl. navigation bar -->
+	<ui:include src="/header.xhtml" />
 		<h:form>
 			<ol class="breadcrumb">
 				<li><a href="mainpage.xhtml">Home</a></li>
@@ -40,13 +29,12 @@
 					href="mainpage.xhtml?category=#{mainpage.category}">#{mainpage.category}</a></li>
 			</ol>
 		</h:form>
-		<h:form>
-			<h1>Welcome to the mainpage of the webstore</h1>
-
-
-			<div class="container body">
-				<h:form class="hot"
-					rendered="#{empty mainpage.category and empty mainpage.search}">
+	<!-- Header end -->	
+	
+	<!-- Content Part -->
+	<h:form id="container">
+			<!-- Slider for Hot Items -->
+				<h:form class="hot" rendered="#{empty mainpage.category and empty mainpage.search}">
 					<h2>Fresh items!</h2>
 					<div id="myCarousel" class="carousel slide" data-ride="carousel">
 						<!-- Indicators -->
@@ -86,6 +74,9 @@
 					</div>
 					<hr></hr>
 				</h:form>
+		<!-- End Slider -->
+		
+		<!-- Show Products Part -->
 				<ul id="items">
 					<ui:repeat var="product" value="#{mainpage.products}">
 						<li class="col-xs-12"><a
@@ -96,13 +87,12 @@
 								<p>#{product.description}</p>
 						</a></li>
 					</ui:repeat>
-				</ul>
-
-			</div>
-
-		</h:form>
-		<br /> <br /> <br /> <br />
-		<div id="includedFooter"></div>
-	</div>
+				</ul>			
+		<!-- End Show Products -->
+	</h:form>
+	<!-- End Content -->
+	
+	<!-- Footer after container part -->
+	<ui:include src="/footer.xhtml" />
 </body>
 </html>
