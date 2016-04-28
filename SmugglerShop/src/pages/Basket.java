@@ -5,7 +5,6 @@ import java.sql.SQLException;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.event.AjaxBehaviorEvent;
 import javax.inject.Named;
 
 import baseClasses.Page;
@@ -74,7 +73,7 @@ public class Basket extends Page implements Serializable{
      */
     public void remove(){
     	FacesContext fc = FacesContext.getCurrentInstance();
-    	Map<String,String> params = fc.getExternalContext().getRequestParameterMap();
+        Map<String,String> params = fc.getExternalContext().getRequestParameterMap();
     	String productID = params.get("pID");
     	for (int i=0;i<products.size();i++) if (products.get(i).getId() == Integer.parseInt(productID)) products.remove(i);
     }

@@ -24,7 +24,6 @@
 			
 						
 			<!-- Basket Items -->
-			<h:form>
 			<ul id="basketItems">
 				<ui:repeat var="basketItem" value="#{basket.basket}">
 					<li id="productImage" class="col-xs-12"><a
@@ -32,8 +31,7 @@
 							class="col-xs-2" src="#{basketItem.image}" alt="ProductImage" />
 					</a>
 						<h3>#{basketItem.name}</h3> <span>$#{basketItem.price} <i></i></span>
-						<h:commandButton action="#{basket.remove}" value="Remove"
-							class="btn btn-primary" href="#">
+						<h:commandButton action="#{basket.remove()}" value="Remove" class="btn btn-primary" href="#">
 							<f:param name="pID" value="#{basketItem.id}"></f:param>
 						</h:commandButton> <label for="quantity">Quantity: </label> <h:inputText min="1"
 							type="number" id="quantity" name="quantity"
@@ -43,7 +41,6 @@
 					<hr size="5" width="85%"></hr>
 				</ui:repeat>
 			</ul>
-			</h:form>
 			<!-- End Basket Items -->
 			
 			<h:form id="checkoutinformation">
