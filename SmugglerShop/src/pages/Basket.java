@@ -99,6 +99,20 @@ public class Basket extends Page implements Serializable{
 			e.printStackTrace();
 		}
     }
+    
+    /**Add many items, by just calling the normal add function many times
+     * Ben
+     * @param Product item
+     * @param Product item amount
+     */
+    public void addMany(int productID, int amount){
+    	
+    	for (int i=0; i<amount;i++){
+    		add(productID);
+    	}
+    }
+    
+    
     /** Add item to the basket, by passing the whole new product
      * 
      * @param item

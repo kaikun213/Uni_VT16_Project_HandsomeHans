@@ -15,12 +15,22 @@
 </h:head>
 <f:metadata>
 	<f:viewParam name="id" required="true" value="#{productView.ID}"></f:viewParam>
+	<f:viewParam name="quantity" value="#{productView.addQuantity}"></f:viewParam>
+	<f:viewParam name="category" value="#{productView.category}"></f:viewParam>
+	
 </f:metadata>
 <body>
 	<ui:include src="/header.xhtml" />
+			<h:form>
+			<ol class="breadcrumb">
+				<li><a href="mainpage.xhtml">Home</a></li>
+				<li class="active"><a
+					href="mainpage.xhtml?category=#{productView.category}">#{productView.category}</a></li>
+			</ol>
+		</h:form>
+	
 	<h:form>
-		<ui:repeat var="product"
-			value="#{productView.getOneProduct(productView.ID)}">
+		<ui:repeat var="product" value="#{productView.getOneProduct(productView.ID)}">
 			<div class="productImage">
 				<img id="item-display" src="#{product.image}" alt=""></img>
 			</div>
@@ -32,10 +42,11 @@
 					<div class="product-price">Price: $#{product.price}</div>
 					<hr></hr>
 					<div class="btn-group cart">
-						<h:commandButton value="Add to Basket" class="btn btn-primary"
-							href="#">
-							<f:ajax event="click" listener="#{basket.add(productView.ID)}"
-								render="theHead"></f:ajax>
+				
+					 <h:inputText type="number" id="quantity" name="quantity" value="#{productView.addQuantity}"></h:inputText>
+						<h:commandButton value="Add to Basket" class="btn btn-primary" href="#">
+							<f:ajax event="click" listener="#{basket.addMany(productView.ID,productView.addQuantity)}"
+								render=""></f:ajax>
 						</h:commandButton>
 					</div>
 				</div>
