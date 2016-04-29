@@ -17,8 +17,12 @@
 	<f:viewParam name="id" required="true" value="#{productView.ID}"></f:viewParam>
 </f:metadata>
 <body>
+	
+	<!-- Header -->
 	<ui:include src="/header.xhtml" />
-	<h:form>
+	
+	<!-- Content -->
+	<h:form id="content">
 		<ui:repeat var="product"
 			value="#{productView.getOneProduct(productView.ID)}">
 			<div class="productImage">
@@ -42,6 +46,12 @@
 			</div>
 		</ui:repeat>
 	</h:form>
+	
+	<!-- Footer -->
+		<div id="footerPart">
 	<ui:include src="/footer.xhtml" />
+	</div>
+	<!-- Footer finish -->
+	
 </body>
 </html>

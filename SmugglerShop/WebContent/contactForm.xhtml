@@ -13,8 +13,11 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 </head>
 <body>
-	<div id="container">
+		<!-- Header -->	
 		<ui:include src="/header.xhtml" />
+		
+		<!-- Content -->
+		<h:form id="content">
 		<h2>Welcome to contact Form page</h2>
 		<div class="container-fluid">
 			<div class="row">
@@ -90,7 +93,14 @@
 				</div>
 			</div>
 		</div>
-		<ui:include src="/footer.xhtml" />
+		</h:form>
+		<!-- Content finish -->
+	
+	<!-- Footer -->
+		<div id="footerPart">
+	<ui:include src="/footer.xhtml" />
 	</div>
+	<!-- Footer finish -->
+
 </body>
 </html>
