@@ -7,25 +7,24 @@
 
 	<header>
 		<!-- Container Part -->
-		<div class="container-fluid" id="header">
+		<div class="container-fluid">
 		
 			<!-- Logo -->
-			<div class="col-xs-2">
-			<a href="mainpage.xhtml"><img class="img-responsive" src="resources/img/HeaderLogo.png" alt="resources/img/logo.png" /></a>
+			<div class="col-xs-2" id="logo">
+			<a href="mainpage.xhtml"><img height="100" width="200" src="resources/img/HeaderLogo.png" alt="resources/img/logo.png" /></a>
 			</div>
 			<!-- End Logo -->
 			
-		<br />
-
-		<div class="col-xs-1"></div>
+			<!-- Horizontal space -->
+			<div class="col-xs-1"></div>
 		
 			<!-- SearchBar -->
-			<div class="col-xs-5">
+			<div class="col-xs-5" id="search">
 			<h:form class="navbar-form navbar-left" role="search"
 				action="mainpage.xhtml?search=#{mainpage.search}">
 				<div class="form-group">
 					<h:inputText type="text" class="form-control"
-						value="#{mainpage.search}" size="50" />
+						value="#{mainpage.search}" size="34"/>
 					<a class="btn" href="mainpage.xhtml?search=#{mainpage.search}"><img
 					alt="resources/img/search.png" src="resources/img/search.png" height="40" width="30" /></a>
 				</div>
@@ -33,21 +32,24 @@
 			</div>
 			<!-- End SearchBar -->
 			
-		
+			<!-- Horizontal space -->
 			<div class="col-xs-1"></div>
 			
 			<!-- Home Buttons -->
+			<div class="col-xs-4" id="button">
 			<h:form id="theHead">
-				
 				<a class="btn btn-primary" href="admin.xhtml">Login</a>
-				<a class="btn btn-primary" href="searchOrder.xhtml">Search Orders</a>
-			<a class="btn" href="basket.xhtml"> <img
+				<a class="btn btn-primary" href="searchOrder.xhtml">Orders</a>
+				<a class="btn" href="basket.xhtml"> <img
 					alt="resources/img/cart.png" src="resources/img/cart.png"
-					class="img-thumbnail" height="35" width="50" /><span class="badge">#{basket.size()}</span></a>
+					class="img-thumbnail" height="35" width="35" /><span class="badge">#{basket.size()}</span></a>
 			</h:form>
+			</div>
 			<!-- End Home Buttons -->
-		</div>
-		<!-- End Container -->
+			
+			</div>
+			<!-- End Container -->
+
 		
 		<!-- NavigationBar -->
 		<nav class="navbar navbar-default">

@@ -26,14 +26,19 @@
 
 <body>
 
-	<!-- Header part incl. navigation bar -->
+	<!-- Header -->
+	<div id="header">
 	<ui:include src="/header.xhtml" />
+	</div>
+	<!-- Header end -->
+	
+	<!-- Navigation bar  -->
 	<ol class="breadcrumb">
 		<li><a href="mainpage.xhtml">Home</a></li>
 		<li class="active"><a
 			href="mainpage.xhtml?category=#{mainpage.category}">#{mainpage.category}</a></li>
 	</ol>
-	<!-- Header end -->
+	<!--End navigation bar -->
 
 	<!-- Content Part -->
 	<h:form id="content">
