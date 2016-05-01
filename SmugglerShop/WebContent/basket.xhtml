@@ -17,6 +17,9 @@
 		src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 	<script
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<script> function reload() {
+		loaction.reload();
+		}</script>
 </h:head>
 <body>
 	<!-- Header -->
@@ -26,7 +29,7 @@
 	<!-- Header finish -->	
 	
 	<!-- Content -->
-	<h:form id="content">
+<h:form id="content">
 		<h2>Your Smuggler shopping cart!</h2>
 		<hr size="5" width="100%"></hr>
 
@@ -38,24 +41,37 @@
 					href="productView.xhtml?id=#{basketItem.id}"> <img
 						class="col-xs-2" src="#{basketItem.image}" alt="ProductImage" />
 				</a>
-					<h3>#{basketItem.name}</h3> <span>$#{basketItem.price} <i></i></span>
-					<h:commandButton action="#{basket.remove()}" value="Remove"
-						class="btn btn-primary" href="#">
-						<f:param name="pID" value="#{basketItem.id}"></f:param>
-					</h:commandButton> <label for="quantity">Quantity: </label> <h:inputText min="1"
-						type="number" id="quantity" name="quantity"
-						value="#{basketItem.quantity}">
-						<f:ajax event="change" render="checkoutinformation"></f:ajax>
-					</h:inputText></li>
+					<h3>#{basketItem.name}</h3>
+					<div class="price">
+						<span>$#{basketItem.price} <i></i></span>
+					</div>
+					<div class="btnremove">
+						<h:commandButton action="#{basket.remove()}" value="Remove"
+							class="btn btn-primary" href="#">
+							<f:param name="pID" value="#{basketItem.id}"></f:param>
+						</h:commandButton>
+					</div>
+					<div class="quantity">
+						<p>
+							Quantity:
+							<h:inputText min="1" type="number" id="quantity" name="quantity"
+								value="#{basketItem.quantity}">
+								<f:ajax event="change" render="checkoutinformation"></f:ajax>
+							</h:inputText>
+						</p>
+					</div></li>
 				<hr size="5" width="85%"></hr>
 			</ui:repeat>
+			<h:outputText id="totalPrice" value="Total: $#{basket.totalPrice}" />
 		</ul>
+
 		<!-- End Basket Items -->
 
 		<h:form id="checkoutinformation">
-			<h:outputText id="totalPrice" value="Total: #{basket.totalPrice}" />
+
 			<a id="btncheckout" class="btn btn-primary" href="contactForm.xhtml">Proceed
 				to checkout</a>
+			<button id="reloadpage" class="btn btn-primary" onclick="reload()">Update</button>
 			<a id="btnshopagain" class="btn btn-primary" href="mainpage.xhtml">Continue
 				shopping</a>
 		</h:form>
