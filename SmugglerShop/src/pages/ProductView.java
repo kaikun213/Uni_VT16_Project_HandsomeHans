@@ -50,6 +50,7 @@ public class ProductView extends Page implements Serializable {
 	 * Get int value ID from xhtml and fetch the product 
 	 */
 	public Product getOneProduct(int id){
+		//if (products.size()<=0 && id == products.get(0).getId())
 		setProduct(id);
 		
 		//Dummy class if enter illegal ID
@@ -57,7 +58,22 @@ public class ProductView extends Page implements Serializable {
 			Product prod = new Product();			
 			return prod;
 		}
+		products.get(0).setQuantity(1);
 		return products.get(0);
 	}	
+	/**
+	 * returns the total quantity for the product defined by the ID (Stock in the database)
+	 */
+	@Override
+    public int getQuantity(String productID){
+    	return super.getQuantity(productID);
+    }
+	
+	public void notifyQuantity(){
+    	if (products.get(0).getQuantity() > getQuantity(Integer.toString(products.get(0).getId()))) {
+    		products.get(0).setQuantity(1);
+    		super.notify("Oups!", "Sorry, we do not have this amount on stock.");
+    	}
+	}
 	
 }
