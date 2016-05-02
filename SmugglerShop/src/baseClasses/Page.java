@@ -8,6 +8,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+
 import baseClasses.Order;
 import baseClasses.Order.OrderStatus;
 
@@ -58,18 +61,6 @@ public abstract class Page {
 		return arr;
 	}
 	
-	/** Method to get a List of the category names
-	 * 
-	 * @return all categories from the database
-	 * @throws SQLException if the ResultSet is null
-	 */
-	protected List<String> getCategories() throws SQLException{
-		ArrayList<String> categories = new ArrayList<String>();
-		ResultSet rs = conn.fetch("SELECT * FROM webshopDB.category");
-		while(rs.next()) categories.add(rs.getString("name"));
-		return categories;
-	}
-	
 	/** converts a ResultSet into a List of orders.
 	 * 
 	 * @param orders 
@@ -85,20 +76,20 @@ public abstract class Page {
 			while (orders.next()) {
 				// get the products from the database by the IDs 
 				StringBuilder sb = new StringBuilder(orders.getString("products"));
-				StringBuilder sqlProducts = new StringBuilder("SELECT * FROM product WHERE ");
+				StringBuilder sqlProducts = new StringBuilder("SELECT * FROM webshopDB.product WHERE ");
 				int a = 0;
 				for (int i=0;i<sb.length();i++) {
-					if (Character.compare(sb.charAt(i), ':') == 0) sqlProducts.append("id='"+ sb.substring(a, i) +"'");
+					if (Character.compare(sb.charAt(i), ':') == 0) sqlProducts.append("id="+ sb.substring(a, i) +"");
 					if (Character.compare(sb.charAt(i), ';') == 0) {
 						a=i+1;
-						if (i+1<sb.length()) sqlProducts.append(" AND ");
+						if (i+1<sb.length()) sqlProducts.append(" OR ");
 					}
 				}
 				sqlProducts.append(";");
 				ResultSet products = conn.fetch(sqlProducts.toString());
 				ArrayList<Product> productList = toProducts(products);
 				
-				// change quantities in basket
+				// change quantities from ordered productList (because products taken by ID from the database)
 				a = 0;
 				int nr = 0;
 				for (int i=0;i<sb.length();i++) {
@@ -118,7 +109,7 @@ public abstract class Page {
 						break;
 				}
 								
-			    Order o = new Order(orders.getLong("orderId"),
+			    Order o = new Order(orders.getLong("id"),
 			    					productList,
 			    					orders.getString("date"),
 			    					status);
@@ -154,6 +145,87 @@ public abstract class Page {
 		}
 		return arr;
 	}
+	
+	/** Method to get a List of the category names
+	 * 
+	 * @return all categories from the database
+	 * @throws SQLException if the ResultSet is null
+	 */
+	protected List<String> getCategories() throws SQLException{
+		ArrayList<String> categories = new ArrayList<String>();
+		ResultSet rs = conn.fetch("SELECT * FROM webshopDB.category");
+		while(rs.next()) categories.add(rs.getString("name"));
+		return categories;
+	}
+	/** Method for a recent quantity check
+	 * 
+	 * @param id from the product you want to check the quantity
+	 * @return quantity as integer
+	 */
+	
+	protected int getQuantity(String id){
+		ResultSet rs = conn.fetch("SELECT product.quantity from webshopDB.product WHERE id="+id);
+		try {
+			rs.first();
+			return rs.getInt("quantity");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	
+	protected void updateDB(String s){
+		conn.update(s);
+	}
+	
+	protected String toSQL(Object o){
+		StringBuilder sb = new StringBuilder("INSERT INTO ");
+		if (o instanceof Product) {
+			sb.append("webshopDB.product (name,");
+		}
+		else if (o instanceof Order){
+			sb.append("webshopDB.orders (orderStatus, products, price, date) VALUES (");
+			// orderStatus
+			switch (((Order) o).getOrderStatus()) {
+			case IN_PROCESS : sb.append("1,");
+					break;
+			case SHIPPED : sb.append("2,");
+					break;
+			case DELAYED : sb.append("3,");
+					break;
+			default : sb.append("1,");
+					break;
+			}
+			// products 
+			sb.append("\"");
+			for (int i=0;i<((Order) o).getOrderList().size();i++) {
+				Product p = ((Order) o).getOrderList().get(i);
+				sb.append(p.getId() + ":" + p.getQuantity() + ";");
+			}
+			sb.append("\",");
+
+			// price
+			int p = 0;
+			for (int i=0;i<((Order) o).getOrderList().size();i++) p+= ((Order) o).getOrderList().get(i).getPrice() * ((Order) o).getOrderList().get(i).getQuantity();
+			sb.append(p+",");
+			// date
+			sb.append("\"");
+			sb.append(((Order) o).getOrderDate());
+			sb.append("\"");
+			// finish request
+			sb.append(");");
+		}
+		else if (o instanceof Admin){
+			
+		}
+		else System.err.println("This is not an updateable Object");
+		return sb.toString();
+	}
+	
+	public void notify(String s, String s1) {
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage(s, s1) );
+    }
 	
 
 }

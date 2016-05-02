@@ -20,13 +20,15 @@
 		
 			<!-- SearchBar -->
 			<div class="col-xs-5" id="search">
-			<h:form class="navbar-form navbar-left" role="search"
-				action="mainpage.xhtml?search=#{mainpage.search}">
+			<h:form class="navbar-form navbar-left" role="search" action="mainpage.xhtml?search=#{mainpage.search}">
 				<div class="form-group">
-					<h:inputText type="text" class="form-control"
-						value="#{mainpage.search}" size="34"/>
+					<h:inputText id="inputSearch" type="text" class="form-control" value="#{mainpage.search}" size="34">
+						<f:ajax event="change" render="@form"></f:ajax>
+					</h:inputText>
 					<a class="btn" href="mainpage.xhtml?search=#{mainpage.search}"><img
-					alt="resources/img/search.png" src="resources/img/search.png" height="40" width="30" /></a>
+					alt="resources/img/search.png" src="resources/img/search.png" height="40" width="30" />
+					</a>
+					<h:commandButton action="mainpage" value="Search" />
 				</div>
 			</h:form>
 			</div>

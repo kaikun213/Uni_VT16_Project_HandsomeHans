@@ -42,6 +42,19 @@ public class Order {
 		this.orderList = orderList;
 		this.orderDate = orderDate;
 	}
+	
+	/**
+	 * Order constructor.
+	 *
+	 * @param orderList
+	 * @param orderDate
+	 * @param orderStatus
+	 */
+	public Order(List<Product> orderList, String orderDate, OrderStatus orderStatus) {
+		this.orderStatus = orderStatus;
+		this.orderList = orderList;
+		this.orderDate = orderDate;
+	}
 
 	// Getters and setters for fields below.
 

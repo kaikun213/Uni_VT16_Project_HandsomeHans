@@ -2,8 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html">
-<head>
+	xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
 <title>ContactForm</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<link rel="stylesheet" href="resources/css/style.css" />
@@ -11,7 +12,7 @@
 	<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/journal/bootstrap.min.css" rel="stylesheet" />
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-</head>
+</h:head>
 <body>
 	<!-- Header -->
 	<div id="header">
@@ -21,41 +22,41 @@
 		
 		<!-- Content -->
 		<h:form id="content">
+		<p:growl id="growl" showDetail="true" sticky="true" /> 
 		<h2>Welcome to contact Form page</h2>
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-sm-1"></div>
 				<div class="col-sm-4">
 
-					<form>
 						<div class="form-group">
-							<label for="name">Name</label> <input type="text"
+							<label for="name">Name</label> <h:inputText type="text"
 								class="form-control" id="name" />
 						</div>
 
 						<div class="form-group">
-							<label for="email">Email</label> <input type="text"
+							<label for="email">Email</label> <h:inputText type="text"
 								class="form-control" id="email" />
 						</div>
 
 						<div class="form-group">
-							<label for="phone">Phone</label> <input type="text"
+							<label for="phone">Phone</label> <h:inputText type="text"
 								class="form-control" id="phone" />
 						</div>
 
 						<div class="form-group">
-							<label for="adress">Address</label> <input type="text"
+							<label for="adress">Address</label> <h:inputText type="text"
 								class="form-control" id="address" />
 
 						</div>
 
 						<div class="form-group">
-							<input type="text" class="form-control" id="address" />
+							<h:inputText type="text" class="form-control" id="addressField" />
 						</div>
 
 						<div class="col-sm-4">
 							<div class="form-group">
-								<label for="postcode">Postcode</label> <input type="text"
+								<label for="postcode">Postcode</label> <h:inputText type="text"
 									class="form-control" id="postcode" />
 							</div>
 						</div>
@@ -63,7 +64,7 @@
 						<div class="col-sm-4"></div>
 						<div class="col-sm-4">
 							<div class="form-group">
-								<label for="suburb">Suburb</label> <input type="text"
+								<label for="suburb">Suburb</label> <h:inputText type="text"
 									class="form-control" id="suburb" />
 							</div>
 						</div>
@@ -71,10 +72,9 @@
 							<label for="message">Message</label>
 							<textarea rows="4" cols="50" name="message" class="form-control"></textarea>
 						</div>
-					</form>
 					<div class="col-sm-4"></div>
 					<div class="col-sm-1"></div>
-					<button type="button" class="btn btn-primary active">Submit</button>
+					<h:commandButton action="#{contactPage.submitOrder()}" value="Submit" class="btn btn-primary active" />
 				</div>
 
 				<div class="col-sm-2"></div>
@@ -100,7 +100,7 @@
 		<!-- Content finish -->
 	
 	<!-- Footer -->
-		<div id="footerPart">
+	<div id="footerPart">
 	<ui:include src="/footer.xhtml" />
 	</div>
 	<!-- Footer finish -->
