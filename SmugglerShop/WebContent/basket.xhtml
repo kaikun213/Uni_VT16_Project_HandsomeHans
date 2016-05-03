@@ -2,7 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
 
 <h:head>
 	<title>Basket page</title>
@@ -17,48 +18,75 @@
 		src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 	<script
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<script> function reload() {
+		loaction.reload();
+		}</script>
 </h:head>
 <body>
 	<!-- Header -->
+	<div id="header">
 	<ui:include src="/header.xhtml" />
-
-	<!-- Content -->
-	<h:form id="content">
-		<h2>Your Smuggler shopping cart!</h2>
-		<hr size="5" width="100%"></hr>
-
-
-		<!-- Basket Items -->
-		<ul id="basketItems">
-			<ui:repeat var="basketItem" value="#{basket.basket}">
-				<li id="productImage" class="col-xs-12"><a
-					href="productView.xhtml?id=#{basketItem.id}"> <img
-						class="col-xs-2" src="#{basketItem.image}" alt="ProductImage" />
-				</a>
-					<h3>#{basketItem.name}</h3> <span>$#{basketItem.price} <i></i></span>
-					<h:commandButton action="#{basket.remove()}" value="Remove"
-						class="btn btn-primary" href="#">
-						<f:param name="pID" value="#{basketItem.id}"></f:param>
-					</h:commandButton> <label for="quantity">Quantity: </label> <h:inputText min="1"
-						type="number" id="quantity" name="quantity"
-						value="#{basketItem.quantity}">
-						<f:ajax event="change" render="checkoutinformation"></f:ajax>
-					</h:inputText></li>
-				<hr size="5" width="85%"></hr>
-			</ui:repeat>
-		</ul>
-		<!-- End Basket Items -->
-
-		<h:form id="checkoutinformation">
-			<h:outputText id="totalPrice" value="Total: #{basket.totalPrice}" />
-			<a id="btncheckout" class="btn btn-primary" href="contactForm.xhtml">Proceed
-				to checkout</a>
-			<a id="btnshopagain" class="btn btn-primary" href="mainpage.xhtml">Continue
-				shopping</a>
+	</div>	
+		<!-- Content -->
+		<h:form id="container">
+			<p:growl id="growl" showDetail="true" sticky="true" />  
+			<h2>Your Smuggler shopping cart!</h2>
+			<hr size="5" width="100%"></hr>
+			
+						
+			<!-- Basket Items -->
+			<div>
+			<ul id="basketItems">
+				<ui:repeat var="basketItem" value="#{basket.basket}">
+					<li id="productImage" class="col-xs-12"><a
+						href="productView.xhtml?id=#{basketItem.id}"> <img
+							class="col-xs-2" src="#{basketItem.image}" alt="ProductImage" />
+					</a>
+						<h3>#{basketItem.name}</h3> <span>$#{basketItem.price} <i></i></span>
+						<h:commandButton action="#{basket.remove()}" value="Remove" class="btn btn-primary" href="#">
+							<f:param name="pID" value="#{basketItem.id}"></f:param>
+						</h:commandButton>
+						<!-- Quantity selection -->
+						<div>
+								<h:selectOneMenu id="Quantity" value="#{basketItem.quantity}" class="btn btn-default" rendered="#{basketItem.quantity lt 6}" >
+									<f:ajax event="click" execute="Quantity" render="@form"></f:ajax>
+									<f:selectItem itemLabel="1" itemValue="1" />
+									<f:selectItem itemLabel="2" itemValue="2" itemDisabled="#{productView.getQuantity(basketItem.id) lt 2}" />
+									<f:selectItem itemLabel="3" itemValue="3" itemDisabled="#{productView.getQuantity(basketItem.id) lt 3}" />
+									<f:selectItem itemLabel="4" itemValue="4" itemDisabled="#{productView.getQuantity(basketItem.id) lt 4}" />
+									<f:selectItem itemLabel="5" itemValue="5" itemDisabled="#{productView.getQuantity(basketItem.id) lt 5}" />
+									<f:selectItem itemLabel="5+" itemValue="6" itemDisabled="#{productView.getQuantity(basketItem.id) lt 6}">
+										
+									</f:selectItem>
+								</h:selectOneMenu>
+				
+							<!-- Value input for greater than 5 -->
+								<h:inputText value="#{basketItem.quantity}" rendered="#{basketItem.quantity gt 5}" type="number" max="6">
+								    <p:ajax event="change" update="@form" listener="#{basket.notifyQuantity(basketItem.id)}" />
+								</h:inputText>
+							<!-- End Input -->	
+						</div>		
+						
+						<h:outputText value="There are #{productView.getQuantity(basketItem.id)} on stock left." />				
+						<!-- Quantity End -->
+						</li>
+					<hr size="5" width="85%"></hr>
+				</ui:repeat>
+			</ul>
+			</div>
+			<!-- End Basket Items -->
+			
+			<div id="checkoutinformation">
+				<h:outputText id="totalPrice" value="Total: #{basket.totalPrice}" />
+				<a id="btncheckout" class="btn btn-primary" href="contactForm.xhtml">Proceed
+					to checkout</a> <a id="btnshopagain" class="btn btn-primary"
+					href="mainpage.xhtml">Continue shopping</a>
+			</div>
 		</h:form>
-	</h:form>
 	<!-- End Content -->
-
+	
+		
+	
 	<!-- Footer -->
 	<div id="footerPart">
 		<ui:include src="/footer.xhtml" />

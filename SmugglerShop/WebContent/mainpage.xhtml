@@ -2,7 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
 
 <h:head>
 	<title>SmugglerShop</title>
@@ -26,18 +27,23 @@
 
 <body>
 
-	<!-- Header part incl. navigation bar -->
+	<!-- Header -->
+	<div id="header">
 	<ui:include src="/header.xhtml" />
+	</div>
+	<!-- Header end -->
+	
+	<!-- Navigation bar  -->
 	<ol class="breadcrumb">
 		<li><a href="mainpage.xhtml">Home</a></li>
 		<li class="active"><a
 			href="mainpage.xhtml?category=#{mainpage.category}">#{mainpage.category}</a></li>
 	</ol>
-	<!-- Header end -->
+	<!--End navigation bar -->
 
 	<!-- Content Part -->
 	<h:form id="content">
-
+		<p:growl id="growl" showDetail="true" sticky="true" /> 
 		<!-- Slider for Hot Items -->
 		<h:form class="hot"
 			rendered="#{empty mainpage.category and empty mainpage.search}">

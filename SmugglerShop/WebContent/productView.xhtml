@@ -2,10 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-	<title>#{productView.getOneProduct(productView.ID)}</title>
+	<title>#{productView.getOneProduct(productView.ID).name}</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<link rel="stylesheet" href="resources/css/style.css" />
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
@@ -14,25 +15,19 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 </h:head>
 <f:metadata>
-	<f:viewParam name="id" required="true" value="#{productView.ID}"></f:viewParam>
-	<f:viewParam name="quantity" value="#{productView.addQuantity}"></f:viewParam>
-	<f:viewParam name="category" value="#{productView.category}"></f:viewParam>
-	
+	<f:viewParam name="id" value="#{productView.ID}"></f:viewParam>
 </f:metadata>
 <body>
 	
 	<!-- Header -->
+	<div id="header">
 	<ui:include src="/header.xhtml" />
-			<h:form>
-			<ol class="breadcrumb">
-				<li><a href="mainpage.xhtml">Home</a></li>
-				<li class="active"><a
-					href="mainpage.xhtml?category=#{productView.category}">#{productView.category}</a></li>
-			</ol>
-		</h:form>
+	</div>
+	<!-- Header finish -->	
 	
 	<!-- Content -->
 	<h:form id="content">
+		<p:growl id="growl" showDetail="true" sticky="true" /> 
 		<ui:repeat var="product"
 			value="#{productView.getOneProduct(productView.ID)}">
 			<div class="productImage">
@@ -43,15 +38,28 @@
 					<h3>#{product.name}</h3>
 					<div class="product-desc">#{product.description}</div>
 					<hr></hr>
-					<div class="product-price">Price: $#{product.price}</div>
+					<div class="product-price">Price per item: $#{product.price}</div>
 					<hr></hr>
 					<div class="btn-group cart">
-				
-					 <h:inputText type="number" id="quantity" name="quantity" value="#{productView.addQuantity}"></h:inputText>
-						<h:commandButton value="Add to Basket" class="btn btn-primary" href="#">
-							<f:ajax event="click" listener="#{basket.addMany(productView.ID,productView.addQuantity)}"
-								render=""></f:ajax>
+						<h:commandButton value="Add to Basket" class="btn btn-primary" href="#" disabled="#{basket.productInBasket(product.id) or product.quantity gt productView.getQuantity(product.id)}">
+							<f:ajax event="click" execute="Quantity" listener="#{basket.add(product)}" render="theHead @form"></f:ajax>
 						</h:commandButton>
+						<h:outputText value="Product is already in the basket" rendered="#{basket.productInBasket(product.id)}" />
+						
+						<!-- Quantity selection -->
+						<div>
+								<h:selectOneMenu id="Quantity" value="#{product.quantity}" class="btn btn-default" rendered="#{product.quantity lt 6 and not basket.productInBasket(product.id) }" >
+									<f:selectItem itemLabel="1" itemValue="1" />
+									<f:selectItem itemLabel="2" itemValue="2" itemDisabled="#{productView.getQuantity(product.id) lt 2}" />
+									<f:selectItem itemLabel="3" itemValue="3" itemDisabled="#{productView.getQuantity(product.id) lt 3}" />
+									<f:selectItem itemLabel="4" itemValue="4" itemDisabled="#{productView.getQuantity(product.id) lt 4}" />
+									<f:selectItem itemLabel="5" itemValue="5" itemDisabled="#{productView.getQuantity(product.id) lt 5}" />
+								</h:selectOneMenu>
+						</div>		
+						
+						<h:outputText value="There are #{productView.getQuantity(product.id)} on stock left." />				
+						<!-- Quantity End -->
+												
 					</div>
 				</div>
 			</div>

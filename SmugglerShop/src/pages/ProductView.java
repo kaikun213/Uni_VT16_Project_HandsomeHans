@@ -24,8 +24,14 @@ public class ProductView extends Page implements Serializable {
 	// Array with hopefully 1 product
 	private List<Product> products = new ArrayList<Product>();
 	private int id;
-	private int addQuantity = 1; //Amount added when clicking add to basket
-	private String category;
+	
+	public void setID(int id){
+		this.id = id;
+	}
+	
+	public int getID(){
+		return id;
+	}
 	
 	/*
 	 * Command line to fetch the product
@@ -44,6 +50,7 @@ public class ProductView extends Page implements Serializable {
 	 * Get int value ID from xhtml and fetch the product 
 	 */
 	public Product getOneProduct(int id){
+		//if (products.size()<=0 && id == products.get(0).getId())
 		setProduct(id);
 		
 		//Dummy class if enter illegal ID
@@ -51,30 +58,22 @@ public class ProductView extends Page implements Serializable {
 			Product prod = new Product();			
 			return prod;
 		}
-		category = products.get(0).getCategory();
+		products.get(0).setQuantity(1);
 		return products.get(0);
-	}
-
-	public int getAddQuantity() {
-		return addQuantity;
-	}
-
-	public void setAddQuantity(int addQuantity) {
-		this.addQuantity = addQuantity;
 	}	
-	public void setID(int id){
-		this.id = id;
+	/**
+	 * returns the total quantity for the product defined by the ID (Stock in the database)
+	 */
+	@Override
+    public int getQuantity(String productID){
+    	return super.getQuantity(productID);
+    }
+	
+	public void notifyQuantity(){
+    	if (products.get(0).getQuantity() > getQuantity(Integer.toString(products.get(0).getId()))) {
+    		products.get(0).setQuantity(1);
+    		super.notify("Oups!", "Sorry, we do not have this amount on stock.");
+    	}
 	}
 	
-	public int getID(){
-		return id;
-	}
-
-	public String getCategory() {
-		return category;
-	}
-
-	public void setCategory(String category) {
-		this.category = category;
-	}
 }

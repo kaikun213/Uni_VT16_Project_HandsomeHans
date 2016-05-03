@@ -1,4 +1,5 @@
 package baseClasses;
+
 /**
  * This class represent a product.
  * 
