@@ -35,10 +35,10 @@
 			<h:commandButton action="#{contactPage.searchOrder()}" value="Search" class="btn btn-primary" href="#" />
 			<hr width="100%"></hr>
 			<p class="ordernum">
-				Order:
-				<h:outputText value="#{contactPage.searchedOrder.orderId}" />
-				Status:
-				<h:outputText value="#{contactPage.searchedOrder.orderStatus}" />
+				
+				<pre>Order number:<h:outputText value="#{contactPage.searchedOrder.orderId}" /></pre>
+				
+				<pre>Status:<h:outputText value="#{contactPage.searchedOrder.orderStatus}" /></pre>
 			</p>
 		</div>
 	</h:form>

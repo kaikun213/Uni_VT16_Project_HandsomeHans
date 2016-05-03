@@ -22,13 +22,12 @@
 			<div class="col-xs-5" id="search">
 			<h:form class="navbar-form navbar-left" role="search" action="mainpage.xhtml?search=#{mainpage.search}">
 				<div class="form-group">
-					<h:inputText id="inputSearch" type="text" class="form-control" value="#{mainpage.search}" size="34">
+					<h:inputText id="inputSearch" placeholder="Search By Product" type="text" class="form-control" value="#{mainpage.search}" size="30">
 						<f:ajax event="change" render="@form"></f:ajax>
 					</h:inputText>
-					<a class="btn" href="mainpage.xhtml?search=#{mainpage.search}"><img
-					alt="resources/img/search.png" src="resources/img/search.png" height="40" width="30" />
-					</a>
-					<h:commandButton action="mainpage" value="Search" />
+					
+					<h:commandButton class="btn btn-primary" href="mainpage.xhtml?search=#{mainpage.search}" id="searchbutton" value="Go!">
+					</h:commandButton>
 				</div>
 			</h:form>
 			</div>
