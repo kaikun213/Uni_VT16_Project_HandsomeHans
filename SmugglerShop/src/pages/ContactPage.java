@@ -36,7 +36,7 @@ public class ContactPage extends Page implements Serializable {
 	
 
 	public void setName(String u) {
-		user.setUserName(u);
+		user.setName(u);
 	}
 	
 	public void setEmail(String e){
@@ -44,7 +44,7 @@ public class ContactPage extends Page implements Serializable {
 	}
 	
 	public void setOrderOnUser(String o){
-		user.setOrder(user.getOrder() + ";" + o);
+		
 	}
 	
 	public String submitOrder(){
@@ -57,13 +57,13 @@ public class ContactPage extends Page implements Serializable {
 		for (int i=0;i<Basket.products.size();i++) {
 			int id = Basket.products.get(i).getId();
 			int q = super.getQuantity(Integer.toString(id)) - Basket.products.get(i).getQuantity();
-			super.updateDB("UPDATE webshopDB.product SET quantity="+q+" WHERE id="+id +";");
+			super.updateDB("UPDATE product SET quantity="+q+" WHERE id="+id +";");
 		}
 		// clean basket
     	Basket.products = new ArrayList<Product>();
 		
 		// search generated OrderNumber and print message successful
-		super.setContent("SELECT * FROM webshopDB.orders;");
+		super.setContent("SELECT * FROM orders;");
 		String oID = "";
 		try {
 			content.last();
@@ -95,7 +95,7 @@ public class ContactPage extends Page implements Serializable {
 	public void searchOrder(){
 		if (searchOrder.isEmpty()) searchedOrder = null;
 		else {
-			setContent("SELECT * FROM webshopDB.orders WHERE id="+searchOrder+";");
+			setContent("SELECT * FROM orders WHERE id="+searchOrder+";");
 			ArrayList<Order> orders = new ArrayList<Order>();
 			try {
 				orders = toOrders(content);

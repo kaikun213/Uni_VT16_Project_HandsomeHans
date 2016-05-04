@@ -39,7 +39,7 @@ public class ProductView extends Page implements Serializable {
 	 */
 	public void setProduct(int id) {
 		try {
-			setContent("SELECT * FROM webshopDB.product WHERE id="+id);
+			setContent("SELECT * FROM product WHERE id="+id);
 			products = toProducts(content);
 		} catch (SQLException e) {
 			e.printStackTrace();

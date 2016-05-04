@@ -1,33 +1,47 @@
 package baseClasses;
 
+import java.util.ArrayList;
+
 public class User {
 
 	private String name;
-	private String order;
+	private ArrayList<Order> orders;
 	private String email;
+	private String password;
+	private boolean admin;
 	
 	public User(){};
 
-	public User(String userName, String order, String email) {
+	public User(String userName, ArrayList<Order> orders, String email, String password, boolean b) {
 		this.name = userName;
-		this.order = order;
+		this.orders = orders;
 		this.email = email;
+		this.password = password;
+		this.admin = b;
+	}
+	
+	public boolean getAdmin() {
+		return admin;
+	}
+	
+	public void setAdmin(boolean x){
+		admin = x;
 	}
 
-	public String getUserName() {
+	public String getName() {
 		return name;
 	}
 
-	public void setUserName(String userName) {
-		this.name = userName;
+	public void setName(String Name) {
+		this.name = Name;
 	}
 
-	public String getOrder() {
-		return order;
+	public ArrayList<Order> getOrders() {
+		return orders;
 	}
 
-	public void setOrder(String order) {
-		this.order = order;
+	public void setOrders(ArrayList<Order> orders) {
+		this.orders = orders;
 	}
 
 	public String getEmail() {
@@ -40,7 +54,25 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "UserName: " + name + " Order: " + order + "Email: " + email;
+		return "UserName: " + name + " Order: " + orders.toString() + "Email: " + email;
+	}
+	
+	/**
+	 * This method returns admin password
+	 * 
+	 * @return
+	 */
+	public String getPassword() {
+		return password;
+	}
+
+	/**
+	 * Set the admin password
+	 * 
+	 * @param password
+	 */
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 }
