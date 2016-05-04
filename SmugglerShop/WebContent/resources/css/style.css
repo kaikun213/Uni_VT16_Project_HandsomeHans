@@ -19,12 +19,11 @@ body{
 	background-color:#766A5E;
 	background-position:center;
 	color: white;
-	bottom:0px;
+
 	width:100%;
 	margin:0 auto;
-	height:auto;
-	clear:both;
-	position:fixed;
+	
+	position:absolute;
 	
 }
 
@@ -200,7 +199,7 @@ div.carousel-caption>p {
 	right: 38%;
 }
 
-label {
+#Quantity label {
 	position: absolute;
 	top: 30%;
 	right: 50%;

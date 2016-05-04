@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>SmugglerShop</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" href="resources/css/style.css" />
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+	<link
+		href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/journal/bootstrap.min.css"
+		rel="stylesheet" />
+	<link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" /> 
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+		
+	<script src="resources/js/footerFix.js"></script>
+</h:head>
+
+<f:metadata>
+	<f:viewParam name="category" value="#{mainpage.category}"></f:viewParam>
+	<f:viewParam name="search" value="#{mainpage.search}"></f:viewParam>
+</f:metadata>
+
+<body>
+
+	<!-- Header -->
+	<div id="header">
+	<ui:include src="/header.xhtml" />
+	</div>
+	<!-- Header end -->
+	
+	<!-- Navigation bar  -->
+	<ol class="breadcrumb">
+		<li><a href="mainpage.xhtml">Home</a></li>
+		<li class="active"><a
+			href="mainpage.xhtml?category=#{mainpage.category}">#{mainpage.category}</a></li>
+	</ol>
+	<!--End navigation bar -->
+		
+
+<!-- Start Content -->
+<style>.bootstrap-iso .formden_header h2, .bootstrap-iso .formden_header p, .bootstrap-iso form{font-family: Arial, Helvetica, sans-serif; color: black}.bootstrap-iso form button, .bootstrap-iso form button:hover{color: white !important;} .asteriskField{color: red;}</style>
+<h:form>
+<!-- HTML Form (wrapped in a .bootstrap-iso div) -->
+<div class="bootstrap-iso">
+ <div class="container-fluid">
+  <div class="row">
+   <div class="col-md-5 col-sm-6 col-xs-12 col-sm-offset-1">
+    <form method="post">
+     <div class="form-group ">
+      <label class="control-label " for="name">
+       Name
+      </label>
+      <input class="form-control" id="name" name="name" placeholder="Example-name" type="text"/>
+     </div>
+     <div class="form-group ">
+      <label class="control-label " for="image">
+       Image
+      </label>
+      <input class="form-control" id="image" name="image" placeholder="template-image.png" type="text"/>
+     </div>
+     <div class="form-group ">
+      <label class="control-label " for="category">
+       Category
+      </label>
+      <select class="select form-control" id="category" name="category">
+      </select>
+     </div>
+     <div class="form-group ">
+      <label class="control-label " for="price">
+       Price
+      </label>
+      <input class="form-control" id="price" name="price" placeholder="1337" type="text"/>
+     </div>
+     <div class="form-group ">
+      <label class="control-label " for="quantity">
+       Quantity
+      </label>
+      <input class="form-control" id="quantity" name="quantity" placeholder="20" type="text"/>
+     </div>
+     <div class="form-group ">
+      <label class="control-label " for="description">
+       Description
+      </label>
+      <textarea class="form-control" cols="40" id="description" name="description" rows="10"></textarea>
+     </div>
+     <div class="form-group">
+      <div>
+       <h:commandButton class="btn btn-primary " name="submit" type="submit" value="Add Product"/>
+      </div>
+     </div>
+    </form>
+   </div>
+  </div>
+ </div>
+</div>
+</h:form>
+	
+	<!-- Footer -->
+	<div id="footerPart">
+		<ui:include src="/footer.xhtml" />
+	</div>
+	<!-- Footer finish -->
+
+</body>
+</html>
