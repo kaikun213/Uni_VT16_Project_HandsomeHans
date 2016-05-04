@@ -18,7 +18,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 	<script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 	<script src="resources/js/footerFix.js"></script>
-
+<script src="resources/js/login.js"></script>
 </h:head>
 <body>
 
@@ -27,15 +27,43 @@
 	<ui:include src="/header.xhtml" />
 	</div>
 	<!-- Header finish -->	
-
-	<!-- Content -->
-	<h:form id="content">
-		<h2>Welcome to admin page</h2>
+	
+		<!-- Sidebar -->	
+	<div id="sidebar">
 		
+		<ul id="sidebarlist">
+		<li id="sidebarstyle"><a id="sidebarlink" herf="#">Items</a></li>
+		<li id="sidebarstyle"><a id="sidebarlink" herf="#">Orders</a></li>
+		<li id="sidebarstyle"><a id="sidebarlink" herf="#">Admins</a></li>
+		</ul>
+	</div>
+	<!-- Sidebar finish -->	
+	
+	<!-- Content -->
+	<h:form id="adminContent">
 		<h:commandButton action="#{adminPages.test()}" value="Test" />
+	
+	<h1>Scroll me</h1>
+	<h1>Scroll me</h1>
+	<h1>Scroll me</h1>
+	<h1>Scroll me</h1>
+	<h1>Scroll me</h1>
+	<h1>Scroll me</h1>
+	<h1>Scroll me</h1>
+	<h1>Scroll me</h1>
+	<h1>Scroll me</h1>
+	<h1>Scroll me</h1>
+	<h1>Scroll me</h1>
+	<h1>Scroll me</h1>
+	<h1>Scroll me</h1>
+	
+	
 	</h:form>
 	<!-- Content finish -->
 
+	
+	
+	
 	<!-- Footer -->
 	<div id="footerPart">
 		<ui:include src="/footer.xhtml" />

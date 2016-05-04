@@ -70,6 +70,10 @@ nav>ul>li:hover>ul {
 	display:block;
 }
 
+
+
+
+
 /* *****************************
 		 mainpage 
  ***************************** */
@@ -237,4 +241,67 @@ div.carousel-caption>p {
 
 .orderAllign>h4 {
 	color: red;
+}
+
+
+/* *****************************
+	Admin login inside header
+ ***************************** */
+#login-dp{
+    min-width: 250px;
+    padding: 14px 14px 0;
+}
+#login-dp .help-block{
+    font-size:12px    
+}
+#login-dp .bottom{
+    clear:both;
+    padding:14px;
+}
+
+#login-dp .form-group {
+    margin-bottom: 10px;
+}
+#adminTitle{
+	text-align:center;
+}
+
+/* *****************************
+	Admin side bar
+ ***************************** */
+
+#sidebar{
+	background:#CDC0B4;
+	width:200px;
+	height:70%;
+	display:block;
+	position:absolute;
+	left:0px;
+	top:160px;
+}
+#sidebarlist{
+	margin:0px;
+	padding:0px;
+}
+#sidebarstyle{
+	list-style:none;
+}
+#sidebarlink{
+	background:grey;
+	color:white;
+	border:3px solid #111;
+	display:block;
+	width:200px;
+	padding:25px;
+	text-decoration:none;
+	cursor:pointer;
+}
+
+#adminContent {
+	height: 530px;
+	width: 85%;
+	overflow: visible;
+	overflow-y: auto;
+	margin: 0px 0px 0px 210px;
+	clear: both;
 }

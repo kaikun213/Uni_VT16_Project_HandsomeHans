@@ -8,50 +8,89 @@
 	<header>
 		<!-- Container Part -->
 		<div class="container-fluid">
-		
+
 			<!-- Logo -->
 			<div class="col-xs-2" id="logo">
-			<a href="mainpage.xhtml"><img height="100" width="200" src="resources/img/HeaderLogo.png" alt="resources/img/logo.png" /></a>
+				<a href="mainpage.xhtml"><img height="100" width="200"
+					src="resources/img/HeaderLogo.png" alt="resources/img/logo.png" /></a>
 			</div>
 			<!-- End Logo -->
-			
-			<!-- Horizontal space -->
-			<div class="col-xs-1"></div>
-		
+
 			<!-- SearchBar -->
 			<div class="col-xs-5" id="search">
-			<h:form class="navbar-form navbar-left" role="search" action="mainpage.xhtml?search=#{mainpage.search}">
-				<div class="form-group">
-					<h:inputText id="inputSearch" placeholder="Search By Product" type="text" class="form-control" value="#{mainpage.search}" size="30">
-						<f:ajax event="change" render="@form"></f:ajax>
-					</h:inputText>
-					
-					<h:commandButton class="btn btn-primary" href="mainpage.xhtml?search=#{mainpage.search}" id="searchbutton" value="Go!">
-					</h:commandButton>
-				</div>
-			</h:form>
+				<h:form class="navbar-form navbar-left" role="search"
+					action="mainpage.xhtml?search=#{mainpage.search}">
+					<div class="form-group">
+						<h:inputText id="inputSearch" placeholder="Search By Product"
+							type="text" class="form-control" value="#{mainpage.search}"
+							size="30">
+							<f:ajax event="change" render="@form"></f:ajax>
+						</h:inputText>
+
+						<h:commandButton class="btn btn-primary"
+							href="mainpage.xhtml?search=#{mainpage.search}" id="searchbutton"
+							value="Go!">
+						</h:commandButton>
+					</div>
+				</h:form>
 			</div>
 			<!-- End SearchBar -->
-			
-			<!-- Horizontal space -->
-			<div class="col-xs-1"></div>
-			
+
 			<!-- Home Buttons -->
-			<div class="col-xs-4" id="button">
-			<h:form id="theHead">
-				<a class="btn btn-primary" href="admin.xhtml">Login</a>
-				<a class="btn btn-primary" href="searchOrder.xhtml">Orders</a>
-				<a class="btn" href="basket.xhtml"> <img
-					alt="resources/img/cart.png" src="resources/img/cart.png"
-					class="img-thumbnail" height="35" width="35" /><span class="badge">#{basket.size()}</span></a>
-			</h:form>
+			<div class="col-xs-3" id="button">
+				<h:form id="theHead">
+					<a class="btn btn-primary" href="searchOrder.xhtml">Orders</a>
+					<a class="btn" href="basket.xhtml"> <img
+						alt="resources/img/cart.png" src="resources/img/cart.png"
+						class="img-thumbnail" height="35" width="35" /><span
+						class="badge">#{basket.size()}</span></a>
+				</h:form>
 			</div>
 			<!-- End Home Buttons -->
-			
-			</div>
-			<!-- End Container -->
 
-		
+			<!-- Login -->
+			<div class="col-xs-2">
+				<ul class="nav navbar-nav navbar-right">
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown"><img
+						alt="resources/img/cart.png" src="resources/img/user.png"
+						class="img-rounded" height="40" width="40" /><span class="caret"></span></a>
+						<ul id="login-dp" class="dropdown-menu">
+							<li>
+								<div class="row">
+									<div class="col-xs-12">
+										<h3 id="adminTitle">Admin Login</h3>
+										<form class="form" role="form" method="post" action="login"
+											accept-charset="UTF-8" id="login-nav">
+											<div class="form-group">
+												<label class="sr-only" for="exampleInputEmail2">Username</label>
+												<input type="email" class="form-control"
+													id="exampleInputEmail2" placeholder="Email address"
+													required=" " />
+											</div>
+											<div class="form-group">
+												<label class="sr-only" for="exampleInputPassword2">Password</label>
+												<input type="password" class="form-control"
+													id="exampleInputPassword2" placeholder="Password"
+													required=" " />
+											</div>
+											<div class="form-group">
+												<button type="submit" class="btn btn-primary btn-block"
+													formaction="admin.xhtml">Sign in</button>
+											</div>
+										</form>
+									</div>
+								</div>
+							</li>
+						</ul></li>
+				</ul>
+			</div>
+			<!-- End Login -->
+
+		</div>
+		<!-- End Container -->
+
+
 		<!-- NavigationBar -->
 		<nav class="navbar navbar-default">
 			<div class="collapse navbar-collapse"
