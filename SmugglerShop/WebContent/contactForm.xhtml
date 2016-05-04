@@ -84,9 +84,9 @@
 				<div id="basket">
 					<pre><ul class="list-group"><ui:repeat var="basketItem" value="#{basket.basket}"> <li class="list-group-item"><h5><img src="#{basketItem.image}"
 											alt="resources/img/HeaderLogo.png" width="150" height="120"
-											class="img-thumbnail" />     Qtn: #{basketItem.quantity}                   $#{basketItem.price}<br />#{basketItem.name}</h5></li>
+											class="img-thumbnail" />     Qtn: #{basketItem.quantity}                   <span>#{basketItem.price}<i class="fa fa-gg-circle"></i></span><br />#{basketItem.name}</h5></li>
 							</ui:repeat></ul></pre>
-							</div><pre><h4 id="total">Total: $<h:outputText value="#{basket.totalPrice}" /></h4></pre>
+							</div><pre><h4 id="total">Total: <h:outputText value="#{basket.totalPrice}" /><i class="fa fa-gg-circle"></i></h4></pre>
 			</div>
 		</div>
 	</h:form>

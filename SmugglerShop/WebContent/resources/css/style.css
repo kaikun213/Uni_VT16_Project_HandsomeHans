@@ -75,6 +75,21 @@ nav>ul>li:hover>ul {
  ***************************** */
 
 /*This helps to keep space between footer and last shown item*/
+
+.headingSearch{
+	text-align: center;
+	font-family: Arial, Helvetica, sans-serif;
+	font-style: italic;
+	font-size: 1.5em;
+}
+
+.notFound{
+	text-align: center;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 1.5em;
+	margin-top: 3em;
+}
+
 #MainpageSpace {
 	height:100px;
 	width:100%;

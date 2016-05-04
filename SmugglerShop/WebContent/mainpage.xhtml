@@ -27,7 +27,7 @@
 </f:metadata>
 
 <body>
-
+	
 	<!-- Header -->
 	<div id="header">
 	<ui:include src="/header.xhtml" />
@@ -38,10 +38,12 @@
 	<ol class="breadcrumb">
 		<li><a href="mainpage.xhtml">Home</a></li>
 		<li class="active"><a
-			href="mainpage.xhtml?category=#{mainpage.category}">#{mainpage.category}</a></li>
+			href="mainpage.xhtml?category=#{mainpage.category}">#{mainpage.category}</a>
+			#{mainpage.search}
+			</li>
 	</ol>
 	<!--End navigation bar -->
-
+	
 	<!-- Content Part -->
 	<h:form id="content">
 		<p:growl id="growl" showDetail="true" sticky="true" /> 
@@ -91,17 +93,23 @@
 		<!-- End Slider -->
 
 		<!-- Show Products Part -->
+		<div class="headingSearch">
+		<h:outputText styleClass="headingSearch" value="Results for '#{mainpage.search}'" rendered="#{not empty mainpage.search}"/>
+		</div>
 		<ul id="items">
-			<ui:repeat var="product" value="#{mainpage.products}">
+			<ui:repeat var="product" value="#{mainpage.products}">			
 				<li class="col-xs-12"><a
 					href="productView.xhtml?id=#{product.id}"> <img
 						class="col-xs-2" src="#{product.image}" alt="ProductImage" />
-						<h3>#{product.name}</h3> <span>#{product.price} <i
-							class="fa fa-gg-circle"></i></span>
+						<h3>#{product.name}</h3> <span>#{product.price}
+						<i class="fa fa-gg-circle"></i></span>
 						<p>#{product.description}</p>
 				</a></li>
 			</ui:repeat>
 		</ul>
+		<div class="notFound">
+		<h:outputText value="Unfortunatelly, no results found." rendered="#{mainpage.notFound}" />
+		</div>
 		<!-- End Show Products -->
 
 	</h:form>

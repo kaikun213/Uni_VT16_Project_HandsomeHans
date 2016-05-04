@@ -45,7 +45,7 @@
 					<h3>#{product.name}</h3>
 					<div class="product-desc">#{product.description}</div>
 					<hr></hr>
-					<div class="product-price">Price per item: $#{product.price}</div>
+					<div class="product-price">Price per item: <span>#{product.price}<i class="fa fa-gg-circle"></i></span></div>
 					<hr></hr>
 					<div class="btn-group cart">
 						<h:commandButton value="Add to Basket" class="btn btn-primary" href="#" disabled="#{basket.productInBasket(product.id) or product.quantity gt productView.getQuantity(product.id)}">

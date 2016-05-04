@@ -93,6 +93,10 @@ public class ContactPage extends Page implements Serializable {
 	
 	public void searchOrder(){
 		if (searchOrder.isEmpty()) searchedOrder = null;
+		else if (!isInteger(searchOrder,10) ) {
+			super.notify("Error", "Just Integers are allowed as Order number");
+			searchedOrder = null;
+		}
 		else {
 			setContent("SELECT * FROM orders WHERE id="+searchOrder+";");
 			ArrayList<Order> orders = new ArrayList<Order>();
@@ -101,10 +105,23 @@ public class ContactPage extends Page implements Serializable {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			
 			if (orders.isEmpty()) super.notify("Unfortunatelly!", "Order not found");
 			else searchedOrder = orders.get(0);
 		}
+	}
+	
+	
+	// Helpmethod to identify if a String is just out of numbers
+	private static boolean isInteger(String s, int radix) {
+	    if(s.isEmpty()) return false;
+	    for(int i = 0; i < s.length(); i++) {
+	        if(i == 0 && s.charAt(i) == '-') {
+	            if(s.length() == 1) return false;
+	            else continue;
+	        }
+	        if(Character.digit(s.charAt(i),radix) < 0) return false;
+	    }
+	    return true;
 	}
 
 	

@@ -44,7 +44,7 @@
 						href="productView.xhtml?id=#{basketItem.id}"> <img
 							class="col-xs-2" src="#{basketItem.image}" alt="ProductImage" />
 					</a>
-						<h3>#{basketItem.name}</h3> <span>$#{basketItem.price} <i></i></span>
+						<h3>#{basketItem.name}</h3> <span>#{basketItem.price}<i class="fa fa-gg-circle"></i></span>
 						<h:commandButton action="#{basket.remove()}" value="Remove" class="btn btn-primary" href="#">
 							<f:param name="pID" value="#{basketItem.id}"></f:param>
 						</h:commandButton>

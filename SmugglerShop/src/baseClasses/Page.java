@@ -46,9 +46,12 @@ public abstract class Page {
 	 * @throws SQLException when it is now a ResultSet from ordinary products
 	 */
 	protected ArrayList<Product> toProducts(ResultSet products) throws SQLException{
+		//null ResultSet
+		if (products == null) return new ArrayList<Product>();
+		//ResultSet from wrong type
 		if (!products.getMetaData().getTableName(1).equals("product")) throw new SQLException("This is not a product list");
 		ArrayList<Product> arr = new ArrayList<Product>();
-	while (products.next()) {
+		while (products.next()) {
 			Product p = new Product(products.getString("name"),
 					products.getString("category"),
 					products.getDouble("price"),
@@ -69,6 +72,9 @@ public abstract class Page {
 	 */
 	
 	protected ArrayList<Order> toOrders(ResultSet orders) throws SQLException{
+		//null ResultSet
+		if (orders == null) return new ArrayList<Order>();
+		//ResultSet from wrong type
 		if (!orders.getMetaData().getTableName(1).equals("orders")) throw new SQLException("This is not a order list");
 		ArrayList<Order> arr = new ArrayList<Order>();
 		try {
@@ -125,19 +131,22 @@ public abstract class Page {
 	
 	/** converts a ResultSet into a List of users
 	 * 
-	 * @param admins
+	 * @param users
 	 * @return ArrayList of user
 	 * @throws SQLException when it is not a ResultSet of the user table
 	 */
-	protected ArrayList<User> toAdmins(ResultSet admins) throws SQLException{
-		if (!admins.getMetaData().getTableName(1).equals("user")) throw new SQLException("This is not a user list");
+	protected ArrayList<User> toUsers(ResultSet users) throws SQLException{
+		//null ResultSet
+		if (users == null) return new ArrayList<User>();
+		//ResultSet from wrong type
+		if (!users.getMetaData().getTableName(1).equals("user")) throw new SQLException("This is not a user list");
 		ArrayList<User> arr = new ArrayList<User>();
 		try {
-			while (admins.next()) {
+			while (users.next()) {
 				ArrayList<Order> orders = new ArrayList<Order>();
 				
 				StringBuilder sqlOrders = new StringBuilder("SELECT * FROM orders WHERE id=");
-				StringBuilder sb = new StringBuilder(admins.getString("orders"));
+				StringBuilder sb = new StringBuilder(users.getString("orders"));
 				int a = 0;
 				for (int i=0;i<sb.length();i++) {
 					if (Character.compare(sb.charAt(i), ';') == 0) {
@@ -147,12 +156,12 @@ public abstract class Page {
 					orders.addAll(toOrders(conn.fetch(sqlOrders.toString())));
 				}
 				
-			    User u = new User(	admins.getInt("id"),
-			    					admins.getString("name"),
+			    User u = new User(	users.getInt("id"),
+			    					users.getString("name"),
 			    					orders,
-			    					admins.getString("email"),
-			    					admins.getString("password"),
-			    					admins.getBoolean("admin"));
+			    					users.getString("email"),
+			    					users.getString("password"),
+			    					users.getBoolean("admin"));
 			  arr.add(u);    
 			}
 		} catch (SQLException e) {

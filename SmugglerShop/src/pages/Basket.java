@@ -72,8 +72,8 @@ public class Basket extends Page implements Serializable{
     	Product p = new Product();
     	for (int i=0;i<products.size();i++) if (products.get(i).getId() == Integer.parseInt(id)) p = products.get(i);
     	if (p.getQuantity() > getQuantity(Integer.toString(p.getId()))) {
-    		p.setQuantity(1);
-    		super.notify("Error","Sorry, we do not have this amount on stock. The quantity got reset to 1.");
+    		p.setQuantity(getQuantity(Integer.toString(p.getId())));
+    		super.notify("Error","Sorry, we do not have this amount on stock. The quantity got reset to the maximum.");
     	}
 	}
     
