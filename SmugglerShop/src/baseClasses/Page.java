@@ -68,7 +68,6 @@ public abstract class Page {
 	 * @throws SQLException when it is not a ResultSet of the order table
 	 */
 	
-	// NOT TESTED !!!!!!!!!!!!!!!
 	protected ArrayList<Order> toOrders(ResultSet orders) throws SQLException{
 		if (!orders.getMetaData().getTableName(1).equals("orders")) throw new SQLException("This is not a order list");
 		ArrayList<Order> arr = new ArrayList<Order>();
@@ -130,15 +129,30 @@ public abstract class Page {
 	 * @return ArrayList of Admin
 	 * @throws SQLException when it is not a ResultSet of the admin table
 	 */
-	protected ArrayList<Admin> toAdmins(ResultSet admins) throws SQLException{
-		if (!admins.getMetaData().getTableName(1).equals("admin")) throw new SQLException("This is not a admin list");
-		ArrayList<Admin> arr = new ArrayList<Admin>();
+	protected ArrayList<User> toAdmins(ResultSet admins) throws SQLException{
+		if (!admins.getMetaData().getTableName(1).equals("user")) throw new SQLException("This is not a user list");
+		ArrayList<User> arr = new ArrayList<User>();
 		try {
 			while (admins.next()) {
-			    Admin a = new Admin(admins.getString("name"),
+				ArrayList<Order> orders = new ArrayList<Order>();
+				
+				StringBuilder sqlOrders = new StringBuilder("SELECT * FROM orders WHERE id=");
+				StringBuilder sb = new StringBuilder(admins.getString("orders"));
+				int a = 0;
+				for (int i=0;i<sb.length();i++) {
+					if (Character.compare(sb.charAt(i), ';') == 0) {
+					sqlOrders.append(sb.substring(a, i) + " OR id=");
+					a=i+1;
+					}
+					orders.addAll(toOrders(conn.fetch(sqlOrders.toString())));
+				}
+				
+			    User u = new User(admins.getString("name"),
+			    					orders,
 			    					admins.getString("email"),
-			    					admins.getString("password"));
-			  arr.add(a);    
+			    					admins.getString("password"),
+			    					admins.getBoolean("admin"));
+			  arr.add(u);    
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -181,7 +195,15 @@ public abstract class Page {
 	protected String toSQL(Object o){
 		StringBuilder sb = new StringBuilder("INSERT INTO ");
 		if (o instanceof Product) {
-			sb.append("product (name,");
+			sb.append("product (id,name,category,price,image,description,quantity) VALUES (");
+			sb.append(((Product) o).getId() + "," + "\"");
+			sb.append(((Product) o).getName() + "\",\"");
+			sb.append(((Product) o).getCategory() +"\",");
+			sb.append(((Product) o).getPrice() +",\"");
+			sb.append(((Product) o).getImage() +"\",\"");
+			sb.append(((Product) o).getDescription() + "\",");
+			sb.append(((Product) o).getQuantity());
+			sb.append(");");
 		}
 		else if (o instanceof Order){
 			sb.append("orders (orderStatus, products, price, date) VALUES (");
@@ -215,8 +237,16 @@ public abstract class Page {
 			// finish request
 			sb.append(");");
 		}
-		else if (o instanceof Admin){
-			
+		else if (o instanceof User){
+			sb.append("admin () VALUES (name,orders,email,password,admin) VALUES (\"");
+			sb.append(((User) o).getName() + "\",\"");
+			for (int i=0;i<((User) o).getOrders().size();i++){
+				sb.append( ((User) o).getOrders().get(i).getOrderId() + ";");
+			}
+			sb.append("\",\"");
+			sb.append(((User) o).getEmail() + "\",\"");
+			sb.append(((User) o).getPassword() + "\",");
+			sb.append(((User) o).getAdmin() + ");");
 		}
 		else System.err.println("This is not an updateable Object");
 		return sb.toString();

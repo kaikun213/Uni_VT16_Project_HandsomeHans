@@ -36,7 +36,7 @@ public class ContactPage extends Page implements Serializable {
 	
 
 	public void setName(String u) {
-		user.setUserName(u);
+		user.setName(u);
 	}
 	
 	public void setEmail(String e){
@@ -44,7 +44,7 @@ public class ContactPage extends Page implements Serializable {
 	}
 	
 	public void setOrderOnUser(String o){
-		user.setOrder(user.getOrder() + ";" + o);
+		
 	}
 	
 	public String submitOrder(){
