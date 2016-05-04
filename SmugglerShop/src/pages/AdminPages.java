@@ -34,6 +34,13 @@ public class AdminPages extends Page implements Serializable {
 	private Order selectedOrder;
 	
 	private static final long serialVersionUID = 1L;
+	private Product prod;
+	
+	public void adminAddProduct(){
+		toSQL(prod);
+		
+		
+	}
 	
 	public void test(){
 		Product p = new Product("test","1", 123, "", "description", 100, 10);
@@ -46,6 +53,14 @@ public class AdminPages extends Page implements Serializable {
 		toSQL(u);
 		toSQL(p);
 		toSQL(o);
+	}
+
+	public Product getProd() {
+		return prod;
+	}
+
+	public void setProd(Product prod) {
+		this.prod = prod;
 	}	
 	
 	// Set & Get Methods

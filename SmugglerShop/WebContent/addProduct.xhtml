@@ -53,48 +53,45 @@
   <div class="row">
    <div class="col-md-5 col-sm-6 col-xs-12 col-sm-offset-1">
     <form method="post">
+     
      <div class="form-group ">
-      <label class="control-label " for="name">
-       Name
-      </label>
-      <input class="form-control" id="name" name="name" placeholder="Example-name" type="text"/>
+      <label class="control-label " for="name">Name</label>
+      <input class="form-control" id="name" name="name" placeholder="Example-name" type="text" value="#{adminPages.prod.name}"/>
      </div>
+     
      <div class="form-group ">
-      <label class="control-label " for="image">
-       Image
-      </label>
-      <input class="form-control" id="image" name="image" placeholder="template-image.png" type="text"/>
+      <label class="control-label " for="image">Image</label>
+      <input class="form-control" id="image" name="image" placeholder="template-image.png" type="text" value="#{adminPages.prod.image}"/>
      </div>
+     
      <div class="form-group ">
-      <label class="control-label " for="category">
-       Category
-      </label>
-      <select class="select form-control" id="category" name="category">
-      </select>
+      <label class="control-label " for="category">Category</label>
+      <select class="select form-control" id="category" name="category" value="#{adminPages.prod.category}"></select>
      </div>
+     
      <div class="form-group ">
-      <label class="control-label " for="price">
-       Price
-      </label>
-      <input class="form-control" id="price" name="price" placeholder="1337" type="text"/>
+      <label class="control-label " for="price">Price</label>
+      <input class="form-control" id="price" name="price" placeholder="1337" type="text" value="#{adminPages.prod.price}"/>
      </div>
+     
      <div class="form-group ">
-      <label class="control-label " for="quantity">
-       Quantity
-      </label>
-      <input class="form-control" id="quantity" name="quantity" placeholder="20" type="text"/>
+      <label class="control-label " for="quantity">Quantity</label>
+      <input class="form-control" id="quantity" name="quantity" placeholder="20" type="text" value="#{adminPages.prod.quantity}"/>
      </div>
+     
      <div class="form-group ">
-      <label class="control-label " for="description">
-       Description
-      </label>
-      <textarea class="form-control" cols="40" id="description" name="description" rows="10"></textarea>
+      <label class="control-label " for="description">Description</label>
+      <textarea class="form-control" cols="40" id="description" name="description" rows="10" value="#{adminPages.prod.description}"></textarea>
      </div>
+     
      <div class="form-group">
       <div>
-       <h:commandButton class="btn btn-primary " name="submit" type="submit" value="Add Product"/>
+       <h:commandButton class="btn btn-primary " name="submit" type="submit" value="Add Product">
+       		<f:ajax event="click" execute="Quantity" listener="#{adminPages.adminAddProduct()}" render="theHead @form"></f:ajax>
+       </h:commandButton>
       </div>
      </div>
+     
     </form>
    </div>
   </div>
