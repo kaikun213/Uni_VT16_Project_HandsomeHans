@@ -23,11 +23,18 @@ public class ConnectionClass {
 
 	/* localhost, port and DB-Name may have to be adjusted */
 	private static final String connection_url = "jdbc:mysql://localhost:3306/webshopDB";
-	/* Connection data, may has to be changed to yours */
 	private String username = "root";
-	private String password = "sunny";
+	private String password = "team2";
 	private Connection connectionDB;
-
+	
+	/*
+	private static final String connection_url = "jdbc:mysql://sql7.freesqldatabase.com:3306/sql7117861";
+	private final String username = "sql7117861";
+	private final String password = "h19r2rQv1b";
+	private Connection connectionDB;
+	public static final String dbName = "sql7117861";
+	*/
+	
 	/**
 	 * Constructor method creates a connection to the database.
 	 */
@@ -93,7 +100,6 @@ public class ConnectionClass {
 		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	/**

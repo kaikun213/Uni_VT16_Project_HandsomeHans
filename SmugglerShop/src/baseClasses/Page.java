@@ -76,7 +76,7 @@ public abstract class Page {
 			while (orders.next()) {
 				// get the products from the database by the IDs 
 				StringBuilder sb = new StringBuilder(orders.getString("products"));
-				StringBuilder sqlProducts = new StringBuilder("SELECT * FROM webshopDB.product WHERE ");
+				StringBuilder sqlProducts = new StringBuilder("SELECT * FROM product WHERE ");
 				int a = 0;
 				for (int i=0;i<sb.length();i++) {
 					if (Character.compare(sb.charAt(i), ':') == 0) sqlProducts.append("id="+ sb.substring(a, i) +"");
@@ -153,7 +153,7 @@ public abstract class Page {
 	 */
 	protected List<String> getCategories() throws SQLException{
 		ArrayList<String> categories = new ArrayList<String>();
-		ResultSet rs = conn.fetch("SELECT * FROM webshopDB.category");
+		ResultSet rs = conn.fetch("SELECT * FROM category");
 		while(rs.next()) categories.add(rs.getString("name"));
 		return categories;
 	}
@@ -164,7 +164,7 @@ public abstract class Page {
 	 */
 	
 	protected int getQuantity(String id){
-		ResultSet rs = conn.fetch("SELECT product.quantity from webshopDB.product WHERE id="+id);
+		ResultSet rs = conn.fetch("SELECT product.quantity from product WHERE id="+id);
 		try {
 			rs.first();
 			return rs.getInt("quantity");
@@ -181,10 +181,10 @@ public abstract class Page {
 	protected String toSQL(Object o){
 		StringBuilder sb = new StringBuilder("INSERT INTO ");
 		if (o instanceof Product) {
-			sb.append("webshopDB.product (name,");
+			sb.append("product (name,");
 		}
 		else if (o instanceof Order){
-			sb.append("webshopDB.orders (orderStatus, products, price, date) VALUES (");
+			sb.append("orders (orderStatus, products, price, date) VALUES (");
 			// orderStatus
 			switch (((Order) o).getOrderStatus()) {
 			case IN_PROCESS : sb.append("1,");

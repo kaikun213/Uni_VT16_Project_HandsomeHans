@@ -40,11 +40,11 @@ public class Mainpage extends Page implements Serializable {
 	public void setProducts(Boolean b) {
 		try {
 			// default : display all products
-			if (b) setContent("select * from webshopDB.product");
+			if (b) setContent("select * from product");
 			// category : display products from selected category
-			else if (!category.isEmpty()) setContent("select * from webshopDB.product, webshopDB.category WHERE product.category=category.id AND category.name=\""+category+"\";");
+			else if (!category.isEmpty()) setContent("select * from product, category WHERE product.category=category.id AND category.name=\""+category+"\";");
 			// search : display searched products - not case-sensitive and searches substrings
-			else setContent("SELECT * FROM webshopDB.product WHERE UPPER(name) LIKE '%"+search.toUpperCase()+"%' OR UPPER(description) LIKE '%"+search.toUpperCase()+"%';");
+			else setContent("SELECT * FROM product WHERE UPPER(name) LIKE '%"+search.toUpperCase()+"%' OR UPPER(description) LIKE '%"+search.toUpperCase()+"%';");
 			products = toProducts(content);
 		} catch (SQLException e) {
 			e.printStackTrace();
