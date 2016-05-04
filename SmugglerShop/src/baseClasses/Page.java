@@ -238,7 +238,7 @@ public abstract class Page {
 			sb.append(");");
 		}
 		else if (o instanceof User){
-			sb.append("admin () VALUES (name,orders,email,password,admin) VALUES (\"");
+			sb.append("user (name,orders,email,password,admin) VALUES (\"");
 			sb.append(((User) o).getName() + "\",\"");
 			for (int i=0;i<((User) o).getOrders().size();i++){
 				sb.append( ((User) o).getOrders().get(i).getOrderId() + ";");
@@ -246,7 +246,8 @@ public abstract class Page {
 			sb.append("\",\"");
 			sb.append(((User) o).getEmail() + "\",\"");
 			sb.append(((User) o).getPassword() + "\",");
-			sb.append(((User) o).getAdmin() + ");");
+			if (((User) o).getAdmin()) sb.append("1);");
+			else sb.append("0);");
 		}
 		else System.err.println("This is not an updateable Object");
 		return sb.toString();
