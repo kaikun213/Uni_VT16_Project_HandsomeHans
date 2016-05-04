@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class User {
 
+	private int id;
 	private String name;
 	private ArrayList<Order> orders;
 	private String email;
@@ -12,12 +13,21 @@ public class User {
 	
 	public User(){};
 
-	public User(String userName, ArrayList<Order> orders, String email, String password, boolean b) {
+	public User(int id, String userName, ArrayList<Order> orders, String email, String password, boolean b) {
+		this.id = id;
 		this.name = userName;
 		this.orders = orders;
 		this.email = email;
 		this.password = password;
 		this.admin = b;
+	}
+	
+	public int getId(){
+		return id;
+	}
+	
+	public void setId(int id){
+		this.id=id;
 	}
 	
 	public boolean getAdmin() {
@@ -74,5 +84,6 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
 
 }

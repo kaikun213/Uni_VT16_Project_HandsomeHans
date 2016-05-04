@@ -36,9 +36,10 @@ public class AdminPages extends Page implements Serializable {
 		Order o = new Order(100,arr,"date",OrderStatus.IN_PROCESS);
 		ArrayList<Order> arr2 = new ArrayList<Order>();
 		arr2.add(o);
-		User u = new User("test",arr2,"Testemail", "password", false);
-		String s = super.toSQL(u);
-		super.updateDB(s);
+		User u = new User(-99,"test",arr2,"Testemail", "password", false);
+		toSQL(u);
+		toSQL(p);
+		toSQL(o);
 	}	
 	
 	

@@ -123,11 +123,11 @@ public abstract class Page {
 	}
 	
 	
-	/** converts a ResultSet into a List of admins.
+	/** converts a ResultSet into a List of users
 	 * 
 	 * @param admins
-	 * @return ArrayList of Admin
-	 * @throws SQLException when it is not a ResultSet of the admin table
+	 * @return ArrayList of user
+	 * @throws SQLException when it is not a ResultSet of the user table
 	 */
 	protected ArrayList<User> toAdmins(ResultSet admins) throws SQLException{
 		if (!admins.getMetaData().getTableName(1).equals("user")) throw new SQLException("This is not a user list");
@@ -147,7 +147,8 @@ public abstract class Page {
 					orders.addAll(toOrders(conn.fetch(sqlOrders.toString())));
 				}
 				
-			    User u = new User(admins.getString("name"),
+			    User u = new User(	admins.getInt("id"),
+			    					admins.getString("name"),
 			    					orders,
 			    					admins.getString("email"),
 			    					admins.getString("password"),
@@ -176,7 +177,6 @@ public abstract class Page {
 	 * @param id from the product you want to check the quantity
 	 * @return quantity as integer
 	 */
-	
 	protected int getQuantity(String id){
 		ResultSet rs = conn.fetch("SELECT product.quantity from product WHERE id="+id);
 		try {
@@ -188,15 +188,23 @@ public abstract class Page {
 		return 0;
 	}
 	
+	/**
+	 *  Gets an update-able ResultSet for inserting new entities or updating old ones
+	 */
 	protected void updateDB(String s){
 		conn.update(s);
 	}
 	
-	protected String toSQL(Object o){
-		StringBuilder sb = new StringBuilder("INSERT INTO ");
+	/** Updates the given Object in the DB, if it doesnt exist it inserts a new one
+	 * 
+	 * @param o an object from type User, Product or Order which should be updated or inserted into the DB
+	 * 
+	 */
+	protected void toSQL(Object o){
+		StringBuilder sb = new StringBuilder();
 		if (o instanceof Product) {
-			sb.append("product (id,name,category,price,image,description,quantity) VALUES (");
-			sb.append(((Product) o).getId() + "," + "\"");
+			updateDB("DELETE FROM product WHERE id="+ ((Product) o).getId() + ";");
+			sb.append(" INSERT INTO  product (name,category,price,image,description,quantity) VALUES (\"");
 			sb.append(((Product) o).getName() + "\",\"");
 			sb.append(((Product) o).getCategory() +"\",");
 			sb.append(((Product) o).getPrice() +",\"");
@@ -206,7 +214,8 @@ public abstract class Page {
 			sb.append(");");
 		}
 		else if (o instanceof Order){
-			sb.append("orders (orderStatus, products, price, date) VALUES (");
+			updateDB("DELETE FROM orders WHERE id="+ ((Order) o).getOrderId() + ";");
+			sb.append("INSERT INTO orders (orderStatus, products, price, date) VALUES (");
 			// orderStatus
 			switch (((Order) o).getOrderStatus()) {
 			case IN_PROCESS : sb.append("1,");
@@ -238,7 +247,8 @@ public abstract class Page {
 			sb.append(");");
 		}
 		else if (o instanceof User){
-			sb.append("user (name,orders,email,password,admin) VALUES (\"");
+			updateDB("DELETE FROM user WHERE id=" + ((User) o).getId() +";");
+			sb.append("INSERT INTO user (name,orders,email,password,admin) VALUES (\"");
 			sb.append(((User) o).getName() + "\",\"");
 			for (int i=0;i<((User) o).getOrders().size();i++){
 				sb.append( ((User) o).getOrders().get(i).getOrderId() + ";");
@@ -250,9 +260,14 @@ public abstract class Page {
 			else sb.append("0);");
 		}
 		else System.err.println("This is not an updateable Object");
-		return sb.toString();
+		updateDB(sb.toString());
 	}
 	
+	/** Gives out an notification on a page with the given Strings. (Needs p:growl on the xhtml page)
+	 * 
+	 * @param s Headline
+	 * @param s1 Text
+	 */
 	public void notify(String s, String s1) {
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage(s, s1) );

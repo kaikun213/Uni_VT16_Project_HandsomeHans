@@ -50,8 +50,7 @@ public class ContactPage extends Page implements Serializable {
 	public String submitOrder(){
 		// if all fields are filled ---------------------------------------- Missing
 		Order o = new Order(Basket.products,"Date must be here",OrderStatus.IN_PROCESS);
-		String s = toSQL(o);
-		super.updateDB(s);
+		toSQL(o);
 		
 		// update DB quantities
 		for (int i=0;i<Basket.products.size();i++) {

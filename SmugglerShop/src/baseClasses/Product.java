@@ -33,7 +33,7 @@ public class Product {
 		description = "";
 		image = null;
 		quantity = 0;
-		id = 0;
+		id = -99;
 	}
 	
 	/**
