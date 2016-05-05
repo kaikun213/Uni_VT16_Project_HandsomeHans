@@ -42,7 +42,7 @@ public class AdminPages extends Page implements Serializable {
 	private Product prod;
 	
 	public void adminAddProduct(){
-		toSQL(prod);
+		insertDB(prod);
 		
 		
 	}
@@ -55,9 +55,12 @@ public class AdminPages extends Page implements Serializable {
 		ArrayList<Order> arr2 = new ArrayList<Order>();
 		arr2.add(o);
 		User u = new User(-99,"test",arr2,"Testemail", "password", false);
-		toSQL(u);
-		toSQL(p);
-		toSQL(o);
+		insertDB(u);
+		insertDB(p);
+		insertDB(o);
+		updateDB(u);
+		updateDB(p);
+		updateDB(o);
 	}
 
 	public Product getProd() {
@@ -106,7 +109,7 @@ public class AdminPages extends Page implements Serializable {
 	public void onRowEdit(RowEditEvent event) {
         FacesMessage msg = new FacesMessage("Order Edited", "Selected Order: " + Integer.toString(((Order) event.getObject()).getOrderId()));
         FacesContext.getCurrentInstance().addMessage(null, msg);
-        super.toSQL(((Order) event.getObject()));
+        super.insertDB(((Order) event.getObject()));
     }
      
     public void onRowCancel(RowEditEvent event) {

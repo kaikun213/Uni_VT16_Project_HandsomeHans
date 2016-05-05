@@ -21,8 +21,7 @@ import baseClasses.Order.OrderStatus;
  * Abstract page class 
  */
 
-/* untested toOrder() method */
-public abstract class Page {
+public abstract class Page implements PageInterface{
 	
 	/**
 	 * Establishes a connection at creation
@@ -30,22 +29,11 @@ public abstract class Page {
 	protected ConnectionClass conn = new ConnectionClass();
 	protected ResultSet content;
 	
-	/**
-	 * 
-	 * @param sql query to the database e.g. "SELECT * FROM product;" 
-	 * @return the ResultSet of the requested rows, sets the content of the page
-	 */
-	protected void setContent(String sql) {
+	public void setContent(String sql) {
 		content = conn.fetch(sql);
 	}
 
-	/**	converts a ResultSet into a List of products.
-	 * 
-	 * @param products give a certain content of products
-	 * @return gives back an ArrayList<Product> from the given ResultSet.
-	 * @throws SQLException when it is now a ResultSet from ordinary products
-	 */
-	protected ArrayList<Product> toProducts(ResultSet products) throws SQLException{
+	public ArrayList<Product> toProducts(ResultSet products) throws SQLException{
 		//null ResultSet
 		if (products == null) return new ArrayList<Product>();
 		//ResultSet from wrong type
@@ -64,14 +52,7 @@ public abstract class Page {
 		return arr;
 	}
 	
-	/** converts a ResultSet into a List of orders.
-	 * 
-	 * @param orders 
-	 * @return an Arraylist of Order
-	 * @throws SQLException when it is not a ResultSet of the order table
-	 */
-	
-	protected ArrayList<Order> toOrders(ResultSet orders) throws SQLException{
+	public ArrayList<Order> toOrders(ResultSet orders) throws SQLException{
 		//null ResultSet
 		if (orders == null) return new ArrayList<Order>();
 		//ResultSet from wrong type
@@ -95,11 +76,13 @@ public abstract class Page {
 				ArrayList<Product> productList = toProducts(products);
 				
 				// change quantities from ordered productList (because products taken by ID from the database)
-				a = 0;
-				int nr = 0;
-				for (int i=0;i<sb.length();i++) {
-					if (Character.compare(sb.charAt(i), ':') == 0) a=i;
-					if (Character.compare(sb.charAt(i), ';') == 0) productList.get(nr++).setQuantity(Integer.parseInt(sb.substring(a+1, i)));
+				if (productList.size() > 0) { // case there are no products in the order -> shouldn't be valid anyway
+					a = 0;
+					int nr = 0;
+					for (int i=0;i<sb.length();i++) {
+						if (Character.compare(sb.charAt(i), ':') == 0) a=i;
+						if (Character.compare(sb.charAt(i), ';') == 0) productList.get(nr++).setQuantity(Integer.parseInt(sb.substring(a+1, i)));
+					}
 				}
 				
 				OrderStatus status;
@@ -128,14 +111,7 @@ public abstract class Page {
 		return arr;
 	}
 	
-	
-	/** converts a ResultSet into a List of users
-	 * 
-	 * @param users
-	 * @return ArrayList of user
-	 * @throws SQLException when it is not a ResultSet of the user table
-	 */
-	protected ArrayList<User> toUsers(ResultSet users) throws SQLException{
+	public ArrayList<User> toUsers(ResultSet users) throws SQLException{
 		//null ResultSet
 		if (users == null) return new ArrayList<User>();
 		//ResultSet from wrong type
@@ -170,23 +146,14 @@ public abstract class Page {
 		return arr;
 	}
 	
-	/** Method to get a List of the category names
-	 * 
-	 * @return all categories from the database
-	 * @throws SQLException if the ResultSet is null
-	 */
-	protected List<String> getCategories() throws SQLException{
+	public List<String> getCategories() throws SQLException{
 		ArrayList<String> categories = new ArrayList<String>();
 		ResultSet rs = conn.fetch("SELECT * FROM category");
 		while(rs.next()) categories.add(rs.getString("name"));
 		return categories;
 	}
-	/** Method for a recent quantity check
-	 * 
-	 * @param id from the product you want to check the quantity
-	 * @return quantity as integer
-	 */
-	protected int getQuantity(String id){
+
+	public int getQuantity(String id){
 		ResultSet rs = conn.fetch("SELECT product.quantity from product WHERE id="+id);
 		try {
 			rs.first();
@@ -197,22 +164,82 @@ public abstract class Page {
 		return 0;
 	}
 	
-	/**
-	 *  Gets an update-able ResultSet for inserting new entities or updating old ones
-	 */
-	protected void updateDB(String s){
+	public void updateDB(String s){
 		conn.update(s);
 	}
 	
-	/** Updates the given Object in the DB, if it doesnt exist it inserts a new one
-	 * 
-	 * @param o an object from type User, Product or Order which should be updated or inserted into the DB
-	 * 
-	 */
-	protected void toSQL(Object o){
+	public void updateDB(Object o){
 		StringBuilder sb = new StringBuilder();
 		if (o instanceof Product) {
-			updateDB("DELETE FROM product WHERE id="+ ((Product) o).getId() + ";");
+			sb.append(" UPDATE  product SET name=\"");
+			sb.append(((Product) o).getName() + "\",category=\"");
+			sb.append(((Product) o).getCategory() +"\",price=");
+			sb.append(((Product) o).getPrice() +",image=\"");
+			sb.append(((Product) o).getImage() +"\",description=\"");
+			sb.append(((Product) o).getDescription() + "\",quantity=");
+			sb.append(((Product) o).getQuantity());
+			sb.append(" WHERE id=");
+			sb.append(((Product) o).getId() +";");
+		}
+		else if (o instanceof Order){
+			sb.append("UPDATE orders SET orderStatus=");
+			// orderStatus
+			switch (((Order) o).getOrderStatus()) {
+			case IN_PROCESS : sb.append("1,");
+					break;
+			case SHIPPED : sb.append("2,");
+					break;
+			case DELAYED : sb.append("3,");
+					break;
+			default : sb.append("1,");
+					break;
+			}
+			// products 
+			sb.append("products=\"");
+			for (int i=0;i<((Order) o).getOrderList().size();i++) {
+				Product p = ((Order) o).getOrderList().get(i);
+				sb.append(p.getId() + ":" + p.getQuantity() + ";");
+			}
+			sb.append("\",price=");
+
+			// price
+			int p = 0;
+			for (int i=0;i<((Order) o).getOrderList().size();i++) p+= ((Order) o).getOrderList().get(i).getPrice() * ((Order) o).getOrderList().get(i).getQuantity();
+			sb.append(p+",date=\"");
+			// date
+			sb.append(((Order) o).getOrderDate() +"\"");
+			// finish request
+			sb.append(" WHERE id=");
+			sb.append(((Order) o).getOrderId() +";");
+		}
+		else if (o instanceof User){
+			sb.append("UPDATE user SET name=\"");
+			sb.append(((User) o).getName() + "\",orders=\"");
+			for (int i=0;i<((User) o).getOrders().size();i++){
+				sb.append( ((User) o).getOrders().get(i).getOrderId() + ";");
+			}
+			sb.append("\",email=\"");
+			sb.append(((User) o).getEmail() + "\",password=\"");
+			sb.append(((User) o).getPassword() + "\",admin=");
+			if (((User) o).getAdmin()) sb.append("1");
+			else sb.append("0");
+			sb.append(" WHERE id=");
+			sb.append(((User) o).getId() + ";");
+		}
+		else System.err.println("This is not an updateable Object");
+		updateDB(sb.toString());
+	}
+
+	public void deleteDB(Object o){
+		if (o instanceof Product) updateDB("DELETE FROM product WHERE id="+ ((Product) o).getId() + ";");
+		else if (o instanceof Order) updateDB("DELETE FROM orders WHERE id="+ ((Order) o).getOrderId() + ";");
+		else if (o instanceof User) updateDB("DELETE FROM user WHERE id=" + ((User) o).getId() +";");
+		else System.err.println("No deleteable Object-class");
+	}
+
+	public void insertDB(Object o){
+		StringBuilder sb = new StringBuilder();
+		if (o instanceof Product) {
 			sb.append(" INSERT INTO  product (name,category,price,image,description,quantity) VALUES (\"");
 			sb.append(((Product) o).getName() + "\",\"");
 			sb.append(((Product) o).getCategory() +"\",");
@@ -223,7 +250,6 @@ public abstract class Page {
 			sb.append(");");
 		}
 		else if (o instanceof Order){
-			updateDB("DELETE FROM orders WHERE id="+ ((Order) o).getOrderId() + ";");
 			sb.append("INSERT INTO orders (orderStatus, products, price, date) VALUES (");
 			// orderStatus
 			switch (((Order) o).getOrderStatus()) {
@@ -256,7 +282,6 @@ public abstract class Page {
 			sb.append(");");
 		}
 		else if (o instanceof User){
-			updateDB("DELETE FROM user WHERE id=" + ((User) o).getId() +";");
 			sb.append("INSERT INTO user (name,orders,email,password,admin) VALUES (\"");
 			sb.append(((User) o).getName() + "\",\"");
 			for (int i=0;i<((User) o).getOrders().size();i++){
@@ -268,15 +293,10 @@ public abstract class Page {
 			if (((User) o).getAdmin()) sb.append("1);");
 			else sb.append("0);");
 		}
-		else System.err.println("This is not an updateable Object");
+		else System.err.println("This is not an Object for insertion");
 		updateDB(sb.toString());
 	}
 	
-	/** Gives out an notification on a page with the given Strings. (Needs p:growl on the xhtml page)
-	 * 
-	 * @param s Headline
-	 * @param s1 Text
-	 */
 	public void notify(String s, String s1) {
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage(s, s1) );

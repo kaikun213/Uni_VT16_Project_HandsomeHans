@@ -49,8 +49,15 @@ public class ContactPage extends Page implements Serializable {
 	
 	public String submitOrder(){
 		// if all fields are filled ---------------------------------------- Missing
+		
+		// if no items are in the basket
+		if (Basket.products.size() <= 0) {
+			super.notify("Error!", "You don't have Items in your basket!");
+			return "contactForm";
+		}
+
 		Order o = new Order(Basket.products,"Date must be here",OrderStatus.IN_PROCESS);
-		toSQL(o);
+		super.insertDB(o);
 		
 		// update DB quantities
 		for (int i=0;i<Basket.products.size();i++) {
