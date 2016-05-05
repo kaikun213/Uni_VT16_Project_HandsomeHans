@@ -68,7 +68,7 @@
      <div class="form-group ">
       <label class="control-label " for="category">Category</label>
       	<h:selectOneMenu class="select form-control" id="category" name="category" value="#{adminPages.prod.category}">
-			<f:selectItem value="#{mainpage.categories}" var="category" itemLabel="#{category}" itemValue="#{category}"></f:selectItem>
+			<f:selectItems value="#{adminPages.adminSetCategories()}"></f:selectItems>
 		</h:selectOneMenu>
      </div>
      
@@ -90,7 +90,7 @@
      <div class="form-group">
       <div>
        <h:commandButton class="btn btn-primary " name="submit" type="submit" value="Add Product">
-       		<f:ajax event="click" execute="Quantity" listener="#{adminPages.adminAddProduct()}" render="theHead @form"></f:ajax>
+       		<f:ajax event="click" listener="#{adminPages.adminAddProduct()}" render="theHead @form"></f:ajax>
        </h:commandButton>
       </div>
      </div>

@@ -32,14 +32,26 @@ public class AdminPages extends Page implements Serializable {
 	
 	private List<Order> orders;
 	private Order selectedOrder;
+	private List<String> category;
+	private String selectedCat;
+	private Product prod;
 	
 	private static final long serialVersionUID = 1L;
-	private Product prod;
 	
 	public void adminAddProduct(){
 		toSQL(prod);
-		
-		
+		Product temp = new Product();
+		prod = temp;
+	}
+	
+	public List<String> adminSetCategories(){
+		try {
+			category = super.getCategories();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return category;
 	}
 	
 	public void test(){
@@ -83,6 +95,22 @@ public class AdminPages extends Page implements Serializable {
 	
 	public void setSelectedOrder(Order o){
 		selectedOrder = o;
+	}
+
+	public List<String> getCategory() {
+		return category;
+	}
+
+	public void setCategory(List<String> category) {
+		this.category = category;
+	}
+
+	public String getSelectedCat() {
+		return selectedCat;
+	}
+
+	public void setSelectedCat(String selectedCat) {
+		this.selectedCat = selectedCat;
 	}
 	
 }
