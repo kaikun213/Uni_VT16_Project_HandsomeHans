@@ -2,7 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
 
 <h:head>
 <title>Admin page</title>
@@ -41,21 +42,58 @@
 	
 	<!-- Content -->
 	<h:form id="adminContent">
-		<h:commandButton action="#{adminPages.test()}" value="Test" />
+	<h:commandButton action="#{adminPages.test()}" value="Test" />
 	
-	<h1>Scroll me</h1>
-	<h1>Scroll me</h1>
-	<h1>Scroll me</h1>
-	<h1>Scroll me</h1>
-	<h1>Scroll me</h1>
-	<h1>Scroll me</h1>
-	<h1>Scroll me</h1>
-	<h1>Scroll me</h1>
-	<h1>Scroll me</h1>
-	<h1>Scroll me</h1>
-	<h1>Scroll me</h1>
-	<h1>Scroll me</h1>
-	<h1>Scroll me</h1>
+	<p:growl id="msgs" showDetail="true"/>
+ 
+   <p:dataTable id="orders" var="order" value="#{adminPages.orders}" editable="true" style="margin-bottom:20px">
+       <f:facet name="allOrders">
+           All Orders
+       </f:facet>
+ 
+       <p:ajax event="rowEdit" listener="#{dtEditView.onRowEdit}" update=":adminContent:msgs" />
+       <p:ajax event="rowEditCancel" listener="#{dtEditView.onRowCancel}" update=":adminContent:msgs" />
+ 
+       <p:column headerText="Id">
+           <p:cellEditor>
+               <f:facet name="output"><h:outputText value="#{order.orderId}" /></f:facet>
+               <f:facet name="input"><p:inputText id="modelInput" value="#{order.orderId}" style="width:100%"/></f:facet>
+           </p:cellEditor>
+       </p:column>
+ 
+       <p:column headerText="Order Date">
+           <p:cellEditor>
+               <f:facet name="output"><h:outputText value="#{order.orderDate}" /></f:facet>
+               <f:facet name="input"><p:inputText value="#{order.orderDate}" style="width:100%" label="OrderDate"/></f:facet>
+           </p:cellEditor>
+       </p:column>
+ 
+       <p:column headerText="Products">
+           <p:cellEditor>
+               <f:facet name="output"><ui:repeat value="#{order.orderList}" var="product"><li>#{product.name}</li></ui:repeat></f:facet>
+               <f:facet name="input">
+                   <h:selectOneMenu value="#{order.orderList}" style="width:100%">
+                       <f:selectItems value="#{order.orderList}" var="product" itemLabel="#{product.name}" itemValue="#{product.name}" />
+                   </h:selectOneMenu>
+               </f:facet>
+           </p:cellEditor>
+       </p:column>
+ 
+       <p:column headerText="Status">
+           <p:cellEditor>
+               <f:facet name="output"><h:outputText value="#{order.orderStatus}" /></f:facet>
+               <f:facet name="input">
+                   <h:selectOneMenu value="#{order.orderStatus}" style="width:100%">
+                       <f:selectItems value="#{adminPages.status}" var="status" itemLabel="#{status}" itemValue="#{order.orderStatus}" />
+                   </h:selectOneMenu>
+               </f:facet>
+           </p:cellEditor>
+       </p:column>
+ 
+       <p:column style="width:32px">
+           <p:rowEditor />
+       </p:column>
+   </p:dataTable>
 	
 	
 	</h:form>

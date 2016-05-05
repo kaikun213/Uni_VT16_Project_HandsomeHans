@@ -114,7 +114,7 @@ public abstract class Page {
 						break;
 				}
 								
-			    Order o = new Order(orders.getLong("id"),
+			    Order o = new Order(orders.getInt("id"),
 			    					productList,
 			    					orders.getString("date"),
 			    					status);
