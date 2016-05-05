@@ -3,7 +3,8 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 <h:head>
 	<title>ContactForm</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -32,48 +33,55 @@
 		<p:growl id="growl" showDetail="true" sticky="true" /> 
 		<div class="container-fluid">
 			<div class="col-xs-4" id="forms">
+				
 				<div class="form-group">
-				Name<h:inputText type="text" class="form-control" id="name" />
+					<label for="name">Name</label>
+					<h:inputText type="text" class="form-control" id="name" a:placeholder="John Smith" />
 				</div>
 
 				<div class="form-group">
-				Email<h:inputText type="text" class="form-control" id="email" />
+					<label for="email">Email</label>
+					<h:inputText type="text" class="form-control" id="email" a:placeholder="example@gmail.com" />
+				</div>
+			
+				<div class="form-group">
+					<label for="phone">Phone</label>
+					<h:inputText type="text" class="form-control" id="phone" a:placeholder="0735781231" />
 				</div>
 
 				<div class="form-group">
-				Phone<h:inputText type="text" class="form-control" id="phone" />
+					<label for="address1">Address</label>
+					<h:inputText type="text" class="form-control" id="address1" a:placeholder="Stallvagen 30" />
 				</div>
 
 				<div class="form-group">
-				Address<h:inputText type="text" class="form-control" id="address1" />
+					<h:inputText type="text" class="form-control" id="address2" a:placeholder="Linneaus University" />
 				</div>
 
-				<div class="form-group">
-					<h:inputText type="text" class="form-control" id="address2" />
-				</div>
-
+				
 				<div class="col-xs-4">
-				
 					<div class="form-group">
-					Postcode<h:inputText type="text" class="form-control" id="postcode" />
+						<label for="postcode">PostCode</label>
+						<h:inputText type="text" class="form-control" id="postcode" a:placeholder="35421" />
 					</div>
-				
 				</div>
 
 				<div class="col-xs-4"></div>
 				
 				<div class="col-xs-4">
 					<div class="form-group">
-					Suburb<h:inputText type="text" class="form-control" id="suburb" />
+						<label for="city">City</label>
+						<h:inputText type="text" class="form-control" id="city" a:placeholder="Vaxjo" />
 					</div>
 				</div>
-				Message
+			
 				<div class="form-group">
-				<h:inputTextarea value="a" rows="5" cols="60" />
+					<label for="message">Message</label>
+					<h:inputTextarea value="" rows="5" cols="60" id="message" a:placeholder="Your message...." />
 				</div>
 				
 				<div class="col-xs-5"></div>
-				<h:commandButton action="#{contactPage.submitOrder()}"
+					<h:commandButton action="#{contactPage.submitOrder()}"
 					value="Submit" class="btn btn-primary active" />
 			</div>
 
@@ -86,7 +94,7 @@
 											alt="resources/img/HeaderLogo.png" width="150" height="120"
 											class="img-thumbnail" />     Qtn: #{basketItem.quantity}                   <span>#{basketItem.price}<i class="fa fa-gg-circle"></i></span><br />#{basketItem.name}</h5></li>
 							</ui:repeat></ul></pre>
-							</div><pre><h4 id="total">Total: <h:outputText value="#{basket.totalPrice}" /><i class="fa fa-gg-circle"></i></h4></pre>
+							</div><pre><h4 id="total">Total: <h:outputText value="#{basket.totalPrice}" /> <i class="fa fa-gg-circle"></i></h4></pre>
 			</div>
 		</div>
 	</h:form>
