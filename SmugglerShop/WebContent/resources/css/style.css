@@ -200,29 +200,22 @@ div.carousel-caption>p {
 /* *****************************
 		 basket 
  ***************************** */
-.price {
-	position: absolute;
-	top: 60%;
-	right: 78%;
+
+#productname{
+	text-align:center;
 }
 
-.btnremove {
-	position: absolute;
-	top: 60%;
-	right: 8%;
+#price {
+	text-align:center;
+}
+#totalprice {
+	text-align:center;
+	margin: 10px 0 20px 0;
+}
+#basketbutton{
+	margin: 10px 0 20px 0;
 }
 
-.quantity {	
-	position: absolute;
-	top: 60%;
-	right: 38%;
-}
-
-#Quantity label {
-	position: absolute;
-	top: 30%;
-	right: 50%;
-}
 
 /* *****************************
 		 searchOrder 
@@ -289,13 +282,18 @@ div.carousel-caption>p {
 #sidebarlink{
 	background:grey;
 	color:white;
-	border:3px solid #111;
+	border:2px solid #CDC0B4;
 	display:block;
 	width:200px;
-	padding:25px;
+	padding:15px;
 	text-decoration:none;
 	cursor:pointer;
 }
+#sidebarlink:hover{
+	width:200px;
+	background-color:black;
+	font-size:150%;
+	}	
 
 #adminContent {
 	height: 530px;
