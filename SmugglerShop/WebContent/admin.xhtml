@@ -51,8 +51,8 @@
            All Orders
        </f:facet>
  
-       <p:ajax event="rowEdit" listener="#{dtEditView.onRowEdit}" update=":adminContent:msgs" />
-       <p:ajax event="rowEditCancel" listener="#{dtEditView.onRowCancel}" update=":adminContent:msgs" />
+       <p:ajax event="rowEdit" listener="#{adminPages.onRowEdit}" update=":adminContent:msgs" />
+       <p:ajax event="rowEditCancel" listener="#{adminPages.onRowCancel}" update=":adminContent:msgs" />
  
        <p:column headerText="Id">
            <p:cellEditor>
@@ -70,11 +70,8 @@
  
        <p:column headerText="Products">
            <p:cellEditor>
-               <f:facet name="output"><ui:repeat value="#{order.orderList}" var="product"><li>#{product.name}</li></ui:repeat></f:facet>
-               <f:facet name="input">
-                   <h:selectOneMenu value="#{order.orderList}" style="width:100%">
-                       <f:selectItems value="#{order.orderList}" var="product" itemLabel="#{product.name}" itemValue="#{product.name}" />
-                   </h:selectOneMenu>
+               <f:facet name="output"><ui:repeat value="#{order.orderList}" var="product"><li>#{product.name} : #{product.quantity}</li></ui:repeat></f:facet>
+               <f:facet name="input"><ui:repeat value="#{order.orderList}" var="product"><li><p:inputText value="#{product.name}" /> : <p:inputText value="#{product.quantity}" /></li></ui:repeat>
                </f:facet>
            </p:cellEditor>
        </p:column>

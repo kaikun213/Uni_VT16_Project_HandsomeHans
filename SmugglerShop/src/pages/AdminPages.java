@@ -97,18 +97,20 @@ public class AdminPages extends Page implements Serializable {
 	}
 	
 	public void setStatus(){
+		if (status.size() > 0) return;
 		status.add(OrderStatus.IN_PROCESS);
 		status.add(OrderStatus.DELAYED);
 		status.add(OrderStatus.SHIPPED);
 	}
 	
 	public void onRowEdit(RowEditEvent event) {
-        FacesMessage msg = new FacesMessage("Car Edited", Integer.toString(((Order) event.getObject()).getOrderId()));
+        FacesMessage msg = new FacesMessage("Order Edited", "Selected Order: " + Integer.toString(((Order) event.getObject()).getOrderId()));
         FacesContext.getCurrentInstance().addMessage(null, msg);
+        super.toSQL(((Order) event.getObject()));
     }
      
     public void onRowCancel(RowEditEvent event) {
-        FacesMessage msg = new FacesMessage("Edit Cancelled", Integer.toString(((Order) event.getObject()).getOrderId()));
+        FacesMessage msg = new FacesMessage("Edit Cancelled", "Selected Order: " +Integer.toString(((Order) event.getObject()).getOrderId()));
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 	
