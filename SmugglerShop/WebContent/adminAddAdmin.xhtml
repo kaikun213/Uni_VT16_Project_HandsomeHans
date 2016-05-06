@@ -3,21 +3,29 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 
 <h:head>
 	<title>Admin page</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+	<!-- css files -->
 	<link rel="stylesheet" href="resources/css/style.css" />
 	<link rel="stylesheet"
 		href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
 	<link
 		href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/journal/bootstrap.min.css"
 		rel="stylesheet" />
+	<link rel="stylesheet"
+		href="https://formden.com/static/cdn/bootstrap-iso.css" />
+
+	<!-- script files -->
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 	<script
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<script src="resources/js/footerFix.js"></script>
 </h:head>
 <body>
 
@@ -27,16 +35,23 @@
 	</div>
 	<!-- Header finish -->
 
-	<!-- Navigation bar  -->
-	<ol class="breadcrumb">
-		<li><a href="mainpage.xhtml">Home</a></li>
-		<li class="active"><a
-			href="mainpage.xhtml?category=#{mainpage.category}">#{mainpage.category}</a></li>
-	</ol>
-	<!--End navigation bar -->
+	<!-- Sidebar -->
+	<div id="sidebar">
+		<ul id="sidebarlist">
+			<li class="active" id="sidebarstyle"><a id="sidebarlink"
+				href="admin.xhtml">Items</a></li>
+			<li class="active" id="sidebarstyle"><a id="sidebarlink"
+				href="admin.xhtml">Orders</a></li>
+			<li class="active" id="sidebarstyle"><a id="sidebarlink"
+				href="admin.xhtml">Admins</a></li>
+			<li class="active" id="sidebarstyle"><a id="sidebarlink"
+				href="mainpage.xhtml">Log Out</a></li>
+		</ul>
+	</div>
+	<!-- Sidebar finish -->
 
 	<!-- Content -->
-	<h:form id="content">
+	<h:form id="adminContent">
 		<h2>Welcome to Add Admin page</h2>
 
 		<div class="col-xs-5">
@@ -46,9 +61,8 @@
 					<ui:repeat var="basketItem" value="#{mainpage.products}">
 						<li class="list-group-item"><h5>
 								<br />Admin
-							</h5>
-							<h:commandButton action="#{basket.remove()}" value="Remove"
-								class="btn btn-primary" href="#">
+							</h5> <h:commandButton action="#{AddRemoveAdmin.remove()}"
+								value="Remove" class="btn btn-primary" href="#">
 								<f:param name="pID" value="#{basketItem.id}"></f:param>
 							</h:commandButton></li>
 					</ui:repeat>
@@ -56,24 +70,27 @@
 			</div>
 		</div>
 
-		<div class="col-xl-6">
+		<div class="col-xl-5">
 			<p:growl id="growl" showDetail="true" sticky="true" />
 			<div class="container-fluid">
 				<div class="col-xs-4" id="forms">
 					<div class="form-group">
 						Name
-						<h:inputText value="#{addRemoveAdmin.uName}" type="text" class="form-control" id="name" />
+						<h:inputText value="#{addremoveadmin.uName}" type="text"
+							class="form-control" id="name" />
 					</div>
 					<div class="form-group">
 						Email
-						<h:inputText value="#{addRemoveAdmin.eMail}" type="text" class="form-control" id="email" />
+						<h:inputText value="#{addremoveadmin.eMail}" type="text"
+							class="form-control" id="email" />
 					</div>
 					<div class="form-group">
 						Password
-						<h:inputText value="#{addRemoveAdmin.pWord}" type="text" class="form-control" id="password" />
+						<h:inputText value="#{addremoveadmin.pWord}" type="text"
+							class="form-control" id="password" />
 					</div>
 					<div class="col-xs-5"></div>
-					<h:commandButton action="#{user.add}" value="Add"
+					<h:commandButton action="#{AddRemoveAdmin.addUser()}" value="Add"
 						class="btn btn-primary active" />
 				</div>
 			</div>
@@ -85,7 +102,6 @@
 	<div id="footerPart">
 		<ui:include src="/footer.xhtml" />
 	</div>
-	<div id="MainpageSpace"></div>
 	<!-- Footer finish -->
 
 
