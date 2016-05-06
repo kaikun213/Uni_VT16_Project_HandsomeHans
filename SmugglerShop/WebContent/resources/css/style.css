@@ -267,7 +267,7 @@ div.carousel-caption>p {
 #sidebar{
 	background:#CDC0B4;
 	width:200px;
-	height:70%;
+	height:100%;
 	display:block;
 	position:absolute;
 	left:0px;
@@ -297,7 +297,7 @@ div.carousel-caption>p {
 	}	
 
 #adminContent {
-	height: 530px;
+	height:530px;
 	width: 85%;
 	overflow: visible;
 	overflow-y: auto;
@@ -313,8 +313,19 @@ div.carousel-caption>p {
  padding:0px;
  }
  #adminOrderTable{
- 	margin: -400px 130px 0 320px;
+ 	margin: -400px 100px 0px 240px;
  	padding:0px;
- 	height:380px;
+ 	height:500px;
  	overflow-y: auto;
  }
+
+/* *****************************
+Admin Order tabel product layout
+ ***************************** */ 
+ 
+ #adminOrderProduct {
+	width:100%;
+	max-height:200px;
+	overflow-y:auto;
+	margin:0;
+}
