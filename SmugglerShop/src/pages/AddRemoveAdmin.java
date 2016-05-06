@@ -2,7 +2,6 @@ package pages;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
@@ -22,6 +21,7 @@ import baseClasses.User;
 @SessionScoped
 public class AddRemoveAdmin extends Page implements Serializable {
 	
+	private User admin = new User();
 	private String uName;
 	private String eMail;
 	private String pWord;
@@ -60,9 +60,18 @@ public class AddRemoveAdmin extends Page implements Serializable {
 		return uName;
 	}
 	
+	public User getAdmin(){
+		return admin;
+	}
+	
+	public void setAdmin(User u){
+		admin = u;
+	}
+	
 	public void addUser(){ 
-		User u = new User(0001, uName, arr , eMail, pWord ,false);
-		super.updateDB(u);
+		admin.setAdmin(false);
+		admin.setOrders(arr);
+		super.insertDB(admin);
 	}
 	
 	public void removeUser(String uName){
