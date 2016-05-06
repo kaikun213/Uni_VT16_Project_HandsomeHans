@@ -46,13 +46,15 @@
 
 <!-- Start Content -->
 <style>.bootstrap-iso .formden_header h2, .bootstrap-iso .formden_header p, .bootstrap-iso form{font-family: Arial, Helvetica, sans-serif; color: black}.bootstrap-iso form button, .bootstrap-iso form button:hover{color: white !important;} .asteriskField{color: red;}</style>
-<h:form>
+<h:form id="form">
 <!-- HTML Form (wrapped in a .bootstrap-iso div) -->
 <div class="bootstrap-iso">
  <div class="container-fluid">
   <div class="row">
    <div class="col-md-5 col-sm-6 col-xs-12 col-sm-offset-1">
-    <form method="post">
+    <hform method="post">
+     
+     <h:outputText value="#{adminPages.prod.quantity}" id="bajs2" />
      
      <div class="form-group ">
       <label class="control-label " for="name">Name</label>
@@ -64,11 +66,10 @@
       <h:inputText class="form-control" id="image" name="image" placeholder="template-image.png" type="text" value="#{adminPages.prod.image}"/>
      </div>
      
-     <!-- Not done yet... might need category class -->
      <div class="form-group ">
       <label class="control-label " for="category">Category</label>
       	<h:selectOneMenu class="select form-control" id="category" name="category" value="#{adminPages.prod.category}">
-			<f:selectItem value="#{mainpage.categories}" var="category" itemLabel="#{category}" itemValue="#{category}"></f:selectItem>
+			<f:selectItems value="#{adminPages.adminSetCategories()}"></f:selectItems>
 		</h:selectOneMenu>
      </div>
      
@@ -90,12 +91,29 @@
      <div class="form-group">
       <div>
        <h:commandButton class="btn btn-primary " name="submit" type="submit" value="Add Product">
-       		<f:ajax event="click" execute="Quantity" listener="#{adminPages.adminAddProduct()}" render="theHead @form"></f:ajax>
+       		<f:ajax event="click" listener="#{adminPages.adminAddProduct()}" render="theHead @form"></f:ajax>
        </h:commandButton>
       </div>
      </div>
      
-    </form>
+     
+     
+    <p:dataTable id="eventsDT" var="product" value="#{mainpage.products}" selectionMode="single" selection="#{adminPages.prod}" rowKey="#{product.hashCode()}">
+        <f:facet name="header">
+            Select Product
+        </f:facet>
+        <p:ajax event="rowSelect"  update="form:name" />
+        <p:ajax event="rowUnselect" update="form" />
+        
+        <p:column headerText="Id">
+            <h:outputText value="#{product.id}" />
+        </p:column>
+        <p:column headerText="Product">
+            <h:outputText value="#{product.name}" />
+        </p:column>
+    </p:dataTable>
+     
+    </hform>
    </div>
   </div>
  </div>
