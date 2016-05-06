@@ -18,7 +18,7 @@ public class Order {
 	}
 
 	protected OrderStatus orderStatus;
-	private long orderId;
+	private int orderId;
 	private List<Product> orderList = new ArrayList<Product>();
 	private String orderDate;
 
@@ -36,7 +36,7 @@ public class Order {
 	 * @param orderDate
 	 * @param orderStatus
 	 */
-	public Order(long orderId, List<Product> orderList, String orderDate, OrderStatus orderStatus) {
+	public Order(int orderId, List<Product> orderList, String orderDate, OrderStatus orderStatus) {
 		this.orderStatus = orderStatus;
 		this.orderId = orderId;
 		this.orderList = orderList;
@@ -81,7 +81,7 @@ public class Order {
 	 * 
 	 * @return long
 	 */
-	public long getOrderId() {
+	public int getOrderId() {
 		return orderId;
 	}
 

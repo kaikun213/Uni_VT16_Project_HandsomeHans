@@ -195,6 +195,7 @@ div.carousel-caption>p {
 }
 #forms{
 	margin:40px 0 0 100px;
+	color:black;
 }
 
 /* *****************************
@@ -301,5 +302,19 @@ div.carousel-caption>p {
 	overflow: visible;
 	overflow-y: auto;
 	margin: 0px 0px 0px 210px;
-	clear: both;
 }
+
+/* *****************************
+	Admin search bar
+ ***************************** */
+
+ #adminsearchBar{
+ margin: 0px 0 0 320px;
+ padding:0px;
+ }
+ #adminOrderTable{
+ 	margin: -400px 130px 0 320px;
+ 	padding:0px;
+ 	height:380px;
+ 	overflow-y: auto;
+ }

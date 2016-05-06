@@ -9,7 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
+
+import org.primefaces.event.RowEditEvent;
 
 import baseClasses.Order.OrderStatus;
 import baseClasses.Order;
@@ -31,6 +35,7 @@ public class AdminPages extends Page implements Serializable {
 	 */
 	
 	private List<Order> orders;
+	private List<OrderStatus> status = new ArrayList<OrderStatus>();
 	private Order selectedOrder;
 	private List<String> category;
 	private String selectedCat;
@@ -39,7 +44,7 @@ public class AdminPages extends Page implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	public void adminAddProduct(){
-		toSQL(prod);
+		insertDB(prod);
 		Product temp = new Product();
 		prod = temp;
 	}
@@ -62,9 +67,12 @@ public class AdminPages extends Page implements Serializable {
 		ArrayList<Order> arr2 = new ArrayList<Order>();
 		arr2.add(o);
 		User u = new User(-99,"test",arr2,"Testemail", "password", false);
-		toSQL(u);
-		toSQL(p);
-		toSQL(o);
+		insertDB(u);
+		insertDB(p);
+		insertDB(o);
+		updateDB(u);
+		updateDB(p);
+		updateDB(o);
 	}
 
 	public Product getProd() {
@@ -77,6 +85,7 @@ public class AdminPages extends Page implements Serializable {
 	
 	// Set & Get Methods
 	public List<Order> getOrders(){
+		setOrders();
 		return orders;
 	}
 	
@@ -112,5 +121,28 @@ public class AdminPages extends Page implements Serializable {
 	public void setSelectedCat(String selectedCat) {
 		this.selectedCat = selectedCat;
 	}
+	
+	public List<OrderStatus> getStatus(){
+		setStatus();
+		return status;
+	}
+	
+	public void setStatus(){
+		if (status.size() > 0) return;
+		status.add(OrderStatus.IN_PROCESS);
+		status.add(OrderStatus.DELAYED);
+		status.add(OrderStatus.SHIPPED);
+	}
+	
+	public void onRowEdit(RowEditEvent event) {
+        FacesMessage msg = new FacesMessage("Order Edited", "Selected Order: " + Integer.toString(((Order) event.getObject()).getOrderId()));
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+        super.insertDB(((Order) event.getObject()));
+    }
+     
+    public void onRowCancel(RowEditEvent event) {
+        FacesMessage msg = new FacesMessage("Edit Cancelled", "Selected Order: " +Integer.toString(((Order) event.getObject()).getOrderId()));
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
 	
 }

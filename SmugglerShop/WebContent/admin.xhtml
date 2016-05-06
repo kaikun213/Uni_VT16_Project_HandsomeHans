@@ -2,7 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 
 <h:head>
 <title>Admin page</title>
@@ -23,46 +25,95 @@
 
 	<!-- Header -->
 	<div id="header">
-	<ui:include src="/header.xhtml" />
+		<ui:include src="/header.xhtml" />
 	</div>
 	<!-- Header finish -->	
 	
 		<!-- Sidebar -->	
 	<div id="sidebar">
-		
 		<ul id="sidebarlist">
-		<li class="active" id="sidebarstyle"><a id="sidebarlink" href="admin.xhtml">Items</a></li>
-		<li class="active" id="sidebarstyle"><a id="sidebarlink" href="admin.xhtml">Orders</a></li>
-		<li class="active" id="sidebarstyle"><a id="sidebarlink" href="admin.xhtml">Admins</a></li>
-		<li class="active" id="sidebarstyle"><a id="sidebarlink" href="mainpage.xhtml">Log Out</a></li>
+			<li class="active" id="sidebarstyle"><a id="sidebarlink" href="admin.xhtml">Items</a></li>
+			<li class="active" id="sidebarstyle"><a id="sidebarlink" href="admin.xhtml">Orders</a></li>
+			<li class="active" id="sidebarstyle"><a id="sidebarlink" href="admin.xhtml">Admins</a></li>
+			<li class="active" id="sidebarstyle"><a id="sidebarlink" href="mainpage.xhtml">Log Out</a></li>
 		</ul>
 	</div>
 	<!-- Sidebar finish -->	
 	
 	<!-- Content -->
 	<h:form id="adminContent">
+		
 		<h:commandButton action="#{adminPages.test()}" value="Test" />
 	
-	<h1>Scroll me</h1>
-	<h1>Scroll me</h1>
-	<h1>Scroll me</h1>
-	<h1>Scroll me</h1>
-	<h1>Scroll me</h1>
-	<h1>Scroll me</h1>
-	<h1>Scroll me</h1>
-	<h1>Scroll me</h1>
-	<h1>Scroll me</h1>
-	<h1>Scroll me</h1>
-	<h1>Scroll me</h1>
-	<h1>Scroll me</h1>
-	<h1>Scroll me</h1>
+	<!-- SearchBar -->
+			<h:form>
+				<div class="container-fluid">
+					<div class="col-xs-4" id="adminsearchBar">
+						<div class="form-group">
+							<h:inputText id="inputSearch" a:placeholder="Search Order"
+								type="text" class="form-control">
+							</h:inputText>
+						</div>
+					</div>
+					<h:commandButton class="btn btn-primary" href="admin.xhtml" value="Go!" />
+				</div>
+			</h:form>
+	<!-- End SearchBar -->
 	
+	
+	<p:growl id="msgs" showDetail="true"/>
+ 
+ 	<!-- Order Table -->
+ 	<div class="container-fluid" id="adminOrderTable">
+   			<div class="col-xs-12">
+   				<p:dataTable id="orders" var="order" value="#{adminPages.orders}" editable="true" style="margin-bottom:20px">
+       				<f:facet name="allOrders">All Orders</f:facet>
+ 						<p:ajax event="rowEdit" listener="#{adminPages.onRowEdit}" update=":adminContent:msgs" />
+       					<p:ajax event="rowEditCancel" listener="#{adminPages.onRowCancel}" update=":adminContent:msgs" />
+ 							<p:column headerText="Id">
+           						<p:cellEditor>
+               						<f:facet name="output"><h:outputText value="#{order.orderId}" /></f:facet>
+               						<f:facet name="input"><p:inputText id="modelInput" value="#{order.orderId}" style="width:100%"/></f:facet> 
+           						</p:cellEditor>
+       						</p:column>
+ 
+       						<p:column headerText="Order Date">
+           						<p:cellEditor>
+               						<f:facet name="output"><h:outputText value="#{order.orderDate}" /></f:facet>
+               						<f:facet name="input"><p:inputText value="#{order.orderDate}" style="width:100%" label="OrderDate"/></f:facet>
+           						</p:cellEditor>
+       						</p:column>
+ 
+       						<p:column headerText="Products">
+           						<p:cellEditor>
+               						<f:facet name="output"><ui:repeat value="#{order.orderList}" var="product"><li>#{product.name} : #{product.quantity}</li></ui:repeat></f:facet>
+               						<f:facet name="input"><ui:repeat value="#{order.orderList}" var="product"><li><p:inputText value="#{product.name}" /> : <p:inputText value="#{product.quantity}" /></li></ui:repeat>
+               						</f:facet>
+           						</p:cellEditor>
+       						</p:column>
+ 
+       						<p:column headerText="Status">
+           						<p:cellEditor>
+               						<f:facet name="output"><h:outputText value="#{order.orderStatus}" /></f:facet>
+               						<f:facet name="input">
+                   						<h:selectOneMenu value="#{order.orderStatus}" style="width:100%">
+                       						<f:selectItems value="#{adminPages.status}" var="status" itemLabel="#{status}" itemValue="#{order.orderStatus}" />
+                   						</h:selectOneMenu>
+               						</f:facet>
+           						</p:cellEditor>
+       						</p:column>
+ 
+       						<p:column style="width:32px">
+           						<p:rowEditor />
+       						</p:column>
+   				</p:dataTable>
+			</div>
+		</div>
+		<!-- Order Table -->
 	
 	</h:form>
 	<!-- Content finish -->
 
-	
-	
 	
 	<!-- Footer -->
 	<div id="footerPart">

@@ -3,7 +3,8 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 
 	<header>
 		<!-- Container Part -->
@@ -21,7 +22,7 @@
 				<h:form class="navbar-form navbar-left" role="search"
 					action="mainpage.xhtml?search=#{mainpage.search}">
 					<div class="form-group">
-						<h:inputText id="inputSearch" placeholder="Search By Product"
+						<h:inputText id="inputSearch" a:placeholder="Search By Product"
 							type="text" class="form-control" value="#{mainpage.search}"
 							size="30">
 							<f:ajax event="change" render="@form"></f:ajax>
@@ -60,29 +61,30 @@
 								<div class="row">
 									<div class="col-xs-12">
 										<h3 id="adminTitle">Admin Login</h3>
-										<form class="form" role="form" method="post" action="login"
+										<h:form class="form" role="form" method="post" action="login"
 											accept-charset="UTF-8" id="login-nav">
 											<div class="form-group">
-												<label class="sr-only" for="exampleInputEmail2">Username</label>
-												<input type="email" class="form-control"
-													id="exampleInputEmail2" placeholder="Email address"
+												
+												<h:inputText type="email" class="form-control"
+													id="exampleInputEmail2" a:placeholder="Username"
 													required=" " />
 											</div>
 											<div class="form-group">
-												<label class="sr-only" for="exampleInputPassword2">Password</label>
-												<input type="password" class="form-control"
-													id="exampleInputPassword2" placeholder="Password"
+												
+												<h:inputText type="password" class="form-control"
+													id="exampleInputPassword2" a:placeholder="Password"
 													required=" " />
 											</div>
 											<div class="form-group">
-												<button type="submit" class="btn btn-primary btn-block"
-													formaction="admin.xhtml">Sign in</button>
+											<h:commandButton action="admin.xhtml" value="Sign In" class="btn btn-primary btn-block" />
+												
 											</div>
-										</form>
+										</h:form>
 									</div>
 								</div>
 							</li>
-						</ul></li>
+						</ul>
+					</li>
 				</ul>
 			</div>
 			<!-- End Login -->
