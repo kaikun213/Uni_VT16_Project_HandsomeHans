@@ -2,6 +2,7 @@ package pages;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
@@ -26,6 +27,7 @@ public class AddRemoveAdmin extends Page implements Serializable {
 	private String eMail;
 	private String pWord;
 	private ArrayList<Order> arr = new ArrayList<Order>();
+	private List<User> users = new ArrayList<User>();
 	/**
 	 * Default serialVersionID generated from eclipse
 	 */
@@ -40,7 +42,12 @@ public class AddRemoveAdmin extends Page implements Serializable {
 		arr2.add(o);
 		User u = new User(0001, "test",arr2,"Testemail", "password", false);
 		super.updateDB(u);
-	}	
+	}
+	
+    public List<User> getUsers(){
+        return users;
+    }
+	
 	public void setUName(String uName){
 		this.uName = uName;
 	} 
@@ -71,10 +78,11 @@ public class AddRemoveAdmin extends Page implements Serializable {
 	public void addUser(){ 
 		admin.setAdmin(false);
 		admin.setOrders(arr);
+		users.add(admin);
 		super.insertDB(admin);
 	}
 	
 	public void removeUser(String uName){
 		super.updateDB("remove from webshopDB where name="+uName);
-	} 
+	}
 }
