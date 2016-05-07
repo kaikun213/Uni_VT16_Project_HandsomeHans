@@ -46,8 +46,8 @@
 		<h:commandButton action="#{adminPages.test()}" value="Test" />
 	
 	<!-- SearchBar -->
-			<h:form>
 				<div class="container-fluid">
+					<h:commandButton class="btn btn-primary" href="admin.xhtml" value="Go!" />
 					<div class="col-xs-4" id="adminsearchBar">
 						<div class="form-group">
 							<h:inputText id="inputSearch" a:placeholder="Search Order"
@@ -55,25 +55,22 @@
 							</h:inputText>
 						</div>
 					</div>
-					<h:commandButton class="btn btn-primary" href="admin.xhtml" value="Go!" />
 				</div>
-			</h:form>
 	<!-- End SearchBar -->
 	
 	
-	<p:growl id="msgs" showDetail="true"/>
  
  	<!-- Order Table -->
- 	 	
- 	<div class="container-fluid" id="adminOrderTable">
- 	
-  			<p:dataTable id="orders" var="order" value="#{adminPages.orders}" editable="true">
+ 	 	<div class="container-fluid" id="adminOrderTable">
+ 				<div class="col-xs-8"  id="tablestructure">
+ 				<p:growl id="msgs" showDetail="true"/>
+  						<p:dataTable id="orders" var="order" value="#{adminPages.orders}" editable="true">
        			
  						<p:ajax event="rowEdit" listener="#{adminPages.onRowEdit}" update=":adminContent:msgs" />
        					<p:ajax event="rowEditCancel" listener="#{adminPages.onRowCancel}" update=":adminContent:msgs" />
  							
  									
- 							<p:column headerText="Id" style="width:10%">
+ 							<p:column headerText="Id" style="width:8%">
            						<p:cellEditor>
                						<f:facet name="output"><h:outputText value="#{order.orderId}" size="5" /></f:facet>
                						<f:facet name="input"><p:inputText id="modelInput" value="#{order.orderId}" size="10" /></f:facet> 
@@ -81,7 +78,7 @@
        						</p:column>
        						
        						<p:column headerText="Order Date" style="width:15%">
-           						<p:cellEditor style="height:10px">
+           						<p:cellEditor>
                						<f:facet name="output"><h:outputText value="#{order.orderDate}" size="10"/></f:facet>
                						<f:facet name="input"><p:inputText value="#{order.orderDate}" label="OrderDate" size="15" /></f:facet>
            						</p:cellEditor>
@@ -92,7 +89,7 @@
            							<f:facet name="output">
            								<div id="adminOrderProduct">
 											<pre><ul class="list-group"><ui:repeat value="#{order.orderList}" var="product">  <li class="list-group-item"><h7><img src="#{product.image}"
-												alt="resources/img/HeaderLogo.png" width="100" height="50" class="img-thumbnail" />            <span>Qtn: #{product.quantity}           #{product.price} <i class="fa fa-gg-circle"></i></span><br />#{product.name}</h7></li>
+												alt="resources/img/HeaderLogo.png" width="100" height="50" class="img-thumbnail" />     <span>Qtn: #{product.quantity}     #{product.price} <i class="fa fa-gg-circle"></i></span><br />#{product.name}</h7></li>
 											</ui:repeat></ul></pre>
 										</div>
 									</f:facet>
@@ -113,18 +110,65 @@
            						</p:cellEditor>
        						</p:column>
  
-       						<p:column headerText="Edit" style="width:5%">
+       						<p:column headerText="Edit" style="width:8%">
            						<p:rowEditor />
        						</p:column>
    				</p:dataTable>
 			</div>
-		<!-- Order Table -->
-	
+			<!-- Order Table -->
+			
+		
+		<!-- Add order button -->
+		<div class="col-xs-4" id="adminButton">
+  			<a href="#demo" class="btn btn-info" data-toggle="collapse">Add Orders</a>
+  			<hr />
+ 				<div id="demo" class="collapse">
+ 					<table class="table table-bordered">
+    					<thead>
+     						 <tr>
+        						<th>Id</th>
+        						<th>Date</th>
+        						<th>Products</th>
+      							<th>Quantity</th>
+      							<th>Status</th>
+      						</tr>
+    					</thead>
+    
+    					<tbody>
+      						<tr>
+        						<td><h:inputText value="" id="id" size="3" /></td>
+          						<td><h:inputText value="" id="date" size="7" /></td>
+         						<td><h:inputText value="" id="product1" size="15" />
+        						<h:inputText value="" id="product2" size="15" />
+        						<h:inputText value="" id="product3" size="15" />
+        						<h:inputText value="" id="product4" size="15" />
+        						<h:inputText value="" id="product5" size="15" />
+        						<h:inputText value="" id="product6" size="15" /></td>			
+        						
+        						<td><h:inputText value="" id="quantity1" size="3" />
+        						<h:inputText value="" id="quantity2" size="3" />
+        						<h:inputText value="" id="quantity3" size="3" />
+        						<h:inputText value="" id="quantity4" size="3" />
+        						<h:inputText value="" id="quantity5" size="3" />
+        						<h:inputText value="" id="quantity6" size="3" /></td>
+        						
+        						<td><h:selectOneMenu value="#{order.orderStatus}">
+                       						<f:selectItems value="#{adminPages.status}" var="status" itemLabel="#{status}" itemValue="#{order.orderStatus}" />
+                   						</h:selectOneMenu></td>
+      						</tr>
+    					</tbody>
+  					</table>
+  					<hr />
+   				<h:commandButton action="admin.xhtml" value="Submit" class="btn btn-primary" />
+   				</div>
+			</div>
+				<!-- Finish Add order button -->
+		</div>
+		<!-- Finish container -->
 	</h:form>
 	<!-- Content finish -->
 
-	
-	<div id="MainpageSpace"></div>
+
 	<!-- Footer -->
 	<div id="footerPart">
 		<ui:include src="/footer.xhtml" />
