@@ -12,6 +12,7 @@ import java.util.List;
 
 import javax.enterprise.context.SessionScoped;
 /**
+ * View for watching a selected item from the shop
  * Henry and Ben 22-04-16
  */
 
@@ -33,9 +34,9 @@ public class ProductView extends Page implements Serializable {
 		return id;
 	}
 	
-	/*
-	 * Command line to fetch the product
-	 * "setContent" and "content" are from page class
+	/**
+	 * Sets the productView product array to input product ID. Array will be size of 1, if the product exists 
+	 * @param product ID you want to fetch
 	 */
 	public void setProduct(int id) {
 		try {
@@ -46,8 +47,10 @@ public class ProductView extends Page implements Serializable {
 		}
 	}
 	
-	/*
-	 * Get int value ID from xhtml and fetch the product 
+	/**
+	 * Creates a product array with ID wanting to fetch, return product at index 0
+	 * @param product ID you want to fetch
+	 * @return product that fits ID, otherwise dummy
 	 */
 	public Product getOneProduct(int id){
 		//if (products.size()<=0 && id == products.get(0).getId())
