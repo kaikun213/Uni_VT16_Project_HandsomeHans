@@ -15,6 +15,8 @@ import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
 import org.primefaces.event.RowEditEvent;
+import org.primefaces.event.SelectEvent;
+import org.primefaces.event.UnselectEvent;
 
 import baseClasses.Order.OrderStatus;
 import baseClasses.Order;
@@ -91,6 +93,8 @@ public class AdminPages extends Page implements Serializable {
 		updateDB(p);
 		updateDB(o);
 	}
+	
+	/* ******************************* admin Products **************************************** */
 
 	public Product getProd() {
 		return prod;
@@ -99,6 +103,16 @@ public class AdminPages extends Page implements Serializable {
 	public void setProd(Product prod) {
 		this.prod = prod;
 	}	
+	
+	public void onRowSelect(SelectEvent event) {
+        FacesMessage msg = new FacesMessage("Product Selected", Integer.toString(((Product) event.getObject()).getId()));
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+ 
+    public void onRowUnselect(UnselectEvent event) {
+        FacesMessage msg = new FacesMessage("Product Unselected", Integer.toString(((Product) event.getObject()).getId()));
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
 	
 	// Set & Get Methods
 	

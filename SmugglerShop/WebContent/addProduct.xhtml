@@ -23,8 +23,7 @@
 </h:head>
 
 <f:metadata>
-	<f:viewParam name="category" value="#{mainpage.category}"></f:viewParam>
-	<f:viewParam name="search" value="#{mainpage.search}"></f:viewParam>
+	<f:viewAction action="#{adminPages.init}"/>
 </f:metadata>
 
 <body>
@@ -52,7 +51,7 @@
  <div class="container-fluid">
   <div class="row">
    <div class="col-md-5 col-sm-6 col-xs-12 col-sm-offset-1">
-    <hform method="post">
+       <p:growl id="msgs" showDetail="true" />
      
      <h:outputText value="#{adminPages.prod.quantity}" id="bajs2" />
      
@@ -98,12 +97,12 @@
      
      
      
-    <p:dataTable id="eventsDT" var="product" value="#{mainpage.products}" selectionMode="single" selection="#{adminPages.prod}" rowKey="#{product.hashCode()}">
+    <p:dataTable id="eventsDT" var="product" value="#{adminPages.products}" selectionMode="single" selection="#{adminPages.prod}" rowKey="#{product.id}">
         <f:facet name="header">
             Select Product
         </f:facet>
-        <p:ajax event="rowSelect"  update="form:name" />
-        <p:ajax event="rowUnselect" update="form" />
+        <p:ajax event="rowSelect" listener="#{adminPages.onRowSelect}" update="@form" />
+        <p:ajax event="rowUnselect" listner="#{adminPages.onRowUnselect}" update="@form" />
         
         <p:column headerText="Id">
             <h:outputText value="#{product.id}" />
@@ -113,7 +112,6 @@
         </p:column>
     </p:dataTable>
      
-    </hform>
    </div>
   </div>
  </div>
