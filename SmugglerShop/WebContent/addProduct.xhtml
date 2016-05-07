@@ -23,8 +23,7 @@
 </h:head>
 
 <f:metadata>
-	<f:viewParam name="category" value="#{mainpage.category}"></f:viewParam>
-	<f:viewParam name="search" value="#{mainpage.search}"></f:viewParam>
+	<f:viewAction action="#{adminPages.init}"/>
 </f:metadata>
 
 <body>
@@ -54,7 +53,8 @@
  <!-- Start of input fields -->
  <div class="col-xs-4" id="forms">
   <div class="row">
-    <form method="post">
+   <div class="col-md-5 col-sm-6 col-xs-12 col-sm-offset-1">
+       <p:growl id="msgs" showDetail="true" />
      
      <!-- Test field -->
      <h:outputText value="#{adminPages.prod.quantity}" id="bajs2" />
@@ -98,19 +98,15 @@
        </h:commandButton>
       </div>
      </div>
-    </form>
-  </div>
-  </div> 
-  <!-- End of input fields -->
-  
-  <!-- Start of product list -->
-  <div class="col-xs-4" id="forms">
-      <p:dataTable id="eventsDT" var="product" value="#{mainpage.products}" selectionMode="single" selection="#{adminPages.prod}" rowKey="#{product.hashCode()}">
+     
+     
+     
+    <p:dataTable id="eventsDT" var="product" value="#{adminPages.products}" selectionMode="single" selection="#{adminPages.prod}" rowKey="#{product.id}">
         <f:facet name="header">
             Select Product
         </f:facet>
-        <p:ajax event="rowSelect"  update="form:name" />
-        <p:ajax event="rowUnselect" update="form" />
+        <p:ajax event="rowSelect" listener="#{adminPages.onRowSelect}" update="@form" />
+        <p:ajax event="rowUnselect" listner="#{adminPages.onRowUnselect}" update="@form" />
         
         <p:column headerText="Id">
             <h:outputText value="#{product.id}" />
@@ -119,6 +115,8 @@
             <h:outputText value="#{product.name}" />
         </p:column>
     </p:dataTable>
+     
+   </div>
   </div>
   <!-- End of product list -->
    
