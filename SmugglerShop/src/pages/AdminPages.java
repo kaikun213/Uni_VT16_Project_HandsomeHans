@@ -88,6 +88,10 @@ public class AdminPages extends Page implements Serializable {
 		prod = tempProd;
 	}
 	
+	public void adminDeleteProduct(){
+		deleteDB(prod);
+	}
+	
 	
 	public Product getProd() {
 		return prod;

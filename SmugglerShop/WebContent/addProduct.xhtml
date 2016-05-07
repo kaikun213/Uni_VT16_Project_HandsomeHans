@@ -100,6 +100,9 @@
        <h:commandButton class="btn btn-primary " name="clearFields" type="submit" value="Clear">
        		<f:ajax event="click" listener="#{adminPages.adminClearInputs()}" render="theHead @form"></f:ajax>
        </h:commandButton>
+       <h:commandButton class="btn btn-primary " name="delete" type="submit" value="Delete product">
+       		<f:ajax event="click" listener="#{adminPages.adminDeleteProduct()}" render="theHead @form"></f:ajax>
+       </h:commandButton>
       </div>
      </div>
    </div>
