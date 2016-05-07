@@ -50,6 +50,7 @@
 	<!-- SearchBar -->
 				<div class="container-fluid">
 					<h:commandButton action="#{adminPages.searchOrder()}" class="btn btn-primary" href="admin.xhtml" value="Go!" />
+					<h:commandButton action="#{adminPages.init()}" class="btn btn-primary" href="admin.xhtml" value="All Orders" />
 					<div class="col-xs-4" id="adminsearchBar">
 						<div class="form-group">
 							<h:inputText value="#{adminPages.searchOrder}" id="inputSearch" a:placeholder="Search Order"
@@ -60,36 +61,39 @@
 	<!-- End SearchBar -->
 	
 		<!-- New Order Input -->
-		<div class="row">
-		<div class="col-xs-4"></div>
-		<div class="col-xs-4">
+		<p:panelGrid columns="4" layout="grid"> 
+				<p:outputLabel  value="Order Date" />
+				<p:outputLabel  value="Products" />
+				<p:outputLabel  value="Status" />
+				<p:outputLabel  value="Add" />
+		
 				<p:inputText value="#{adminPages.newOrder.orderDate}" style="width:100%" label="OrderDate"/>
-				   
+				  
 				<p:selectManyMenu id="advanced" value="#{adminPages.newOrder.orderList}" converter="productConverter" var="t" filter="true" filterMatchMode="contains" showCheckbox="true">
             		<f:selectItems value="#{adminPages.products}" var="product" itemLabel="#{product.name}" itemValue="#{product}" />
- 					<!--    
-            		<p:column>
-               			 <h:outputText styleClass="ui-theme ui-theme-#{t.name}" />
-            		</p:column>
- 					-->
-           			 <p:column>
-               			 <h:outputText value="#{product.name}" />
-            		</p:column>
-       			 </p:selectManyMenu>
+       			 	<p:column>
+       			 		<h:graphicImage value="#{t.image}" width="50px" />
+       			 	</p:column>
+  
+       			 	<p:column>
+       			 		<h:outputText value="#{t.name}" />
+       			 	</p:column>
+       			 	<p:column>
+       			 		<h:outputText id="inputQuantity" value="#{t.quantity}" a:size="2" />
+       			 	</p:column>
+       			</p:selectManyMenu>
 				
 				<h:selectOneMenu value="#{adminPages.newOrder.orderStatus}" style="width:100%">
                        						<f:selectItems value="#{adminPages.status}" var="status" itemLabel="#{status}" itemValue="#{status}" />
                    						</h:selectOneMenu>
-				<h:commandButton action="#{adminPages.addNewOrder()}" value="Add" />	
-		</div>
-		<div class="col-xs-4"></div>	
-		</div>
+				<h:commandButton action="#{adminPages.addNewOrder}" value="Add" class="btn btn-primary" />	
+		</p:panelGrid>
 		<!-- End New Order Input -->
 		
-	 
+	 <br />
  	<!-- Order Table -->
  	 	<div class="container-fluid" id="adminOrderTable">
- 				<div class="col-xs-8"  id="tablestructure">
+ 				<div class="col-xs-11"  id="tablestructure">
   						<p:dataTable id="orders" var="order" value="#{adminPages.orders}" editable="true">
        			
  						<p:ajax event="rowEdit" listener="#{adminPages.onRowEdit}" update=":adminContent:msgs" />
@@ -120,7 +124,22 @@
 										</div>
 									</f:facet>
                						
-               						<f:facet name="input"><ui:repeat value="#{order.orderList}" var="product"><li><p:inputText size="15" value="#{product.name}" /> : <p:inputText size="5" value="#{product.quantity}" /></li></ui:repeat>
+               						<f:facet name="input"> 
+               							<p:inplace id="basic" label="Change Products">
+               							<p:selectManyMenu id="advanced" value="#{order.orderList}" converter="productConverter" var="t" filter="true" filterMatchMode="contains" showCheckbox="true">
+            								<f:selectItems value="#{adminPages.products}" var="product" itemLabel="#{product.name}" itemValue="#{product}" />
+       			 								<p:column>
+       			 									<h:graphicImage value="#{t.image}" width="50px" />
+       			 								</p:column>
+  
+       			 								<p:column>
+       			 									<h:outputText value="#{t.name}" />
+       			 								</p:column>
+       			 								<p:column>
+       			 									<h:outputText id="inputQuantity" value="#{t.quantity}" a:size="2" />
+       			 								</p:column>
+       									</p:selectManyMenu>
+       									</p:inplace>
                						</f:facet>
            						</p:cellEditor>
        						</p:column>
@@ -138,6 +157,10 @@
  
        						<p:column headerText="Edit" style="width:8%">
            						<p:rowEditor />
+       						</p:column>
+       						
+       						<p:column headerText="Remove" style="width:8%">
+           						<h:commandButton action="#{adminPages.deleteOrder(order)}" class="btn btn-primary" value="Remove" />
        						</p:column>
    				</p:dataTable>
 			</div>

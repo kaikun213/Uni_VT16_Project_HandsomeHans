@@ -23,7 +23,6 @@ import baseClasses.Order;
 import baseClasses.Page;
 import baseClasses.Product;
 import baseClasses.ProductList;
-import baseClasses.User;
 
 /**
  * @author kaikun
@@ -81,21 +80,6 @@ public class AdminPages extends Page implements Serializable {
 		return category;
 	}
 	
-	public void test(){
-		Product p = new Product("test","1", 123, "", "description", 100, 10);
-		ArrayList<Product> arr = new ArrayList<Product>();
-		arr.add(p);
-		Order o = new Order(100,arr,"date",OrderStatus.IN_PROCESS);
-		ArrayList<Order> arr2 = new ArrayList<Order>();
-		arr2.add(o);
-		User u = new User(-99,"test",arr2,"Testemail", "password", false);
-		insertDB(u);
-		insertDB(p);
-		insertDB(o);
-		updateDB(u);
-		updateDB(p);
-		updateDB(o);
-	}
 	
 	/* ******************************* admin Products **************************************** */
 
@@ -199,10 +183,23 @@ public class AdminPages extends Page implements Serializable {
     public void addNewOrder(){
     	System.out.println("New Order: Date:" + nOrder.getOrderDate() + " , Status:" + nOrder.getOrderStatus());
     	super.insertDB(nOrder);
+    	init();
+    	super.notify("Successful added.", "Order Number: " + orders.get(orders.size()-1).getOrderId());
     }
     
     public void searchOrder(){
-    	
+		setContent("SELECT * FROM orders WHERE id="+ searchOrder+";");
+		try {
+			orders = toOrders(content);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+    }
+    
+    public void deleteOrder(Order o){
+    	super.deleteDB(o);
+    	init();
     }
     
     /* ************************************** Methods for SelectProductsMenu *************************************************** */

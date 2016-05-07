@@ -23,7 +23,7 @@ public class ProductConverter implements Converter {
         if(value != null && value.trim().length() > 0) {
             try {
                 ProductList service = (ProductList) fc.getExternalContext().getApplicationMap().get("productList");
-                return service.getProducts().get(Integer.parseInt(value));
+                return service.getProducts().get(Integer.parseInt(value)-1);
             } catch(NumberFormatException e) {
                 throw new ConverterException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Conversion Error", "Not a valid theme."));
             }
