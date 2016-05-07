@@ -58,12 +58,12 @@
 			<h3 id="title">List of Administrators</h3>
 			<div id="list">
 				<ul class="list-group">
-					<ui:repeat var="basketItem" value="#{mainpage.products}">
+					<ui:repeat var="basketItem" value="#{addRemoveAdmin.users}">
 						<li class="list-group-item"><h5>
-								<br />Admin
-							</h5> <h:commandButton action="#{AddRemoveAdmin.remove()}"
+								<br></br>#{addRemoveAdmin.admin.name}<br></br> #{addRemoveAdmin.admin.email}
+							</h5> <h:commandButton action="#{addRemoveAdmin.removeUser()}"
 								value="Remove" class="btn btn-primary" href="#">
-								<f:param name="pID" value="#{basketItem.id}"></f:param>
+								<f:param name="pID" value="#{addRemoveAdmin.admin}"></f:param>
 							</h:commandButton></li>
 					</ui:repeat>
 				</ul>
