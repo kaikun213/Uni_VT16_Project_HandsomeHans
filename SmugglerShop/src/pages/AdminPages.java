@@ -10,6 +10,7 @@ import java.util.List;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
@@ -19,6 +20,7 @@ import baseClasses.Order.OrderStatus;
 import baseClasses.Order;
 import baseClasses.Page;
 import baseClasses.Product;
+import baseClasses.ProductList;
 import baseClasses.User;
 
 /**
@@ -34,14 +36,29 @@ public class AdminPages extends Page implements Serializable {
 	 * Default serialVersionID generated from eclipse
 	 */
 	
-	private List<Order> orders;
+	private List<Order> orders = new ArrayList<Order>();
 	private List<OrderStatus> status = new ArrayList<OrderStatus>();
-	private Order selectedOrder;
+	private Order nOrder =  new Order();
+	private String searchOrder = "";
+	
+	private List<Product> products = new ArrayList<Product>();
+	
+    @ManagedProperty("#{productList}")
+	private ProductList productService = new ProductList();
+	
+	
 	private List<String> category;
 	private String selectedCat;
 	private Product prod;
 	
 	private static final long serialVersionUID = 1L;
+	
+	public void init() {
+		setOrders();
+		setStatus();
+		products = productService.getProducts();
+		System.out.println(products.size());
+	}
 	
 	public void adminAddProduct(){
 		insertDB(prod);
@@ -84,8 +101,8 @@ public class AdminPages extends Page implements Serializable {
 	}	
 	
 	// Set & Get Methods
+	
 	public List<Order> getOrders(){
-		setOrders();
 		return orders;
 	}
 	
@@ -98,12 +115,12 @@ public class AdminPages extends Page implements Serializable {
 		}
 	}
 	
-	public Order getSelectedOrder(){
-		return selectedOrder;
+	public Order getNewOrder(){
+		return nOrder;
 	}
 	
-	public void setSelectedOrder(Order o){
-		selectedOrder = o;
+	public void setNewOrder(Order o){
+		nOrder = o;
 	}
 
 	public List<String> getCategory() {
@@ -134,15 +151,45 @@ public class AdminPages extends Page implements Serializable {
 		status.add(OrderStatus.SHIPPED);
 	}
 	
+	public String getSearchOrder(){
+		return searchOrder;
+	}
+	
+	public void setSearchOrder(String s){
+		searchOrder = s;
+	}
+	
+	/* *************************************** Admin Order Methods ******************************* */
+	
 	public void onRowEdit(RowEditEvent event) {
         FacesMessage msg = new FacesMessage("Order Edited", "Selected Order: " + Integer.toString(((Order) event.getObject()).getOrderId()));
         FacesContext.getCurrentInstance().addMessage(null, msg);
-        super.insertDB(((Order) event.getObject()));
+        System.out.println(((Order) event.getObject()).getOrderDate());
+        super.updateDB(((Order) event.getObject()));
     }
      
     public void onRowCancel(RowEditEvent event) {
         FacesMessage msg = new FacesMessage("Edit Cancelled", "Selected Order: " +Integer.toString(((Order) event.getObject()).getOrderId()));
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
+    
+    public void addNewOrder(){
+    	System.out.println("New Order: Date:" + nOrder.getOrderDate() + " , Status:" + nOrder.getOrderStatus());
+    	super.insertDB(nOrder);
+    }
+    
+    public void searchOrder(){
+    	
+    }
+    
+    /* ************************************** Methods for SelectProductsMenu *************************************************** */
+    public void setProductList(ProductList service) {
+        this.productService = service;
+    }
+    
+    public List<Product> getProducts(){
+    	return products;
+    }
+
 	
 }
