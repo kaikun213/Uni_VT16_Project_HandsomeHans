@@ -64,8 +64,11 @@ public class AdminPages extends Page implements Serializable {
 	
 	public void adminAddProduct(){
 		insertDB(prod);
-		Product temp = new Product();
-		prod = temp;
+		
+	}
+	public void adminUpdateProduct(){
+		updateDB(prod);
+
 	}
 	
 	public List<String> adminSetCategories(){
@@ -96,6 +99,12 @@ public class AdminPages extends Page implements Serializable {
 	
 	/* ******************************* admin Products **************************************** */
 
+	public void adminClearInputs(){
+		Product tempProd = new Product();
+		prod = tempProd;
+	}
+	
+	
 	public Product getProd() {
 		return prod;
 	}

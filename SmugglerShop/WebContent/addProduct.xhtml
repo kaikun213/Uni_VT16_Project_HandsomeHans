@@ -50,14 +50,12 @@
 <div class="bootstrap-iso">
  <div class="container-fluid">
  
- <!-- Start of input fields -->
+ 
+ 
+ <!-- Start input fields -->
  <div class="col-xs-4" id="forms">
   <div class="row">
-   <div class="col-md-5 col-sm-6 col-xs-12 col-sm-offset-1">
-       <p:growl id="msgs" showDetail="true" />
-     
-     <!-- Test field -->
-     <h:outputText value="#{adminPages.prod.quantity}" id="bajs2" />
+     <p:growl id="msgs" showDetail="true" />
      
      <div class="form-group ">
       <label class="control-label " for="name">Name</label>
@@ -96,12 +94,22 @@
        <h:commandButton class="btn btn-primary " name="submit" type="submit" value="Add Product">
        		<f:ajax event="click" listener="#{adminPages.adminAddProduct()}" render="theHead @form"></f:ajax>
        </h:commandButton>
+       <h:commandButton class="btn btn-primary " name="update" type="submit" value="Edit Product">
+       		<f:ajax event="click" listener="#{adminPages.adminUpdateProduct()}" render="theHead @form"></f:ajax>
+       </h:commandButton>
+       <h:commandButton class="btn btn-primary " name="clearFields" type="submit" value="Clear">
+       		<f:ajax event="click" listener="#{adminPages.adminClearInputs()}" render="theHead @form"></f:ajax>
+       </h:commandButton>
       </div>
      </div>
-     
-     
-     
-    <p:dataTable id="eventsDT" var="product" value="#{adminPages.products}" selectionMode="single" selection="#{adminPages.prod}" rowKey="#{product.id}">
+   </div>
+  </div>
+  <!-- End input fields -->
+  
+  <!-- Start product list -->
+  <div class="col-xs-4" id="forms">
+  
+      <p:dataTable id="eventsDT" var="product" value="#{adminPages.products}" selectionMode="single" selection="#{adminPages.prod}" rowKey="#{product.id}">
         <f:facet name="header">
             Select Product
         </f:facet>
@@ -115,20 +123,20 @@
             <h:outputText value="#{product.name}" />
         </p:column>
     </p:dataTable>
-     
-   </div>
-  </div>
-  <!-- End of product list -->
-   
+    </div>
+    <!-- Start product list -->
+  
+  
  </div>
 </div>
 </h:form>
-<!-- End of content -->
+<!-- End content -->
 	
 	<!-- Footer -->
 	<div id="footerPart">
 		<ui:include src="/footer.xhtml" />
 	</div>
 	<!-- Footer finish -->
+
 </body>
 </html>
