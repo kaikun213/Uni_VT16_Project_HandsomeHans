@@ -1,6 +1,7 @@
 package pages;
 
 import java.io.Serializable;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +34,15 @@ public class AddRemoveAdmin extends Page implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	public void init(){
+		setContent("SELECT * FROM user;");
+		try {
+			users = toUsers(content);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public void test(){
 		Product p = new Product("test","1", 123, "", "description", 100, 10);
 		ArrayList<Product> arr = new ArrayList<Product>();
@@ -45,6 +55,7 @@ public class AddRemoveAdmin extends Page implements Serializable {
 	}
 	
     public List<User> getUsers(){
+    	System.out.println(users.size());
         return users;
     }
 	
