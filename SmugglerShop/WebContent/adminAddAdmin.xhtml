@@ -27,6 +27,11 @@
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 	<script src="resources/js/footerFix.js"></script>
 </h:head>
+
+<f:metadata>
+	<f:viewAction action="#{addRemoveAdmin.init()}"/>
+</f:metadata>
+
 <body>
 
 	<!-- Header -->
@@ -58,13 +63,11 @@
 			<h3 id="title">List of Administrators</h3>
 			<div id="list">
 				<ul class="list-group">
-					<ui:repeat var="basketItem" value="#{addRemoveAdmin.users}">
-						<li class="list-group-item"><h5>
-								<br></br>#{addRemoveAdmin.admin.name}<br></br> #{addRemoveAdmin.admin.email}
-							</h5> <h:commandButton action="#{addRemoveAdmin.removeUser()}"
-								value="Remove" class="btn btn-primary" href="#">
-								<f:param name="pID" value="#{addRemoveAdmin.admin}"></f:param>
-							</h:commandButton></li>
+					
+					<ui:repeat var="admin" value="#{addRemoveAdmin.users}">
+					<li>
+					#{admin.name} : #{admin.email}
+					</li>
 					</ui:repeat>
 				</ul>
 			</div>
