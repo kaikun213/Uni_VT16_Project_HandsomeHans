@@ -67,6 +67,7 @@
 					<ui:repeat var="admin" value="#{addRemoveAdmin.users}">
 					<li>
 					#{admin.name} : #{admin.email}
+					<h:commandButton action="#{addRemoveAdmin.removeUser(admin)}" value="Remove" class="btn btn-primary active" />
 					</li>
 					</ui:repeat>
 				</ul>

@@ -24,9 +24,6 @@ import baseClasses.User;
 public class AddRemoveAdmin extends Page implements Serializable {
 	
 	private User admin = new User();
-	private String uName;
-	private String eMail;
-	private String pWord;
 	private ArrayList<Order> arr = new ArrayList<Order>();
 	private List<User> users = new ArrayList<User>();
 	/**
@@ -59,24 +56,6 @@ public class AddRemoveAdmin extends Page implements Serializable {
         return users;
     }
 	
-	public void setUName(String uName){
-		this.uName = uName;
-	} 
-	public void setEMail(String eMail){
-		this.eMail = eMail;
-	}
-	public void setPWord(String pWord){
-		this.pWord = pWord;
-	}
-	public String getPWord(){
-		return pWord;
-	}
-	public String getEMail(){
-		return eMail;
-	}
-	public String getUName(){
-		return uName;
-	}
 	
 	public User getAdmin(){
 		return admin;
@@ -89,11 +68,16 @@ public class AddRemoveAdmin extends Page implements Serializable {
 	public void addUser(){ 
 		admin.setAdmin(false);
 		admin.setOrders(arr);
-		users.add(admin);
 		super.insertDB(admin);
+		// reset fields
+		admin = new User();
+		// load DB Admin list new
+		init();
 	}
 	
-	public void removeUser(String uName){
-		super.updateDB("remove from webshopDB where name="+uName);
+	public void removeUser(User u){
+		super.deleteDB(u);
+		// load DB Admin list new
+		init();
 	}
 }
