@@ -50,10 +50,13 @@
 <!-- HTML Form (wrapped in a .bootstrap-iso div) -->
 <div class="bootstrap-iso">
  <div class="container-fluid">
+ 
+ <!-- Start of input fields -->
+ <div class="col-xs-4" id="forms">
   <div class="row">
-   <div class="col-md-5 col-sm-6 col-xs-12 col-sm-offset-1">
-    <hform method="post">
+    <form method="post">
      
+     <!-- Test field -->
      <h:outputText value="#{adminPages.prod.quantity}" id="bajs2" />
      
      <div class="form-group ">
@@ -95,10 +98,14 @@
        </h:commandButton>
       </div>
      </div>
-     
-     
-     
-    <p:dataTable id="eventsDT" var="product" value="#{mainpage.products}" selectionMode="single" selection="#{adminPages.prod}" rowKey="#{product.hashCode()}">
+    </form>
+  </div>
+  </div> 
+  <!-- End of input fields -->
+  
+  <!-- Start of product list -->
+  <div class="col-xs-4" id="forms">
+      <p:dataTable id="eventsDT" var="product" value="#{mainpage.products}" selectionMode="single" selection="#{adminPages.prod}" rowKey="#{product.hashCode()}">
         <f:facet name="header">
             Select Product
         </f:facet>
@@ -112,19 +119,18 @@
             <h:outputText value="#{product.name}" />
         </p:column>
     </p:dataTable>
-     
-    </hform>
-   </div>
   </div>
+  <!-- End of product list -->
+   
  </div>
 </div>
 </h:form>
+<!-- End of content -->
 	
 	<!-- Footer -->
 	<div id="footerPart">
 		<ui:include src="/footer.xhtml" />
 	</div>
 	<!-- Footer finish -->
-
 </body>
 </html>
