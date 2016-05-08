@@ -267,7 +267,7 @@ div.carousel-caption>p {
 #sidebar{
 	background:#CDC0B4;
 	width:200px;
-	height:70%;
+	height:80%;
 	display:block;
 	position:absolute;
 	left:0px;
@@ -309,28 +309,20 @@ div.carousel-caption>p {
  ***************************** */
 
  #adminsearchBar{
- margin: 0px 0 0 150px;
+ margin: 50px 0 0 100px;
  padding:0px;
 
  }
 
  #tablestructure{
- margin: 0px 0 10px 10px;
+ margin: 0px 0 10px 20px;
  padding:0px;
 
  } 
  
- #adminButton{
- margin: 0px 5px 0px 30px;
- padding:0px;
- width:350px;
- max-height:500px;
- overflow-y:auto;
- overflow-x:auto;
- }
  #adminOrderTable{
  	width:100%;
- 	margin: 0px 0px 0px 0px;
+ 	margin: 5px 0px 10px 0px;
  	padding:0px;
  	overflow-y: auto;
  }
@@ -345,4 +337,12 @@ Admin Order tabel product layout
 	overflow-y:auto;
 	margin:0;
 }
-
+#orderEdit{
+	width:91%;
+	border:5px ridge #766A5E;
+	margin:30px 20px 0 20px;
+	padding:5px;
+	max-height:400px;
+	overflow-y:auto;
+	
+}

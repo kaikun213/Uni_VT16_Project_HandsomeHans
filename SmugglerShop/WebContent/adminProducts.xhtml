@@ -3,7 +3,8 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+        xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 
 <h:head>
 	<title>SmugglerShop</title>
@@ -42,21 +43,24 @@
 	</ol>
 	<!--End navigation bar -->
 		
-
-<!-- Start Content -->
-<style>.bootstrap-iso .formden_header h2, .bootstrap-iso .formden_header p, .bootstrap-iso form{font-family: Arial, Helvetica, sans-serif; color: black}.bootstrap-iso form button, .bootstrap-iso form button:hover{color: white !important;} .asteriskField{color: red;}</style>
-<h:form id="form">
-
-<!-- Sidebar -->
-	<div id="sidebar">
+	<!-- Sidebar -->	
+	<h:form id="sidebar">
 		<ul id="sidebarlist">
 			<li class="active" id="sidebarstyle"><a id="sidebarlink" href="adminProducts.xhtml">Products</a></li>
 			<li class="active" id="sidebarstyle"><a id="sidebarlink" href="adminOrders.xhtml">Orders</a></li>
-			<li class="active" id="sidebarstyle"><a id="sidebarlink" href="adminAccounts.xhtml">Accounts</a></li>
-			<li class="active" id="sidebarstyle"><h:commandButton id="sidebarlink" action="#{adminPages.Logout}" value=" Logout" /></li>
-		</ul>
-	</div>
-	<!-- Sidebar finish -->
+			<li class="active" id="sidebarstyle"><a id="sidebarlink" href="adminAccounts.xhtml">Admins</a></li>
+			</ul>
+			<h:commandButton action="#{adminPages.Logout}" class="btn btn-primary btn-block" value="Logout" />
+		</h:form>
+	<!-- Sidebar finish -->	
+
+
+<!-- Start Content -->
+<style>.bootstrap-iso .formden_header h2, .bootstrap-iso .formden_header p, .bootstrap-iso form{font-family: Arial, Helvetica, sans-serif; color: black}.bootstrap-iso form button, .bootstrap-iso form button:hover{color: white !important;} .asteriskField{color: red;}</style>
+
+<h:form id="adminContent">
+<p:growl id="msgs" showDetail="true" />
+
 
 <!-- HTML Form (wrapped in a .bootstrap-iso div) -->
 <div class="bootstrap-iso">
@@ -67,7 +71,7 @@
  <!-- Start input fields -->
  <div class="col-xs-4" id="forms">
   <div class="row">
-     <p:growl id="msgs" showDetail="true" />
+     
      
      <div class="form-group ">
       <label class="control-label " for="name">Name</label>
@@ -137,10 +141,9 @@
         <p:column headerText="Product">
             <h:outputText value="#{product.name}" />
         </p:column>
-    </p:dataTable>
-    </div>
+   	 </p:dataTable>
+  </div>
     <!-- Start product list -->
-  
   
  </div>
 </div>
@@ -152,6 +155,5 @@
 		<ui:include src="/footer.xhtml" />
 	</div>
 	<!-- Footer finish -->
-
 </body>
 </html>

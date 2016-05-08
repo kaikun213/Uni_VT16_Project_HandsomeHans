@@ -7,8 +7,8 @@
       xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 
 <h:head>
-<title>Admin page</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Admin order page</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	
 	<!-- css files -->
 	<link rel="stylesheet" href="resources/css/style.css" />
@@ -20,78 +20,92 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 	<script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 	<script src="resources/js/footerFix.js"></script>
-</h:head>
-<f:metadata>
-	<f:viewAction action="#{adminPages.init}"/>
-</f:metadata>
-<body>
 
+</h:head>
+	
+	<f:metadata>
+		<f:viewAction action="#{adminPages.init}" />
+	</f:metadata>
+
+<body>
+	
 	<!-- Header -->
 	<div id="header">
 		<ui:include src="/header.xhtml" />
 	</div>
 	<!-- Header finish -->	
 	
-	<!-- Content -->
-	<h:form id="adminContent">
-	
-	<!-- Sidebar -->
-	<div id="sidebar">
+	<!-- Sidebar -->	
+	<h:form id="sidebar">
 		<ul id="sidebarlist">
 			<li class="active" id="sidebarstyle"><a id="sidebarlink" href="adminProducts.xhtml">Products</a></li>
 			<li class="active" id="sidebarstyle"><a id="sidebarlink" href="adminOrders.xhtml">Orders</a></li>
-			<li class="active" id="sidebarstyle"><a id="sidebarlink" href="adminAccounts.xhtml">Accounts</a></li>
-			<li class="active" id="sidebarstyle"><h:commandButton id="sidebarlink" action="#{adminPages.Logout}" value="Logout" /></li>
-		</ul>
-	</div>
-	<!-- Sidebar finish -->
-		<p:growl id="msgs" showDetail="true"/>		
+			<li class="active" id="sidebarstyle"><a id="sidebarlink" href="adminAccounts.xhtml">Admins</a></li>
+			</ul>
+			<h:commandButton action="#{adminPages.Logout}" class="btn btn-primary btn-block" value="Logout" />
+		</h:form>
+	<!-- Sidebar finish -->	
 	
-	<!-- SearchBar -->
-				<div class="container-fluid">
-					<h:commandButton action="#{adminPages.searchOrder()}" class="btn btn-primary" href="admin.xhtml" value="Go!" />
-					<h:commandButton action="#{adminPages.init()}" class="btn btn-primary" href="admin.xhtml" value="All Orders" />
-					<div class="col-xs-4" id="adminsearchBar">
-						<div class="form-group">
-							<h:inputText value="#{adminPages.searchOrder}" id="inputSearch" a:placeholder="Search Order"
-								type="text" class="form-control"> </h:inputText>
-						</div>
+	<!-- Content -->
+	<h:form id="adminContent">	
+	<p:growl id="msgs" showDetail="true"/>
+			<!-- Add New Order -->
+			<div class="container-fluid" id="orderEdit">
+				<div class="col-xs-3">
+				 		<p:outputLabel  value="OrderID" /><br /><h:inputText value="#{adminPages.newOrder.orderId}" a:placeholder="Order ID" /><hr />
+				 		<p:outputLabel  value="Order Date" /><br /><h:inputText value="#{adminPages.newOrder.orderDate}" a:placeholder="DDMMYYY" /><hr />
+						<p:outputLabel  value="Status" /><br /><h:selectOneMenu value="#{adminPages.newOrder.orderStatus}">
+      						<f:selectItems value="#{adminPages.status}" var="status" itemLabel="#{status}" itemValue="#{status}" />
+                   			</h:selectOneMenu><hr />
+                   		<h:commandButton action="#{adminPages.addNewOrder}" value="Add" class="btn btn-primary" />	
 					</div>
+				
+				<div class="col-xs-2"></div>
+				
+				<div class="col-xs-7">
+						<p:outputLabel  value="Products" />
+						<p:selectManyMenu id="advanced" value="#{adminPages.newOrder.orderList}" converter="productConverter" var="t" filter="true" filterMatchMode="contains" showCheckbox="true" style="width:100%">
+            				<f:selectItems value="#{adminPages.products}" var="product" itemLabel="#{product.name}" itemValue="#{product}" />
+ 								<p:column>
+       			 					<h:graphicImage value="#{t.image}" width="100" height="100" class="img-thumbnail" />
+       			 				</p:column>
+ 								
+ 								<p:column>
+       			 					<h:outputText value="#{t.name}" />
+       			 				</p:column>
+       			 	
+       			 				<p:column>
+       			 					<h:outputText id="inputQuantity" value="#{t.quantity}" a:size="2" />
+       			 				</p:column>
+       			 		</p:selectManyMenu>
+       			</div>		
+		 </div>
+		<!-- End Add New Order -->
+		 
+		 
+		 <!-- SearchBar -->
+		<div class="container-fluid" id="adminsearchBar">
+			<div class="col-xs-5">
+				<div class="form-group">
+					<h:inputText value="#{adminPages.searchOrder}" id="inputSearch" a:placeholder="Search Order"
+							type="text" class="form-control"></h:inputText>
 				</div>
+			</div>
+			
+				<div class="col-xs-1">
+					<h:commandButton action="#{adminPages.searchOrder()}" class="btn btn-primary" value="Go!" />
+				</div>
+				
+				<div class="col-xs-3"></div>
+				
+				<div class="col-xs-1">
+					<h:commandButton action="#{adminPages.init()}" class="btn btn-primary" value="All Orders" />
+				</div>
+				
+		</div>
 	<!-- End SearchBar -->
 	
-		<!-- New Order Input -->
-		<p:panelGrid columns="4" layout="grid"> 
-				<p:outputLabel  value="Order Date" />
-				<p:outputLabel  value="Products" />
-				<p:outputLabel  value="Status" />
-				<p:outputLabel  value="Add" />
-		
-				<p:inputText value="#{adminPages.newOrder.orderDate}" style="width:100%" label="OrderDate"/>
-				  
-				<p:selectManyMenu id="advanced" value="#{adminPages.newOrder.orderList}" converter="productConverter" var="t" filter="true" filterMatchMode="contains" showCheckbox="true">
-            		<f:selectItems value="#{adminPages.products}" var="product" itemLabel="#{product.name}" itemValue="#{product}" />
-       			 	<p:column>
-       			 		<h:graphicImage value="#{t.image}" width="50px" />
-       			 	</p:column>
-  
-       			 	<p:column>
-       			 		<h:outputText value="#{t.name}" />
-       			 	</p:column>
-       			 	<p:column>
-       			 		<h:outputText id="inputQuantity" value="#{t.quantity}" a:size="2" />
-       			 	</p:column>
-       			</p:selectManyMenu>
-				
-				<h:selectOneMenu value="#{adminPages.newOrder.orderStatus}" style="width:100%">
-                       						<f:selectItems value="#{adminPages.status}" var="status" itemLabel="#{status}" itemValue="#{status}" />
-                   						</h:selectOneMenu>
-				<h:commandButton action="#{adminPages.addNewOrder}" value="Add" class="btn btn-primary" />	
-		</p:panelGrid>
-		<!-- End New Order Input -->
-		
-	 <br />
- 	<!-- Order Table -->
+	<!-- Order Table -->
  	 	<div class="container-fluid" id="adminOrderTable">
  				<div class="col-xs-11"  id="tablestructure">
   						<p:dataTable id="orders" var="order" value="#{adminPages.orders}" editable="true">
@@ -102,21 +116,21 @@
  									
  							<p:column headerText="Id" style="width:8%">
            						<p:cellEditor>
-               						<f:facet name="output"><h:outputText value="#{order.orderId}" size="5" /></f:facet>
-               						<f:facet name="input"><p:inputText id="modelInput" value="#{order.orderId}" size="10" /></f:facet> 
+               						<f:facet name="output"><h:outputText value="#{order.orderId}" /></f:facet>
+               						<f:facet name="input"><p:inputText id="modelInput" value="#{order.orderId}" /></f:facet> 
            						</p:cellEditor>
        						</p:column>
        						
        						<p:column headerText="Order Date" style="width:15%">
            						<p:cellEditor>
-               						<f:facet name="output"><h:outputText value="#{order.orderDate}" size="10"/></f:facet>
-               						<f:facet name="input"><p:inputText value="#{order.orderDate}" label="OrderDate" size="15" /></f:facet>
+               						<f:facet name="output"><h:outputText value="#{order.orderDate}" /></f:facet>
+               						<f:facet name="input"><p:inputText value="#{order.orderDate}" label="OrderDate" /></f:facet>
            						</p:cellEditor>
        						</p:column>
  
        						<p:column headerText="Products">
            						<p:cellEditor>
-           							<f:facet name="output">
+           						<f:facet name="output">
            								<div id="adminOrderProduct">
 											<pre><ul class="list-group"><ui:repeat value="#{order.orderList}" var="product">  <li class="list-group-item"><h7><img src="#{product.image}"
 												alt="resources/img/HeaderLogo.png" width="100" height="50" class="img-thumbnail" />     <span>Qtn: #{product.quantity}     #{product.price} <i class="fa fa-gg-circle"></i></span><br />#{product.name}</h7></li>
@@ -126,29 +140,30 @@
                						
                						<f:facet name="input"> 
                							<p:inplace id="basic" label="Change Products">
-               							<p:selectManyMenu id="advanced" value="#{order.orderList}" converter="productConverter" var="t" filter="true" filterMatchMode="contains" showCheckbox="true">
-            								<f:selectItems value="#{adminPages.products}" var="product" itemLabel="#{product.name}" itemValue="#{product}" />
-       			 								<p:column>
-       			 									<h:graphicImage value="#{t.image}" width="50px" />
-       			 								</p:column>
+               								<p:selectManyMenu id="advanced" value="#{order.orderList}" converter="productConverter" var="t" filter="true" filterMatchMode="contains" showCheckbox="true" style="width:100%">
+            									<f:selectItems value="#{adminPages.products}" var="product" itemLabel="#{product.name}" itemValue="#{product}" />
+       			 									<p:column>
+       			 										<h:graphicImage value="#{t.image}" width="100" height="50" class="img-thumbnail" />
+       			 									</p:column>
   
-       			 								<p:column>
-       			 									<h:outputText value="#{t.name}" />
-       			 								</p:column>
-       			 								<p:column>
-       			 									<h:outputText id="inputQuantity" value="#{t.quantity}" a:size="2" />
-       			 								</p:column>
+       			 									<p:column>
+       			 										<h:outputText value="#{t.name}" />
+       			 									</p:column>
+       			 								
+       			 									<p:column>
+       			 										<h:outputText id="inputQuantity" value="#{t.quantity}" a:size="2" />
+       			 									</p:column>
        									</p:selectManyMenu>
-       									</p:inplace>
-               						</f:facet>
-           						</p:cellEditor>
-       						</p:column>
+       								</p:inplace>
+               					</f:facet>
+           					</p:cellEditor>
+       					</p:column>
  
        						<p:column headerText="Status" style="width:20%">
            						<p:cellEditor>
                						<f:facet name="output"><h:outputText value="#{order.orderStatus}" /></f:facet>
                						<f:facet name="input">
-                   						<h:selectOneMenu value="#{order.orderStatus}" style="width:50%">
+                   						<h:selectOneMenu value="#{order.orderStatus}">
                        						<f:selectItems value="#{adminPages.status}" var="status" itemLabel="#{status}" itemValue="#{status}" />
                    						</h:selectOneMenu>
                						</f:facet>
@@ -159,15 +174,14 @@
            						<p:rowEditor />
        						</p:column>
        						
-       						<p:column headerText="Remove" style="width:8%">
+       						<p:column headerText="Remove" style="width:10%">
            						<h:commandButton action="#{adminPages.deleteOrder(order)}" class="btn btn-primary" value="Remove" />
        						</p:column>
    				</p:dataTable>
 			</div>
-			<!-- Order Table -->
-			
 		</div>
-		<!-- Finish container -->
+		
+		<!-- Order Table -->
 	</h:form>
 	<!-- Content finish -->
 

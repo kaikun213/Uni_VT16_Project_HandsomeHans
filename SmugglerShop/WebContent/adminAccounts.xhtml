@@ -39,30 +39,27 @@
 	</div>
 	<!-- Header finish -->
 
-
-	<!-- Content -->
-	<h:form id="adminContent">
-	<!-- Sidebar -->
-	<div id="sidebar">
+	<!-- Sidebar -->	
+	<h:form id="sidebar">
 		<ul id="sidebarlist">
 			<li class="active" id="sidebarstyle"><a id="sidebarlink" href="adminProducts.xhtml">Products</a></li>
 			<li class="active" id="sidebarstyle"><a id="sidebarlink" href="adminOrders.xhtml">Orders</a></li>
-			<li class="active" id="sidebarstyle"><a id="sidebarlink" href="adminAccounts.xhtml">Accounts</a></li>
-			<li class="active" id="sidebarstyle"><h:commandButton id="sidebarlink" action="#{adminPages.Logout}" value=" Logout" /></li>
-		</ul>
-	</div>
-	<!-- Sidebar finish -->
-	
-		<h2>Welcome to Add Admin page</h2>
+			<li class="active" id="sidebarstyle"><a id="sidebarlink" href="adminAccounts.xhtml">Admins</a></li>
+			</ul>
+			<h:commandButton action="#{adminPages.Logout}" class="btn btn-primary btn-block" value="Logout" />
+		</h:form>
+	<!-- Sidebar finish -->		
 
-		<div class="col-xs-5">
+	<!-- Content -->
+	<h:form id="adminContent">
+		<p:growl id="growl" showDetail="true" sticky="true"/>
+
+	<div class="col-xs-5">
 			<h3 id="title">List of Administrators</h3>
 			<div id="list">
 				<ul class="list-group">
-					
 					<ui:repeat var="admin" value="#{addRemoveAdmin.users}">
-					<li>
-					#{admin.name} : #{admin.email}
+					<li>#{admin.name} : #{admin.email}
 					<h:commandButton action="#{addRemoveAdmin.removeUser(admin)}" value="Remove" class="btn btn-primary active" />
 					</li>
 					</ui:repeat>
@@ -71,7 +68,6 @@
 		</div>
 
 		<div class="col-xl-5">
-			<p:growl id="growl" showDetail="true" sticky="true" />
 			<div class="container-fluid">
 				<div class="col-xs-4" id="forms">
 					<div class="form-group">
@@ -103,7 +99,6 @@
 		<ui:include src="/footer.xhtml" />
 	</div>
 	<!-- Footer finish -->
-
 
 </body>
 </html>
