@@ -50,9 +50,9 @@
 	<h:form id="adminContent">	
 	<p:growl id="msgs" showDetail="true"/>
 			<!-- Add New Order -->
+			<h3 id="neworderTitle"><label>New Order</label></h3>
 			<div class="container-fluid" id="orderEdit">
 				<div class="col-xs-3">
-				 		<p:outputLabel  value="OrderID" /><br /><h:inputText value="#{adminPages.newOrder.orderId}" a:placeholder="Order ID" /><hr />
 				 		<p:outputLabel  value="Order Date" /><br /><h:inputText value="#{adminPages.newOrder.orderDate}" a:placeholder="DDMMYYY" /><hr />
 						<p:outputLabel  value="Status" /><br /><h:selectOneMenu value="#{adminPages.newOrder.orderStatus}">
       						<f:selectItems value="#{adminPages.status}" var="status" itemLabel="#{status}" itemValue="#{status}" />

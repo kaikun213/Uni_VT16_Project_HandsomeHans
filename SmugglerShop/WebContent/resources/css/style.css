@@ -193,8 +193,12 @@ div.carousel-caption>p {
 #total {
 	text-align:center;
 }
-#forms{
+#basketforms{
 	margin:40px 0 0 100px;
+	color:black;
+}
+#forms{
+	margin:3px 0 0 20px;
 	color:black;
 }
 
@@ -245,15 +249,16 @@ div.carousel-caption>p {
     min-width: 250px;
     padding: 14px 14px 0;
 }
-#login-dp .help-block{
-    font-size:12px    
+#adminlogin{
+	padding:0px;
+	margin:30px 10px 0 0;
 }
-#login-dp .bottom{
+
+#login-dp.bottom{
     clear:both;
     padding:14px;
 }
-
-#login-dp .form-group {
+#login-dp.form-group {
     margin-bottom: 10px;
 }
 #adminTitle{
@@ -340,9 +345,11 @@ Admin Order tabel product layout
 #orderEdit{
 	width:91%;
 	border:5px ridge #766A5E;
-	margin:30px 20px 0 20px;
+	margin:1px 20px 0 20px;
 	padding:5px;
 	max-height:400px;
 	overflow-y:auto;
-	
+}
+#neworderTitle{
+	text-align:center;
 }
