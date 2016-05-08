@@ -14,6 +14,13 @@ public interface PageInterface {
 	 * @return the ResultSet of the requested rows, sets the content of the page
 	 */
 	void setContent(String sql);
+	/**
+	 * 
+	 * @param column , Name of the column in the ResultSet
+	 * @return the content of the item at the index position. Returns an empty String if the column of item dies not exist
+	 */
+	String getContent(int index, String column);
+
 	
 	/** Updates the DB with the given SQL command (INSERT, UPDATE, DELETE)
 	 */

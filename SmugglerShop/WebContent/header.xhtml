@@ -52,6 +52,7 @@
 			<!-- Login -->
 			<div class="col-xs-2">
 				<ul class="nav navbar-nav navbar-right">
+				<h:form rendered="#{not adminPages.login}">
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown"><img
 						alt="resources/img/cart.png" src="resources/img/user.png"
@@ -61,23 +62,21 @@
 								<div class="row">
 									<div class="col-xs-12">
 										<h3 id="adminTitle">Admin Login</h3>
-										<h:form class="form" role="form" method="post" action="login"
-											accept-charset="UTF-8" id="login-nav">
+										<h:form class="form" role="form" method="post" action="login" accept-charset="UTF-8" id="login-nav">
 											<div class="form-group">
 												
-												<h:inputText type="email" class="form-control"
+												<h:inputText value ="#{adminPages.username}" type="email" class="form-control"
 													id="exampleInputEmail2" a:placeholder="Username"
 													required=" " />
 											</div>
 											<div class="form-group">
 												
-												<h:inputText type="password" class="form-control"
+												<h:inputText value="#{adminPages.password}" type="password" class="form-control"
 													id="exampleInputPassword2" a:placeholder="Password"
 													required=" " />
 											</div>
 											<div class="form-group">
-											<h:commandButton action="admin.xhtml" value="Sign In" class="btn btn-primary btn-block" />
-												
+											<h:commandButton action="#{adminPages.Login}" value="Sign In" class="btn btn-primary btn-block" />
 											</div>
 										</h:form>
 									</div>
@@ -85,6 +84,12 @@
 							</li>
 						</ul>
 					</li>
+					</h:form>
+					<h:form rendered="#{adminPages.login}">
+					<a href="adminProducts.xhtml">
+					<img alt="resources/img/cart.png" src="resources/img/user.png" class="img-rounded" height="40" width="40" />
+					</a>
+					</h:form>
 				</ul>
 			</div>
 			<!-- End Login -->

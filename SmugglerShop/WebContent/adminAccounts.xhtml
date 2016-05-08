@@ -27,7 +27,6 @@
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 	<script src="resources/js/footerFix.js"></script>
 </h:head>
-
 <f:metadata>
 	<f:viewAction action="#{addRemoveAdmin.init()}"/>
 </f:metadata>
@@ -40,23 +39,20 @@
 	</div>
 	<!-- Header finish -->
 
-	<!-- Sidebar -->
-	<div id="sidebar">
-		<ul id="sidebarlist">
-			<li class="active" id="sidebarstyle"><a id="sidebarlink"
-				href="admin.xhtml">Items</a></li>
-			<li class="active" id="sidebarstyle"><a id="sidebarlink"
-				href="admin.xhtml">Orders</a></li>
-			<li class="active" id="sidebarstyle"><a id="sidebarlink"
-				href="adminAddAdmin.xhtml">Admins</a></li>
-			<li class="active" id="sidebarstyle"><a id="sidebarlink"
-				href="mainpage.xhtml">Log Out</a></li>
-		</ul>
-	</div>
-	<!-- Sidebar finish -->
 
 	<!-- Content -->
 	<h:form id="adminContent">
+	<!-- Sidebar -->
+	<div id="sidebar">
+		<ul id="sidebarlist">
+			<li class="active" id="sidebarstyle"><a id="sidebarlink" href="adminProducts.xhtml">Products</a></li>
+			<li class="active" id="sidebarstyle"><a id="sidebarlink" href="adminOrders.xhtml">Orders</a></li>
+			<li class="active" id="sidebarstyle"><a id="sidebarlink" href="adminAccounts.xhtml">Accounts</a></li>
+			<li class="active" id="sidebarstyle"><h:commandButton id="sidebarlink" action="#{adminPages.Logout}" value=" Logout" /></li>
+		</ul>
+	</div>
+	<!-- Sidebar finish -->
+	
 		<h2>Welcome to Add Admin page</h2>
 
 		<div class="col-xs-5">

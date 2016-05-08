@@ -66,7 +66,7 @@ public class AddRemoveAdmin extends Page implements Serializable {
 	}
 	
 	public void addUser(){ 
-		admin.setAdmin(false);
+		admin.setAdmin(true);
 		admin.setOrders(arr);
 		super.insertDB(admin);
 		// reset fields

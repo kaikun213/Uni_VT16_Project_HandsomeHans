@@ -32,6 +32,21 @@ public abstract class Page implements PageInterface{
 	public void setContent(String sql) {
 		content = conn.fetch(sql);
 	}
+	
+	public String getContent(int index, String column){
+		int i = 0;
+		try {
+			content.beforeFirst();
+			while (content.next()) {
+				System.out.println("Round: " + i + "Index: " + index);
+				System.out.println(content.getString("admin") + " : " + content.getString("password"));
+				if (i++ == index) 	return content.getString(column);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return "";
+	}
 
 	public ArrayList<Product> toProducts(ResultSet products) throws SQLException{
 		//null ResultSet
