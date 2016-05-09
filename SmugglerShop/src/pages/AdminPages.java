@@ -16,6 +16,7 @@ import javax.inject.Named;
 
 import org.primefaces.event.RowEditEvent;
 import org.primefaces.event.SelectEvent;
+import org.primefaces.event.ToggleEvent;
 import org.primefaces.event.UnselectEvent;
 
 import baseClasses.Order.OrderStatus;
@@ -157,6 +158,7 @@ public class AdminPages extends Page implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
     
+    
     public void addNewOrder(){
     	System.out.println("New Order: Date:" + nOrder.getOrderDate() + " , Status:" + nOrder.getOrderStatus());
     	super.insertDB(nOrder);
@@ -165,13 +167,15 @@ public class AdminPages extends Page implements Serializable {
     }
     
     public void searchOrder(){
-		setContent("SELECT * FROM orders WHERE id="+ searchOrder+";");
-		try {
-			orders = toOrders(content);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
+    	if (ContactPage.isInteger(searchOrder, 10)) {
+    		setContent("SELECT * FROM orders WHERE id="+ searchOrder+";");
+    		try {
+    			orders = toOrders(content);
+    		} catch (SQLException e) {
+    			e.printStackTrace();
+    		}
+    	}
+    	else super.notify("Error", "The Order ID needs to be an Integer");
     }
     
     public void deleteOrder(Order o){

@@ -48,6 +48,12 @@
 	<!-- Content -->
 	<h:form id="adminContent">	
 	<p:growl id="msgs" showDetail="true"/>
+	
+	<p:panel id="toggleable" header="New Order" toggleable="true" toggleSpeed="500" collapsed="true" closeSpeed="500" widgetVar="panel" style="margin-bottom:20px">
+  
+         
+ 
+        
 			<!-- Add New Order -->
 			<h3 id="neworderTitle"><label>New Order</label></h3>
 			<div class="container-fluid" id="orderEdit">
@@ -80,19 +86,21 @@
        			</div>		
 		 </div>
 		<!-- End Add New Order -->
+		</p:panel>
+		
 		 
 		 
 		 <!-- SearchBar -->
 		<div class="container-fluid" id="adminsearchBar">
 			<div class="col-xs-5">
 				<div class="form-group">
-					<h:inputText value="#{adminPages.searchOrder}" id="inputSearch" a:placeholder="Search Order"
+					<h:inputText value="#{adminPages.searchOrder}" id="inputSearch" a:placeholder="Search Order by ID"
 							type="text" class="form-control"></h:inputText>
 				</div>
 			</div>
 			
 				<div class="col-xs-1">
-					<h:commandButton action="#{adminPages.searchOrder()}" class="btn btn-primary" value="Go!" />
+					<h:commandButton action="#{adminPages.searchOrder()}" class="btn btn-primary" value="Search" />
 				</div>
 				
 				<div class="col-xs-3"></div>
@@ -116,7 +124,7 @@
  							<p:column headerText="Id" style="width:8%">
            						<p:cellEditor>
                						<f:facet name="output"><h:outputText value="#{order.orderId}" /></f:facet>
-               						<f:facet name="input"><p:inputText id="modelInput" value="#{order.orderId}" /></f:facet> 
+               						<f:facet name="input"><h:outputText id="modelInput" value="#{order.orderId}" /></f:facet> 
            						</p:cellEditor>
        						</p:column>
        						
