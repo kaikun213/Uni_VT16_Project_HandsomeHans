@@ -92,16 +92,17 @@
 		 
 		 <!-- SearchBar -->
 		<div class="container-fluid" id="adminsearchBar">
-			<div class="col-xs-5">
-				<div class="form-group">
+
+			<div class="col-xs-6">
+				<div class="form-inline">
 					<h:inputText value="#{adminPages.searchOrder}" id="inputSearch" a:placeholder="Search Order by ID"
-							type="text" class="form-control"></h:inputText>
+							type="text" class="form-control" size="30"></h:inputText>
+				<h:commandButton action="#{adminPages.searchOrder()}" class="btn btn-primary" value="Search!" />
+
 				</div>
+				
 			</div>
-			
-				<div class="col-xs-1">
-					<h:commandButton action="#{adminPages.searchOrder()}" class="btn btn-primary" value="Search" />
-				</div>
+
 				
 				<div class="col-xs-3"></div>
 				

@@ -3,7 +3,8 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 
 <h:head>
 <title>searchOrder page</title>
@@ -19,7 +20,14 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 	<script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 	<script src="resources/js/footerFix.js"></script>
-
+	<script>function show() {
+	var visibility = document.getElementById("searchordertable").style.visibility;
+		if(visibility == "hidden") 
+	    document.getElementById("searchordertable").style.visibility="visible";
+		else
+			 document.getElementById("searchordertable").style.visibility="visible";
+	}</script>
+	
 </h:head>
 <body>
 	
@@ -32,22 +40,48 @@
 	<!-- Content -->
 	<h:form id="content">
 		<p:growl id="growl" showDetail="true" sticky="true" /> 
-		<div class="primarytext">
-			<h2>Welcome to searchOrder page</h2>
-			<h3>By now you should have received your order number by e-mail.
-				Here you can search for your order by typing that number bellow.</h3>
+	
+	<div class="container-fluid">
+		<div class="col-xs-3"></div>
+			<div class="col-xs-6">
+				<div class="form-inline" id="searchorder">
+					<h:inputText id="inputOrderNr" a:placeholder="Order Number"
+							type="text" class="form-control" value="#{contactPage.searchOrder}" size="30"/>
+						<h:commandButton class="btn btn-primary" action="#{contactPage.searchOrder()}"
+							href="#" value="Go!" onclick="show()" />
+				</div>
+				
+				<hr style="border:solid #766A5E"></hr>
+				
+				<h4 id="noorder"><h:outputText value="No Orders found." rendered="#{empty contactPage.searchedOrder}" /></h4>	
+				
+				<div id="searchordertable"> <!--  style="visibility:hidden">-->
+				<table class="table table-hover">
+   				 	<thead>
+      					<tr>
+        					<th>Order Number</th>
+        					<th>Order Date</th>
+        					<th>Status</th>
+        					<th>Product(s)</th>   
+   						</tr>
+    				</thead>
+    
+    				<tbody>
+      					<tr>
+        					<td><h:outputText value="#{contactPage.searchedOrder.orderId}" rendered="#{not empty contactPage.searchedOrder}" /></td>
+        					<td><h:outputText value="#{contactPage.searchedOrder.orderDate}" rendered="#{not empty contactPage.searchedOrder}" /></td>
+         					<td><h:outputText value="#{contactPage.searchedOrder.orderStatus} " rendered="#{not empty contactPage.searchedOrder}" /></td>
+      					<!--<td><h:outputText value="#{contactPage.searchedOrder.orderList} " rendered="#{not empty contactPage.searchedOrder}" /></td>-->
+      					</tr>
+    				</tbody>
+  			</table>
 		</div>
-		<div class="orderAllign">
-			<h:inputText id="inputOrderNr" value="#{contactPage.searchOrder}" type="number" />
-			<h:commandButton action="#{contactPage.searchOrder()}" value="Search" class="btn btn-primary" href="#" />
-			<hr width="100%"></hr>
-			<p class="ordernum">
-				<h:outputText value="Order number: #{contactPage.searchedOrder.orderId} " rendered="#{not empty contactPage.searchedOrder}"/>
-				<h:outputText value="Status: #{contactPage.searchedOrder.orderStatus} " rendered="#{not empty contactPage.searchedOrder}" />
-			</p>
-			<h:outputText value="No Orders found." rendered="#{empty contactPage.searchedOrder}"/>
-		</div>
+			</div>
+	</div>
+			
+
 	</h:form>
+	
 	<!-- End content -->
 
 		<!-- Footer -->
