@@ -99,6 +99,7 @@ public class ContactPage extends Page implements Serializable {
 			if (orders.isEmpty()) super.notify("Unfortunatelly!", "Order not found");
 			else searchedOrder = orders.get(0);
 		}
+		searchOrder = "";
 	}
 	
 	

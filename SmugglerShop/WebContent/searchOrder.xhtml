@@ -20,13 +20,6 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 	<script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 	<script src="resources/js/footerFix.js"></script>
-	<script>function show() {
-	var visibility = document.getElementById("searchordertable").style.visibility;
-		if(visibility == "hidden") 
-	    document.getElementById("searchordertable").style.visibility="visible";
-		else
-			 document.getElementById("searchordertable").style.visibility="visible";
-	}</script>
 	
 </h:head>
 <body>
@@ -53,29 +46,38 @@
 				
 				<hr style="border:solid #766A5E"></hr>
 				
-				<h4 id="noorder"><h:outputText value="No Orders found." rendered="#{empty contactPage.searchedOrder}" /></h4>	
+				<h4 id="noOrder"><h:outputText value="No Orders found." rendered="#{empty contactPage.searchedOrder}" /></h4>	
 				
+				<p:panel id="showOrderTable" rendered="#{not empty contactPage.searchedOrder}">
 				<div id="searchordertable"> <!--  style="visibility:hidden">-->
 				<table class="table table-hover">
    				 	<thead>
       					<tr>
         					<th>Order Number</th>
         					<th>Order Date</th>
-        					<th>Status</th>
-        					<th>Product(s)</th>   
+        					<th>Product(s)</th>
+        					<th>Status</th>   
    						</tr>
     				</thead>
     
     				<tbody>
       					<tr>
-        					<td><h:outputText value="#{contactPage.searchedOrder.orderId}" rendered="#{not empty contactPage.searchedOrder}" /></td>
-        					<td><h:outputText value="#{contactPage.searchedOrder.orderDate}" rendered="#{not empty contactPage.searchedOrder}" /></td>
-         					<td><h:outputText value="#{contactPage.searchedOrder.orderStatus} " rendered="#{not empty contactPage.searchedOrder}" /></td>
-      					<!--<td><h:outputText value="#{contactPage.searchedOrder.orderList} " rendered="#{not empty contactPage.searchedOrder}" /></td>-->
+        					<td><h:outputText value="#{contactPage.searchedOrder.orderId}"  /></td>
+        					<td><h:outputText value="#{contactPage.searchedOrder.orderDate}"  /></td>
+        					<td>
+        						 <p:dataList value="#{contactPage.searchedOrder.orderList}" var="product" type="definition">
+							        #{product.name} : #{product.quantity}
+							        <f:facet name="description">
+							            <p:graphicImage value="#{product.image}" width="100" height="100" class="img-thumbnail"/> 
+							        </f:facet>
+							     </p:dataList>
+        					</td>
+         					<td><h:outputText value="#{contactPage.searchedOrder.orderStatus} " /></td>
       					</tr>
     				</tbody>
   			</table>
-		</div>
+			</div>
+			</p:panel>
 			</div>
 	</div>
 			
