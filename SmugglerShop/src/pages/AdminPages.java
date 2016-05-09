@@ -16,7 +16,6 @@ import javax.inject.Named;
 
 import org.primefaces.event.RowEditEvent;
 import org.primefaces.event.SelectEvent;
-import org.primefaces.event.ToggleEvent;
 import org.primefaces.event.UnselectEvent;
 
 import baseClasses.Order.OrderStatus;

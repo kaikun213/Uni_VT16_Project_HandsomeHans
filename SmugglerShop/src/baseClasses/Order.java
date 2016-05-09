@@ -156,5 +156,13 @@ public class Order {
 	public Iterator<Product> getIterator() {
 		return orderList.iterator();
 	}
+	
+	/** Checks if the Order is complete and valid for the DB
+	 * 
+	 * @return
+	 */
+	public boolean isComplete(){
+		return ((orderList.size()>0) && (orderDate != null) && (orderStatus != null));
+	}
 
 }

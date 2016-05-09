@@ -32,24 +32,22 @@ public class ContactPage extends Page implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private User user = new User();
+	private String phone;
+	private String address;
+	private String postcode;
+	private String city;
+	private String message = " ";
 	private String searchOrder = "";
 	private Order searchedOrder;
 	
-
-	public void setName(String u) {
-		user.setName(u);
-	}
-	
-	public void setEmail(String e){
-		user.setEmail(e);
-	}
-	
-	public void setOrderOnUser(String o){
-		
-	}
 	
 	public String submitOrder(){
-		// if all fields are filled ---------------------------------------- Missing
+		user.setPassword("temporary");
+		// if all fields are filled 
+		if (!user.isComplete() || phone.isEmpty() || address.isEmpty() || postcode.isEmpty() || city.isEmpty()) {
+			super.notify("Error!", "Please enter your contact details completely");
+			return "contactForm";
+		}
 		
 		// if no items are in the basket
 		if (Basket.products.size() <= 0) {
@@ -83,21 +81,6 @@ public class ContactPage extends Page implements Serializable {
 		return "mainpage";
 	}
 	
-	public void setSearchOrder(String s){
-		searchOrder = s;
-	}
-	
-	public  String getSearchOrder(){
-		return searchOrder;
-	}
-	
-	public void setSearchedOrder(Order o){
-		searchedOrder = o;
-	}
-	
-	public Order getSearchedOrder(){
-		return searchedOrder;
-	}
 	
 	public void searchOrder(){
 		if (searchOrder.isEmpty()) searchedOrder = null;
@@ -131,7 +114,77 @@ public class ContactPage extends Page implements Serializable {
 	    }
 	    return true;
 	}
+	
+	// getter & setter
+	public void setSearchOrder(String s){
+		searchOrder = s;
+	}
+	
+	public  String getSearchOrder(){
+		return searchOrder;
+	}
+	
+	public void setSearchedOrder(Order o){
+		searchedOrder = o;
+	}
+	
+	public Order getSearchedOrder(){
+		return searchedOrder;
+	}
+	
+	public User getUser(){
+		return user;
+	}
 
+
+	public String getMessage() {
+		return message;
+	}
+
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+
+	public String getCity() {
+		return city;
+	}
+
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+
+	public String getPostcode() {
+		return postcode;
+	}
+
+
+	public void setPostcode(String postcode) {
+		this.postcode = postcode;
+	}
+
+
+	public String getAddress() {
+		return address;
+	}
+
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+
+	public String getPhone() {
+		return phone;
+	}
+
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
 	
 	
 	

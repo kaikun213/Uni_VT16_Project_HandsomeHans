@@ -186,5 +186,14 @@ public class Product {
 	public String toString() {
 		return name + "  " + category + "  " + price + "\n" + description;
 	}
+	
+	/** Checks if the Product is complete and valid for the DB
+	 * 
+	 * @return
+	 */
+	public boolean isComplete(){
+		if (name == null || category == null || image == null || description == null) return false;
+		return ((!name.isEmpty()) && (!category.isEmpty()) && (!image.isEmpty()) && (!description.isEmpty()) && (quantity >= 0) && (price >= 0));
+	}
 
 }

@@ -9,12 +9,20 @@ public class User {
 	private ArrayList<Order> orders;
 	private String email;
 	private String password;
-	private boolean admin;
+	private boolean admin = false;
 	
 	public User(){};
 
 	public User(int id, String userName, ArrayList<Order> orders, String email, String password, boolean b) {
 		this.id = id;
+		this.name = userName;
+		this.orders = orders;
+		this.email = email;
+		this.password = password;
+		this.admin = b;
+	}
+	
+	public User(String userName, ArrayList<Order> orders, String email, String password, boolean b) {
 		this.name = userName;
 		this.orders = orders;
 		this.email = email;
@@ -83,6 +91,15 @@ public class User {
 	 */
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	/** Checks if the User is complete and valid for the DB
+	 * 
+	 * @return
+	 */
+	public boolean isComplete(){
+		if (name == null || password == null || email == null) return false;
+		return ((!name.isEmpty()) && (!password.isEmpty()) && (!email.isEmpty()));
 	}
 
 
