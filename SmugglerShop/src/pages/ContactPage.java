@@ -4,6 +4,7 @@
 package pages;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -56,7 +57,7 @@ public class ContactPage extends Page implements Serializable {
 			return "contactForm";
 		}
 
-		Order o = new Order(Basket.products,"Date must be here",OrderStatus.IN_PROCESS);
+		Order o = new Order(Basket.products,new Date(),OrderStatus.IN_PROCESS);
 		super.insertDB(o);
 		
 		// update DB quantities

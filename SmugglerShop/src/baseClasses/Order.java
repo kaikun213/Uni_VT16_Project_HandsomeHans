@@ -3,6 +3,7 @@ package baseClasses;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * This class represents an order.
@@ -20,7 +21,7 @@ public class Order {
 	protected OrderStatus orderStatus;
 	private int orderId;
 	private List<Product> orderList = new ArrayList<Product>();
-	private String orderDate;
+	private Date orderDate;
 
 	/**
 	 * Empty constructor.
@@ -36,7 +37,7 @@ public class Order {
 	 * @param orderDate
 	 * @param orderStatus
 	 */
-	public Order(int orderId, List<Product> orderList, String orderDate, OrderStatus orderStatus) {
+	public Order(int orderId, List<Product> orderList, Date orderDate, OrderStatus orderStatus) {
 		this.orderStatus = orderStatus;
 		this.orderId = orderId;
 		this.orderList = orderList;
@@ -50,7 +51,7 @@ public class Order {
 	 * @param orderDate
 	 * @param orderStatus
 	 */
-	public Order(List<Product> orderList, String orderDate, OrderStatus orderStatus) {
+	public Order(List<Product> orderList, Date orderDate, OrderStatus orderStatus) {
 		this.orderStatus = orderStatus;
 		this.orderList = orderList;
 		this.orderDate = orderDate;
@@ -117,18 +118,20 @@ public class Order {
 	 * 
 	 * @return Date
 	 */
-	public String getOrderDate() {
+	public Date getOrderDate() {
 		return orderDate;
 	}
+	
 
 	/**
 	 * Method to set the date of the order.
 	 * 
 	 * @param orderDate
 	 */
-	public void setOrderDate(String orderDate) {
+	public void setOrderDate(Date orderDate){
 		this.orderDate = orderDate;
 	}
+	
 
 	/**
 	 * Method to get the product by its position in the list.

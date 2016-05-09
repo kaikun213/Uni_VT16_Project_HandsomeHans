@@ -3,6 +3,7 @@
  */
 package baseClasses;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -114,7 +115,7 @@ public abstract class Page implements PageInterface{
 								
 			    Order o = new Order(orders.getInt("id"),
 			    					productList,
-			    					orders.getString("date"),
+			    					orders.getDate("date"),
 			    					status);
 			  
 			  arr.add(o);    
@@ -222,7 +223,7 @@ public abstract class Page implements PageInterface{
 			for (int i=0;i<((Order) o).getOrderList().size();i++) p+= ((Order) o).getOrderList().get(i).getPrice() * ((Order) o).getOrderList().get(i).getQuantity();
 			sb.append(p+",date=\"");
 			// date
-			sb.append(((Order) o).getOrderDate() +"\"");
+			sb.append(new Date(((Order) o).getOrderDate().getTime()) +"\"");
 			// finish request
 			sb.append(" WHERE id=");
 			sb.append(((Order) o).getOrderId() +";");
@@ -291,7 +292,8 @@ public abstract class Page implements PageInterface{
 			sb.append(p+",");
 			// date
 			sb.append("\"");
-			sb.append(((Order) o).getOrderDate());
+
+			sb.append(new Date(((Order) o).getOrderDate().getTime()));
 			sb.append("\"");
 			// finish request
 			sb.append(");");
