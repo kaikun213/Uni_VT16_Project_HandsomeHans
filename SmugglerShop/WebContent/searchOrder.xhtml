@@ -70,17 +70,13 @@
  
       				</tbody>
     			</table>
-    	</p:panel>
-    	<!-- Finish Order Details -->	
-           		
-         <!-- Order Product List -->  
-         <p:panel id="toggleable" header="Show Products" toggleable="true" toggleSpeed="500" collapsed="true" closeSpeed="500" widgetVar="panel"  rendered="#{not empty contactPage.searchedOrder}" style="margin-bottom:20px">	
-           				<pre><ul class="list-group"><ui:repeat value="#{contactPage.searchedOrder.orderList}"  var="product">  <li class="list-group-item"><h7><img src="#{product.image}"
+    			<h:outputLabel value="Items" />
+    			<pre><ul class="list-group"><ui:repeat value="#{contactPage.searchedOrder.orderList}"  var="product">  <li class="list-group-item"><h7><img src="#{product.image}"
 												alt="resources/img/HeaderLogo.png" width="100" height="100" class="img-thumbnail" />          <span>Qtn: #{product.quantity}              #{product.price} <i class="fa fa-gg-circle"></i></span><br />#{product.name}</h7></li>
 											</ui:repeat></ul></pre>
-		</p:panel>
-       	  <!-- End Order Product List -->  			
- 
+    	</p:panel>
+    	<!-- Finish Order Details -->	
+       
    		</div>
 	</div>
 	
