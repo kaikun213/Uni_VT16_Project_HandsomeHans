@@ -1,12 +1,12 @@
 /* general page layout */
 body{
-	width:100%;
+	max-width:100%;
 }
 
 #content {
 	min-height:100%;
 	padding:0px;
-	min-width:100%;
+	max-width:100%;
 	overflow:visible;
 	margin:0px 0px 0px 0px;
 	clear:both;
@@ -31,7 +31,7 @@ body{
  			header 
  ***************************** */
  #header{
- width:100%;
+ max-width:100%;
  background-color:#766A5E;	 
 }
 #logo{
@@ -42,6 +42,33 @@ body{
 	margin:30px 0 0 0;
 	padding:0px;
 }
+.headerbutton {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px Opx 0px 0px;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+.orderbutton {
+    background-color: white; 
+    color: black; 
+    border: 2px solid #008CBA;
+    border-radius: 50%;
+}
+
+.orderbutton:hover {
+    background-color: #008CBA;
+    color: white;
+}
+
+
 #button{
 	margin:35px 0 0 0px;
 	padding:0px;

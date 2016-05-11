@@ -19,11 +19,11 @@
 
 			<!-- SearchBar -->
 			<div class="col-sm-4" id="search">
-				<h:form class="navbar-form navbar-left" role="search"
+				<h:form class="navbar-form navbar-down" role="search"
 					action="mainpage.xhtml?search=#{mainpage.search}">
-					<div class="form-group">
+					<div class="form-inline">
 						<h:inputText id="inputSearch" a:placeholder="Search By Product"
-							type="text" class="form-control" value="#{mainpage.search}" size="30">
+							type="text" class="form-control" value="#{mainpage.search}" size="25">
 						</h:inputText>
 					<!-- <f:ajax event="change" render="@form"></f:ajax> -->
 						<h:commandButton class="btn btn-success"
@@ -38,11 +38,11 @@
 			<!-- Home Buttons -->
 			<div class="col-sm-2" id="button">
 				<h:form id="theHead">
-					<a class="btn btn-info" href="searchOrder.xhtml">Orders</a>
-					<a class="btn" href="basket.xhtml"> <img
+				<a class="btn" href="basket.xhtml"> <img
 						alt="resources/img/cart.png" src="resources/img/cart.png"
-						class="img-thumbnail" height="35" width="30" /><span
+						class="img-thumbnail" height="40" width="40" /><span
 						class="badge">#{basket.size()}</span></a>
+					<h:commandButton class="headerbutton orderbutton" action="searchOrder" value="Orders" />
 				</h:form>
 			</div>
 			<!-- End Home Buttons -->
@@ -51,10 +51,10 @@
 			<div class="col-sm-2">
 				<ul class="nav navbar-nav navbar-right" id="adminlogin">
 				<h:form rendered="#{not adminPages.login}">
-					<li class="dropdown"><img
+					<li class="dropdown"><button href="#" class="dropdown-toggle"
+						data-toggle="dropdown"><img
 						alt="resources/img/cart.png" src="resources/img/user.png"
-						height="40" width="40" class="dropdown-toggle"
-						data-toggle="dropdown" />
+						class="img-rounded" height="40" width="40" /><span class="caret"></span></button>
 						<ul id="login-dp" class="dropdown-menu">
 							<li>
 								<div class="row">
