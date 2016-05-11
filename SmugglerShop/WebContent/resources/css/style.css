@@ -383,3 +383,12 @@ Admin Order tabel product layout
 	background-color:grey;
 	color:white;
 }
+/* *****************************
+		 adminAccounts 
+ ***************************** */
+ 
+#list {
+	width:450px;
+	height:400px;
+	overflow-y:auto;
+}
