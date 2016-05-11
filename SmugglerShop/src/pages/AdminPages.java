@@ -96,11 +96,12 @@ public class AdminPages extends Page implements Serializable {
 	
 	public void adminAddProduct(){
 		insertDB(prod);		
+		products = productService.getProducts();
 	}
 	public void adminUpdateProduct(){
 		System.out.println(prod.getQuantity());
 		updateDB(prod);
-
+		products = productService.getProducts();
 	}
 	
 	public List<String> adminSetCategories(){
@@ -120,6 +121,7 @@ public class AdminPages extends Page implements Serializable {
 	
 	public void adminDeleteProduct(){
 		deleteDB(prod);
+		products = productService.getProducts();
 	}
 	
 	
