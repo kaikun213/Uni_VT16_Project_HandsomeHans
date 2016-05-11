@@ -188,8 +188,17 @@ public abstract class Page implements PageInterface{
 		StringBuilder sb = new StringBuilder();
 		if (o instanceof Product) {
 			sb.append(" UPDATE  product SET name=\"");
-			sb.append(((Product) o).getName() + "\",category=\"");
-			sb.append(((Product) o).getCategory() +"\",price=");
+			sb.append(((Product) o).getName() + "\",category=");
+			ResultSet rs = conn.fetch("SELECT id FROM category WHERE name=\""+((Product) o).getCategory()+"\";");
+			int category = 1; // default case
+			try {
+				while (rs.next()) {
+					category = rs.getInt("id");
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			sb.append( category+",price=");
 			sb.append(((Product) o).getPrice() +",image=\"");
 			sb.append(((Product) o).getImage() +"\",description=\"");
 			sb.append(((Product) o).getDescription() + "\",quantity=");
@@ -257,8 +266,17 @@ public abstract class Page implements PageInterface{
 		StringBuilder sb = new StringBuilder();
 		if (o instanceof Product) {
 			sb.append(" INSERT INTO  product (name,category,price,image,description,quantity) VALUES (\"");
-			sb.append(((Product) o).getName() + "\",\"");
-			sb.append(((Product) o).getCategory() +"\",");
+			sb.append(((Product) o).getName() + "\",");
+			ResultSet rs = conn.fetch("SELECT id FROM category WHERE name=\""+((Product) o).getCategory()+"\";");
+			int category = 1; // default case
+			try {
+				while (rs.next()) {
+					category = rs.getInt("id");
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			sb.append(category+",");
 			sb.append(((Product) o).getPrice() +",\"");
 			sb.append(((Product) o).getImage() +"\",\"");
 			sb.append(((Product) o).getDescription() + "\",");

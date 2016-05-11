@@ -95,10 +95,10 @@ public class AdminPages extends Page implements Serializable {
 	/* ******************************* admin Products **************************************** */
 	
 	public void adminAddProduct(){
-		insertDB(prod);
-		
+		insertDB(prod);		
 	}
 	public void adminUpdateProduct(){
+		System.out.println(prod.getQuantity());
 		updateDB(prod);
 
 	}

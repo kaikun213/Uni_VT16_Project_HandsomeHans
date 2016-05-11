@@ -110,8 +110,7 @@
        <h:commandButton class="btn btn-primary " name="submit" type="submit" value="Add Product">
        		<f:ajax event="click" listener="#{adminPages.adminAddProduct()}" render="theHead @form"></f:ajax>
        </h:commandButton>
-       <h:commandButton class="btn btn-primary " name="update" type="submit" value="Edit Product">
-       		<f:ajax event="click" listener="#{adminPages.adminUpdateProduct()}" render="theHead @form"></f:ajax>
+       <h:commandButton action="#{adminPages.adminUpdateProduct()}" class="btn btn-primary " name="update" type="submit" value="Edit Product">
        </h:commandButton>
        <h:commandButton class="btn btn-primary " name="clearFields" type="submit" value="Clear">
        		<f:ajax event="click" listener="#{adminPages.adminClearInputs()}" render="theHead @form"></f:ajax>
