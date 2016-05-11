@@ -18,10 +18,12 @@
 	<!-- script files -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 	<script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-<script src="resources/js/footerFix.js"></script>
+	<script src="resources/js/footerFix.js"></script>
 	<script> function reload() {
 		loaction.reload();
-		}</script>
+		}
+	</script>
+
 		
 </h:head>
 <body>
@@ -32,7 +34,7 @@
 		<!-- Content -->
 		<h:form id="container">
 			<p:growl id="growl" showDetail="true" sticky="true" />  
-			<h2>Your Smuggler shopping cart!</h2>
+			<h3><h:outputText value="Sorry, Your Basket is Empty" rendered="#{empty basket.basket}" /></h3>
 			<hr size="5" width="100%"></hr>
 			
 						
@@ -70,7 +72,7 @@
 								</h:selectOneMenu>
 				
 							<!-- Value input for greater than 5 -->
-								<h:inputText value="#{basketItem.quantity}" rendered="#{basketItem.quantity gt 5}" type="number" max="6" size="2">
+								<h:inputText value="#{basketItem.quantity}" rendered="#{basketItem.quantity gt 5}" type="number" max="6" size="2" class="quantityBackground">
 								    <p:ajax event="change" update="@form" listener="#{basket.notifyQuantity(basketItem.id)}" />
 								</h:inputText>
 							<!-- End Input -->	
@@ -105,7 +107,8 @@
 				<div class="col-xs-1"></div>	
 				
 				<div class="col-xs-3" id="basketbutton">
-				<a id="btncheckout" class="btn btn-primary" href="contactForm.xhtml">Checkout</a> 
+				<p:tooltip id="toolTipFade" for="checkout" value="Unable to proceed to checkout without items in the basket"></p:tooltip>
+				<h:commandButton action="contactForm" value="Checkout" class="btn btn-success" disabled="#{empty basket.basket}" id="checkout"/>
 				<a id="btnshopagain" class="btn btn-primary" href="mainpage.xhtml">Continue Shopping</a>
 				</div>
 			</div>

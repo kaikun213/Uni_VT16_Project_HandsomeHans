@@ -352,3 +352,7 @@ Admin Order tabel product layout
 #neworderTitle{
 	text-align:center;
 }
+.quantityBackground{
+	background-color:grey;
+	color:white;
+}
