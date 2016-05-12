@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:contactForm.xhtml" PATH="contactForm.xhtml"
+  SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:contactForm.xhtml:0" NAME="item"
+   PATH="contactForm.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="mainpage:#{contactPage.submitOrder}:mainpage.xhtml"
+    NAME="output" PATH="mainpage.xhtml" TARGET="rules:mainpage.xhtml"
+    TITLE="#{contactPage.submitOrder}:mainpage" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:mainpage.xhtml" PATH="mainpage.xhtml"
+  SHAPE="240,33,0,0" model-entity="JSFProcessGroup"/>
+</PROCESS>

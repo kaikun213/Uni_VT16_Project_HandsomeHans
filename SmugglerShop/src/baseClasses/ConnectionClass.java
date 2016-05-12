@@ -24,7 +24,7 @@ public class ConnectionClass {
 	/* localhost, port and DB-Name may have to be adjusted */
 	private static final String connection_url = "jdbc:mysql://localhost:3306/webshopDB";
 	private String username = "root";
-	private String password = "sunny";
+	private String password = "team2";
 	private Connection connectionDB;
 	
 	/*
