@@ -28,7 +28,7 @@
 	<script src="resources/js/footerFix.js"></script>
 </h:head>
 <f:metadata>
-	<f:viewAction action="#{addRemoveAdmin.init()}"/>
+	<f:viewAction action="#{addRemoveAdmin.init()}" />
 </f:metadata>
 
 <body>
@@ -39,35 +39,43 @@
 	</div>
 	<!-- Header finish -->
 
-	<!-- Sidebar -->	
+	<!-- Sidebar -->
 	<h:form id="sidebar">
 		<ul id="sidebarlist">
-			<li class="active" id="sidebarstyle"><a id="sidebarlink" href="adminProducts.xhtml">Products</a></li>
-			<li class="active" id="sidebarstyle"><a id="sidebarlink" href="adminOrders.xhtml">Orders</a></li>
-			<li class="active" id="sidebarstyle"><a id="sidebarlink" href="adminAccounts.xhtml">Admins</a></li>
-			</ul>
-			<h:commandButton action="#{adminPages.Logout}" class="btn btn-primary btn-block" value="Logout" />
-		</h:form>
-	<!-- Sidebar finish -->		
+			<li class="active" id="sidebarstyle"><a id="sidebarlink"
+				href="adminProducts.xhtml">Products</a></li>
+			<li class="active" id="sidebarstyle"><a id="sidebarlink"
+				href="adminOrders.xhtml">Orders</a></li>
+			<li class="active" id="sidebarstyle"><a id="sidebarlink"
+				href="adminAccounts.xhtml">Admins</a></li>
+		</ul>
+		<h:commandButton action="#{adminPages.Logout}"
+			class="btn btn-primary btn-block" value="Logout" />
+	</h:form>
+	<!-- Sidebar finish -->
 
 	<!-- Content -->
 	<h:form id="adminContent">
-		<p:growl id="growl" showDetail="true" sticky="true"/>
+		<p:growl id="growl" showDetail="true" sticky="true" />
 
-	<div class="col-xs-5">
-			<h3 id="title">List of Administrators</h3>
+		<h3 id="listTitle">List of Administrators</h3>
+		<br></br>
+		<div class="col-xs-4">
 			<div id="list">
-				<ul class="list-group">
-					<ui:repeat var="admin" value="#{addRemoveAdmin.users}">
-					<li>#{admin.name} : #{admin.email}
-					<h:commandButton action="#{addRemoveAdmin.removeUser(admin)}" value="Remove" class="btn btn-primary active" />
+				<pre>
+					<ul class="list-group">
+						<ui:repeat var="admin" value="#{addRemoveAdmin.users}"> <li
+								class="list-group-item">#{admin.name}<br></br>#{admin.email}
+					<h:commandButton action="#{addRemoveAdmin.removeUser(admin)}"
+									value="Remove" class="btn btn-primary active" />
 					</li>
-					</ui:repeat>
-				</ul>
+							</ui:repeat>
+					</ul>
+				</pre>
 			</div>
 		</div>
 
-		<div class="col-xl-5">
+		<div class="col-xl-4">
 			<div class="container-fluid">
 				<div class="col-xs-4" id="forms" style="margin: 100px 0 0 150px">
 					<div class="form-group">
@@ -82,8 +90,8 @@
 					</div>
 					<div class="form-group">
 						Password
-						<h:inputText value="#{addRemoveAdmin.admin.password}" type="text"
-							class="form-control" id="password" />
+						<h:inputSecret value="#{addRemoveAdmin.admin.password}"
+							type="password" class="form-control" id="password" />
 					</div>
 					<div class="col-xs-5"></div>
 					<h:commandButton action="#{addRemoveAdmin.addUser}" value="Add"

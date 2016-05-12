@@ -53,7 +53,7 @@
 				
 				
 		<!-- Order Details -->		
-		<p:panel id="basic" header="Search Result" style="margin-bottom:10px" rendered="#{not empty contactPage.searchedOrder}">
+		<p:panel id="basic" header="Order Information" style="margin-bottom:10px" rendered="#{not empty contactPage.searchedOrder}">
        		<table class="table table-hover">
      				 	<thead>
         					<tr>
@@ -72,7 +72,7 @@
     			</table>
     			<h:outputLabel value="Items" />
     			<pre><ul class="list-group"><ui:repeat value="#{contactPage.searchedOrder.orderList}"  var="product">  <li class="list-group-item"><h7><img src="#{product.image}"
-												alt="resources/img/HeaderLogo.png" width="100" height="100" class="img-thumbnail" />          <span>Qtn: #{product.quantity}              #{product.price} <i class="fa fa-gg-circle"></i></span><br />#{product.name}</h7></li>
+												alt="resources/img/HeaderLogo.png" width="200" height="100" class="img-thumbnail" />          <span>Qtn: #{product.quantity}              #{product.price} <i class="fa fa-gg-circle"></i></span><br />#{product.name}</h7></li>
 											</ui:repeat></ul></pre>
     	</p:panel>
     	<!-- Finish Order Details -->	
