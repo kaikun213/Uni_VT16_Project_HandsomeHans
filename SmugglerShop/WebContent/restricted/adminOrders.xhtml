@@ -11,14 +11,14 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	
 	<!-- css files -->
-	<link rel="stylesheet" href="resources/css/style.css" />
+	<link rel="stylesheet" href="#{request.contextPath}/resources/css/style.css" />
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
 	<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/journal/bootstrap.min.css" rel="stylesheet" />
 	<link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" /> 
 	
 	<!-- script files -->
 	<script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-	<script src="resources/js/footerFix.js"></script>
+	<script src="#{request.contextPath}/resources/js/footerFix.js"></script>
 
 </h:head>
 	
@@ -30,7 +30,7 @@
 	
 	<!-- Header -->
 	<div id="header">
-		<ui:include src="/header.xhtml" />
+		<ui:include src="../header.xhtml" />
 	</div>
 	<!-- Header finish -->	
 	
@@ -41,7 +41,7 @@
 			<li class="active" id="sidebarstyle"><a id="sidebarlink" href="adminOrders.xhtml">Orders</a></li>
 			<li class="active" id="sidebarstyle"><a id="sidebarlink" href="adminAccounts.xhtml">Admins</a></li>
 			</ul>
-			<h:commandButton action="#{adminPages.Logout}" class="btn btn-primary btn-block" value="Logout" />
+			<h:commandButton action="#{authenticationBean.logout}" class="btn btn-primary btn-block" value="Logout" />
 		</h:form>
 	<!-- Sidebar finish -->	
 	
@@ -195,7 +195,7 @@
 
 	<!-- Footer -->
 	<div id="footerPart">
-		<ui:include src="/footer.xhtml" />
+		<ui:include src="../footer.xhtml" />
 	</div>
 	<!-- Footer finish -->
 </h:body>

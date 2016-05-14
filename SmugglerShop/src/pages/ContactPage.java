@@ -8,7 +8,7 @@ import java.util.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import javax.enterprise.context.SessionScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
 import baseClasses.Order;
@@ -24,7 +24,7 @@ import baseClasses.User;
  */
 
 @Named
-@SessionScoped
+@RequestScoped
 public class ContactPage extends Page implements Serializable {
 		
 	/**
@@ -78,7 +78,7 @@ public class ContactPage extends Page implements Serializable {
 		}
 		super.notify("Successfully!", "New Order placed! Your Order Number:" + oID);
 		
-		return "mainpage";
+		return "mainpage?faces-redirect=true";
 	}
 	
 	

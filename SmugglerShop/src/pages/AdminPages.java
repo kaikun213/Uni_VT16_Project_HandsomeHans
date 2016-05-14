@@ -54,37 +54,6 @@ public class AdminPages extends Page implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
-	/* ************************* Admin Login ******************************** */
-	
-	private boolean login;
-	private String username = "";
-	private String password = "";
-	
-	public String Login(){
-		System.out.println("Login Try: " + username + " : " + password);
-		if (username.isEmpty() || password.isEmpty()) {
-			super.notify("Error","Please enter login data");
-		}
-		else if ((username.compareTo("root")) == 0 && (password.compareTo("team2") == 0)) {
-			setLogin(true);
-			return "adminProducts";
-		}
-		else {
-			setContent("SELECT password,admin FROM user WHERE name=\"" + username + "\";");
-			if ((getContent(0,"password").compareTo(password) == 0) && (getContent(0,"admin").compareTo("1") == 0)) {
-				setLogin(true);
-				return "adminProducts";
-			}
-			System.out.println("not valid:" + getContent(0,"password") + " : " + getContent(0,"admin"));
-		}
-		return "mainpage";
-	}
-	
-	public String Logout(){
-		setLogin(false);
-		return "mainpage";
-	}
-	
 	public void init() {
 		setOrders();
 		setStatus();
@@ -250,30 +219,6 @@ public class AdminPages extends Page implements Serializable {
  	
  	public void setSearchOrder(String s){
  		searchOrder = s;
- 	}
- 	
- 	public void setUsername(String s){
- 		username = s;
- 	}
- 	
- 	public String getUsername(){
- 		return username;
- 	}
- 	
- 	public void setPassword(String s){
- 		password = s;
- 	}
- 	
- 	public String getPassword(){
- 		return password;
- 	}
- 	
- 	public void setLogin(boolean b){
- 		login = b;
- 	}
- 	
- 	public boolean getLogin(){
- 		return login;
  	}
 
 	

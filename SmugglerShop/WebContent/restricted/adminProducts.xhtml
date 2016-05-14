@@ -11,7 +11,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	
 	<!-- css files -->
-	<link rel="stylesheet" href="resources/css/style.css" />
+	<link rel="stylesheet" href="#{request.contextPath}/resources/css/style.css" />
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
 	<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/journal/bootstrap.min.css" rel="stylesheet" />
 	<link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" /> 
@@ -19,7 +19,7 @@
 	<!-- script files -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 	<script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-	<script src="resources/js/footerFix.js"></script>
+	<script src="#{request.contextPath}/resources/js/footerFix.js"></script>
 	
 </h:head>
 
@@ -31,9 +31,17 @@
 
 	<!-- Header -->
 	<div id="header">
-	<ui:include src="/header.xhtml" />
+	<ui:include src="../header.xhtml" />
 	</div>
 	<!-- Header end -->
+	
+	<!-- Navigation bar  -->
+	<ol class="breadcrumb">
+		<li><a href="mainpage.xhtml">Home</a></li>
+		<li class="active"><a
+			href="#{request.contextPath}/mainpage.xhtml?category=#{mainpage.category}">#{mainpage.category}</a></li>
+	</ol>
+	<!--End navigation bar -->
 		
 	<!-- Sidebar -->	
 	<h:form id="sidebar">
@@ -42,7 +50,7 @@
 			<li class="active" id="sidebarstyle"><a id="sidebarlink" href="adminOrders.xhtml">Orders</a></li>
 			<li class="active" id="sidebarstyle"><a id="sidebarlink" href="adminAccounts.xhtml">Admins</a></li>
 			</ul>
-			<h:commandButton action="#{adminPages.Logout}" class="btn btn-primary btn-block" value="Logout" />
+			<h:commandButton action="#{authenticationBean.logout}" class="btn btn-primary btn-block" value="Logout" />
 		</h:form>
 	<!-- Sidebar finish -->	
 
@@ -78,7 +86,6 @@
      <div class="form-group ">
       <label class="control-label " for="category">Category</label>
       	<h:selectOneMenu class="select form-control" id="category" name="category" value="#{adminPages.prod.category}">
-      		
 			<f:selectItems value="#{adminPages.adminSetCategories()}"></f:selectItems>
 		</h:selectOneMenu>
      </div>
@@ -134,8 +141,22 @@
         <p:column headerText="Product">
             <h:outputText value="#{product.name}" />
         </p:column>
-   	 
    	 </p:dataTable>
+   	 
+   	 <p:selectOneListbox id="advanced" value="#{adminPages.prod}" converter="productConverter" var="t" filter="true" filterMatchMode="contains" showCheckbox="true" style="width:100%">
+            				<f:selectItems value="#{adminPages.products}" var="product" itemLabel="#{product.name}" itemValue="#{product}" />
+ 								<p:column>
+       			 					<h:graphicImage value="#{t.image}" width="100" height="100" class="img-thumbnail" />
+       			 				</p:column>
+ 								
+ 								<p:column>
+       			 					<h:outputText value="#{t.name}" />
+       			 				</p:column>
+       			 	
+       			 				<p:column>
+       			 					<h:outputText id="inputQuantity" value="#{t.quantity}" a:size="2" />
+       			 				</p:column>
+       </p:selectOneListbox>
   </div>
     <!-- Start product list -->
   
@@ -146,7 +167,7 @@
 	
 	<!-- Footer -->
 	<div id="footerPart">
-		<ui:include src="/footer.xhtml" />
+		<ui:include src="../footer.xhtml" />
 	</div>
 	<!-- Footer finish -->
 </body>

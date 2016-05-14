@@ -23,6 +23,7 @@
 </h:head>
 <f:metadata>
 	<f:viewParam name="id" value="#{productView.ID}"></f:viewParam>
+	<f:viewAction action="#{productView.init}"/>
 </f:metadata>
 <body>
 	
@@ -48,7 +49,7 @@
 					<div class="product-price">Price per item: <span>#{product.price}<i class="fa fa-gg-circle"></i></span></div>
 					<hr></hr>
 					<div class="btn-group cart">
-						<h:commandButton value="Add to Basket" class="btn btn-primary" href="#" disabled="#{basket.productInBasket(product.id) or product.quantity gt productView.getQuantity(product.id)}">
+						<h:commandButton value="Add to Basket" class="btn btn-primary" href="#" disabled="#{basket.productInBasket(product.id)}">
 							<f:ajax event="click" execute="Quantity" listener="#{basket.add(product)}" render="theHead @form"></f:ajax>
 						</h:commandButton>
 						<h:outputText value="Product is already in the basket" rendered="#{basket.productInBasket(product.id)}" />
@@ -61,8 +62,17 @@
 									<f:selectItem itemLabel="3" itemValue="3" itemDisabled="#{productView.getQuantity(product.id) lt 3}" />
 									<f:selectItem itemLabel="4" itemValue="4" itemDisabled="#{productView.getQuantity(product.id) lt 4}" />
 									<f:selectItem itemLabel="5" itemValue="5" itemDisabled="#{productView.getQuantity(product.id) lt 5}" />
+									<f:selectItem itemLabel="5+" itemValue="6" itemDisabled="#{productView.getQuantity(product.id) lt 6}" />
 								</h:selectOneMenu>
 						</div>		
+						
+						<!-- Value input for greater than 5 -->
+								<h:inputText value="#{product.quantity}" rendered="#{product.quantity gt 5}" type="number" max="6" size="2">
+								    <p:ajax event="change" update="@form" listener="#{productView.notifyQuantity(product.id)}" />
+								</h:inputText>
+							<!-- End Input -->	
+						
+						
 						
 						<h:outputText value="There are #{productView.getQuantity(product.id)} on stock left." />				
 						<!-- Quantity End -->

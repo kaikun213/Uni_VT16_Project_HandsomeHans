@@ -3,12 +3,15 @@
  */
 package pages;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
 import baseClasses.Page;
@@ -99,6 +102,24 @@ public class Mainpage extends Page implements Serializable {
 	
 	public boolean isNotFound(){
 		return products.isEmpty();
+	}
+	
+	public void toMainpage(){
+		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+		try {
+			ec.redirect(ec.getApplicationContextPath() + "/mainpage.xhtml");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void toSearchOrderPage(){
+		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+		try {
+			ec.redirect(ec.getApplicationContextPath() + "/searchOrder.xhtml");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 }
