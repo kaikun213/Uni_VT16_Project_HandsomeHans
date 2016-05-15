@@ -24,9 +24,16 @@ public class ConnectionClass {
 	/* localhost, port and DB-Name may have to be adjusted 
 	private static final String connection_url = "jdbc:mysql://localhost:3306/webshopDB";
 	private String username = "root";
+<<<<<<< HEAD
 	private String password = "sunny";
 	private Connection connectionDB;*/
 	
+/*=======
+	private String password = "team2";
+	private Connection connectionDB;
+>>>>>>> f283b6509e119c210f85cd904d96c1424c35303a*/
+	
+	//use this database instead of local!! /henry
 	
 	private static final String connection_url = "jdbc:mysql://sql7.freesqldatabase.com:3306/sql7117861"; 
 	  private final String username = "sql7117861"; 

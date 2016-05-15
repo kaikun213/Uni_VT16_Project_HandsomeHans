@@ -391,4 +391,5 @@ Admin Order tabel product layout
 	width:450px;
 	height:400px;
 	overflow-y:auto;
+	border:solid black;
 }

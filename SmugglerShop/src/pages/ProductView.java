@@ -26,6 +26,11 @@ public class ProductView extends Page implements Serializable {
 	private List<Product> products = new ArrayList<Product>();
 	private int id;
 	
+	public void init() {
+		setProduct(id);
+		System.out.println("Initialize Product.." + id);
+	}
+	
 	public void setID(int id){
 		this.id = id;
 	}
@@ -53,8 +58,6 @@ public class ProductView extends Page implements Serializable {
 	 * @return product that fits ID, otherwise dummy
 	 */
 	public Product getOneProduct(int id){
-		//if (products.size()<=0 && id == products.get(0).getId())
-		setProduct(id);
 		
 		//Dummy class if enter illegal ID
 		if(products.size()==0){

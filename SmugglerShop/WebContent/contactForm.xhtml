@@ -19,6 +19,51 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 	<script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 	<script src="resources/js/footerFix.js"></script>
+	
+	<script>
+	function lettersOnly(input){
+			var regex = /[^a-z ]/gi;
+			input.value = input.value.replace(regex, "");
+		}
+	</script>
+	
+	<script>
+	function digitsOnly(input){
+			var regex = /[^0-9]/g;
+			input.value = input.value.replace(regex, "");
+		}
+	</script>
+	
+	<script>
+	function emailOnly(input){
+			var regex = /[^a-z@_.0-9]/gi;
+			input.value = input.value.replace(regex, "");
+			if
+		}
+	</script>
+	
+	<script>
+	function addressOnly(input){
+			var regex = /[^a-z0-9. ]/gi;
+			input.value = input.value.replace(regex, "");
+		}
+	</script>
+
+<script>function ValidateEmail(inputText)  
+{  
+	var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;  
+	if(inputText.value.match(mailformat))  
+	{  
+	
+	return true;  
+	}  
+	else  
+	{  
+	alert("You have entered an invalid email address!");  
+
+	return false;  
+	}  
+	}  </script>
 
 </h:head>
 <body>
@@ -35,30 +80,31 @@
 			<div class="col-xs-4" id="basketforms">
 				
 				<div class="form-group">
-					<label for="name">Name*</label>
-					<h:inputText value="#{contactPage.user.name}" type="text" class="form-control" id="name" a:placeholder="John Smith" />
+					<p:outputLabel for="name">Name</p:outputLabel>
+					<h:inputText value="#{contactPage.user.name}" class="form-control" id="name" a:placeholder="John Smith" required="true" maxlength="30" onkeyup="lettersOnly(this)"/>
 				</div>
 
 				<div class="form-group">
-					<label for="email">Email*</label>
-					<h:inputText value="#{contactPage.user.email}" type="text" class="form-control" id="email" a:placeholder="example@gmail.com" />
+					<p:outputLabel for="email">Email</p:outputLabel>
+					<p:inputText value="#{contactPage.user.email}" type="email" class="form-control" id="email" a:placeholder="example@gmail.com" required="true" onkeyup="emailOnly(this)"/> <!-- onmouseout="ValidateEmail(this)" -->
+				
 				</div>
 			
 				<div class="form-group">
-					<label for="phone">Phone*</label>
-					<h:inputText value="#{contactPage.phone}" type="text" class="form-control" id="phone" a:placeholder="0735781231" />
+					<p:outputLabel for="phone">Phone</p:outputLabel>
+					<h:inputText id="phone" value="#{contactPage.phone}" class="form-control" a:placeholder="0735781231" required="true" maxlength="10" onkeyup="digitsOnly(this)"/>	
 				</div>
 
 				<div class="form-group">
-					<label for="address1">Address*</label>
-					<h:inputText value="#{contactPage.address}" type="text" class="form-control" id="address1" a:placeholder="Stallvagen 30" />
+					<p:outputLabel for="address1">Address</p:outputLabel>
+					<h:inputText value="#{contactPage.address}" type="text" class="form-control" id="address1" a:placeholder="Stallvagen 30"  required="true" maxlength="30"  onkeyup="addressOnly(this)"/>
 				</div>
 
 				
 				<div class="col-xs-4">
 					<div class="form-group">
-						<label for="postcode">PostCode*</label>
-						<h:inputText value="#{contactPage.postcode}" type="text" class="form-control" id="postcode" a:placeholder="35421" />
+					<p:outputLabel for="postcode">PostCode</p:outputLabel>
+						<h:inputText value="#{contactPage.postcode}" class="form-control" id="postcode" a:placeholder="35421"  required="true" maxlength="5" onkeyup="digitsOnly(this)"/>
 					</div>
 				</div>
 
@@ -66,19 +112,18 @@
 				
 				<div class="col-xs-4">
 					<div class="form-group">
-						<label for="city">City*</label>
-						<h:inputText value="#{contactPage.city}" type="text" class="form-control" id="city" a:placeholder="Vaxjo" />
+						<p:outputLabel for="city">City</p:outputLabel>
+						<h:inputText value="#{contactPage.city}" class="form-control" id="city" a:placeholder="Vaxjo"   maxlength="10" required="true" onkeyup="lettersOnly(this)"/>
 					</div>
 				</div>
 				
 				<div class="form-group">
-					<label for="message">Message</label>
-					<h:inputTextarea value="#{contactPage.message}" rows="5" cols="60" id="message" a:placeholder="Your message...." />
+					<p:outputLabel for="message">Message</p:outputLabel>
+					<p:inputTextarea value="#{contactPage.message}" rows="5" cols="55" id="message" a:placeholder="Your message...."  required="false" />
 				</div>
 				
 				<div class="col-xs-5"></div>
-					<h:commandButton action="#{contactPage.submitOrder()}"
-					value="Submit" class="btn btn-primary active" />
+					<h:commandButton action="#{contactPage.submitOrder}" value="Submit" class="btn btn-primary active"/>
 					<br/>
 					<h:outputText value="* required fields" />
 			</div>
