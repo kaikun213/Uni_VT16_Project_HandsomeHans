@@ -36,6 +36,7 @@
 	<!-- Content -->
 	<h:form id="content">
 		<p:growl id="growl" showDetail="true" sticky="true" /> 
+		<ul>
 		<ui:repeat var="product"
 			value="#{productView.getOneProduct(productView.ID)}">
 			<div class="productImage">
@@ -49,14 +50,12 @@
 					<div class="product-price">Price per item: <span>#{product.price}<i class="fa fa-gg-circle"></i></span></div>
 					<hr></hr>
 					<div class="btn-group cart">
-						<h:commandButton value="Add to Basket" class="btn btn-primary" href="#" disabled="#{basket.productInBasket(product.id)}">
-							<f:ajax event="click" execute="Quantity" listener="#{basket.add(product)}" render="theHead @form"></f:ajax>
-						</h:commandButton>
-						<h:outputText value="Product is already in the basket" rendered="#{basket.productInBasket(product.id)}" />
 						
 						<!-- Quantity selection -->
 						<div>
-								<h:selectOneMenu id="Quantity" value="#{product.quantity}" class="btn btn-default" rendered="#{product.quantity lt 6 and not basket.productInBasket(product.id) }" >
+								<!-- When product not in basket -->
+								<h:selectOneMenu id="Quantity" value="#{product.quantity}" class="btn btn-default" rendered="#{product.quantity lt 6 and not basket.productInBasket(product.id)}" >
+									<p:ajax event="click" execute="Quantity" update="@form" ></p:ajax>
 									<f:selectItem itemLabel="1" itemValue="1" />
 									<f:selectItem itemLabel="2" itemValue="2" itemDisabled="#{productView.getQuantity(product.id) lt 2}" />
 									<f:selectItem itemLabel="3" itemValue="3" itemDisabled="#{productView.getQuantity(product.id) lt 3}" />
@@ -64,23 +63,49 @@
 									<f:selectItem itemLabel="5" itemValue="5" itemDisabled="#{productView.getQuantity(product.id) lt 5}" />
 									<f:selectItem itemLabel="5+" itemValue="6" itemDisabled="#{productView.getQuantity(product.id) lt 6}" />
 								</h:selectOneMenu>
-						</div>		
-						
-						<!-- Value input for greater than 5 -->
-								<h:inputText value="#{product.quantity}" rendered="#{product.quantity gt 5}" type="number" max="6" size="2">
-								    <p:ajax event="change" update="@form" listener="#{productView.notifyQuantity(product.id)}" />
+								
+								<!-- Value input for greater than 5 -->
+								<h:inputText value="#{product.quantity}" rendered="#{product.quantity gt 5 and not basket.productInBasket(product.id)}" type="number" max="6" size="2" class="quantityBackground">
+								    <p:ajax event="change" update="@form" listener="#{productView.notifyQuantity()}" />
 								</h:inputText>
-							<!-- End Input -->	
-						
-						
+								
+								<!-- When product is already in basket -->
+								
+								<h:selectOneMenu id="QuantityBasketItem" value="#{basket.productFromBasket(product.id).quantity}" class="btn btn-default" rendered="#{basket.productFromBasket(product.id).quantity lt 6 and basket.productInBasket(product.id)}" >
+									<f:ajax event="click" execute="QuantityBasketItem" render="@form" ></f:ajax>
+									<f:selectItem itemLabel="1" itemValue="1" />
+									<f:selectItem itemLabel="2" itemValue="2" itemDisabled="#{productView.getQuantity(product.id) lt 2}" />
+									<f:selectItem itemLabel="3" itemValue="3" itemDisabled="#{productView.getQuantity(product.id) lt 3}" />
+									<f:selectItem itemLabel="4" itemValue="4" itemDisabled="#{productView.getQuantity(product.id) lt 4}" />
+									<f:selectItem itemLabel="5" itemValue="5" itemDisabled="#{productView.getQuantity(product.id) lt 5}" />
+									<f:selectItem itemLabel="5+" itemValue="6" itemDisabled="#{productView.getQuantity(product.id) lt 6}" />
+								</h:selectOneMenu>
+								
+								<!-- Value input for greater than 5 -->
+								<h:inputText value="#{basket.productFromBasket(product.id).quantity}" rendered="#{basket.productFromBasket(product.id).quantity gt 5 and basket.productInBasket(product.id)}" type="number" max="6" size="2" class="quantityBackground">
+								    <p:ajax event="change" update="@form" listener="#{productView.notifyQuantity()}" />
+								</h:inputText>
+								
+						</div>		
 						
 						<h:outputText value="There are #{productView.getQuantity(product.id)} on stock left." />				
 						<!-- Quantity End -->
+						
+						<!-- Add basket button -->
+						<h:commandButton value="Add to Basket" class="btn btn-primary" href="#" disabled="#{basket.productInBasket(product.id)}">
+							<f:ajax event="click" execute="Quantity" listener="#{basket.add(product)}" render="theHead @form"></f:ajax>
+						</h:commandButton>
+						<h:commandButton value="Remove from Basket" class="btn btn-primary" href="#" rendered="#{basket.productInBasket(product.id)}">
+							<f:ajax event="click" execute="Quantity" listener="#{basket.remove(product.id)}" render="theHead @form"></f:ajax>
+						</h:commandButton>
+						<h:outputText value="Product is already in the basket" rendered="#{basket.productInBasket(product.id)}" />
+						<!-- End Add basket button -->
 												
 					</div>
 				</div>
 			</div>
 		</ui:repeat>
+		</ul>
 	</h:form>
 	
 	<!-- Footer -->

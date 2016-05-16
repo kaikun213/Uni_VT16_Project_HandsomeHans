@@ -41,14 +41,20 @@ public class Basket extends Page implements Serializable{
     	for (int i=0;i<products.size();i++) if (products.get(i).getId() == Integer.parseInt(productID)) products.remove(i);
     }
     
+    public void remove(String id){
+    	for (int i=0;i<products.size();i++) if (products.get(i).getId() == Integer.parseInt(id)) products.remove(i);
+    }
+    
     /** Add an item to the basket with the given quantity
      * 
      * @param p
      */
-    public void add(Product p){
+    public void add(Product pNew){
+    	Product p = pNew.copy();
     	if (p.getQuantity() > getQuantity(Integer.toString(p.getId()))) {
     		super.notify("Oups!", "Sorry but this amount is out of stock.");
-    		p.setQuantity(1);
+    		p.setQuantity(getQuantity(Integer.toString(p.getId())));
+    		products.add(p);
     	}
     	else products.add(p);
     }
@@ -63,9 +69,20 @@ public class Basket extends Page implements Serializable{
     	return products.size();
     }
     
-    public boolean productInBasket(String id){
+    public  static boolean productInBasket(String id){
     	for (int i=0;i<products.size();i++) if (products.get(i).getId() == Integer.parseInt(id)) return true;
     	return false;
+    }
+    
+    public static Product productFromBasket(String id){
+    	Product p = new Product();
+    	for (int i=0;i<products.size();i++) if (products.get(i).getId() == Integer.parseInt(id)) {
+    		System.out.println(products.get(i).getQuantity());
+    		p = products.get(i);
+    	}
+    	// return Dummy productList otherwise
+    	return p;
+   
     }
     
     public void notifyQuantity(String id){

@@ -28,7 +28,6 @@ public class ProductView extends Page implements Serializable {
 	
 	public void init() {
 		setProduct(id);
-		System.out.println("Initialize Product.." + id);
 	}
 	
 	public void setID(int id){
@@ -47,6 +46,7 @@ public class ProductView extends Page implements Serializable {
 		try {
 			setContent("SELECT * FROM product WHERE id="+id);
 			products = toProducts(content);
+			products.get(0).setQuantity(1);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -64,7 +64,6 @@ public class ProductView extends Page implements Serializable {
 			Product prod = new Product();			
 			return prod;
 		}
-		products.get(0).setQuantity(1);
 		return products.get(0);
 	}	
 	/**
@@ -72,13 +71,20 @@ public class ProductView extends Page implements Serializable {
 	 */
 	@Override
     public int getQuantity(String productID){
+		if (productID.isEmpty()) return 0;
     	return super.getQuantity(productID);
     }
 	
 	public void notifyQuantity(){
-    	if (products.get(0).getQuantity() > getQuantity(Integer.toString(products.get(0).getId()))) {
-    		products.get(0).setQuantity(1);
-    		super.notify("Oups!", "Sorry, we do not have this amount on stock.");
+		if (Basket.productInBasket(Integer.toString(id))) {
+			if (Basket.productFromBasket(Integer.toString(id)).getQuantity() > getQuantity(Integer.toString(products.get(0).getId()))) {
+				Basket.productFromBasket(Integer.toString(id)).setQuantity(getQuantity(Integer.toString(products.get(0).getId())));
+	    		super.notify("Error","Sorry, we do not have this amount on stock. The quantity got reset to the maximum.");
+			}
+		}
+		else if (products.get(0).getQuantity() > getQuantity(Integer.toString(products.get(0).getId()))) {
+    		products.get(0).setQuantity(getQuantity(Integer.toString(products.get(0).getId())));
+    		super.notify("Error","Sorry, we do not have this amount on stock. The quantity got reset to the maximum.");
     	}
 	}
 	

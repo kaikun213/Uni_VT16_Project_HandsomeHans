@@ -102,5 +102,8 @@ public class User {
 		return ((!name.isEmpty()) && (!password.isEmpty()) && (!email.isEmpty()));
 	}
 
+	public User copy(){
+		return new User(this.id,this.name,this.getOrders(),this.email,this.password,this.admin);
+	}
 
 }
