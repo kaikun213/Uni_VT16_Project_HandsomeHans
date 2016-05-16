@@ -72,7 +72,7 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "UserName: " + name + " Order: " + orders.toString() + "Email: " + email;
+		return "UserName: " + name + " Order: " + orders.toString() + "Email: " + email + "Password: " + password;
 	}
 	
 	/**
