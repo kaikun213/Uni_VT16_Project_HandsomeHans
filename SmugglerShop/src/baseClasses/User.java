@@ -10,25 +10,29 @@ public class User {
 	private String email;
 	private String password;
 	private boolean admin = false;
+	private String image = "";
 	
 	public User(){};
 
-	public User(int id, String userName, ArrayList<Order> orders, String email, String password, boolean b) {
+	public User(int id, String userName, ArrayList<Order> orders, String email, String password, boolean b, String image) {
 		this.id = id;
 		this.name = userName;
 		this.orders = orders;
 		this.email = email;
 		this.password = password;
 		this.admin = b;
+		this.image = image;
 	}
 	
-	public User(String userName, ArrayList<Order> orders, String email, String password, boolean b) {
+	public User(String userName, ArrayList<Order> orders, String email, String password, boolean b, String image) {
 		this.name = userName;
 		this.orders = orders;
 		this.email = email;
 		this.password = password;
 		this.admin = b;
+		this.image = image;
 	}
+	
 	
 	public int getId(){
 		return id;
@@ -98,12 +102,20 @@ public class User {
 	 * @return
 	 */
 	public boolean isComplete(){
-		if (name == null || password == null || email == null) return false;
+		if (name == null || password == null || email == null || image == null ) return false;
 		return ((!name.isEmpty()) && (!password.isEmpty()) && (!email.isEmpty()));
 	}
 
 	public User copy(){
-		return new User(this.id,this.name,this.getOrders(),this.email,this.password,this.admin);
+		return new User(this.id,this.name,this.getOrders(),this.email,this.password,this.admin, this.image);
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
 	}
 
 }

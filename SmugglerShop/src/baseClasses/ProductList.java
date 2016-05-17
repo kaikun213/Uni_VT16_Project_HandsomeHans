@@ -37,4 +37,7 @@ public class ProductList extends Page{
     	return products;
     }
     
+    public int size(){
+    	return products.size();
+    }
 }
