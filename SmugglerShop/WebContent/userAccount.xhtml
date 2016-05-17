@@ -73,59 +73,59 @@
 	<h:form id="adminContent">
 		<p:growl id="msgs" showDetail="true" />
 		<h3>Welcome #{userAccount.user.name}</h3>
-		<div class="container-fluid">
-			<div class="col-xs-1"></div>
-			<h:form rendered="#{userAccount.showProfile}">
-				<div class="col-xs-5" id="userDetails">
-					<br></br> <img class="img-circle" id="output" height="80"
-						width="80" style="margin: 0 0 0 200px" /> <input type="file"
-						accept="image/*" onchange="loadFile(event)" />
-					<hr />
-					<p:outputLabel for="username">Username</p:outputLabel>
-					<h:outputText value="#{userAccount.user.name}" id="username"
-						style="margin:0 0 0 200px" />
-					<hr />
-					<p:outputLabel for="email">Email</p:outputLabel>
-					<h:outputText value="#{userAccount.user.email}" id="email"
-						style="margin:0 0 0 240px" />
-					<hr />
-					<p:outputLabel for="password">Password</p:outputLabel>
-					<h:outputText value="#{userAccount.user.password}" id="password"
-						style="margin:0 0 0 200px" />
-				<br/><br/>
-				<h:commandButton action="#{userAccount.update()}" value="Update"
-					rendered="#{userAccount.showProfile}" />
-				</div>
-			</h:form>
-			</div>
-			
-		<h:form rendered="#{userAccount.updateAccount}">	
-		<div class="container-fluid">
-		<div class="col-xs-4"></div>
-			<div class="col-xs-4" id="basketforms">
-				
-				<div class="form-group">
-					<p:outputLabel for="name">Username</p:outputLabel>
-					<h:inputText value="#{userAccount.user.name}" class="form-control" id="name" a:placeholder="John Smith" required="true" maxlength="30" onkeyup="lettersOnly(this)"/>
-				</div>
 
-				<div class="form-group">
-					<p:outputLabel for="email">Email</p:outputLabel>
-					<p:inputText value="#{userAccount.user.email}" type="email" class="form-control" id="email" a:placeholder="example@gmail.com" required="true" onkeyup="emailOnly(this)"/>
-				
+		<div class="container">
+			<div class="row">
+
+				<div
+					class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad">
+					<div class="panel panel-info">
+						<div class="panel-heading">
+							<h3 class="panel-title">#{userAccount.user.name}</h3>
+						</div>
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-md-3 col-lg-3 " align="center">
+									<img alt="User Pic"
+										src="http://babyinfoforyou.com/wp-content/uploads/2014/10/avatar-300x300.png"
+										class="img-circle img-responsive" />
+								</div>
+
+								<div class=" col-md-9 col-lg-9 ">
+									<table class="table table-user-information">
+										<tbody>
+											<tr>
+												<td>Username</td>
+											<td><h:outputText value="#{userAccount.user.name}"  rendered="#{userAccount.showProfile}"/></td>
+											<td><h:inputText value="#{userAccount.user.name}" rendered="#{userAccount.updateAccount}"/></td>
+											</tr>
+											<tr>
+												<td>Password</td>
+											<td><h:outputText value="#{userAccount.user.password}"  rendered="#{userAccount.showProfile}"/></td>
+											<td><h:inputText value="#{userAccount.user.password}"  rendered="#{userAccount.updateAccount}"/></td>
+											</tr>
+											<tr>
+												<td>Email</td>
+												<td><h:outputText value="#{userAccount.user.email}"  rendered="#{userAccount.showProfile}"/></td>
+											<td><h:inputText value="#{userAccount.user.email}"  rendered="#{userAccount.updateAccount}"/></td>
+											</tr>
+
+										</tbody>
+									</table>
+								</div>
+
+							</div>
+						</div>
+
+						<div class="panel-footer">
+							<h:commandButton action="#{userAccount.update()}" value="Edit"  rendered="#{userAccount.showProfile}"/>
+							<h:commandButton action="#{userAccount.addUser()}" value="Save" rendered="#{userAccount.updateAccount}"/>
+						</div>
+
+					</div>
 				</div>
-	
-				<div class="form-group">
-					<p:outputLabel for="password">Password</p:outputLabel>
-					<h:inputSecret value="#{userAccount.user.password}" type="password" class="form-control" id="password" required="true" maxlength="16"/> 
-				
-				</div>
-					<h:commandButton action="#{userAccount.addUser()}" value="Submit" class="btn btn-primary active"/>
-					<br/>
-					<h:outputText value="* required fields" />
 			</div>
 		</div>
-</h:form>
 	</h:form>
 	<!-- Content finish -->
 
