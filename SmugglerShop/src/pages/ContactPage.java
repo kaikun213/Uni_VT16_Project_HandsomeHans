@@ -31,7 +31,7 @@ public class ContactPage extends Page implements Serializable {
 	 * Default serialVersionID generated from eclipse
 	 */
 	private static final long serialVersionUID = 1L;
-	private User user = new User();
+	private User user = new User();	
 	private String phone;
 	private String address;
 	private String postcode;
@@ -181,12 +181,7 @@ public class ContactPage extends Page implements Serializable {
 	public String getPhone() {
 		return phone;
 	}
-
-
 	public void setPhone(String phone) {
 		this.phone = phone;
-	}
-	
-	
-	
+	}	
 }
