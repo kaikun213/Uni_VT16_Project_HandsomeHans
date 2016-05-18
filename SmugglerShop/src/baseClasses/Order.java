@@ -164,5 +164,9 @@ public class Order {
 	public boolean isComplete(){
 		return ((orderList.size()>0) && (orderDate != null) && (orderStatus != null));
 	}
+	
+	public Order copy(){
+		return new Order(this.orderId, this.orderList, this.orderDate, this.orderStatus);
+	}
 
 }

@@ -195,5 +195,9 @@ public class Product {
 		if (name == null || category == null || image == null || description == null) return false;
 		return ((!name.isEmpty()) && (!category.isEmpty()) && (!image.isEmpty()) && (!description.isEmpty()) && (quantity >= 0) && (price >= 0));
 	}
+	
+	public Product copy(){
+		return new Product(this.name,this.category, this.price, this.description, this.image, this.quantity, this.id);
+	}
 
 }

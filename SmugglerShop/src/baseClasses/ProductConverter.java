@@ -23,14 +23,13 @@ public class ProductConverter implements Converter {
         if(value != null && value.trim().length() > 0) {
             try {
                 ProductList service = (ProductList) fc.getExternalContext().getApplicationMap().get("productList");
-                return service.getProducts().get(Integer.parseInt(value)-1);
+                for (int i=0;i<service.size();i++) if (value.compareTo(Integer.toString(service.getProducts().get(i).getId())) == 0) return  service.getProducts().get(i);
             } catch(NumberFormatException e) {
                 throw new ConverterException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Conversion Error", "Not a valid theme."));
             }
         }
-        else {
-            return null;
-        }
+       return null;
+        
     }
  
     public String getAsString(FacesContext fc, UIComponent uic, Object object) {

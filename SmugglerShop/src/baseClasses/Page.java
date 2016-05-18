@@ -153,7 +153,8 @@ public abstract class Page implements PageInterface{
 			    					orders,
 			    					users.getString("email"),
 			    					users.getString("password"),
-			    					users.getBoolean("admin"));
+			    					users.getBoolean("admin"),
+			    					users.getString("image"));
 			  arr.add(u);    
 			}
 		} catch (SQLException e) {
@@ -245,7 +246,8 @@ public abstract class Page implements PageInterface{
 			}
 			sb.append("\",email=\"");
 			sb.append(((User) o).getEmail() + "\",password=\"");
-			sb.append(((User) o).getPassword() + "\",admin=");
+			sb.append(((User) o).getPassword() + "\",image=\"");
+			sb.append(((User) o).getImage() + "\",admin=");
 			if (((User) o).getAdmin()) sb.append("1");
 			else sb.append("0");
 			sb.append(" WHERE id=");
@@ -317,7 +319,7 @@ public abstract class Page implements PageInterface{
 			sb.append(");");
 		}
 		else if (o instanceof User){
-			sb.append("INSERT INTO user (name,orders,email,password,admin) VALUES (\"");
+			sb.append("INSERT INTO user (name,orders,email,password,admin,image) VALUES (\"");
 			sb.append(((User) o).getName() + "\",\"");
 			for (int i=0;i<((User) o).getOrders().size();i++){
 				sb.append( ((User) o).getOrders().get(i).getOrderId() + ";");
@@ -325,8 +327,9 @@ public abstract class Page implements PageInterface{
 			sb.append("\",\"");
 			sb.append(((User) o).getEmail() + "\",\"");
 			sb.append(((User) o).getPassword() + "\",");
-			if (((User) o).getAdmin()) sb.append("1);");
-			else sb.append("0);");
+			if (((User) o).getAdmin()) sb.append("1,\"");
+			else sb.append("0,\"");
+			sb.append(((User) o).getImage() +"\");");
 		}
 		else System.err.println("This is not an Object for insertion");
 		updateDB(sb.toString());

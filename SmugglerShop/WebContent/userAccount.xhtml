@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+<h:head>
+	<title>User Account</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<!-- css files -->
+	<link rel="stylesheet"
+		href="#{request.contextPath}/resources/css/style.css" />
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+	<link
+		href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/journal/bootstrap.min.css"
+		rel="stylesheet" />
+	<link rel="stylesheet"
+		href="https://formden.com/static/cdn/bootstrap-iso.css" />
+
+	<!-- script files -->
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<script src="#{request.contextPath}/resources/js/footerFix.js"></script>
+	<script>
+  var loadFile = function(event) {
+    var reader = new FileReader();
+    reader.onload = function(){
+      var output = document.getElementById('output');
+      output.src = reader.result;
+    };
+    reader.readAsDataURL(event.target.files[0]);
+  };
+</script>
+
+
+
+</h:head>
+
+<f:metadata>
+	<f:viewAction action="#{userAccount.init()}" />
+</f:metadata>
+
+<h:body>
+
+	<!-- Header -->
+	<div id="header">
+		<ui:include src="/header.xhtml" />
+	</div>
+	<!-- Header finish -->
+
+	<!-- Sidebar -->
+	<h:form id="sidebar">
+		<ul id="sidebarlist">
+			<li class="active" id="sidebarstyle"><a id="sidebarlink"
+				href="userAccount.xhtml">My Account</a></li>
+			<li class="active" id="sidebarstyle"><a id="sidebarlink"
+				href="userOrder.xhtml">My Orders</a></li>
+		</ul>
+
+		<!-- will only show if user login in -->
+		<h:commandButton action="#{userAccount.logout()}"
+			class="btn btn-primary btn-block" value="Logout"
+			rendered="#{userAccount.login}" />
+	</h:form>
+	<!-- Sidebar finish -->
+
+
+	<!-- Content -->
+	<h:form id="adminContent">
+		<p:growl id="msgs" showDetail="true" />
+		<h3>Welcome #{userAccount.user.name}</h3>
+
+		<div class="container">
+			<div class="row">
+
+				<div
+					class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad">
+					<div class="panel panel-info">
+						<div class="panel-heading">
+							<h3 class="panel-title">#{userAccount.user.name}</h3>
+						</div>
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-md-3 col-lg-3 " align="center">
+									<img alt="User Pic"
+										src="http://babyinfoforyou.com/wp-content/uploads/2014/10/avatar-300x300.png"
+										class="img-circle img-responsive" />
+								</div>
+
+								<div class=" col-md-9 col-lg-9 ">
+									<table class="table table-user-information">
+										<tbody>
+											<tr>
+												<td>Username</td>
+											<td><h:outputText value="#{userAccount.user.name}"  rendered="#{userAccount.showProfile}"/></td>
+											<td><h:inputText value="#{userAccount.user.name}" rendered="#{userAccount.updateAccount}"/></td>
+											</tr>
+											<tr>
+												<td>Password</td>
+											<td><h:outputText value="#{userAccount.user.password}"  rendered="#{userAccount.showProfile}"/></td>
+											<td><h:inputText value="#{userAccount.user.password}"  rendered="#{userAccount.updateAccount}"/></td>
+											</tr>
+											<tr>
+												<td>Email</td>
+												<td><h:outputText value="#{userAccount.user.email}"  rendered="#{userAccount.showProfile}"/></td>
+											<td><h:inputText value="#{userAccount.user.email}"  rendered="#{userAccount.updateAccount}"/></td>
+											</tr>
+
+										</tbody>
+									</table>
+								</div>
+
+							</div>
+						</div>
+
+						<div class="panel-footer">
+							<h:commandButton action="#{userAccount.update()}" value="Edit"  rendered="#{userAccount.showProfile}"/>
+							<h:commandButton action="#{userAccount.addUser()}" value="Save" rendered="#{userAccount.updateAccount}"/>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</h:form>
+	<!-- Content finish -->
+
+
+	<!-- Footer -->
+	<div id="footerPart">
+		<ui:include src="/footer.xhtml" />
+	</div>
+	<!-- Footer finish -->
+</h:body>
+</html>

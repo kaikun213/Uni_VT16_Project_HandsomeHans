@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+<h:head>
+	<title>User order page</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<!-- css files -->
+	<link rel="stylesheet"
+		href="#{request.contextPath}/resources/css/style.css" />
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
+	<link
+		href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/journal/bootstrap.min.css"
+		rel="stylesheet" />
+	<link rel="stylesheet"
+		href="https://formden.com/static/cdn/bootstrap-iso.css" />
+
+	<!-- script files -->
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<script src="#{request.contextPath}/resources/js/footerFix.js"></script>
+
+</h:head>
+<f:metadata>
+	<f:viewAction action="#{userAccount.init()}" />
+</f:metadata>
+<body>
+
+	<!-- Header -->
+	<div id="header">
+		<ui:include src="/header.xhtml" />
+	</div>
+	<!-- Header finish -->
+
+	<!-- Sidebar -->
+	<h:form id="sidebar">
+		<ul id="sidebarlist">
+			<li class="active" id="sidebarstyle"><a id="sidebarlink"
+				href="userAccount.xhtml">My Account</a></li>
+			<li class="active" id="sidebarstyle"><a id="sidebarlink"
+				href="userOrder.xhtml">My Orders</a></li>
+		</ul>
+		<!-- will only show if user login -->
+		<h:commandButton action="maninpage" class="btn btn-primary btn-block"
+			value="Logout" rendered="#{userAccount.login}" />
+	</h:form>
+	<!-- Sidebar finish -->
+
+
+	<!-- Content -->
+	<h:form id="adminContent">
+		<p:growl id="msgs" showDetail="true" />
+
+<!-- Need to change this all -->
+		<div class="container-fluid">
+			<div class="col-xs-3"></div>
+			<div class="col-xs-6">
+
+				<h4 id="noOrder">
+					<h:outputText value="No Orders found."
+						rendered="#{empty userAccount.orderList}" />
+				</h4>
+
+
+				<!-- Order Details -->
+				<p:panel id="basic" header="Order Information"
+					style="margin-bottom:10px"
+					rendered="#{not empty userAccount.orderList}">
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th>#Order</th>
+								<th>Order Date</th>
+								<th>Status</th>
+							</tr>
+						</thead>
+
+						<tbody>
+							<td><h:outputText
+									value="#{contactPage.searchedOrder.orderDate}"
+									rendered="#{not empty contactPage.searchedOrder}" /></td>
+							<td><h:outputText
+									value="#{contactPage.searchedOrder.orderDate}"
+									rendered="#{not empty contactPage.searchedOrder}" /></td>
+							<td><h:outputText
+									value="#{contactPage.searchedOrder.orderStatus} "
+									rendered="#{not empty contactPage.searchedOrder}" /></td>
+
+						</tbody>
+					</table>
+					<h:outputLabel value="Items" />
+					<pre>
+						<ul class="list-group">
+							<ui:repeat value="#{contactPage.searchedOrder.orderList}"
+								var="product"> <li class="list-group-item"><h7>
+									<img src="#{product.image}" alt="resources/img/HeaderLogo.png"
+										width="200" height="100" class="img-thumbnail" />          <span>Qtn: #{product.quantity}              #{product.price} <i
+										class="fa fa-gg-circle"></i></span>
+									<br />#{product.name}</h7></li>
+											</ui:repeat>
+						</ul>
+					</pre>
+				</p:panel>
+				<!-- Finish Order Details -->
+
+			</div>
+		</div>
+
+	</h:form>
+	<!-- Content finish -->
+
+
+	<!-- Footer -->
+	<div id="footerPart">
+		<ui:include src="/footer.xhtml" />
+	</div>
+	<!-- Footer finish -->
+
+</body>
+</html>
