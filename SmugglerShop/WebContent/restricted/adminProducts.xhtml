@@ -141,10 +141,34 @@
         <p:column headerText="Product">
             <h:outputText value="#{product.name}" />
         </p:column>
-   	 </p:dataTable>
-   	 
-   	 <p:selectOneListbox id="advanced" value="#{adminPages.prod}" converter="productConverter" var="t" filter="true" filterMatchMode="contains" showCheckbox="true" style="width:100%">
-            				<f:selectItems value="#{adminPages.products}" var="product" itemLabel="#{product.name}" itemValue="#{product}" />
+        </p:dataTable>
+
+<p:growl id="msg" showDetail="true" escape="false" />
+
+            <div class="col-xs-7"> 
+            <p:outputLabel  value="Products" /> 
+            <p:selectManyMenu id="advanced" value="#{adminPages.selectedProducts}" converter="productConverter" var="t" filter="true" filterMatchMode="contains" showCheckbox="true" style="width:100%"> 
+                    <p:ajax event="click" listener="#{adminPages.adminMultiSelect()}" update="@form" /> 
+                    <f:selectItems value="#{adminPages.products}" var="product" itemLabel="#{product.name}" itemValue="#{product}" /> 
+                  
+                 <p:column> 
+                        <h:graphicImage value="#{t.image}" width="100" height="100" class="img-thumbnail" /> 
+                      </p:column> 
+                  
+                 <p:column> 
+                        <h:outputText value="#{t.name}" /> 
+                      </p:column> 
+                 
+                      <p:column> 
+                        <h:outputText id="inputQuantity" value="#{t.quantity}" a:size="2" /> 
+                      </p:column> 
+                  </p:selectManyMenu> 
+             </div> 
+<!-- 
+        <p:selectManyMenu id="advanced" value="#{adminPages.prod}" var="t" filter="true" filterMatchMode="contains" showCheckbox="true"  style="width:100%">
+            <f:selectItems value="#{adminPages.products}" var="product" itemLabel="#{product.name}" itemValue="#{adminPages.prod}" />
+ 
+ 								<p:ajax event="select" listener="#{adminPages.onRowSelect}" update="@form" />
  								<p:column>
        			 					<h:graphicImage value="#{t.image}" width="100" height="100" class="img-thumbnail" />
        			 				</p:column>
@@ -156,7 +180,24 @@
        			 				<p:column>
        			 					<h:outputText id="inputQuantity" value="#{t.quantity}" a:size="2" />
        			 				</p:column>
-       </p:selectOneListbox>
+       			 				
+        </p:selectManyMenu> -->
+       <!--  
+          	 <p:selectOneListbox id="advancedd" value="#{adminPages.prod}" converter="productConverter" var="t" filter="true" filterMatchMode="contains" showCheckbox="true" style="width:100%">
+            				<f:selectItems value="#{adminPages.products}" var="product" itemLabel="#{product.name}" itemValue="#{product}" />
+ 								<p:column>
+       			 					<h:graphicImage value="#{t.image}" width="100" height="100" class="img-thumbnail" />
+       			 				</p:column>
+ 								
+ 								<p:column>
+       			 					<h:outputText value="#{t.name}" />
+       			 				</p:column>
+       			 	
+       			 				<p:column>
+       			 					<h:outputText id="inputQuantityy" value="#{t.quantity}" a:size="2" />
+       			 				</p:column>
+       </p:selectOneListbox>-->
+       
   </div>
     <!-- Start product list -->
   

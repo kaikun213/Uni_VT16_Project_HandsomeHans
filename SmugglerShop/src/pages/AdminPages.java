@@ -43,6 +43,8 @@ public class AdminPages extends Page implements Serializable {
 	private String searchOrder = "";
 	
 	private List<Product> products = new ArrayList<Product>();
+	private List<Product> selectedProducts = new ArrayList<Product>(); 
+
 	
     @ManagedProperty("#{productList}")
 	private ProductList productService = new ProductList();
@@ -62,6 +64,11 @@ public class AdminPages extends Page implements Serializable {
 	}
 	
 	/* ******************************* admin Products **************************************** */
+	
+	 public void adminMultiSelect(){ 
+		    prod = selectedProducts.get(0); 
+		     
+	 } 
 	
 	public void adminAddProduct(){
 		insertDB(prod);		
@@ -220,6 +227,14 @@ public class AdminPages extends Page implements Serializable {
  	public void setSearchOrder(String s){
  		searchOrder = s;
  	}
+
+	public List<Product> getSelectedProducts() {
+		return selectedProducts;
+	}
+
+	public void setSelectedProducts(List<Product> selectedProducts) {
+		this.selectedProducts = selectedProducts;
+	}
 
 	
 }
