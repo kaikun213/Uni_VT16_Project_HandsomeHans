@@ -112,6 +112,14 @@
 		</div>
 	<!-- End SearchBar -->
 	
+	<div class="col-xs-10"></div>
+	<div class="col-xs-2">
+	<h:selectOneMenu value="#{adminPages.state}">
+			<f:ajax event="click" listener="#{adminPages.changeStates}" render="@form"></f:ajax>
+        	<f:selectItems value="#{adminPages.status}" var="status" itemLabel="#{status}" itemValue="#{status}" />
+    </h:selectOneMenu>
+    </div>
+	
 	<!-- Order Table -->
  	 	<div class="container-fluid" id="adminOrderTable">
  				<div class="col-xs-11"  id="tablestructure">
@@ -183,6 +191,12 @@
        						
        						<p:column headerText="Remove" style="width:10%">
            						<h:commandButton action="#{adminPages.deleteOrder(order)}" class="btn btn-primary" value="Remove" />
+       						</p:column>
+       						
+       						<p:column headerText="Change state">
+       							<h:selectBooleanCheckbox id="checkbox" value="#{adminPages.checked[order.orderId]}">
+       								<f:ajax event="change" execute="checkbox"></f:ajax>
+       							</h:selectBooleanCheckbox>
        						</p:column>
    				</p:dataTable>
 			</div>

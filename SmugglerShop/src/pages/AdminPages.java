@@ -6,7 +6,9 @@ package pages;
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
@@ -41,6 +43,9 @@ public class AdminPages extends Page implements Serializable {
 	private List<OrderStatus> status = new ArrayList<OrderStatus>();
 	private Order nOrder =  new Order();
 	private String searchOrder = "";
+	// for change many states at once (checkboxes)
+	private Map<Integer,Boolean> checked = new HashMap<Integer,Boolean>();
+	private OrderStatus state = OrderStatus.IN_PROCESS;
 	
 	private List<Product> products = new ArrayList<Product>();
 	
@@ -56,9 +61,9 @@ public class AdminPages extends Page implements Serializable {
 	
 	public void init() {
 		setOrders();
+		for (Order o : orders) checked.put(o.getOrderId(), false);
 		setStatus();
 		products = productService.getProducts();
-		System.out.println(products.size());
 	}
 	
 	/* ******************************* admin Products **************************************** */
@@ -218,6 +223,37 @@ public class AdminPages extends Page implements Serializable {
  	public void setSearchOrder(String s){
  		searchOrder = s;
  	}
+
+	public Map<Integer,Boolean> getChecked() {
+		return checked;
+	}
+	
+	public void setChecked(Map<Integer,Boolean> checked){
+		this.checked = checked;
+	}
+
+	public OrderStatus getState() {
+		return state;
+	}
+
+	public void setState(OrderStatus state) {
+		this.state = state;
+	}
+	
+	public void changeStates(){
+	    for (Order o : orders) {
+	    	if (checked.containsKey(o.getOrderId())) {
+	    		System.out.println("Checks orderboxes selected ...");
+	        if (checked.get(o.getOrderId())) {
+	    		System.out.println("change state of order: " + o.getOrderId());
+	            o.setOrderStatus(state);
+	            updateDB(o);
+	        }
+	    	}
+	    }
+	    checked.clear();
+	}
+
 
 	
 }
