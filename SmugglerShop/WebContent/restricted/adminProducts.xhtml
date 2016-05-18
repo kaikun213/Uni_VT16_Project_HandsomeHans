@@ -75,12 +75,16 @@
      
      <div class="form-group ">
       <label class="control-label " for="name">Name</label>
-      <h:inputText class="form-control" id="name" name="name" placeholder="Example-name" type="text" value="#{adminPages.prod.name}"/>
+      <h:inputText class="form-control" id="name" name="name" placeholder="Example-name" type="text" value="#{adminPages.prod.name}">
+           <f:ajax event="change" execute="name"></f:ajax>
+      </h:inputText>
      </div>
      
      <div class="form-group ">
       <label class="control-label " for="image">Image</label>
-      <h:inputText class="form-control" id="image" name="image" placeholder="template-image.png" type="text" value="#{adminPages.prod.image}"/>
+      <h:inputText class="form-control" id="image" name="image" placeholder="template-image.png" type="text" value="#{adminPages.prod.image}">
+      	  <f:ajax event="change" execute="image"></f:ajax>
+      </h:inputText>
      </div>
      
      <div class="form-group ">
@@ -92,17 +96,23 @@
      
      <div class="form-group ">
       <label class="control-label " for="price">Price</label>
-      <h:inputText class="form-control" id="price" name="price" placeholder="1337" type="text" value="#{adminPages.prod.price}"/>
+      <h:inputText class="form-control" id="price" name="price" placeholder="1337" type="text" value="#{adminPages.prod.price}">
+           <f:ajax event="change" execute="price"></f:ajax>
+      </h:inputText>
      </div>
      
      <div class="form-group ">
       <label class="control-label " for="quantity">Quantity</label>
-      <h:inputText class="form-control" id="quantity" name="quantity" placeholder="20" type="text" value="#{adminPages.prod.quantity}"/>
+      <h:inputText class="form-control" id="quantity" name="quantity" placeholder="20" type="text" value="#{adminPages.prod.quantity}">
+           <f:ajax event="change" execute="name"></f:ajax>
+      </h:inputText>
      </div>
      
      <div class="form-group ">
       <label class="control-label " for="description">Description</label>
-      <h:inputTextarea class="form-control" cols="40" id="description" name="description" rows="10" value="#{adminPages.prod.description}"/>
+      <h:inputTextarea class="form-control" cols="40" id="description" name="description" rows="10" value="#{adminPages.prod.description}">
+      	 <f:ajax event="change" execute="description"></f:ajax>
+      </h:inputTextarea>
      </div>
      
      <div class="form-group">
@@ -110,14 +120,15 @@
        <h:commandButton class="btn btn-primary " name="submit" type="submit" value="Add Product">
        		<f:ajax event="click" listener="#{adminPages.adminAddProduct()}" render="theHead @form"></f:ajax>
        </h:commandButton>
-       <h:commandButton action="#{adminPages.adminUpdateProduct()}" class="btn btn-primary " name="update" type="submit" value="Edit Product">
+       <h:commandButton class="btn btn-primary " name="update" type="submit" value="Edit Product">
+             <f:ajax event="click" listener="#{adminPages.adminUpdateProduct()}" render="theHead @form"></f:ajax>
        </h:commandButton>
        <h:commandButton class="btn btn-primary " name="clearFields" type="submit" value="Clear">
        		<f:ajax event="click" listener="#{adminPages.adminClearInputs()}" render="theHead @form"></f:ajax>
        </h:commandButton>
        <h:commandButton class="btn btn-primary " name="delete" type="submit" value="Delete Product">
        		<f:ajax event="click" listener="#{adminPages.adminDeleteProduct()}" render="theHead @form"></f:ajax>
-     		</h:commandButton>
+     	</h:commandButton>
       </div>
      </div>
    </div>
@@ -147,11 +158,6 @@
        			 								
        			 									<p:column>
        			 										<h:outputText id="inputQuantity" value="#{t.quantity}" a:size="2" />
-       			 									</p:column>
-       			 									<p:column>
-       			 										<h:selectBooleanCheckbox value="#{adminPages.checkedProducts[t.id]}">
-       			 											 <f:ajax event="change" execute="checkbox"></f:ajax>
-       			 										</h:selectBooleanCheckbox>
        			 									</p:column>
        		</p:selectOneListbox>
        		<h:commandButton class="btn btn-primary " name="delete" type="submit" value="Delete all">

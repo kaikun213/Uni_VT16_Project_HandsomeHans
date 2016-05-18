@@ -23,7 +23,6 @@ public class ProductList extends Page{
      
     @PostConstruct
     public void init() { 
-    	System.out.println(" GETS Initialized!!!");
     	setContent("select * from product");
 		try {
 			products = toProducts(content);

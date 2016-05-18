@@ -17,8 +17,6 @@ import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
 import org.primefaces.event.RowEditEvent;
-import org.primefaces.event.SelectEvent;
-import org.primefaces.event.UnselectEvent;
 
 import baseClasses.Order.OrderStatus;
 import baseClasses.Order;
@@ -48,7 +46,6 @@ public class AdminPages extends Page implements Serializable {
 	private OrderStatus state = OrderStatus.IN_PROCESS;
 	
 	private List<Product> products = new ArrayList<Product>();
-	private List<Product> selectedProducts = new ArrayList<Product>(); 
 	private Map<Integer,Boolean> prodChecked = new HashMap<Integer,Boolean>();
 
 	
@@ -74,17 +71,11 @@ public class AdminPages extends Page implements Serializable {
 	
 	/* ******************************* admin Products **************************************** */
 	
-	 public void adminMultiSelect(){ 
-		    prod = selectedProducts.get(0); 
-		     
-	 } 
-	
 	public void adminAddProduct(){
 		insertDB(prod);		
 		products = productService.getProducts();
 	}
 	public void adminUpdateProduct(){
-		System.out.println(prod.getQuantity());
 		updateDB(prod);
 		products = productService.getProducts();
 	}
@@ -93,15 +84,13 @@ public class AdminPages extends Page implements Serializable {
 		try {
 			category = super.getCategories();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return category;
 	}
 	
 	public void adminClearInputs(){
-		Product tempProd = new Product();
-		prod = tempProd;
+		prod = new Product();
 	}
 	
 	public void adminDeleteProduct(){
@@ -114,6 +103,20 @@ public class AdminPages extends Page implements Serializable {
 			}
 		}
 		deleteDB(prod);
+		products = productService.getProducts();
+		adminClearInputs();
+	}
+	
+	public void adminDeleteProduct(String id){
+		for (Order o : orders) {
+			for (Product p : o.getOrderList()) {
+				if (p.getId() == Integer.parseInt(id)) {
+					super.notify("Error", "You can not delete a product which is currently ordered. This is included in the order: " + o.getOrderId());
+					return;
+				}
+			}
+		}		
+		conn.fetch("DELETE FROM product WHERE id="+id);
 		products = productService.getProducts();
 	}
 	
@@ -137,7 +140,6 @@ public class AdminPages extends Page implements Serializable {
 	    	}
 	    }
 	    checked.clear();
-		
 	}
 	
 	
@@ -148,16 +150,6 @@ public class AdminPages extends Page implements Serializable {
 	public void setProd(Product prod) {
 		this.prod = prod;
 	}	
-	
-	public void onRowSelect(SelectEvent event) {
-        FacesMessage msg = new FacesMessage("Product Selected", Integer.toString(((Product) event.getObject()).getId()));
-        FacesContext.getCurrentInstance().addMessage(null, msg);
-    }
- 
-    public void onRowUnselect(UnselectEvent event) {
-        FacesMessage msg = new FacesMessage("Product Unselected", Integer.toString(((Product) event.getObject()).getId()));
-        FacesContext.getCurrentInstance().addMessage(null, msg);
-    }
 	
 	
 	
@@ -267,14 +259,6 @@ public class AdminPages extends Page implements Serializable {
  	public void setSearchOrder(String s){
  		searchOrder = s;
  	}
-
-	public List<Product> getSelectedProducts() {
-		return selectedProducts;
-	}
-
-	public void setSelectedProducts(List<Product> selectedProducts) {
-		this.selectedProducts = selectedProducts;
-	}
 
 	public Map<Integer,Boolean> getChecked() {
 		return checked;
