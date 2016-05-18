@@ -93,6 +93,14 @@ public class AdminPages extends Page implements Serializable {
 	}
 	
 	public void adminDeleteProduct(){
+		for (Order o : orders) {
+			for (Product p : o.getOrderList()) {
+				if (p.getId() == prod.getId()) {
+					super.notify("Error", "You can not delete a product which is currently ordered. This is included in the order: " + o.getOrderId());
+					return;
+				}
+			}
+		}
 		deleteDB(prod);
 	}
 	
