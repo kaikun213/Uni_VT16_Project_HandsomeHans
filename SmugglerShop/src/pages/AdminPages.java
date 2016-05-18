@@ -49,6 +49,7 @@ public class AdminPages extends Page implements Serializable {
 	
 	private List<Product> products = new ArrayList<Product>();
 	private List<Product> selectedProducts = new ArrayList<Product>(); 
+	private Map<Integer,Boolean> prodChecked = new HashMap<Integer,Boolean>();
 
 	
     @ManagedProperty("#{productList}")
@@ -269,6 +270,14 @@ public class AdminPages extends Page implements Serializable {
 	    	}
 	    }
 	    checked.clear();
+	}
+
+	public Map<Integer,Boolean> getProdChecked() {
+		return prodChecked;
+	}
+
+	public void setProdChecked(Map<Integer,Boolean> prodChecked) {
+		this.prodChecked = prodChecked;
 	}
 
 
