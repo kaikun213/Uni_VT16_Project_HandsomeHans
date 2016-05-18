@@ -128,48 +128,29 @@
   <!-- Start product list -->
   <div class="col-xs-4" id="adminproductsforms">
   
-      <p:dataTable id="eventsDT" var="product" value="#{adminPages.products}" selectionMode="single" selection="#{adminPages.prod}" rowKey="#{product.id}">
-        <f:facet name="header">
-            Select Product
-        </f:facet>
-        <p:ajax event="rowSelect" listener="#{adminPages.onRowSelect}" update="@form" />
-        <p:ajax event="rowUnselect" listner="#{adminPages.onRowUnselect}" update="@form" />
-        
-        <p:column headerText="Id">
-            <h:outputText value="#{product.id}" />
-        </p:column>
-        <p:column headerText="Product">
-            <h:outputText value="#{product.name}" />
-        </p:column>
-        </p:dataTable>
 
 <p:growl id="msg" showDetail="true" escape="false" />
 
             <div class="col-xs-7"> 
             <p:outputLabel  value="Products" /> 
-            <p:selectOneMenu id="advanced" value="#{adminPages.prod}" converter="productConverter" var="t" filter="true" filterMatchMode="contains" showCheckbox="true" style="width:100%"> 
-                    <p:ajax event="click" listener="#{adminPages.adminMultiSelect()}" update="@form" /> 
-                    <f:selectItems value="#{adminPages.products}" var="product" itemLabel="#{product.name}" itemValue="#{product}" /> 
-                  
-                 <p:column>         							
-                 	<h:selectBooleanCheckbox id="prodCheckbox" value="#{adminPages.prodChecked[product.id]}">
-       				<f:ajax event="change" execute="prodCheckbox"></f:ajax>
-       				</h:selectBooleanCheckbox>
-       			</p:column>
-       			
-                <p:column> 
-                        <h:graphicImage value="#{t.image}" width="100" height="100" class="img-thumbnail" /> 
-                </p:column> 
-                  
-                <p:column> 
-                	<h:outputText value="#{t.name}" /> 
-                </p:column> 
-                 
-                      <p:column> 
-                        <h:outputText id="inputQuantity" value="#{t.quantity}" a:size="2" /> 
-                      </p:column> 
-                  </p:selectOneMenu> 
-             </div>        
+        	<p:selectOneListbox id="advanced" value="#{adminPages.prod}" converter="productConverter" var="t" filter="true" filterMatchMode="contains" showCheckbox="true" style="width:100%">
+            									<f:ajax event="change" render="@form"></f:ajax>
+            									<f:selectItems value="#{adminPages.products}" var="product" itemLabel="#{product.name}" itemValue="#{product}" />
+           
+       			 									<p:column>
+       			 										<h:graphicImage value="#{t.image}" width="100" height="50" class="img-thumbnail" />
+       			 									</p:column>
+  
+       			 									<p:column>
+       			 										<h:outputText value="#{t.name}" />
+       			 									</p:column>
+       			 								
+       			 									<p:column>
+       			 										<h:outputText id="inputQuantity" value="#{t.quantity}" a:size="2" />
+       			 									</p:column>
+       		</p:selectOneListbox>
+       		</div>
+               
   </div>
     <!-- Start product list -->
   

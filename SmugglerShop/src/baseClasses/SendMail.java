@@ -1,6 +1,9 @@
 package baseClasses;
 //import com.sendgrid.*;
 
+import com.sendgrid.SendGrid;
+import com.sendgrid.SendGridException;
+
 public class SendMail {
 
 
