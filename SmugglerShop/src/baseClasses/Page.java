@@ -55,9 +55,14 @@ public abstract class Page implements PageInterface{
 		//ResultSet from wrong type
 		if (!products.getMetaData().getTableName(1).equals("product")) throw new SQLException("This is not a product list");
 		ArrayList<Product> arr = new ArrayList<Product>();
+		
 		while (products.next()) {
+			ResultSet rs = conn.fetch("SELECT name FROM category WHERE id=" + products.getString("category"));
+			rs.first();
+			String category = rs.getString("name");
+			
 			Product p = new Product(products.getString("name"),
-					products.getString("category"),
+					category,
 					products.getDouble("price"),
 					products.getString("description"),
 					products.getString("image"),

@@ -90,7 +90,8 @@
      <div class="form-group ">
       <label class="control-label " for="category">Category</label>
       	<h:selectOneMenu class="select form-control" id="category" name="category" value="#{adminPages.prod.category}">
-			<f:selectItems value="#{adminPages.adminSetCategories()}"></f:selectItems>
+      	    <f:ajax event="click" execute="category"></f:ajax>
+			<f:selectItems value="#{adminPages.categories}"></f:selectItems>
 		</h:selectOneMenu>
      </div>
      
@@ -160,9 +161,6 @@
        			 										<h:outputText id="inputQuantity" value="#{t.quantity}" a:size="2" />
        			 									</p:column>
        		</p:selectOneListbox>
-       		<h:commandButton class="btn btn-primary " name="delete" type="submit" value="Delete all">
-       		<f:ajax event="click" listener="#{adminPages.adminDeleteProducts()}" render="theHead @form"></f:ajax>
-     		</h:commandButton>
        		</div>
                
   </div>

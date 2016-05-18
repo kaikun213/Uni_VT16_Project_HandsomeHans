@@ -80,15 +80,6 @@ public class AdminPages extends Page implements Serializable {
 		products = productService.getProducts();
 	}
 	
-	public List<String> adminSetCategories(){
-		try {
-			category = super.getCategories();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return category;
-	}
-	
 	public void adminClearInputs(){
 		prod = new Product();
 	}
