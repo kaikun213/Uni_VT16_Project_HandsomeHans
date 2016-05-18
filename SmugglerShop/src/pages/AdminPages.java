@@ -59,12 +59,15 @@ public class AdminPages extends Page implements Serializable {
 	private List<String> category;
 	private String selectedCat;
 	private Product prod;
+	private Map<Integer,Boolean> checkedProducts = new HashMap<Integer,Boolean>();
+
 	
 	private static final long serialVersionUID = 1L;
 	
 	public void init() {
 		setOrders();
 		for (Order o : orders) checked.put(o.getOrderId(), false);
+		for (Product p : products) checkedProducts.put(p.getId(), false);
 		setStatus();
 		products = productService.getProducts();
 	}
@@ -112,6 +115,29 @@ public class AdminPages extends Page implements Serializable {
 		}
 		deleteDB(prod);
 		products = productService.getProducts();
+	}
+	
+	public void adminDeleteProducts(){
+		for (Product p : products) {
+	    	if (checkedProducts.containsKey(p.getId())) {
+	    		System.out.println("Checks orderboxes selected ...");
+	        if (checkedProducts.get(p.getId())) {
+	        	// try to delete product
+	        	for (Order o : orders) {
+	    			for (Product p1 : o.getOrderList()) {
+	    				if (p1.getId() == prod.getId()) {
+	    					super.notify("Error", "You can not delete a product which is currently ordered. This is included in the order: " + o.getOrderId());
+	    					return;
+	    				}
+	    			}
+	    		}
+	    		deleteDB(prod);
+	    		products = productService.getProducts();
+	        }
+	    	}
+	    }
+	    checked.clear();
+		
 	}
 	
 	
@@ -286,6 +312,14 @@ public class AdminPages extends Page implements Serializable {
 
 	public void setProdChecked(Map<Integer,Boolean> prodChecked) {
 		this.prodChecked = prodChecked;
+	}
+
+	public Map<Integer,Boolean> getCheckedProducts() {
+		return checkedProducts;
+	}
+
+	public void setCheckedProducts(Map<Integer,Boolean> checkedProducts) {
+		this.checkedProducts = checkedProducts;
 	}
 
 
