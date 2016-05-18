@@ -3,69 +3,60 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
-
+	
 	<header>
-		<!-- Container Part -->
-		<div class="container-fluid">
-
-			<!-- Logo -->
-			<div class="col-sm-2" id="logo">
-				<a href="#{request.contextPath}/mainpage.xhtml"><img
-					height="100" width="200"
-					src="#{request.contextPath}/resources/img/HeaderLogo.png"
-					alt="#{request.contextPath}/resources/img/logo.png" /></a>
-			</div>
-			<!-- End Logo -->
-
-			<!-- SearchBar -->
-			<div class="col-sm-4" id="search">
-				<h:form class="navbar-form navbar-down" role="search"
-					action="mainpage.xhtml?search=#{mainpage.search}">
-					<div class="form-inline">
-						<h:inputText id="inputSearch" a:placeholder="Search By Product"
-							type="text" class="form-control" value="#{mainpage.search}"
-							size="25">
-						</h:inputText>
-						<!-- <f:ajax event="change" render="@form"></f:ajax> -->
-						<h:commandButton class="btn btn-success"
-							action="#{mainpage.toMainpage}" id="searchbutton" value="Go!">
-						</h:commandButton>
-					</div>
-				</h:form>
-			</div>
-			<!-- End SearchBar -->
-
-			<!-- Home Buttons -->
-			<div class="col-sm-3" id="button">
-				<h:form id="theHead">
-					<a class="btn" href="#{request.contextPath}/basket.xhtml"> <img
-						alt="#{request.contextPath}/resources/img/cart.png"
-						src="#{request.contextPath}/resources/img/cart.png"
-						class="img-thumbnail" height="40" width="40" /><span
-						class="badge">#{basket.size()}</span></a>
-					<h:commandButton class="headerbutton orderbutton"
-						action="#{mainpage.toSearchOrderPage}" value="Orders" />
-
-					<!-- User Login -->
-					<ul class="nav navbar-nav navbar-right">
-						<li class="dropdown"><button href="#" class="dropdown-toggle"
-								data-toggle="dropdown">User Login</button>
-							<ul id="login-dp" class="dropdown-menu">
-								<li>
-									<div class="row">
-										<div class="col-xs-12">
-											<h3 id="adminTitle">User Login</h3>
-											<h:form class="form" role="form" method="post" action="login"
-												accept-charset="UTF-8" id="login-nav">
-												<div class="form-group">
-
-													<h:inputText value="#{userAccount.user.name}" type="email"
-														class="form-control" id="exampleInputEmail2"
+	
+	<nav class="navbar navbar-inverse">
+  		
+  			<!-- Container -->
+  		<div class="container-fluid">
+    		    
+    		<!-- Logo and Dropdown -->
+    		<div class="navbar-header">
+      			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        			<span class="icon-bar"/>
+        			<span class="icon-bar"/>
+        			<span class="icon-bar"/>                        
+      			</button>
+      			<a class="navbar-brand" href="#{request.contextPath}/mainpage.xhtml">Home</a>
+    		</div>
+    		<!-- End Logo and Dropdown -->
+    
+    	
+    	<!-- Header Buttons -->
+    	<div class="collapse navbar-collapse" id="myNavbar">
+      		
+      		<!-- Category, User Login, Orders, Search Bar -->
+      		<ul class="nav navbar-nav">
+      			
+      			<!-- Categories -->
+      			<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown" role="button" aria-haspopup="true"
+						aria-expanded="false">Category<span class="caret"></span></a>
+						<ul class="dropdown-menu" id="category">
+							<ui:repeat var="category" value="#{mainpage.categories}">
+								<li><a href="#{request.contextPath}/mainpage.xhtml?category=#{category}">#{category}</a></li>
+							</ui:repeat>
+						</ul>
+				</li>
+        		<!-- End Categories -->	
+        		
+        		
+        		<li><a href="searchOrder.xhtml">Orders</a></li>
+        		
+        	<!-- User Login -->
+        	<li class="dropdown">
+        		<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> <h:outputText rendered="#{!userAccount.login}" value="My Account" /><h:outputText rendered="#{userAccount.login}" value="#{userAccount.user.name}" /></a>
+					<ul id="login-dp" class="dropdown-menu">
+						<li><div class="row">
+								<div class="col-xs-12">
+										<h:form class="form" role="form" method="post" action="login" accept-charset="UTF-8" id="login-nav">
+											<div class="form-group">
+												<h:inputText value="#{userAccount.user.name}" type="email" class="form-control" id="exampleInputEmail2"
 														a:placeholder="Username" required=" " />
-												</div>
-												<div class="form-group">
-
-													<h:inputSecret value="#{userAccount.user.password}"
+											</div>
+											<div class="form-group">
+												<h:inputSecret value="#{userAccount.user.password}"
 														type="password" class="form-control"
 														id="exampleInputPassword2" a:placeholder="Password"
 														required=" " />
@@ -74,98 +65,78 @@
 													<h:commandButton action="#{userAccount.login()}" value="Sign In"
 														class="btn btn-primary btn-block" />
 												</div>
-												<hr style="border:light blue"></hr>
-												<a href="userRegister.xhtml" style="color: brown"> Join Us</a>
+												<a href="userRegister.xhtml" style="color: black"> Need an account?</a>
 											</h:form>
 										</div>
 									</div>
 								</li>
 							</ul>
 						</li>
-					</ul>
+					<!-- End User Login -->
 					
-				</h:form>
-			</div>
-			<!-- End Home Buttons -->
-
-			<!-- Admin Login -->
-			<div class="col-sm-2">
-				<ul class="nav navbar-nav navbar-right" id="adminlogin">
-					<h:form rendered="#{not authenticationBean.loggedIn}">
-						<li class="dropdown"><button href="#" class="dropdown-toggle"
-								data-toggle="dropdown">
-								<img alt="#{request.contextPath}/resources/img/cart.png"
-									src="#{request.contextPath}/resources/img/user.png"
-									class="img-rounded" height="40" width="40" /><span
-									class="caret"></span>
-							</button>
-							<ul id="login-dp" class="dropdown-menu">
-								<li>
-									<div class="row">
-										<div class="col-xs-12">
-											<h3 id="adminTitle">Admin Login</h3>
-											<h:form class="form" role="form" method="post" action="login"
-												accept-charset="UTF-8" id="login-nav">
-												<div class="form-group">
-
-													<h:inputText value="#{authenticationBean.name}"
-														type="email" class="form-control" id="exampleInputEmail2"
-														a:placeholder="Username" required=" " />
-												</div>
-												<div class="form-group">
-
-													<h:inputText value="#{authenticationBean.password}"
+					<!-- Search Bar -->
+					<li><h:form class="navbar-form navbar-right" role="search" action="mainpage.xhtml?search=#{mainpage.search}">
+        				<div class="form-group input-group">
+          					<h:inputText type="text" class="form-control" a:placeholder="Search By Product" value="#{mainpage.search}"/>
+          						<span class="input-group-btn">
+            						<h:commandButton class="btn btn-success" value="Go!" action="#{mainpage.toMainpage}"/>
+          						</span>      
+          				</div>
+      				</h:form></li>
+      				<!-- End Search Bar -->
+      			
+      			</ul>
+      		<!-- End Categories, User Login, Orders, Search Bar -->
+      		
+      		
+      		<!-- Cart, Admin -->
+      		<h:form id="theHead">
+      		<ul class="nav navbar-nav navbar-right">
+      			<li><a href="basket.xhtml"><span class="badge">#{basket.size()}</span><span class="glyphicon glyphicon-shopping-cart"/> Cart</a></li>
+        		
+        		<!-- Admin Login -->
+        		<li class="dropdown">
+        		<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> Admin</a>
+        			<ul id="login-dp" class="dropdown-menu">
+						<li><div class="row">
+								<div class="col-xs-12">
+										<h:form class="form" role="form" method="post" action="login" accept-charset="UTF-8" id="login-nav">
+											<div class="form-group">
+												<h:inputText value="#{authenticationBean.name}"
+												type="email" class="form-control" id="exampleInputEmail2"
+												a:placeholder="Username" required=" " />
+											</div>
+											
+											<div class="form-group">
+												<h:inputText value="#{authenticationBean.password}"
 														type="password" class="form-control"
 														id="exampleInputPassword2" a:placeholder="Password"
 														required=" " />
 												</div>
+												
 												<div class="form-group">
 													<h:commandButton action="#{authenticationBean.login}"
 														value="Sign In" class="btn btn-primary btn-block" />
 												</div>
-											</h:form>
-										</div>
+										</h:form>
 									</div>
-								</li>
-							</ul></li>
-					</h:form>
-					<h:form rendered="#{authenticationBean.loggedIn}">
-						<a href="#{request.contextPath}/restricted/adminProducts.xhtml">
-							<img alt="#{request.contextPath}/resources/img/cart.png"
-							src="#{request.contextPath}/resources/img/user.png"
-							class="img-rounded" height="35" width="35" />
-						</a>
-						<h:commandButton value="logout"
-							action="#{authenticationBean.logout}" />
-					</h:form>
-				</ul>
-			</div>
-<!-- End Admin Login -->
-
-
-		</div>
-		<!-- End Container -->
-
-
-		<!-- NavigationBar -->
-		<nav class="navbar navbar-default">
-			<div class="collapse navbar-collapse"
-				id="bs-example-navbar-collapse-1" style="background-color: #CDC0B4">
-				<ul class="nav navbar-nav">
-					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown" role="button" aria-haspopup="true"
-						aria-expanded="false">Category<span class="caret"></span></a>
-						<ul class="dropdown-menu" id="category">
-							<ui:repeat var="category" value="#{mainpage.categories}">
-								<li><a
-									href="#{request.contextPath}/mainpage.xhtml?category=#{category}">#{category}</a></li>
-							</ui:repeat>
-						</ul></li>
-					<li><a href="#{request.contextPath}/mainpage.xhtml">Home</a></li>
-				</ul>
-			</div>
-
-		</nav>
-		<!-- End NavigationBar -->
+								</div>
+							</li>
+						</ul>
+					</li>
+						<!-- End admin login -->
+        		</ul>
+      		  </h:form>
+      		<!-- End Cart, Admin -->
+    	
+    	</div>
+  		<!-- End Header Buttons -->
+  		
+  		</div>
+  		<!-- End Container -->
+	
+	</nav>
+	
+	
 	</header>
 </ui:composition>

@@ -30,9 +30,14 @@ body{
 /* *****************************
  			header 
  ***************************** */
+#picture{
+	margin:0 0 0 0px;
+	padding:0px;
+	height:190px;
+}
  #header{
- max-width:100%;
- background-color:#766A5E;	 
+ /*max-width:100%;
+ background-color:#766A5E;*/	 
 }
 #logo{
 	padding:0px;
