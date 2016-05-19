@@ -11,8 +11,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
  <meta name="viewport" content="width=device-width, initial-scale=1"/>
 	<!-- css files -->
-	<link rel="stylesheet"
-		href="#{request.contextPath}/resources/css/style.css" />
+	<link rel="stylesheet" href="#{request.contextPath}/resources/css/style.css" />
 	<link rel="stylesheet"
 		href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
 	<link
@@ -20,8 +19,11 @@
 		rel="stylesheet" />
 	<link rel="stylesheet"
 		href="https://formden.com/static/cdn/bootstrap-iso.css" />
+	
 
 	<!-- script files -->
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 	<script
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 	<script src="#{request.contextPath}/resources/js/footerFix.js"></script>
@@ -59,12 +61,9 @@
 				href="userAccount.xhtml">My Account</a></li>
 			<li class="active" id="sidebarstyle"><a id="sidebarlink"
 				href="userOrder.xhtml">My Orders</a></li>
-		</ul>
-
-		<!-- will only show if user login in -->
-		<h:commandButton action="#{userAccount.logout()}"
-			class="btn btn-primary btn-block" value="Logout"
-			rendered="#{userAccount.login}" />
+			<li><h:commandButton action="#{authenticationBean.logout}"
+			class="btn btn-primary btn-block" value="Logout"/></li>
+			</ul>
 	</h:form>
 	<!-- Sidebar finish -->
 
@@ -72,7 +71,7 @@
 	<!-- Content -->
 	<h:form id="adminContent">
 		<p:growl id="msgs" showDetail="true" />
-		<h3>Welcome #{userAccount.user.name}</h3>
+		<h3>Welcome #{authenticationBean.name}</h3>
 
 		<div class="container">
 			<div class="row">
@@ -81,7 +80,7 @@
 					class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad">
 					<div class="panel panel-info">
 						<div class="panel-heading">
-							<h3 class="panel-title">#{userAccount.user.name}</h3>
+							<h3 class="panel-title">#{authenticationBean.name}</h3>
 						</div>
 						<div class="panel-body">
 							<div class="row">
@@ -96,18 +95,18 @@
 										<tbody>
 											<tr>
 												<td>Username</td>
-											<td><h:outputText value="#{userAccount.user.name}"  rendered="#{userAccount.showProfile}"/></td>
-											<td><h:inputText value="#{userAccount.user.name}" rendered="#{userAccount.updateAccount}"/></td>
+											<td><h:outputText value="#{authenticationBean.name}"  rendered="#{userAccount.showProfile}"/></td>
+											<td><h:inputText value="#{userAccount.user.name}" rendered="#{!userAccount.showProfile}"/></td>
 											</tr>
 											<tr>
 												<td>Password</td>
-											<td><h:outputText value="#{userAccount.user.password}"  rendered="#{userAccount.showProfile}"/></td>
-											<td><h:inputText value="#{userAccount.user.password}"  rendered="#{userAccount.updateAccount}"/></td>
+											<td><h:outputText value="#{authenticationBean.password}"  rendered="#{userAccount.showProfile}"/></td>
+											<td><h:inputText value= "#{userAccount.user.password}" rendered="#{!userAccount.showProfile}"/></td>
 											</tr>
 											<tr>
 												<td>Email</td>
-												<td><h:outputText value="#{userAccount.user.email}"  rendered="#{userAccount.showProfile}"/></td>
-											<td><h:inputText value="#{userAccount.user.email}"  rendered="#{userAccount.updateAccount}"/></td>
+												<td><h:outputText value="Might need to create email variable in authetication class to display it"  rendered="#{userAccount.showProfile}"/></td>
+										  	<td><h:inputText value="#{userAccount.user.email}" rendered="#{!userAccount.showProfile}"/></td> 
 											</tr>
 
 										</tbody>
@@ -118,8 +117,8 @@
 						</div>
 
 						<div class="panel-footer">
-							<h:commandButton action="#{userAccount.update()}" value="Edit"  rendered="#{userAccount.showProfile}"/>
-							<h:commandButton action="#{userAccount.addUser()}" value="Save" rendered="#{userAccount.updateAccount}"/>
+							<h:commandButton action="#{userAccount.changeView()}" value="Edit"  rendered="#{userAccount.showProfile}"/>
+							<h:commandButton action="#{userAccount.update()}" value="Save" rendered="#{!userAccount.showProfile}"/>
 						</div>
 
 					</div>

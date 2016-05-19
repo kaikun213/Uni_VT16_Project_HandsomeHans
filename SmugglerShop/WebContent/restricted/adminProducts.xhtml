@@ -34,14 +34,6 @@
 	<ui:include src="../header.xhtml" />
 	</div>
 	<!-- Header end -->
-	
-	<!-- Navigation bar  -->
-	<ol class="breadcrumb">
-		<li><a href="mainpage.xhtml">Home</a></li>
-		<li class="active"><a
-			href="#{request.contextPath}/mainpage.xhtml?category=#{mainpage.category}">#{mainpage.category}</a></li>
-	</ol>
-	<!--End navigation bar -->
 		
 	<!-- Sidebar -->	
 	<h:form id="sidebar">
@@ -60,7 +52,7 @@
 
 <h:form id="adminContent">
 <p:growl id="msgs" showDetail="true" />
-
+<p:growl id="msg" showDetail="true" escape="false" />
 
 <!-- HTML Form (wrapped in a .bootstrap-iso div) -->
 <div class="bootstrap-iso">
@@ -138,12 +130,9 @@
   
   <div class="col-xs-2"></div>
   <!-- Start product list -->
-  <div class="col-xs-4" id="adminproductsforms">
-  
+ 
 
-<p:growl id="msg" showDetail="true" escape="false" />
-
-            <div class="col-xs-7"> 
+            <div class="col-xs-6" id="adminProductsList"> 
             <p:outputLabel  value="Products" /> 
         	<p:selectOneListbox id="advanced" value="#{adminPages.prod}" converter="productConverter" var="t" filter="true" filterMatchMode="contains" showCheckbox="true" style="width:100%">
             									<f:ajax event="change" render="@form"></f:ajax>
@@ -160,10 +149,16 @@
        			 									<p:column>
        			 										<h:outputText id="inputQuantity" value="#{t.quantity}" a:size="2" />
        			 									</p:column>
+       		
        		</p:selectOneListbox>
+
+
+       		<h:commandButton  name="delete" type="submit" value="Delete all">
+       		<f:ajax event="click" listener="#{adminPages.adminDeleteProducts()}" render="theHead @form"></f:ajax>
+     		</h:commandButton>
+
        		</div>
-               
-  </div>
+             
     <!-- Start product list -->
   
  </div>

@@ -29,6 +29,7 @@
 </h:head>
 <f:metadata>
 	<f:viewAction action="#{addRemoveAdmin.init()}" />
+	<f:viewAction action="#{userAccount.init()}" />
 </f:metadata>
 
 <body>
@@ -53,47 +54,142 @@
 	<!-- Content -->
 	<h:form id="adminContent">
 		<p:growl id="growl" showDetail="true" sticky="true" />
-
-		<h3 id="listTitle">List of Administrators</h3>
-		<br></br>
-		<div class="col-xs-4">
-			<div id="list">
-				<pre>
-					<ul class="list-group">
-						<ui:repeat var="admin" value="#{addRemoveAdmin.users}"> <li
-								class="list-group-item">#{admin.name}<br></br>#{admin.email}
-					<h:commandButton action="#{addRemoveAdmin.removeUser(admin)}"
-									value="Remove" class="btn btn-primary active" />
-					</li>
-							</ui:repeat>
-					</ul>
-				</pre>
-			</div>
-		</div>
-
-		<div class="col-xl-4">
-			<div class="container-fluid">
-				<div class="col-xs-4" id="forms" style="margin: 100px 0 0 150px">
-					<div class="form-group">
-						Name
+	
+				
+					<div class="form-inline" id="addAdminUser">
+						<label>Name</label>
 						<h:inputText value="#{addRemoveAdmin.admin.name}" type="text"
-							class="form-control" id="name" />
-					</div>
-					<div class="form-group">
-						Email
+							class="form-control" id="name" style="margin: 0 10px 0 0;"/>
+					
+						<label>Email</label>
 						<h:inputText value="#{addRemoveAdmin.admin.email}" type="text"
-							class="form-control" id="email" />
-					</div>
-					<div class="form-group">
-						Password
+							class="form-control" id="email"  style="margin: 0 10px 0 0;"/>
+					
+						<label>Password</label>
 						<h:inputSecret value="#{addRemoveAdmin.admin.password}"
-							type="password" class="form-control" id="password" />
+							type="password" class="form-control" id="password" style="margin: 0 10px 0 0;" />
+				
+				<h:commandButton action="#{addRemoveAdmin.addUser}" value="Add Admin" styleClass="width:20px;" />
+		</div>
+		
+<div class="container-fluid">
+	<div class="col-sm-5" id="adminPanelContainer">
+	<h3 style="text-align: center;">List of Administrator</h3>
+	<hr></hr>
+		<ul style="list-style: none">
+			<ui:repeat var="admin" value="#{addRemoveAdmin.users}">
+		<li><div class="container" id="adminPanel">
+			<div class="row">
+				<div class="panel panel-info">
+						<div class="panel-heading">
+							<h3 class="panel-title">#{admin.name}</h3>
+						</div>
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-md-3 col-lg-3 " align="center">
+									<img alt="User Pic"
+										src="http://babyinfoforyou.com/wp-content/uploads/2014/10/avatar-300x300.png"
+										class="img-circle img-responsive" />
+								</div>
+
+								<div class=" col-md-9 col-lg-9 ">
+									<table class="table table-user-information">
+										<tbody>
+											<tr>
+												<td>Username</td>
+											<td><h:outputText value="#{admin.name}" rendered="#{addRemoveAdmin.showProfile}" /></td>
+											<td><h:inputText value="#{addRemoveAdmin.admin.name}" rendered="#{!addRemoveAdmin.showProfile}" /></td>
+											</tr>
+											<tr>
+												<td>Password</td>
+											<td><h:outputText value="#{admin.password}" rendered="#{addRemoveAdmin.showProfile}" /></td>
+											<td><h:inputText value="#{addRemoveAdmin.admin.password}" rendered="#{!addRemoveAdmin.showProfile}" /></td>
+											</tr>
+											<tr>
+												<td>Email</td>
+												<td><h:outputText value="#{admin.email}"  rendered="#{addRemoveAdmin.showProfile}" /></td>
+											<td><h:inputText value="#{addRemoveAdmin.admin.email}"  rendered="#{!addRemoveAdmin.showProfile}" /></td>
+											</tr>
+
+										</tbody>
+									</table>
+								</div>
+
+							</div>
+						</div>
+
+						<div class="panel-footer">
+							<h:commandButton action="#{addRemoveAdmin.changeView()}" value="Edit" rendered="#{addRemoveAdmin.showProfile}" />
+							<h:commandButton action="#{addRemoveAdmin.update()}" value="Save" rendered="#{!addRemoveAdmin.showProfile}" />
+							<h:commandButton action="#{addRemoveAdmin.removeUser(admin)}" value="Remove" rendered="#{addRemoveAdmin.showProfile}" />
+						</div>
 					</div>
-					<div class="col-xs-5"></div>
-					<h:commandButton action="#{addRemoveAdmin.addUser}" value="Add"
-						class="btn btn-primary active" />
 				</div>
 			</div>
+			</li>
+		</ui:repeat>
+		</ul>
+		</div>
+
+<div class="col-sm-2"></div>
+<div class="col-sm-5" id="userPanelContainer">
+<h3 style="text-align: center;">List of Users</h3>
+<hr></hr>
+		<ul style="list-style: none;">
+			<ui:repeat var="user" value="#{userAccount.allUsers}">
+		<li><div class="container" id="adminPanel">
+			<div class="row">
+				<div class="panel panel-info">
+						<div class="panel-heading">
+							<h3 class="panel-title">#{user.name}</h3>
+						</div>
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-md-3 col-lg-3 " align="center">
+									<img alt="User Pic"
+										src="http://babyinfoforyou.com/wp-content/uploads/2014/10/avatar-300x300.png"
+										class="img-circle img-responsive" />
+								</div>
+
+								<div class=" col-md-9 col-lg-9 ">
+									<table class="table table-user-information">
+										<tbody>
+											<tr>
+												<td>Username</td>
+											<td><h:outputText value="#{user.name}" rendered="#{userAccount.showProfile}"/></td>
+											<td><h:inputText value="#{userAccount.user.name}" rendered="#{!userAccount.showProfile}"/></td>
+											</tr>
+											<tr>
+												<td>Password</td>
+											<td><h:outputText value="#{user.password}" rendered="#{userAccount.showProfile}"/></td>
+											<td><h:inputText value="#{userAccount.user.password}" rendered="#{!userAccount.showProfile}"/></td>
+											</tr>
+											<tr>
+												<td>Email</td>
+												<td><h:outputText value="#{user.email}"  rendered="#{userAccount.showProfile}"/></td>
+											<td><h:inputText value="#{userAccount.user.email}" rendered="#{!userAccount.showProfile}"/></td>
+											</tr>
+
+										</tbody>
+									</table>
+								</div>
+
+							</div>
+						</div>
+
+						<div class="panel-footer">
+							<h:commandButton action="#{userAccount.changeView()}" value="Edit"  rendered="#{userAccount.showProfile}"/>
+							<h:commandButton action="#{userAccount.update()}" value="Save" rendered="#{!userAccount.showProfile}"/>
+							<h:commandButton action="#{userAccount.deleteUser(user)}" value="Remove" rendered="#{userAccount.showProfile}"/>
+						</div>
+					</div>
+				</div>
+			</div>
+			</li>
+		</ui:repeat>
+		</ul>
+		</div>
+
 		</div>
 	</h:form>
 	<!-- Content finish -->

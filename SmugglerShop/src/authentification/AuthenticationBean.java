@@ -77,7 +77,7 @@ public class AuthenticationBean extends Page {
 					}
 				}
 				System.out.println("not valid:" + getContent(0,"password") + " : " + getContent(0,"admin"));
+				super.notify("Invalid Account", "");
 			}
 		}
-
 }
