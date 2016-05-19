@@ -57,16 +57,25 @@ public class AdminPages extends Page implements Serializable {
 	private String selectedCat;
 	private Product prod;
 	private Map<Integer,Boolean> checkedProducts = new HashMap<Integer,Boolean>();
+	
+	// for quantities in adminOrderPage
+	private Map<Integer,Integer> quantities = new HashMap<Integer,Integer>();
 
 	
 	private static final long serialVersionUID = 1L;
 	
+	public void test(Integer id){
+		System.out.println("ID: " + id);
+		System.out.println("Invoked Map Quantity:" + quantities.get(id));
+	}
+	
 	public void init() {
 		setOrders();
 		for (Order o : orders) checked.put(o.getOrderId(), false);
-		for (Product p : products) checkedProducts.put(p.getId(), false);
+		for (Product p : products) quantities.put(p.getId(), 1);
 		setStatus();
 		products = productService.getProducts();
+		for (Product p : products) checkedProducts.put(p.getId(), false);
 	}
 	
 	/* ******************************* admin Products **************************************** */
@@ -149,7 +158,6 @@ public class AdminPages extends Page implements Serializable {
 	public void onRowEdit(RowEditEvent event) {
         FacesMessage msg = new FacesMessage("Order Edited", "Selected Order: " + Integer.toString(((Order) event.getObject()).getOrderId()));
         FacesContext.getCurrentInstance().addMessage(null, msg);
-        System.out.println(((Order) event.getObject()).getOrderDate());
         super.updateDB(((Order) event.getObject()));
     }
      
@@ -160,7 +168,14 @@ public class AdminPages extends Page implements Serializable {
     
     
     public void addNewOrder(){
-    	System.out.println("New Order: Date:" + nOrder.getOrderDate() + " , Status:" + nOrder.getOrderStatus());
+    	for (int i=0;i<nOrder.getOrderList().size();i++) {
+    		if (quantities.containsKey(nOrder.getOrderList().get(i).getId())) {
+    			nOrder.getOrderList().get(i).setQuantity(quantities.get(nOrder.getOrderList().get(i).getId()));
+    			System.out.println("ID: " + nOrder.getOrderList().get(i).getId());
+    			System.out.println("Quantities map: " + quantities.get(nOrder.getOrderList().get(i).getId()));
+            	System.out.println("Quantities produt: " + nOrder.getOrderList().get(i).getQuantity());
+    		}
+    	}
     	super.insertDB(nOrder);
     	init();
     	super.notify("Successful added.", "Order Number: " + orders.get(orders.size()-1).getOrderId());
@@ -296,7 +311,10 @@ public class AdminPages extends Page implements Serializable {
 	public void setCheckedProducts(Map<Integer,Boolean> checkedProducts) {
 		this.checkedProducts = checkedProducts;
 	}
-
+	
+	public Map<Integer,Integer> getQuantities(){
+		return quantities;
+	}
 
 	
 }

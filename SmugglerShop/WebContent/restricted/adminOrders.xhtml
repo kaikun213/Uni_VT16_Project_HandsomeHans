@@ -79,7 +79,9 @@
        			 				</p:column>
        			 	
        			 				<p:column>
-       			 					<h:outputText id="inputQuantity" value="#{t.quantity}" a:size="2" />
+       			 					<p:inputText id="inputQuantity" value="#{adminPages.quantities[t.id]}" a:size="2">
+       			 						<f:ajax event="change" listener="#{adminPages.test(t.id)}" execute="inputQuantity"></f:ajax>
+       			 					</p:inputText>
        			 				</p:column>
        			 		</p:selectManyMenu>
        			</div>		
@@ -190,7 +192,9 @@
        						</p:column>
        						
        						<p:column headerText="Remove" style="width:10%">
-           						<h:commandButton action="#{adminPages.deleteOrder(order)}" class="btn btn-primary" value="Remove" />
+           						<h:commandButton class="btn btn-primary" value="Remove">
+           							<f:ajax event="click" listener="#{adminPages.deleteOrder(order)}" render="orders"></f:ajax>
+           						</h:commandButton>
        						</p:column>
        						
        						<p:column headerText="Change state">
