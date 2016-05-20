@@ -120,7 +120,7 @@
 
 						<div class="panel-footer">
 							<h:commandButton action="#{addRemoveAdmin.changeView()}" value="Edit" rendered="#{addRemoveAdmin.showProfile}" />
-							<h:commandButton action="#{addRemoveAdmin.update()}" value="Save" rendered="#{!addRemoveAdmin.showProfile}" />
+							<h:commandButton action="#{addRemoveAdmin.update(admin)}" value="Save" rendered="#{!addRemoveAdmin.showProfile}" />
 							<h:commandButton action="#{addRemoveAdmin.removeUser(admin)}" value="Remove" rendered="#{addRemoveAdmin.showProfile}" />
 						</div>
 					</div>
@@ -178,8 +178,8 @@
 						</div>
 
 						<div class="panel-footer">
-							<h:commandButton action="#{userAccount.changeView()}" value="Edit"  rendered="#{userAccount.showProfile}"/>
-							<h:commandButton action="#{userAccount.update()}" value="Save" rendered="#{!userAccount.showProfile}"/>
+							<h:commandButton action="#{userAccount.changeViewForAdmin()}" value="Edit"  rendered="#{userAccount.showProfile}"/>
+							<h:commandButton action="#{userAccount.update(user)}" value="Save" rendered="#{!userAccount.showProfile}"/>
 							<h:commandButton action="#{userAccount.deleteUser(user)}" value="Remove" rendered="#{userAccount.showProfile}"/>
 						</div>
 					</div>

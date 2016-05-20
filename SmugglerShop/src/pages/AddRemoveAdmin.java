@@ -86,10 +86,15 @@ public class AddRemoveAdmin extends Page implements Serializable {
 		showProfile = false;
 	}
 
-	public void update() {
-		admin.setAdmin(true);
-		admin.setOrders(arr);
-		super.updateDB(admin);
+	public void update(User u) {
+		if(!this.admin.getName().isEmpty())
+			u.setName(this.admin.getName());
+		if(!this.admin.getEmail().isEmpty())
+			u.setEmail(this.admin.getEmail());
+		if(!this.admin.getPassword().isEmpty())
+			u.setPassword(this.admin.getPassword());
+		
+		super.updateDB(u);
 		super.notify("Updated", "successfully");
 		showProfile = true;
 		init();
