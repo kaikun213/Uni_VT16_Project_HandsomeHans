@@ -12,11 +12,11 @@ public class AuthenticationBean extends Page {
 	 public static final String AUTH_KEY = "app.user.name";
 	 public static boolean admin = false;
 
-	  private String password;
-	  private String name;
+	  private static String password;
+	  private static String name;
 	  public String getName() { return name; }
-	  public void setName(String name) { this.name = name; }
-	  public void setPassword(String s){ password = s;}
+	  public void setName(String name) { AuthenticationBean.name = name; }
+	  public void setPassword(String s){ AuthenticationBean.password = s;}
 	  public String getPassword(){ return password;}
 
 	  public boolean isLoggedIn() {

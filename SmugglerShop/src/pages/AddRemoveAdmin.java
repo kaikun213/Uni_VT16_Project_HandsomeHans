@@ -8,6 +8,7 @@ import java.util.List;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
+import authentification.AuthenticationBean;
 import baseClasses.Order;
 import baseClasses.Page;
 import baseClasses.User;
@@ -21,6 +22,7 @@ import baseClasses.User;
 @SessionScoped
 public class AddRemoveAdmin extends Page implements Serializable {
 
+	private  AuthenticationBean authentication = new  AuthenticationBean ();
 	private User admin = new User();
 	private ArrayList<Order> arr = new ArrayList<Order>();
 	private List<User> users = new ArrayList<User>();
@@ -53,41 +55,45 @@ public class AddRemoveAdmin extends Page implements Serializable {
 	}
 
 	public void addUser() {
-		admin.setAdmin(true);
-		admin.setOrders(arr);
-		super.insertDB(admin);
-		super.notify("" + this.admin.getName(), "added as admin");
-		admin = new User();
-		init();
+		if (admin.getEmail().isEmpty() || admin.getPassword().isEmpty() || admin.getName().isEmpty())
+			super.notify("Please", "Fill all required fields");
+		else {
+			admin.setAdmin(true);
+			admin.setOrders(arr);
+			super.insertDB(admin);
+			super.notify("" + this.admin.getName(), "added as admin");
+			admin = new User();
+			init();
+		}
 	}
 
 	public void removeUser(User u) {
-	//	if (this.admin.getName().equals(u.getName()) && this.admin.getPassword().equals(u.getPassword())) {
-	//		super.notify("Unfortunately", "you cannot remove your own account");
-	//	} else {
+		if(u.getName().equals(authentication.getName()) && u.getPassword().equals(authentication.getPassword())){
+			super.notify("Unfortunately", "you cannot remove your own account");
+		} else {
 			super.deleteDB(u);
 			super.notify("" + u.getName(), "Removed");
 			// load DB Admin list new
 			init();
-		//}
+		}
 	}
 
 	public boolean getShowProfile() {
 		return showProfile;
 	}
-	
-	public void changeView(){
+
+	public void changeView() {
 		showProfile = false;
 	}
-	public void update(){
+
+	public void update() {
 		admin.setAdmin(true);
 		admin.setOrders(arr);
 		super.updateDB(admin);
-		super.notify("Updated","successfully");
+		super.notify("Updated", "successfully");
 		showProfile = true;
 		init();
-		
+
 	}
-	
 
 }
