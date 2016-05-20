@@ -97,6 +97,7 @@ public class AddRemoveAdmin extends Page implements Serializable {
 		super.updateDB(u);
 		super.notify("Updated", "successfully");
 		showProfile = true;
+		authentication.setName(u.getName()); //display name
 		init();
 
 	}

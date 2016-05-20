@@ -99,6 +99,7 @@ public class userAccount extends Page implements Serializable {
 		super.updateDB(u);
 		super.notify("Updated Successfully", "");
 		showProfile = true;
+		authentication.setName(u.getName()); //display name
 		init();
 	}
 
@@ -106,6 +107,7 @@ public class userAccount extends Page implements Serializable {
 		super.updateDB(user);
 		super.notify("Updated Successfully", "");
 		showProfile = true;
+		authentication.setName(user.getName()); //display name
 		init();
 
 	}
