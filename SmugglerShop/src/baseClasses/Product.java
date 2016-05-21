@@ -17,6 +17,7 @@ public class Product {
 	private int quantity;
 	private int id;
 	
+	
 
 	public int getId() {
 		return id;

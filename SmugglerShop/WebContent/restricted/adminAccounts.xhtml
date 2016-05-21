@@ -77,7 +77,7 @@
 	<h3 style="text-align: center;">List of Administrator</h3>
 	<hr></hr>
 		<ul style="list-style: none">
-			<ui:repeat var="admin" value="#{addRemoveAdmin.users}">
+			<ui:repeat var="admin" value="#{addRemoveAdmin.allAdmins}">
 		<li><div class="container" id="adminPanel">
 			<div class="row">
 				<div class="panel panel-info">
@@ -136,7 +136,7 @@
 <h3 style="text-align: center;">List of Users</h3>
 <hr></hr>
 		<ul style="list-style: none;">
-			<ui:repeat var="user" value="#{userAccount.allUsers}">
+		<ui:repeat var="user" value="#{addRemoveAdmin.allUsers}">
 		<li><div class="container" id="adminPanel">
 			<div class="row">
 				<div class="panel panel-info">

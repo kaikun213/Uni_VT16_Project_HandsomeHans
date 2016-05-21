@@ -22,10 +22,10 @@ import baseClasses.User;
 @SessionScoped
 public class AddRemoveAdmin extends Page implements Serializable {
 
-	private  AuthenticationBean authentication = new  AuthenticationBean ();
-	private User admin = new User();
+	private User nAdmin = new User();
 	private ArrayList<Order> arr = new ArrayList<Order>();
-	private List<User> users = new ArrayList<User>();
+	private List<User> allUsers = new ArrayList<User>();
+	private List<User> allAdmins = new ArrayList<User>();
 	private boolean showProfile = true;
 	/**
 	 * Default serialVersionID generated from eclipse
@@ -33,42 +33,40 @@ public class AddRemoveAdmin extends Page implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	public void init() {
-		setContent("SELECT * FROM user WHERE admin='1';");
+		setContent("SELECT * FROM user WHERE nAdmin='1';");
 		try {
-			users = toUsers(content);
+			setAllAdmins(toUsers(content));
+			setContent("SELECT * FROM user WHERE nAdmin='0';");
+			setAllUsers(toUsers(content));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public List<User> getUsers() {
-		System.out.println(users.size());
-		return users;
-	}
 
 	public User getAdmin() {
-		return admin;
+		return nAdmin;
 	}
 
 	public void setAdmin(User u) {
-		admin = u;
+		nAdmin = u;
 	}
 
 	public void addUser() {
-		if (admin.getEmail().isEmpty() || admin.getPassword().isEmpty() || admin.getName().isEmpty())
+		if (nAdmin.getEmail().isEmpty() || nAdmin.getPassword().isEmpty() || nAdmin.getName().isEmpty())
 			super.notify("Please", "Fill all required fields");
 		else {
-			admin.setAdmin(true);
-			admin.setOrders(arr);
-			super.insertDB(admin);
-			super.notify("" + this.admin.getName(), "added as admin");
-			admin = new User();
+			nAdmin.setAdmin(true);
+			nAdmin.setOrders(arr);
+			super.insertDB(nAdmin);
+			super.notify("" + this.nAdmin.getName(), "added as nAdmin");
+			nAdmin = new User();
 			init();
 		}
 	}
 
 	public void removeUser(User u) {
-		if(u.getName().equals(authentication.getName()) && u.getPassword().equals(authentication.getPassword())){
+		if(u.getName().equals(AuthenticationBean.activeUser.getName()) && u.getPassword().equals(AuthenticationBean.activeUser.getPassword())){
 			super.notify("Unfortunately", "you cannot remove your own account");
 		} else {
 			super.deleteDB(u);
@@ -87,19 +85,38 @@ public class AddRemoveAdmin extends Page implements Serializable {
 	}
 
 	public void update(User u) {
-		if(!this.admin.getName().isEmpty())
-			u.setName(this.admin.getName());
-		if(!this.admin.getEmail().isEmpty())
-			u.setEmail(this.admin.getEmail());
-		if(!this.admin.getPassword().isEmpty())
-			u.setPassword(this.admin.getPassword());
+		if(!this.nAdmin.getName().isEmpty())
+			u.setName(this.nAdmin.getName());
+		if(!this.nAdmin.getEmail().isEmpty())
+			u.setEmail(this.nAdmin.getEmail());
+		if(!this.nAdmin.getPassword().isEmpty())
+			u.setPassword(this.nAdmin.getPassword());
 		
 		super.updateDB(u);
 		super.notify("Updated", "successfully");
 		showProfile = true;
-		authentication.setName(u.getName()); //display name
 		init();
 
+	}
+
+
+	public List<User> getAllUsers() {
+		return allUsers;
+	}
+
+
+	public void setAllUsers(List<User> allUsers) {
+		this.allUsers = allUsers;
+	}
+
+
+	public List<User> getAllAdmins() {
+		return allAdmins;
+	}
+
+
+	public void setAllAdmins(List<User> allAdmins) {
+		this.allAdmins = allAdmins;
 	}
 
 }

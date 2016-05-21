@@ -71,7 +71,7 @@
 	<!-- Content -->
 	<h:form id="adminContent">
 		<p:growl id="msgs" showDetail="true" />
-		<h3>Welcome #{userAccount.user.name}</h3>
+		<h3>Welcome #{authenticationBean.activeUser.name}</h3>
 
 		<div class="container">
 			<div class="row">
@@ -80,7 +80,7 @@
 					class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad">
 					<div class="panel panel-info">
 						<div class="panel-heading">
-							<h3 class="panel-title">#{userAccount.user.name}</h3>
+							<h3 class="panel-title">#{authenticationBean.activeUser.name}</h3>
 						</div>
 						<div class="panel-body">
 							<div class="row">
@@ -95,18 +95,18 @@
 										<tbody>
 											<tr>
 												<td>Username</td>
-											<td><h:outputText value="#{userAccount.user.name}"  rendered="#{userAccount.showProfile}"/></td>
-											<td><h:inputText value="#{userAccount.user.name}" rendered="#{!userAccount.showProfile}"/></td>
+											<td><h:outputText value="#{authenticationBean.activeUser.name}" /></td>
+											<td><h:inputText value="#{authenticationBean.activeUser.name}" /></td>
 											</tr>
 											<tr>
 												<td>Password</td>
-											<td><h:outputText value="#{userAccount.user.password}" rendered="#{userAccount.showProfile}"/></td>
-											<td><h:inputText value= "#{userAccount.user.password}" rendered="#{!userAccount.showProfile}"/></td>
+											<td><h:outputText value="#{authenticationBean.activeUser.password}" rendered="#{userAccount.showProfile}"/></td>
+											<td><h:inputText value="#{authenticationBean.activeUser.password}" rendered="#{!userAccount.showProfile}"/></td>
 											</tr>
 											<tr>
 												<td>Email</td>
-												<td><h:outputText value="#{userAccount.user.email}"  rendered="#{userAccount.showProfile}"/></td>
-										  	<td><h:inputText value="#{userAccount.user.email}" rendered="#{!userAccount.showProfile}"/></td> 
+												<td><h:outputText value="#{authenticationBean.activeUser.email}"  rendered="#{userAccount.showProfile}"/></td>
+										  	<td><h:inputText value="#{authenticationBean.activeUser.email}" rendered="#{!userAccount.showProfile}"/></td> 
 											</tr>
 
 										</tbody>

@@ -69,17 +69,17 @@
         	<li class="dropdown">
         		<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> 
         		<h:outputText value="Login" rendered="#{not authenticationBean.loggedIn}"/>
-        		<h:outputText value="#{authenticationBean.name}" rendered="#{authenticationBean.loggedIn}"/></a>
+        		<h:outputText value="#{authentificationBean.activeUser.name}" rendered="#{authenticationBean.loggedIn}"/></a>
 					<ul id="login-dp" class="dropdown-menu">
 						<li><div class="row">
 								<div class="col-xs-12">
 										<h:form class="form" role="form" method="post" action="login" accept-charset="UTF-8" id="login-nav">
 											<div class="form-group">
-												<h:inputText value="#{authenticationBean.name}" type="email" class="form-control" id="exampleInputEmail2"
+												<h:inputText value="#{authenticationBean.activeUser.name}" type="email" class="form-control" id="exampleInputEmail2"
 														a:placeholder="Username" required=" " />
 											</div>
 											<div class="form-group">
-												<h:inputSecret value="#{authenticationBean.password}"
+												<h:inputSecret value="#{authenticationBean.activeUser.password}"
 														type="password" class="form-control"
 														id="exampleInputPassword2" a:placeholder="Password"
 														required=" " />
