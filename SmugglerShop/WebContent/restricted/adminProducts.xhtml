@@ -110,18 +110,16 @@
      
      <div class="form-group">
       <div>
-       <h:commandButton class="btn btn-primary " name="submit" type="submit" value="Add Product">
+       <h:commandButton class="btn btn-primary " name="submit" type="submit" value="New Product">
        		<f:ajax event="click" listener="#{adminPages.adminAddProduct()}" render="theHead @form"></f:ajax>
        </h:commandButton>
-       <h:commandButton class="btn btn-primary " name="update" type="submit" value="Edit Product">
-             <f:ajax event="click" listener="#{adminPages.adminUpdateProduct()}" render="theHead @form"></f:ajax>
+       <h:commandButton class="btn btn-primary " name="update" type="submit" value="Save">
+             <f:ajax event="click" listener="#{adminPages.adminSaveProduct()}" render="theHead @form"></f:ajax>
        </h:commandButton>
        <h:commandButton class="btn btn-primary " name="clearFields" type="submit" value="Clear">
        		<f:ajax event="click" listener="#{adminPages.adminClearInputs()}" render="theHead @form"></f:ajax>
        </h:commandButton>
-       <h:commandButton class="btn btn-primary " name="delete" type="submit" value="Delete Product">
-       		<f:ajax event="click" listener="#{adminPages.adminDeleteProduct()}" render="theHead @form"></f:ajax>
-     	</h:commandButton>
+
       </div>
      </div>
    </div>
@@ -145,18 +143,21 @@
        			 									<p:column>
        			 										<h:outputText value="#{t.name}" />
        			 									</p:column>
-       			 								
+       			 									       			 						
        			 									<p:column>
        			 										<h:outputText id="inputQuantity" value="#{t.quantity}" a:size="2" />
        			 									</p:column>
-       		
+       			 									
+
        		</p:selectOneListbox>
-
-
-       		<h:commandButton  name="delete" type="submit" value="Delete all">
-       		<f:ajax event="click" listener="#{adminPages.adminDeleteProducts()}" render="theHead @form"></f:ajax>
+     		<h:commandButton class="btn btn-primary " name="delete" type="submit" value="Delete selected">
+       			<f:ajax event="click" listener="#{adminPages.adminDeleteProduct()}" render="theHead @form"></f:ajax>
      		</h:commandButton>
-
+     		
+       		<h:commandButton class="btn btn-primary " name="delete" type="submit" value="Delete all">
+       			<f:ajax event="click" listener="#{adminPages.adminDeleteProducts()}" render="theHead @form"></f:ajax>
+     		</h:commandButton>
+     		
        		</div>
              
     <!-- Start product list -->

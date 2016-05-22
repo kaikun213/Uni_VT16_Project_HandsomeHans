@@ -81,12 +81,22 @@ public class AdminPages extends Page implements Serializable {
 	/* ******************************* admin Products **************************************** */
 	
 	public void adminAddProduct(){
-		insertDB(prod);		
+		prod = new Product();
 		products = productService.getProducts();
 	}
-	public void adminUpdateProduct(){
-		updateDB(prod);
+	public void adminSaveProduct(){
+		
+		for(int i = 0; i<products.size();i++){
+			if(prod.getId()==products.get(i).getId()){
+				updateDB(prod);
+			}
+				else if(i==products.size()-1){
+					insertDB(prod);
+			}
+		}
+		
 		products = productService.getProducts();
+		prod = new Product();
 	}
 	
 	public void adminClearInputs(){
