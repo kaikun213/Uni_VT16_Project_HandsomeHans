@@ -33,10 +33,10 @@ public class AddRemoveAdmin extends Page implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	public void init() {
-		setContent("SELECT * FROM user WHERE nAdmin='1';");
+		setContent("SELECT * FROM user WHERE admin='1';");
 		try {
 			setAllAdmins(toUsers(content));
-			setContent("SELECT * FROM user WHERE nAdmin='0';");
+			setContent("SELECT * FROM user WHERE admin='0';");
 			setAllUsers(toUsers(content));
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -59,7 +59,7 @@ public class AddRemoveAdmin extends Page implements Serializable {
 			nAdmin.setAdmin(true);
 			nAdmin.setOrders(arr);
 			super.insertDB(nAdmin);
-			super.notify("" + this.nAdmin.getName(), "added as nAdmin");
+			super.notify("" + this.nAdmin.getName(), "added as admin");
 			nAdmin = new User();
 			init();
 		}
