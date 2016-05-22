@@ -50,8 +50,7 @@ public abstract class Page implements PageInterface{
 	}
 
 	public ArrayList<Product> toProducts(ResultSet products) throws SQLException{
-		//null ResultSet
-		if (products == null) return new ArrayList<Product>();
+		products.beforeFirst();
 		//ResultSet from wrong type
 		if (!products.getMetaData().getTableName(1).equals("product")) throw new SQLException("This is not a product list");
 		ArrayList<Product> arr = new ArrayList<Product>();
@@ -74,8 +73,7 @@ public abstract class Page implements PageInterface{
 	}
 	
 	public ArrayList<Order> toOrders(ResultSet orders) throws SQLException{
-		//null ResultSet
-		if (orders == null) return new ArrayList<Order>();
+		orders.beforeFirst();
 		//ResultSet from wrong type
 		if (!orders.getMetaData().getTableName(1).equals("orders")) throw new SQLException("This is not a order list");
 		ArrayList<Order> arr = new ArrayList<Order>();
@@ -133,8 +131,7 @@ public abstract class Page implements PageInterface{
 	}
 	
 	public ArrayList<User> toUsers(ResultSet users) throws SQLException{
-		//null ResultSet
-		if (users == null) return new ArrayList<User>();
+		users.beforeFirst();
 		//ResultSet from wrong type
 		if (!users.getMetaData().getTableName(1).equals("user")) throw new SQLException("This is not a user list");
 		ArrayList<User> arr = new ArrayList<User>();
