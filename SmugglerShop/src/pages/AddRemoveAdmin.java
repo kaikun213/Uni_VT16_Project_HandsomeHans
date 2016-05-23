@@ -26,7 +26,18 @@ public class AddRemoveAdmin extends Page implements Serializable {
 	private ArrayList<Order> arr = new ArrayList<Order>();
 	private List<User> allUsers = new ArrayList<User>();
 	private List<User> allAdmins = new ArrayList<User>();
-	private boolean showProfile = true;
+	private String userMode; // to check if admin or user
+
+
+	public String getUserMode() {
+		return userMode;
+	}
+
+
+	public void setUserMode(String userMode) {
+		this.userMode = userMode;
+	}
+
 	/**
 	 * Default serialVersionID generated from eclipse
 	 */
@@ -56,10 +67,11 @@ public class AddRemoveAdmin extends Page implements Serializable {
 		if (nAdmin.getEmail().isEmpty() || nAdmin.getPassword().isEmpty() || nAdmin.getName().isEmpty())
 			super.notify("Please", "Fill all required fields");
 		else {
-			nAdmin.setAdmin(true);
+			if(userMode.equals("Admin")){nAdmin.setAdmin(true);}
+			else{nAdmin.setAdmin(false);}
 			nAdmin.setOrders(arr);
 			super.insertDB(nAdmin);
-			super.notify("" + this.nAdmin.getName(), "added as admin");
+			super.notify("" + this.nAdmin.getName(), "added as "+userMode);
 			nAdmin = new User();
 			init();
 		}
@@ -71,32 +83,15 @@ public class AddRemoveAdmin extends Page implements Serializable {
 		} else {
 			super.deleteDB(u);
 			super.notify("" + u.getName(), "Removed");
-			// load DB Admin list new
 			init();
 		}
 	}
 
-	public boolean getShowProfile() {
-		return showProfile;
-	}
-
-	public void changeView() {
-		showProfile = false;
-	}
 
 	public void update(User u) {
-		if(!this.nAdmin.getName().isEmpty())
-			u.setName(this.nAdmin.getName());
-		if(!this.nAdmin.getEmail().isEmpty())
-			u.setEmail(this.nAdmin.getEmail());
-		if(!this.nAdmin.getPassword().isEmpty())
-			u.setPassword(this.nAdmin.getPassword());
-		
 		super.updateDB(u);
 		super.notify("Updated", "successfully");
-		showProfile = true;
-		init();
-
+		init();		
 	}
 
 
@@ -118,5 +113,4 @@ public class AddRemoveAdmin extends Page implements Serializable {
 	public void setAllAdmins(List<User> allAdmins) {
 		this.allAdmins = allAdmins;
 	}
-
 }

@@ -13,70 +13,91 @@ import baseClasses.Page;
 import baseClasses.User;
 
 @ManagedBean(name = "authenticationBean")
-public class AuthenticationBean extends Page{
-	
-	 public static final String AUTH_KEY = "app.user.name";
-	 public static User activeUser = new User();
-	  
-	  public User getActiveUser() {return activeUser;}
-	  public void setActiveUser(User u) {activeUser = u;}
+public class AuthenticationBean extends Page {
 
-	  public boolean isLoggedIn() {
-	    return FacesContext.getCurrentInstance().getExternalContext()
-	        .getSessionMap().get(AUTH_KEY) != null;
-	  }
+	public static final String AUTH_KEY = "app.user.name";
+	public static User activeUser = new User();
+	public boolean adminMode = false; // for going to correct page while logged in
 
-	  public void login() {
-	    Login();
-	  }
+	public void setAdminMode(boolean adminMode) {
+		this.adminMode = adminMode;
+	}
 
-	  public void logout() {
-	    FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove(AUTH_KEY);
-	    ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-	    activeUser = new User();
+	public boolean isAdminMode() {
+		return adminMode;
+	}
+
+	public User getActiveUser() {
+		return activeUser;
+	}
+
+	public void setActiveUser(User u) {
+		activeUser = u;
+	}
+
+	public boolean isLoggedIn() {
+		return FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(AUTH_KEY) != null;
+	}
+
+	public void login() {
+		Login();
+	}
+
+	public void logout() {
+		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove(AUTH_KEY);
+		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+		activeUser = new User();
+		adminMode = false;
 		try {
 			ec.redirect("../mainpage.xhtml");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	  }
-	  
-	  public void Login(){
-			System.out.println("Login Try: " + activeUser.getName() + " : " + activeUser.getPassword());
-			if (activeUser.getName().isEmpty() || activeUser.getPassword().isEmpty()) {
-				super.notify("Error","Please enter login data");
+	}
+
+	public void Login() {
+		System.out.println("Login Try: " + activeUser.getName() + " : " + activeUser.getPassword());
+		if (activeUser.getName().isEmpty() || activeUser.getPassword().isEmpty()) {
+			super.notify("Error", "Please enter login data");
+		} else if ((activeUser.getName().compareTo("root")) == 0
+				&& (activeUser.getPassword().compareTo("team2") == 0)) {
+			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(AUTH_KEY, activeUser.getName());
+			ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+			try {
+				adminMode = true;
+				activeUser.setAdmin(true);
+				activeUser.setEmail("IntegratedAdmin");
+				activeUser.setOrders(new ArrayList<Order>());
+				ec.redirect("restricted/adminProducts.xhtml");
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
-			else if ((activeUser.getName().compareTo("root")) == 0 && (activeUser.getPassword().compareTo("team2") == 0)) {
-				FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(AUTH_KEY, activeUser.getName());
+		}
+		// check Account Data
+		else {
+			setContent("SELECT * FROM user WHERE name=\"" + activeUser.getName() + "\";");
+			// if correct login
+			if ((getContent(0, "password").compareTo(activeUser.getPassword()) == 0)) {
+				FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(AUTH_KEY,
+						activeUser.getName());
 				ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
 				try {
-					activeUser.setAdmin(true);
-					activeUser.setEmail("IntegratedAdmin");
-					activeUser.setOrders(new ArrayList<Order>());
-					ec.redirect("restricted/adminProducts.xhtml");
-				} catch (IOException e) {
+					activeUser = toUsers(content).get(0);
+					// if it is an admin redirect
+					if (activeUser.getAdmin()) {
+						adminMode = true;
+						ec.redirect("restricted/adminProducts.xhtml");
+					} else {
+						adminMode = false;
+						ec.redirect("userAccount.xhtml");
+					}
+
+				} catch (IOException | SQLException e) {
 					e.printStackTrace();
 				}
 			}
-			// check Account Data
-			else {
-				setContent("SELECT * FROM user WHERE name=\"" + activeUser.getName() + "\";");
-				// if correct login
-				if ((getContent(0,"password").compareTo(activeUser.getPassword()) == 0)) {
-					FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(AUTH_KEY, activeUser.getName());
-					ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-					try {
-						activeUser = toUsers(content).get(0);
-						// if it is an admin redirect 
-						if (activeUser.getAdmin()) ec.redirect("restricted/adminProducts.xhtml");
-						else ec.redirect("userAccount.xhtml");
-
-					} catch (IOException | SQLException e) {
-						e.printStackTrace();
-					}
-				}
-				System.out.println("not valid:" + getContent(0,"password") + " : " + getContent(0,"admin"));
-				super.notify("Invalid Account", "");
-			}
+			System.out.println("not valid:" + getContent(0, "password") + " : " + getContent(0, "admin"));
+			super.notify("Invalid Account", "");
 		}
+	}
 }

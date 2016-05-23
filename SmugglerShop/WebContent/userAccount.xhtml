@@ -95,18 +95,15 @@
 										<tbody>
 											<tr>
 												<td>Username</td>
-											<td><h:outputText value="#{authenticationBean.activeUser.name}" /></td>
-											<td><h:inputText value="#{authenticationBean.activeUser.name}" /></td>
+											<td><p:inplace editor="true"><h:inputText value="#{authenticationBean.activeUser.name}" /></p:inplace></td>
 											</tr>
 											<tr>
 												<td>Password</td>
-											<td><h:outputText value="#{authenticationBean.activeUser.password}" rendered="#{userAccount.showProfile}"/></td>
-											<td><h:inputText value="#{authenticationBean.activeUser.password}" rendered="#{!userAccount.showProfile}"/></td>
+											<td><p:inplace editor="true"><h:inputText value="#{authenticationBean.activeUser.password}" /></p:inplace></td>
 											</tr>
 											<tr>
 												<td>Email</td>
-												<td><h:outputText value="#{authenticationBean.activeUser.email}"  rendered="#{userAccount.showProfile}"/></td>
-										  	<td><h:inputText value="#{authenticationBean.activeUser.email}" rendered="#{!userAccount.showProfile}"/></td> 
+													<td><p:inplace editor="true"><h:inputText value="#{authenticationBean.activeUser.email}" /></p:inplace></td>
 											</tr>
 
 										</tbody>
@@ -117,8 +114,7 @@
 						</div>
 
 						<div class="panel-footer">
-							<h:commandButton action="#{userAccount.changeViewForUser()}" value="Edit"  rendered="#{userAccount.showProfile}"/>
-							<h:commandButton action="#{userAccount.update()}" value="Save" rendered="#{!userAccount.showProfile}"/>
+							<h:commandButton action="#{userAccount.update()}" value="Save" />
 						</div>
 
 					</div>

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
-
+import authentification.AuthenticationBean;
 import baseClasses.Order;
 import baseClasses.Page;
 import baseClasses.User;
@@ -20,12 +20,10 @@ public class userAccount extends Page implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private User nUser = new User();
-	private boolean showProfile = true;
 
 	public void init() {
-		
+	
 	}
-
 
 	public void addUser() {
 		nUser.setAdmin(false);
@@ -42,48 +40,26 @@ public class userAccount extends Page implements Serializable {
 		init();
 	}
 
-	public void changeViewForUser() {
-		showProfile = false;
-	}
-	
-	public void changeViewForAdmin() {
-		showProfile = false;
-		nUser = new User();
-	}
-
-	public boolean getShowProfile() {
-		return showProfile;
-
-	}
-
 	public void update(User u) {
-		if (!this.nUser.getName().isEmpty())
-			u.setName(this.nUser.getName());
-		if (!this.nUser.getEmail().isEmpty())
-			u.setEmail(this.nUser.getEmail());
-		if (!this.nUser.getPassword().isEmpty())
-			u.setPassword(this.nUser.getPassword());
+		System.out.println("NaME: " + u.getName());
+		System.out.println("EMAIL: " + u.getEmail());
+		System.out.println("PASS: " + u.getPassword());
 		super.updateDB(u);
 		super.notify("Updated Successfully", "");
-		showProfile = true;
-		//authentication.setName(u.getName()); //display name
 		init();
 	}
 
 	public void update() {
-		super.updateDB(nUser);
+		super.updateDB(AuthenticationBean.activeUser);
 		super.notify("Updated Successfully", "");
-		showProfile = true;
-		//authentication.setName(nUser.getName()); //display name
 		init();
-
 	}
-	
-	public User getUser(){
+
+	public User getUser() {
 		return nUser;
 	}
-	
-	public void setUser(User u){
+
+	public void setUser(User u) {
 		nUser = u;
 	}
 

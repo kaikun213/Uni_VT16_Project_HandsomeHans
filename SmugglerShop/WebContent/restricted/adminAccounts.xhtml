@@ -55,22 +55,26 @@
 	<h:form id="adminContent">
 		<p:growl id="growl" showDetail="true" sticky="true" />
 	
+	  <p:panel id="newUserPanel" header="New User" style="margin-top:10px">
+      	 <h:panelGrid columns="10" id="grid" cellpadding="5">
+            <p:outputLabel for="username" value="Username" />
+            <h:inputText id="username" value="#{addRemoveAdmin.admin.name}" />
+            
+            <p:outputLabel for="email" value="Email" />
+            <h:inputText id="email" value="#{addRemoveAdmin.admin.email}"/>
+           
+           <p:outputLabel for="password" value="Password" />
+        	<h:inputSecret id="password" value="#{addRemoveAdmin.admin.password}" />
+        
+         <p:selectOneButton value="#{addRemoveAdmin.userMode}">
+            <f:selectItem itemLabel="User" itemValue="User" />
+            <f:selectItem itemLabel="Admin" itemValue="Admin" />
+        </p:selectOneButton>
+   	<h:commandButton value="Save" icon="ui-icon-check" action="#{addRemoveAdmin.addUser()}" />
+  </h:panelGrid>
+    </p:panel>
 				
-					<div class="form-inline" id="addAdminUser">
-						<label>Name*</label>
-						<h:inputText value="#{addRemoveAdmin.admin.name}" type="text"
-							class="form-control" id="name" style="margin: 0 10px 0 0;" />
-					
-						<label>Email*</label>
-						<h:inputText value="#{addRemoveAdmin.admin.email}" type="text"
-							class="form-control" id="email"  style="margin: 0 10px 0 0;" />
-					
-						<label>Password*</label>
-						<h:inputSecret value="#{addRemoveAdmin.admin.password}"
-							type="password" class="form-control" id="password" style="margin: 0 10px 0 0;" />
-				
-				<h:commandButton action="#{addRemoveAdmin.addUser}" value="Add Admin" styleClass="width:20px;" />
-		</div>
+		
 		
 <div class="container-fluid">
 	<div class="col-sm-5" id="adminPanelContainer">
@@ -78,6 +82,7 @@
 	<hr></hr>
 		<ul style="list-style: none">
 			<ui:repeat var="admin" value="#{addRemoveAdmin.allAdmins}">
+
 		<li><div class="container" id="adminPanel">
 			<div class="row">
 				<div class="panel panel-info">
@@ -95,20 +100,20 @@
 								<div class=" col-md-9 col-lg-9 ">
 									<table class="table table-user-information">
 										<tbody>
+											
 											<tr>
-												<td>Username</td>
-											<td><h:outputText value="#{admin.name}" rendered="#{addRemoveAdmin.showProfile}" /></td>
-											<td><h:inputText value="#{addRemoveAdmin.admin.name}" rendered="#{!addRemoveAdmin.showProfile}" /></td>
+											<td>Username</td>
+											<td><p:inplace editor="true"><h:inputText value="#{admin.name}" /></p:inplace></td>
 											</tr>
+											
 											<tr>
-												<td>Password</td>
-											<td><h:outputText value="#{admin.password}" rendered="#{addRemoveAdmin.showProfile}" /></td>
-											<td><h:inputText value="#{addRemoveAdmin.admin.password}" rendered="#{!addRemoveAdmin.showProfile}" /></td>
+											<td>Password</td>
+											<td><p:inplace editor="true"><h:inputText value="#{admin.password}" /></p:inplace></td>
 											</tr>
+											
 											<tr>
-												<td>Email</td>
-												<td><h:outputText value="#{admin.email}"  rendered="#{addRemoveAdmin.showProfile}" /></td>
-											<td><h:inputText value="#{addRemoveAdmin.admin.email}"  rendered="#{!addRemoveAdmin.showProfile}" /></td>
+											<td>Email</td>
+											<td><p:inplace editor="true"><h:inputText value="#{admin.email}" /></p:inplace></td>
 											</tr>
 
 										</tbody>
@@ -119,9 +124,8 @@
 						</div>
 
 						<div class="panel-footer">
-							<h:commandButton action="#{addRemoveAdmin.changeView()}" value="Edit" rendered="#{addRemoveAdmin.showProfile}" />
-							<h:commandButton action="#{addRemoveAdmin.update(admin)}" value="Save" rendered="#{!addRemoveAdmin.showProfile}" />
-							<h:commandButton action="#{addRemoveAdmin.removeUser(admin)}" value="Remove" rendered="#{addRemoveAdmin.showProfile}" />
+							<h:commandButton action="#{addRemoveAdmin.update(admin)}" value="Save" />
+							<h:commandButton action="#{addRemoveAdmin.removeUser(admin)}" value="Remove" />
 						</div>
 					</div>
 				</div>
@@ -156,18 +160,15 @@
 										<tbody>
 											<tr>
 												<td>Username</td>
-											<td><h:outputText value="#{user.name}" rendered="#{userAccount.showProfile}"/></td>
-											<td><h:inputText value="#{userAccount.user.name}" rendered="#{!userAccount.showProfile}"/></td>
+											<td><p:inplace editor="true"><p:inputText value="#{user.name}" /></p:inplace></td>
 											</tr>
 											<tr>
 												<td>Password</td>
-											<td><h:outputText value="#{user.password}" rendered="#{userAccount.showProfile}"/></td>
-											<td><h:inputText value="#{userAccount.user.password}" rendered="#{!userAccount.showProfile}"/></td>
+										<td><p:inplace editor="true"><p:inputText value="#{user.password}" /></p:inplace></td>
 											</tr>
 											<tr>
 												<td>Email</td>
-												<td><h:outputText value="#{user.email}"  rendered="#{userAccount.showProfile}"/></td>
-											<td><h:inputText value="#{userAccount.user.email}" rendered="#{!userAccount.showProfile}"/></td>
+											<td><p:inplace editor="true"><p:inputText value="#{user.email}" /></p:inplace></td>
 											</tr>
 
 										</tbody>
@@ -178,9 +179,8 @@
 						</div>
 
 						<div class="panel-footer">
-							<h:commandButton action="#{userAccount.changeViewForAdmin()}" value="Edit"  rendered="#{userAccount.showProfile}"/>
-							<h:commandButton action="#{userAccount.update(user)}" value="Save" rendered="#{!userAccount.showProfile}"/>
-							<h:commandButton action="#{userAccount.deleteUser(user)}" value="Remove" rendered="#{userAccount.showProfile}"/>
+							<h:commandButton action="#{userAccount.update(user)}" value="Save" />
+							<h:commandButton action="#{userAccount.deleteUser(user)}" value="Remove" />
 						</div>
 					</div>
 				</div>
