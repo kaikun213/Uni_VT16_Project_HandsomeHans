@@ -66,6 +66,9 @@ public class AddRemoveAdmin extends Page implements Serializable {
 	public void addUser() {
 		if (nAdmin.getEmail().isEmpty() || nAdmin.getPassword().isEmpty() || nAdmin.getName().isEmpty())
 			super.notify("Please", "Fill all required fields");
+		if(userMode == null){
+			super.notify("Please", "Select type: Admin or User");
+		}
 		else {
 			if(userMode.equals("Admin")){nAdmin.setAdmin(true);}
 			else{nAdmin.setAdmin(false);}
