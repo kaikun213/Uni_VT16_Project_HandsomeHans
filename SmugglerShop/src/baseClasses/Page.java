@@ -259,7 +259,7 @@ public abstract class Page implements PageInterface{
 			sb.append(((User) o).getAddress() + "\", city=\"");
 			sb.append(((User) o).getCity() + "\", phone=\"");
 			sb.append(((User) o).getPhone() + "\", postcode=");
-			sb.append(((User) o).getPostcode() + "\",image=\"");
+			sb.append(((User) o).getPostcode() + ",image=\"");
 			sb.append(((User) o).getImage() + "\",admin=");
 			if (((User) o).getAdmin()) sb.append("1");
 			else sb.append("0");
