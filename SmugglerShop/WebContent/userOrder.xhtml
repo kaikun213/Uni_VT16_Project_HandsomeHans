@@ -90,9 +90,15 @@
 				
 				<h:outputLabel value="Items" />
 					<pre><ul class="list-group">
-							<ui:repeat value="#{authenticationBean.activeUser.orders}"
-								var="product"> <li class="list-group-item"><h7><img src="#{product.image}" alt="resources/img/HeaderLogo.png" width="200" height="100" class="img-thumbnail" />          <span>Qtn: #{product.quantity}              #{product.price} <i
-										class="fa fa-gg-circle"></i></span><br />#{product.name}</h7></li></ui:repeat></ul></pre>					
+							<ui:repeat value="#{authenticationBean.activeUser.orders}" var="order"> 
+							<li class="list-group-item">
+								<ui:repeat var="product" value="#{order.orderList}">
+								<li>
+								<h7><img src="#{product.image}" alt="resources/img/HeaderLogo.png" width="200" height="100" class="img-thumbnail" />          <span>Qtn: #{product.quantity}              #{product.price} <i
+										class="fa fa-gg-circle"></i></span><br />#{product.name}</h7>
+								</li>
+								</ui:repeat>					
+							</li></ui:repeat></ul></pre>	
 					</p:panel>
 				<!-- Finish Order Details -->
 

@@ -64,6 +64,10 @@
 	return false;  
 	}  
 	}  </script>
+	
+<f:metadata>
+	<f:viewAction action="#{contactPage.init()}" />
+</f:metadata>
 
 </h:head>
 <body>
@@ -81,30 +85,34 @@
 				
 				<div class="form-group">
 					<p:outputLabel for="name">Name</p:outputLabel>
-					<h:inputText value="#{contactPage.user.name}" class="form-control" id="name" a:placeholder="John Smith" required="true" maxlength="30" onkeyup="lettersOnly(this)"/>
+					<h:inputText rendered="#{not authenticationBean.loggedIn}" value="#{contactPage.user.name}" class="form-control" id="name" a:placeholder="John Smith" required="true" maxlength="30" onkeyup="lettersOnly(this)"/>
+					<h:outputText rendered="#{authenticationBean.loggedIn}" value="#{authenticationBean.activeUser.name}" class="form-control" />
 				</div>
 
 				<div class="form-group">
 					<p:outputLabel for="email">Email</p:outputLabel>
-					<p:inputText value="#{contactPage.user.email}" type="email" class="form-control" id="email" a:placeholder="example@gmail.com" required="true" onkeyup="emailOnly(this)"/> <!-- onmouseout="ValidateEmail(this)" -->
-				
+					<p:inputText rendered="#{not authenticationBean.loggedIn}" value="#{contactPage.user.email}" type="email" class="form-control" id="email" a:placeholder="example@gmail.com" required="true" onkeyup="emailOnly(this)"/> <!-- onmouseout="ValidateEmail(this)" -->
+					<h:outputText rendered="#{authenticationBean.loggedIn}" value="#{authenticationBean.activeUser.email}" class="form-control" />
 				</div>
 			
 				<div class="form-group">
 					<p:outputLabel for="phone">Phone</p:outputLabel>
-					<h:inputText id="phone" value="#{contactPage.phone}" class="form-control" a:placeholder="0735781231" required="true" maxlength="10" onkeyup="digitsOnly(this)"/>	
+					<h:inputText rendered="#{not authenticationBean.loggedIn}" id="phone" value="#{contactPage.phone}" class="form-control" a:placeholder="0735781231"  maxlength="10" onkeyup="digitsOnly(this)"/>	
+					<h:outputText rendered="#{authenticationBean.loggedIn}" value="#{authenticationBean.activeUser.phone}" class="form-control" />
 				</div>
 
 				<div class="form-group">
 					<p:outputLabel for="address1">Address</p:outputLabel>
-					<h:inputText value="#{contactPage.address}" type="text" class="form-control" id="address1" a:placeholder="Stallvagen 30"  required="true" maxlength="30"  onkeyup="addressOnly(this)"/>
+					<h:inputText rendered="#{not authenticationBean.loggedIn}" value="#{contactPage.address}" type="text" class="form-control" id="address1" a:placeholder="Stallvagen 30"   maxlength="30"  onkeyup="addressOnly(this)"/>
+					<h:outputText rendered="#{authenticationBean.loggedIn}" value="#{authenticationBean.activeUser.address}" class="form-control" />
 				</div>
 
 				
 				<div class="col-xs-4">
 					<div class="form-group">
 					<p:outputLabel for="postcode">PostCode</p:outputLabel>
-						<h:inputText value="#{contactPage.postcode}" class="form-control" id="postcode" a:placeholder="35421"  required="true" maxlength="5" onkeyup="digitsOnly(this)"/>
+						<h:inputText rendered="#{not authenticationBean.loggedIn}" value="#{contactPage.postcode}" class="form-control" id="postcode" a:placeholder="35421"  maxlength="5" onkeyup="digitsOnly(this)"/>
+						<h:outputText rendered="#{authenticationBean.loggedIn}" value="#{authenticationBean.activeUser.postcode}" class="form-control" />
 					</div>
 				</div>
 
@@ -113,7 +121,8 @@
 				<div class="col-xs-4">
 					<div class="form-group">
 						<p:outputLabel for="city">City</p:outputLabel>
-						<h:inputText value="#{contactPage.city}" class="form-control" id="city" a:placeholder="Vaxjo"   maxlength="10" required="true" onkeyup="lettersOnly(this)"/>
+						<h:inputText rendered="#{not authenticationBean.loggedIn}" value="#{contactPage.city}" class="form-control" id="city" a:placeholder="Vaxjo"   maxlength="10" onkeyup="lettersOnly(this)"/>
+						<h:outputText rendered="#{authenticationBean.loggedIn}" value="#{authenticationBean.activeUser.city}" class="form-control" />
 					</div>
 				</div>
 				

@@ -17,15 +17,6 @@ public class AuthenticationBean extends Page {
 
 	public static final String AUTH_KEY = "app.user.name";
 	public static User activeUser = new User();
-	public boolean adminMode = false; // for going to correct page while logged in
-
-	public void setAdminMode(boolean adminMode) {
-		this.adminMode = adminMode;
-	}
-
-	public boolean isAdminMode() {
-		return adminMode;
-	}
 
 	public User getActiveUser() {
 		return activeUser;
@@ -44,12 +35,12 @@ public class AuthenticationBean extends Page {
 	}
 
 	public void logout() {
-		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove(AUTH_KEY);
 		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+		ec.getSessionMap().remove(AUTH_KEY);
 		activeUser = new User();
-		adminMode = false;
 		try {
-			ec.redirect("../mainpage.xhtml");
+			if (activeUser.getAdmin()) ec.redirect("../mainpage.xhtml");
+			else ec.redirect("mainpage.xhtml");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -64,7 +55,6 @@ public class AuthenticationBean extends Page {
 			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(AUTH_KEY, activeUser.getName());
 			ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
 			try {
-				adminMode = true;
 				activeUser.setAdmin(true);
 				activeUser.setEmail("IntegratedAdmin");
 				activeUser.setOrders(new ArrayList<Order>());
@@ -85,10 +75,8 @@ public class AuthenticationBean extends Page {
 					activeUser = toUsers(content).get(0);
 					// if it is an admin redirect
 					if (activeUser.getAdmin()) {
-						adminMode = true;
 						ec.redirect("restricted/adminProducts.xhtml");
 					} else {
-						adminMode = false;
 						ec.redirect("userAccount.xhtml");
 					}
 

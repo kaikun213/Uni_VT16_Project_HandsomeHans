@@ -50,6 +50,7 @@ public abstract class Page implements PageInterface{
 	}
 
 	public ArrayList<Product> toProducts(ResultSet products) throws SQLException{
+		if (products == null) return new ArrayList<Product>(); 
 		products.beforeFirst();
 		//ResultSet from wrong type
 		if (!products.getMetaData().getTableName(1).equals("product")) throw new SQLException("This is not a product list");
@@ -73,6 +74,7 @@ public abstract class Page implements PageInterface{
 	}
 	
 	public ArrayList<Order> toOrders(ResultSet orders) throws SQLException{
+		if (orders == null) return new ArrayList<Order>();
 		orders.beforeFirst();
 		//ResultSet from wrong type
 		if (!orders.getMetaData().getTableName(1).equals("orders")) throw new SQLException("This is not a order list");
@@ -131,6 +133,7 @@ public abstract class Page implements PageInterface{
 	}
 	
 	public ArrayList<User> toUsers(ResultSet users) throws SQLException{
+		if (users == null) new ArrayList<User>();
 		users.beforeFirst();
 		//ResultSet from wrong type
 		if (!users.getMetaData().getTableName(1).equals("user")) throw new SQLException("This is not a user list");
@@ -156,7 +159,11 @@ public abstract class Page implements PageInterface{
 			    					users.getString("email"),
 			    					users.getString("password"),
 			    					users.getBoolean("admin"),
-			    					users.getString("image"));
+			    					users.getString("image"),
+			    					users.getString("address"),
+			    					users.getString("city"),
+			    					users.getInt("postcode"),
+			    					users.getString("phone"));
 			  arr.add(u);    
 			}
 		} catch (SQLException e) {
@@ -248,7 +255,11 @@ public abstract class Page implements PageInterface{
 			}
 			sb.append("\",email=\"");
 			sb.append(((User) o).getEmail() + "\",password=\"");
-			sb.append(((User) o).getPassword() + "\",image=\"");
+			sb.append(((User) o).getPassword() + "\",address=\"");
+			sb.append(((User) o).getAddress() + "\", city=\"");
+			sb.append(((User) o).getCity() + "\", phone=\"");
+			sb.append(((User) o).getPhone() + "\", postcode=");
+			sb.append(((User) o).getPostcode() + "\",image=\"");
 			sb.append(((User) o).getImage() + "\",admin=");
 			if (((User) o).getAdmin()) sb.append("1");
 			else sb.append("0");
@@ -321,7 +332,7 @@ public abstract class Page implements PageInterface{
 			sb.append(");");
 		}
 		else if (o instanceof User){
-			sb.append("INSERT INTO user (name,orders,email,password,admin,image) VALUES (\"");
+			sb.append("INSERT INTO user (name,orders,email,password,admin,image,address,city,postcode,phone) VALUES (\"");
 			sb.append(((User) o).getName() + "\",\"");
 			for (int i=0;i<((User) o).getOrders().size();i++){
 				sb.append( ((User) o).getOrders().get(i).getOrderId() + ";");
@@ -331,7 +342,11 @@ public abstract class Page implements PageInterface{
 			sb.append(((User) o).getPassword() + "\",");
 			if (((User) o).getAdmin()) sb.append("1,\"");
 			else sb.append("0,\"");
-			sb.append(((User) o).getImage() +"\");");
+			sb.append(((User) o).getImage() +"\",\"");
+			sb.append(((User) o).getAddress() + "\", \"");
+			sb.append(((User) o).getCity() + "\",");
+			sb.append(((User) o).getPostcode() + ",\"");
+			sb.append(((User) o).getPhone() + "\");");
 		}
 		else System.err.println("This is not an Object for insertion");
 		updateDB(sb.toString());

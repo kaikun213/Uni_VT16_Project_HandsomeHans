@@ -160,7 +160,11 @@
 										<tbody>
 											<tr>
 												<td>Username</td>
-											<td><p:inplace editor="true"><p:inputText value="#{user.name}" /></p:inplace></td>
+											<td><p:inplace editor="true">
+													<p:inputText id="editName" value="#{user.name}">
+														<f:ajax event="change" execute="adminContent:editName" listener="#{userAccount.update(user)}"></f:ajax>
+													</p:inputText>
+												</p:inplace></td>
 											</tr>
 											<tr>
 												<td>Password</td>

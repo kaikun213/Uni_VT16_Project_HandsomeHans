@@ -98,13 +98,13 @@
 				
 					<h:form  rendered="#{authenticationBean.loggedIn}">
 					
-					<h:form rendered="#{authenticationBean.adminMode}">
+					<h:form rendered="#{authenticationBean.activeUser.admin}">
 					<a href="#{request.contextPath}/restricted/adminProducts.xhtml">
 					<span class="glyphicon glyphicon-user"></span>
 					<h:outputText value="#{authenticationBean.activeUser.name}" /></a>
 					</h:form>
 					
-					<h:form rendered="#{! authenticationBean.adminMode}">
+					<h:form rendered="#{not authenticationBean.activeUser.admin}">
 					<a href="userAccount.xhtml">
 					<span class="glyphicon glyphicon-user"></span>
 					<h:outputText value="#{authenticationBean.activeUser.name}" /></a>
