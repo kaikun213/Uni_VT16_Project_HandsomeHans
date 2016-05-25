@@ -45,10 +45,9 @@
 				href="userAccount.xhtml">My Account</a></li>
 			<li class="active" id="sidebarstyle"><a id="sidebarlink"
 				href="userOrder.xhtml">My Orders</a></li>
-		</ul>
-		<!-- will only show if user login -->
-		<h:commandButton action="maninpage" class="btn btn-primary btn-block"
-			value="Logout" rendered="#{userAccount.login}" />
+			<li><h:commandButton action="#{authenticationBean.logout}"
+			class="btn btn-primary btn-block" value="Logout"/></li>
+			</ul>
 	</h:form>
 	<!-- Sidebar finish -->
 
@@ -57,56 +56,50 @@
 	<h:form id="adminContent">
 		<p:growl id="msgs" showDetail="true" />
 
-<!-- Need to change this all -->
 		<div class="container-fluid">
 			<div class="col-xs-3"></div>
-			<div class="col-xs-6">
-
-				<h4 id="noOrder">
-					<h:outputText value="No Orders found."
-						rendered="#{empty userAccount.orderList}" />
-				</h4>
-
+				<div class="col-xs-6" style="margin: 30px 0 30px 0">
+					<h4 id="noOrder">
+						<h:outputText value="No Orders found." rendered="#{empty authenticationBean.activeUser.orders}" />
+					<hr></hr>
+					</h4>
 
 				<!-- Order Details -->
-				<p:panel id="basic" header="Order Information"
-					style="margin-bottom:10px"
-					rendered="#{not empty userAccount.orderList}">
+				<p:panel id="basic" header="Order Information"	style="margin-bottom:10px" rendered="#{not empty authenticationBean.activeUser.orders}">
 					<table class="table table-hover">
-						<thead>
-							<tr>
-								<th>#Order</th>
-								<th>Order Date</th>
-								<th>Status</th>
+						
+						<thead style="list-style: none;">
+							<tr style="list-style: none;">
+								<ul style="list-style: none;" ><ui:repeat var="order" value="#{authenticationBean.activeUser.orders}" style="list-style: none;"> 
+									<th><li><h:outputText value="#Order" /></li></th>
+          							<th><li><h:outputText value="Date" /></li></th>
+         							<th><li><h:outputText value="Status" /></li></th>   
+								</ui:repeat></ul>
 							</tr>
 						</thead>
 
-						<tbody>
-							<td><h:outputText
-									value="#{contactPage.searchedOrder.orderDate}"
-									rendered="#{not empty contactPage.searchedOrder}" /></td>
-							<td><h:outputText
-									value="#{contactPage.searchedOrder.orderDate}"
-									rendered="#{not empty contactPage.searchedOrder}" /></td>
-							<td><h:outputText
-									value="#{contactPage.searchedOrder.orderStatus} "
-									rendered="#{not empty contactPage.searchedOrder}" /></td>
-
+						<tbody style="list-style: none;">
+							<ul style="list-style: none;" ><ui:repeat var="order" value="#{authenticationBean.activeUser.orders}" style="list-style: none;"> 
+								<td><li><h:outputText value="#{order.orderId}" /></li></td>
+								<td><li><h:outputText value="#{order.orderDate}" /></li></td>
+								<td><li><h:outputText value="#{order.orderStatus}" /></li></td>
+							</ui:repeat></ul>
 						</tbody>
+
 					</table>
-					<h:outputLabel value="Items" />
-					<pre>
-						<ul class="list-group">
-							<ui:repeat value="#{contactPage.searchedOrder.orderList}"
-								var="product"> <li class="list-group-item"><h7>
-									<img src="#{product.image}" alt="resources/img/HeaderLogo.png"
-										width="200" height="100" class="img-thumbnail" />          <span>Qtn: #{product.quantity}              #{product.price} <i
-										class="fa fa-gg-circle"></i></span>
-									<br />#{product.name}</h7></li>
-											</ui:repeat>
-						</ul>
-					</pre>
-				</p:panel>
+				
+				<h:outputLabel value="Items" />
+					<pre><ul class="list-group">
+							<ui:repeat value="#{authenticationBean.activeUser.orders}" var="order"> 
+							<li class="list-group-item">
+								<ui:repeat var="product" value="#{order.orderList}">
+								<li>
+								<h7><img src="#{product.image}" alt="resources/img/HeaderLogo.png" width="200" height="100" class="img-thumbnail" />          <span>Qtn: #{product.quantity}              #{product.price} <i
+										class="fa fa-gg-circle"></i></span><br />#{product.name}</h7>
+								</li>
+								</ui:repeat>					
+							</li></ui:repeat></ul></pre>	
+					</p:panel>
 				<!-- Finish Order Details -->
 
 			</div>

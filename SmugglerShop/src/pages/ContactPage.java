@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
+import authentification.AuthenticationBean;
 import baseClasses.Order;
 import baseClasses.Order.OrderStatus;
 import baseClasses.Page;
@@ -31,7 +32,7 @@ public class ContactPage extends Page implements Serializable {
 	 * Default serialVersionID generated from eclipse
 	 */
 	private static final long serialVersionUID = 1L;
-	private User user = new User();	
+	private User user = new User();
 	private String phone;
 	private String address;
 	private String postcode;
@@ -40,11 +41,15 @@ public class ContactPage extends Page implements Serializable {
 	private String searchOrder = "";
 	private Order searchedOrder;
 	
+	public void init(){
+	}
+	
 	
 	public String submitOrder(){
 		user.setPassword("temporary");
-		// if all fields are filled 
-		if (!user.isComplete() || phone.isEmpty() || address.isEmpty() || postcode.isEmpty() || city.isEmpty()) {
+
+		// if all fields are filled and user is not logged in
+		if (!user.isComplete() && AuthenticationBean.AUTH_KEY == null) { //|| phone.isEmpty() || address.isEmpty() || postcode.isEmpty() || city.isEmpty()) {
 			super.notify("Error!", "Please enter your contact details completely");
 			return "contactForm";
 		}
@@ -77,6 +82,15 @@ public class ContactPage extends Page implements Serializable {
 			e.printStackTrace();
 		}
 		super.notify("Successfully!", "New Order placed! Your Order Number:" + oID);
+		
+		// update userAccount orderList if user is logged in
+		if (AuthenticationBean.AUTH_KEY != null) {
+			o.setOrderId(Integer.parseInt(oID));
+			AuthenticationBean.activeUser.getOrders().add(o);
+			updateDB(AuthenticationBean.activeUser);
+		}
+		
+		// send email
 		
 		return "mainpage?faces-redirect=true";
 	}

@@ -2,7 +2,6 @@
  * 
  */
 package baseClasses;
-
 import javax.faces.application.FacesMessage;
 /**
  * @author kaikun
@@ -18,7 +17,8 @@ import javax.faces.convert.FacesConverter;
  
 @FacesConverter("productConverter")
 public class ProductConverter implements Converter {
- 
+	
+
     public Object getAsObject(FacesContext fc, UIComponent uic, String value) {
         if(value != null && value.trim().length() > 0) {
             try {
@@ -39,5 +39,6 @@ public class ProductConverter implements Converter {
         else {
             return null;
         }
-    }   
+    }
+
 } 

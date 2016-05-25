@@ -16,7 +16,7 @@ public class AuthenticationFilter implements Filter {
 
 	
 	  public void doFilter(ServletRequest req, ServletResponse resp,FilterChain chain) throws IOException, ServletException {
-	    if (((HttpServletRequest) req).getSession().getAttribute(AuthenticationBean.AUTH_KEY) == null) {
+	    if (((HttpServletRequest) req).getSession().getAttribute(AuthenticationBean.AUTH_KEY) == null || !AuthenticationBean.activeUser.getAdmin()) {
 	      ((HttpServletResponse) resp).sendRedirect("../mainpage.faces");
 	    } else {
 	      chain.doFilter(req, resp);

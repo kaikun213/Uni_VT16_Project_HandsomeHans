@@ -29,6 +29,7 @@
 </h:head>
 <f:metadata>
 	<f:viewAction action="#{addRemoveAdmin.init()}" />
+	<f:viewAction action="#{userAccount.init()}" />
 </f:metadata>
 
 <body>
@@ -53,47 +54,146 @@
 	<!-- Content -->
 	<h:form id="adminContent">
 		<p:growl id="growl" showDetail="true" sticky="true" />
+	
+	  <p:panel id="newUserPanel" header="New User" style="margin-top:10px">
+      	 <h:panelGrid columns="10" id="grid" cellpadding="5">
+            <p:outputLabel for="username" value="Username" />
+            <h:inputText id="username" value="#{addRemoveAdmin.admin.name}" />
+            
+            <p:outputLabel for="email" value="Email" />
+            <h:inputText id="email" value="#{addRemoveAdmin.admin.email}"/>
+           
+           <p:outputLabel for="password" value="Password" />
+        	<h:inputSecret id="password" value="#{addRemoveAdmin.admin.password}" />
+        
+         <p:selectOneButton value="#{addRemoveAdmin.userMode}">
+            <f:selectItem itemLabel="User" itemValue="User" />
+            <f:selectItem itemLabel="Admin" itemValue="Admin" />
+        </p:selectOneButton>
+   	<h:commandButton value="Save" icon="ui-icon-check" action="#{addRemoveAdmin.addUser()}" />
+  </h:panelGrid>
+    </p:panel>
+				
+		
+		
+<div class="container-fluid">
+	<div class="col-sm-5" id="adminPanelContainer">
+	<h3 style="text-align: center;">List of Administrator</h3>
+	<hr></hr>
+		<ul style="list-style: none">
+			<ui:repeat var="admin" value="#{addRemoveAdmin.allAdmins}">
 
-		<h3 id="listTitle">List of Administrators</h3>
-		<br></br>
-		<div class="col-xs-4">
-			<div id="list">
-				<pre>
-					<ul class="list-group">
-						<ui:repeat var="admin" value="#{addRemoveAdmin.users}"> <li
-								class="list-group-item">#{admin.name}<br></br>#{admin.email}
-					<h:commandButton action="#{addRemoveAdmin.removeUser(admin)}"
-									value="Remove" class="btn btn-primary active" />
-					</li>
-							</ui:repeat>
-					</ul>
-				</pre>
-			</div>
-		</div>
+		<li><div class="container" id="adminPanel">
+			<div class="row">
+				<div class="panel panel-info">
+						<div class="panel-heading">
+							<h3 class="panel-title">#{admin.name}</h3>
+						</div>
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-md-3 col-lg-3 " align="center">
+									<img alt="User Pic"
+										src="http://babyinfoforyou.com/wp-content/uploads/2014/10/avatar-300x300.png"
+										class="img-circle img-responsive" />
+								</div>
 
-		<div class="col-xl-4">
-			<div class="container-fluid">
-				<div class="col-xs-4" id="forms" style="margin: 100px 0 0 150px">
-					<div class="form-group">
-						Name
-						<h:inputText value="#{addRemoveAdmin.admin.name}" type="text"
-							class="form-control" id="name" />
+								<div class=" col-md-9 col-lg-9 ">
+									<table class="table table-user-information">
+										<tbody>
+											
+											<tr>
+											<td>Username</td>
+											<td><p:inplace editor="true"><h:inputText value="#{admin.name}" /></p:inplace></td>
+											</tr>
+											
+											<tr>
+											<td>Password</td>
+											<td><p:inplace editor="true"><h:inputText value="#{admin.password}" /></p:inplace></td>
+											</tr>
+											
+											<tr>
+											<td>Email</td>
+											<td><p:inplace editor="true"><h:inputText value="#{admin.email}" /></p:inplace></td>
+											</tr>
+
+										</tbody>
+									</table>
+								</div>
+
+							</div>
+						</div>
+
+						<div class="panel-footer">
+							<h:commandButton action="#{addRemoveAdmin.update(admin)}" value="Save" />
+							<h:commandButton action="#{addRemoveAdmin.removeUser(admin)}" value="Remove" />
+						</div>
 					</div>
-					<div class="form-group">
-						Email
-						<h:inputText value="#{addRemoveAdmin.admin.email}" type="text"
-							class="form-control" id="email" />
-					</div>
-					<div class="form-group">
-						Password
-						<h:inputSecret value="#{addRemoveAdmin.admin.password}"
-							type="password" class="form-control" id="password" />
-					</div>
-					<div class="col-xs-5"></div>
-					<h:commandButton action="#{addRemoveAdmin.addUser}" value="Add"
-						class="btn btn-primary active" />
 				</div>
 			</div>
+			</li>
+		</ui:repeat>
+		</ul>
+		</div>
+
+<div class="col-sm-2"></div>
+<div class="col-sm-5" id="userPanelContainer">
+<h3 style="text-align: center;">List of Users</h3>
+<hr></hr>
+		<ul style="list-style: none;">
+		<ui:repeat var="user" value="#{addRemoveAdmin.allUsers}">
+		<li><div class="container" id="adminPanel">
+			<div class="row">
+				<div class="panel panel-info">
+						<div class="panel-heading">
+							<h3 class="panel-title">#{user.name}</h3>
+						</div>
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-md-3 col-lg-3 " align="center">
+									<img alt="User Pic"
+										src="http://babyinfoforyou.com/wp-content/uploads/2014/10/avatar-300x300.png"
+										class="img-circle img-responsive" />
+								</div>
+
+								<div class=" col-md-9 col-lg-9 ">
+									<table class="table table-user-information">
+										<tbody>
+											<tr>
+												<td>Username</td>
+											<td><p:inplace editor="true">
+													<p:inputText id="editName" value="#{user.name}">
+														<f:ajax event="change" execute="adminContent:editName" listener="#{userAccount.update(user)}"></f:ajax>
+													</p:inputText>
+												</p:inplace></td>
+											</tr>
+											<tr>
+												<td>Password</td>
+										<td><p:inplace editor="true"><p:inputText value="#{user.password}" /></p:inplace></td>
+											</tr>
+											<tr>
+												<td>Email</td>
+											<td><p:inplace editor="true"><p:inputText value="#{user.email}" /></p:inplace></td>
+											</tr>
+
+										</tbody>
+									</table>
+								</div>
+
+							</div>
+						</div>
+
+						<div class="panel-footer">
+							<h:commandButton action="#{userAccount.update(user)}" value="Save" />
+							<h:commandButton action="#{userAccount.deleteUser(user)}" value="Remove" />
+						</div>
+					</div>
+				</div>
+			</div>
+			</li>
+		</ui:repeat>
+		</ul>
+		</div>
+
 		</div>
 	</h:form>
 	<!-- Content finish -->

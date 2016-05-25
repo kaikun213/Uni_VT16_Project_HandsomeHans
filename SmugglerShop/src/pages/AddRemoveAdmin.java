@@ -8,63 +8,112 @@ import java.util.List;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
+import authentification.AuthenticationBean;
 import baseClasses.Order;
 import baseClasses.Page;
 import baseClasses.User;
 
 /**
- * @author 
+ * @author
  *
  */
 
 @Named
 @SessionScoped
 public class AddRemoveAdmin extends Page implements Serializable {
-	
-	private User admin = new User();
+
+	private User nAdmin = new User();
 	private ArrayList<Order> arr = new ArrayList<Order>();
-	private List<User> users = new ArrayList<User>();
+	private List<User> allUsers = new ArrayList<User>();
+	private List<User> allAdmins = new ArrayList<User>();
+	private String userMode; // to check if admin or user
+
+
+	public String getUserMode() {
+		return userMode;
+	}
+
+
+	public void setUserMode(String userMode) {
+		this.userMode = userMode;
+	}
+
 	/**
 	 * Default serialVersionID generated from eclipse
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	public void init(){
-		setContent("SELECT * FROM user;");
+
+	public void init() {
+		setContent("SELECT * FROM user WHERE admin='1';");
 		try {
-			users = toUsers(content);
+			setAllAdmins(toUsers(content));
+			setContent("SELECT * FROM user WHERE admin='0';");
+			setAllUsers(toUsers(content));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
-	
-    public List<User> getUsers(){
-    	System.out.println(users.size());
-        return users;
-    }
-	
-	
-	public User getAdmin(){
-		return admin;
+
+
+	public User getAdmin() {
+		return nAdmin;
 	}
-	
-	public void setAdmin(User u){
-		admin = u;
+
+	public void setAdmin(User u) {
+		nAdmin = u;
 	}
-	
-	public void addUser(){ 
-		admin.setAdmin(true);
-		admin.setOrders(arr);
-		super.insertDB(admin);
-		// reset fields
-		admin = new User();
-		// load DB Admin list new
-		init();
+
+	public void addUser() {
+		if (nAdmin.getEmail().isEmpty() || nAdmin.getPassword().isEmpty() || nAdmin.getName().isEmpty())
+			super.notify("Please", "Fill all required fields");
+		if(userMode == null){
+			super.notify("Please", "Select type: Admin or User");
+		}
+		else {
+			if(userMode.equals("Admin")){nAdmin.setAdmin(true);}
+			else{nAdmin.setAdmin(false);}
+			nAdmin.setOrders(arr);
+			super.insertDB(nAdmin);
+			super.notify("" + this.nAdmin.getName(), "added as "+userMode);
+			nAdmin = new User();
+			init();
+		}
 	}
-	
-	public void removeUser(User u){
-		super.deleteDB(u);
-		// load DB Admin list new
-		init();
+
+	public void removeUser(User u) {
+		if(u.getName().equals(AuthenticationBean.activeUser.getName()) && u.getPassword().equals(AuthenticationBean.activeUser.getPassword())){
+			super.notify("Unfortunately", "you cannot remove your own account");
+		} else {
+			super.deleteDB(u);
+			super.notify("" + u.getName(), "Removed");
+			init();
+		}
+	}
+
+
+	public void update(User u) {
+		super.updateDB(u);
+		super.notify("Updated", "successfully");
+		init();		
+	}
+
+
+	public List<User> getAllUsers() {
+		return allUsers;
+	}
+
+
+	public void setAllUsers(List<User> allUsers) {
+		this.allUsers = allUsers;
+	}
+
+
+	public List<User> getAllAdmins() {
+		return allAdmins;
+	}
+
+
+	public void setAllAdmins(List<User> allAdmins) {
+		this.allAdmins = allAdmins;
 	}
 }
