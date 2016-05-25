@@ -46,7 +46,36 @@
         		
         		<li><a href="searchOrder.xhtml">Orders</a></li>
         		
-        		
+        	<!-- User Login -->
+        	<li class="dropdown">
+        		<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> <h:outputText rendered="#{!userAccount.login}" value="My Account" /><h:outputText rendered="#{userAccount.login}" value="#{userAccount.user.name}" /></a>
+					<ul id="login-dp" class="dropdown-menu">
+						<li><div class="row">
+								<div class="col-xs-12">
+										<h:form class="form" role="form" method="post" action="login" accept-charset="UTF-8" id="login-nav">
+											<div class="form-group">
+												<h:inputText value="#{userAccount.user.name}" type="email" class="form-control" id="exampleInputEmail2"
+														a:placeholder="Username" required=" " />
+											</div>
+											<div class="form-group">
+												<h:inputSecret value="#{userAccount.user.password}"
+														type="password" class="form-control"
+														id="exampleInputPassword2" a:placeholder="Password"
+														required=" " />
+												</div>
+												<div class="form-group">
+													<h:commandButton action="#{userAccount.login()}" value="Sign In"
+														class="btn btn-primary btn-block" />
+												</div>
+												<a href="userRegister.xhtml" style="color: black"> Need an account?</a>
+											</h:form>
+										</div>
+									</div>
+								</li>
+							</ul>
+						</li>
+					<!-- End User Login -->
+					
 					<!-- Search Bar -->
 					<li><h:form class="navbar-form navbar-right" role="search" action="mainpage.xhtml?search=#{mainpage.search}">
         				<div class="form-group input-group">
@@ -59,7 +88,7 @@
       				<!-- End Search Bar -->
       			
       			</ul>
-      		<!-- End Categories, Orders, Search Bar -->
+      		<!-- End Categories, User Login, Orders, Search Bar -->
       		
       		
       		<!-- Cart, Admin -->
@@ -67,61 +96,40 @@
       		<ul class="nav navbar-nav navbar-right">
       			<li><a href="basket.xhtml"><span class="badge">#{basket.size()}</span><span class="glyphicon glyphicon-shopping-cart"/> Cart</a></li>
         		
-        <!--Login -->
-        	<li class="dropdown">
-        		<h:form rendered="#{not authenticationBean.loggedIn}">
-        		<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> 
-        		<h:outputText value="Login"/></a>
-					<ul id="login-dp" class="dropdown-menu">
+        		<!-- Admin Login -->
+        		<li class="dropdown">
+        		<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> Admin</a>
+        			<ul id="login-dp" class="dropdown-menu">
 						<li><div class="row">
 								<div class="col-xs-12">
 										<h:form class="form" role="form" method="post" action="login" accept-charset="UTF-8" id="login-nav">
 											<div class="form-group">
-												<h:inputText value="#{authenticationBean.activeUser.name}" type="email" class="form-control" id="exampleInputEmail2"
-														a:placeholder="Username" required=" " />
+												<h:inputText value="#{authenticationBean.name}"
+												type="email" class="form-control" id="exampleInputEmail2"
+												a:placeholder="Username" required=" " />
 											</div>
+											
 											<div class="form-group">
-												<h:inputSecret value="#{authenticationBean.activeUser.password}"
+												<h:inputText value="#{authenticationBean.password}"
 														type="password" class="form-control"
 														id="exampleInputPassword2" a:placeholder="Password"
 														required=" " />
 												</div>
+												
 												<div class="form-group">
-													<h:commandButton action="#{authenticationBean.login}" value="Sign In"
-														class="btn btn-primary btn-block" />
+													<h:commandButton action="#{authenticationBean.login}"
+														value="Sign In" class="btn btn-primary btn-block" />
 												</div>
-												<a href="userRegister.xhtml" style="color: black"> Need an account?</a>
 										</h:form>
-										</div>
 									</div>
-								</li>
-							</ul>
-						</h:form>
-				
-					<h:form  rendered="#{authenticationBean.loggedIn}">
-					
-					<h:form rendered="#{authenticationBean.activeUser.admin}">
-					<a href="#{request.contextPath}/restricted/adminProducts.xhtml">
-					<span class="glyphicon glyphicon-user"></span>
-					<h:outputText value="#{authenticationBean.activeUser.name}" /></a>
-					</h:form>
-					
-					<h:form rendered="#{not authenticationBean.activeUser.admin}">
-					<a href="userAccount.xhtml">
-					<span class="glyphicon glyphicon-user"></span>
-					<h:outputText value="#{authenticationBean.activeUser.name}" /></a>
-					</h:form>
-					
-					</h:form>
-					
-					
+								</div>
+							</li>
+						</ul>
 					</li>
-					<!-- End Login -->
-					
+						<!-- End admin login -->
         		</ul>
-        	</h:form>
-
-      		<!-- End Cart, Login -->
+      		  </h:form>
+      		<!-- End Cart, Admin -->
     	
     	</div>
   		<!-- End Header Buttons -->

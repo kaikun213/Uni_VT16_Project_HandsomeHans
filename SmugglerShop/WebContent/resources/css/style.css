@@ -16,7 +16,7 @@ body{
  			footer
  ***************************** */
 #footerPart {
-	background-color:#555;
+	background-color:#556;
 	background-position:center;
 	color: white;
 	width:100%;
@@ -27,6 +27,9 @@ body{
 	padding-bottom: 8em;
 }
 
+footer h3 {
+	color: white;
+}
 /* *****************************
  			header 
  ***************************** */

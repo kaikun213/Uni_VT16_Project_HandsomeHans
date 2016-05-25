@@ -8,7 +8,7 @@ $(document).ready(function(){
 
 function fixFooter(){
 	var wH = $(window).height(), bH = $('html').height(), hH = $('#footerPart').height();
-	
+
 
 	// fixes the positioning for the footer
 	$('#footerPart').css('top', (wH < bH ? bH : wH)+'px');
