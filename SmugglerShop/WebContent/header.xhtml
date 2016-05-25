@@ -10,9 +10,7 @@
   		
   			<!-- Container -->
   		<div class="container-fluid">
-    		<div class="col-sm-offset-1">
-    			<img src="resources/img/logo.png" style="width: 100px;" alt="logo" class="hidden-xs hidden-sm" />
-    		</div>
+    		    
     		<!-- Logo and Dropdown -->
     		<div class="navbar-header">
       			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -46,36 +44,7 @@
         		
         		<li><a href="searchOrder.xhtml">Orders</a></li>
         		
-        	<!-- User Login -->
-        	<li class="dropdown">
-        		<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> <h:outputText rendered="#{!userAccount.login}" value="My Account" /><h:outputText rendered="#{userAccount.login}" value="#{userAccount.user.name}" /></a>
-					<ul id="login-dp" class="dropdown-menu">
-						<li><div class="row">
-								<div class="col-xs-12">
-										<h:form class="form" role="form" method="post" action="login" accept-charset="UTF-8" id="login-nav">
-											<div class="form-group">
-												<h:inputText value="#{userAccount.user.name}" type="email" class="form-control" id="exampleInputEmail2"
-														a:placeholder="Username" required=" " />
-											</div>
-											<div class="form-group">
-												<h:inputSecret value="#{userAccount.user.password}"
-														type="password" class="form-control"
-														id="exampleInputPassword2" a:placeholder="Password"
-														required=" " />
-												</div>
-												<div class="form-group">
-													<h:commandButton action="#{userAccount.login()}" value="Sign In"
-														class="btn btn-primary btn-block" />
-												</div>
-												<a href="userRegister.xhtml" style="color: black"> Need an account?</a>
-											</h:form>
-										</div>
-									</div>
-								</li>
-							</ul>
-						</li>
-					<!-- End User Login -->
-					
+        		
 					<!-- Search Bar -->
 					<li><h:form class="navbar-form navbar-right" role="search" action="mainpage.xhtml?search=#{mainpage.search}">
         				<div class="form-group input-group">
@@ -88,7 +57,7 @@
       				<!-- End Search Bar -->
       			
       			</ul>
-      		<!-- End Categories, User Login, Orders, Search Bar -->
+      		<!-- End Categories, Orders, Search Bar -->
       		
       		
       		<!-- Cart, Admin -->
@@ -96,40 +65,61 @@
       		<ul class="nav navbar-nav navbar-right">
       			<li><a href="basket.xhtml"><span class="badge">#{basket.size()}</span><span class="glyphicon glyphicon-shopping-cart"/> Cart</a></li>
         		
-        		<!-- Admin Login -->
-        		<li class="dropdown">
-        		<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> Admin</a>
-        			<ul id="login-dp" class="dropdown-menu">
+        <!--Login -->
+        	<li class="dropdown">
+        		<h:form rendered="#{not authenticationBean.loggedIn}">
+        		<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> 
+        		<h:outputText value="Login"/></a>
+					<ul id="login-dp" class="dropdown-menu">
 						<li><div class="row">
 								<div class="col-xs-12">
 										<h:form class="form" role="form" method="post" action="login" accept-charset="UTF-8" id="login-nav">
 											<div class="form-group">
-												<h:inputText value="#{authenticationBean.name}"
-												type="email" class="form-control" id="exampleInputEmail2"
-												a:placeholder="Username" required=" " />
+												<h:inputText value="#{authenticationBean.activeUser.name}" type="email" class="form-control" id="exampleInputEmail2"
+														a:placeholder="Username" required=" " />
 											</div>
-											
 											<div class="form-group">
-												<h:inputText value="#{authenticationBean.password}"
+												<h:inputSecret value="#{authenticationBean.activeUser.password}"
 														type="password" class="form-control"
 														id="exampleInputPassword2" a:placeholder="Password"
 														required=" " />
 												</div>
-												
 												<div class="form-group">
-													<h:commandButton action="#{authenticationBean.login}"
-														value="Sign In" class="btn btn-primary btn-block" />
+													<h:commandButton action="#{authenticationBean.login}" value="Sign In"
+														class="btn btn-primary btn-block" />
 												</div>
+												<a href="userRegister.xhtml" style="color: black"> Need an account?</a>
 										</h:form>
+										</div>
 									</div>
-								</div>
-							</li>
-						</ul>
+								</li>
+							</ul>
+						</h:form>
+				
+					<h:form  rendered="#{authenticationBean.loggedIn}">
+					
+					<h:form rendered="#{authenticationBean.adminMode}">
+					<a href="#{request.contextPath}/restricted/adminProducts.xhtml">
+					<span class="glyphicon glyphicon-user"></span>
+					<h:outputText value="#{authenticationBean.activeUser.name}" /></a>
+					</h:form>
+					
+					<h:form rendered="#{! authenticationBean.adminMode}">
+					<a href="userAccount.xhtml">
+					<span class="glyphicon glyphicon-user"></span>
+					<h:outputText value="#{authenticationBean.activeUser.name}" /></a>
+					</h:form>
+					
+					</h:form>
+					
+					
 					</li>
-						<!-- End admin login -->
+					<!-- End Login -->
+					
         		</ul>
-      		  </h:form>
-      		<!-- End Cart, Admin -->
+        	</h:form>
+
+      		<!-- End Cart, Login -->
     	
     	</div>
   		<!-- End Header Buttons -->
