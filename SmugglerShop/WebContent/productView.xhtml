@@ -40,10 +40,10 @@
 		<ui:repeat var="product"
 			value="#{productView.getOneProduct(productView.ID)}">
 			<div class="productImage">
-				<img id="item-display" src="#{product.image}" alt=""></img>
+				<img id="item-display" src="#{product.image}" alt="#{product.name}"></img>
 			</div>
 			<div class="item-container">
-				<div class="col-md-7">
+				<div class="col-md-6">
 					<h3>#{product.name}</h3>
 					<div class="product-desc">#{product.description}</div>
 					<hr></hr>

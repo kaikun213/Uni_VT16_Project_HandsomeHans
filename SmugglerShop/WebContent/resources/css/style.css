@@ -16,7 +16,7 @@ body{
  			footer
  ***************************** */
 #footerPart {
-	background-color:#766A5E;
+	background-color:#555;
 	background-position:center;
 	color: white;
 
@@ -25,6 +25,8 @@ body{
 	
 	position:absolute;
 	
+	padding: 2em;
+	padding-bottom: 8em;
 }
 
 /* *****************************
