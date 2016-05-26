@@ -82,7 +82,7 @@
 	<h:form id="adminContent">
 		<p:growl id="msgs" showDetail="true" />
 		<h3>Welcome #{authenticationBean.activeUser.name}</h3>
-
+	
 		<div class="container">
 			<div class="row">
 
@@ -103,19 +103,41 @@
 								<div class=" col-md-9 col-lg-9 ">
 									<table class="table table-user-information">
 										<tbody>
+											
 											<tr>
-												<td>Username</td>
+											<td>Username</td>
 											<td><p:inplace editor="true"><h:inputText value="#{authenticationBean.activeUser.name}" /></p:inplace></td>
 											</tr>
+											
 											<tr>
-												<td>Password</td>
+											<td>Password</td>
 											<td><p:inplace editor="true"><h:inputText value="#{authenticationBean.activeUser.password}" /></p:inplace></td>
 											</tr>
+											
 											<tr>
-												<td>Email</td>
-													<td><p:inplace editor="true"><h:inputText value="#{authenticationBean.activeUser.email}" /></p:inplace></td>
+											<td>Email</td>
+											<td><p:inplace editor="true"><h:inputText value="#{authenticationBean.activeUser.email}" /></p:inplace></td>
 											</tr>
-
+											
+											<tr>
+											<td>Phone</td>
+											<td><p:inplace editor="true"><h:inputText value="#{authenticationBean.activeUser.phone}" /></p:inplace></td>
+											</tr>
+											
+											<tr>
+											<td>Address</td>
+											<td><p:inplace editor="true"><h:inputText value="#{authenticationBean.activeUser.address}" /></p:inplace></td>
+											</tr>
+											
+											<tr>
+											<td>City</td>
+											<td><p:inplace editor="true"><h:inputText value="#{authenticationBean.activeUser.city}" /></p:inplace></td>
+											</tr>
+											
+											<tr>
+											<td>Postcode</td>
+											<td><p:inplace editor="true"><h:inputText value="#{authenticationBean.activeUser.postcode}" /></p:inplace></td>
+											</tr>
 										</tbody>
 									</table>
 								</div>

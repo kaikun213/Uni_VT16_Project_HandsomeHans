@@ -33,33 +33,76 @@
 	<!-- Content -->
 	<h:form id="content">
 		<p:growl id="growl" showDetail="true" sticky="true" /> 
-		<div class="container-fluid">
-		<div class="col-xs-4"></div>
-		<img src="resources/img/CertificateLogo.jpg" alt=" " />
-			<div class="col-xs-4" id="basketforms">
-				
-				<div class="form-group">
-					<p:outputLabel for="name">Username</p:outputLabel>
-					<h:inputText value="#{userAccount.user.name}" class="form-control" id="name" a:placeholder="John Smith" required="true" maxlength="30" onkeyup="lettersOnly(this)"/>
-				</div>
-
-				<div class="form-group">
-					<p:outputLabel for="email">Email</p:outputLabel>
-					<p:inputText value="#{userAccount.user.email}" type="email" class="form-control" id="email" a:placeholder="example@gmail.com" required="true" onkeyup="emailOnly(this)"/>
-				
-				</div>
 	
-				<div class="form-group">
-					<p:outputLabel for="password">Password</p:outputLabel>
-					<h:inputSecret value="#{userAccount.user.password}" type="password" class="form-control" id="password" required="true" maxlength="16"/> 
-				
-				</div>
-					<h:commandButton action="#{userAccount.addUser()}" value="Submit" class="btn btn-primary active"/>
-					<br/>
-					<h:outputText value="* required fields" />
-			</div>
-		</div>
+	<div class="container" style="margin-top: 20px">
+      <div class="row">
+         <div class="col-lg-6">
+                <div class="well well-sm"><strong><span class="glyphicon glyphicon-asterisk"></span>Required Field</strong></div>
+                
+                <div class="form-group">
+                    <label style="color: Black" for="name">Name</label>
+                    <div class="input-group">
+                        <h:inputText type="text" id="name" class="form-control" a:placeholder="John Smith"  value="#{userAccount.user.name}" required="true" />
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                  <label style="color: Black" for="email">Email</label>
+                    <div class="input-group">
+                       <h:inputText type="text" id="email" class="form-control" a:placeholder="example@gmail.com" value="#{userAccount.user.email}" required="true" />
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label style="color: Black" for="password">Password</label>
+                    <div class="input-group">
+                       <h:inputSecret type="text" id="password" class="form-control" a:placeholder="Password" value="#{userAccount.user.password}" required="true" />
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                    </div>
+                </div>
+             
+               <div class="form-group">
+                   <label style="color: Black" for="phone">Phone</label>
+                    <div class="input-group">
+                        <h:inputText type="text" id="phone" class="form-control" a:placeholder="0735781231" value="#{userAccount.user.phone}" required="false" />
+                        <span class="input-group-addon"></span>
+                    </div>
+                </div>
+                
+                  <div class="form-group">
+                    <label style="color: Black" for="address">Address</label>
+                    <div class="input-group">
+                        <h:inputText type="text" id="address" class="form-control" a:placeholder="Stallvagen 30"  value="#{userAccount.user.address}" required="true" />
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                    </div>
+                </div>
+                
+                  <div class="form-group">
+                    <label style="color: Black" for="city">City</label>
+                    <div class="input-group">
+                      <h:inputText type="text" id="city" class="form-control" a:placeholder="Växjö"  value="#{userAccount.user.city}" required="true" />
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                   <label style="color: Black" for="postcode">Postcode</label>
+                    <div class="input-group">
+                        <h:inputText type="text" id="postcode" class="form-control" a:placeholder="35421"  value="#{userAccount.user.postcode}" required="true" />
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                    </div>
+                </div>
+                <h:commandButton value="Register me !" class="btn btn-info pull-center" action="#{userAccount.addUser()}" />
+            </div>
+            
+            <div class="col-lg-2"></div>
+				<img src="resources/img/CertificateLogo.jpg" alt=" " height="680" width="550"/>
+           </div>
+    
+    </div>
+			
    	</h:form>
 	</body>
 	</html>
-

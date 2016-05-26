@@ -28,11 +28,9 @@ public class AddRemoveAdmin extends Page implements Serializable {
 	private List<User> allAdmins = new ArrayList<User>();
 	private String userMode; // to check if admin or user
 
-
 	public String getUserMode() {
 		return userMode;
 	}
-
 
 	public void setUserMode(String userMode) {
 		this.userMode = userMode;
@@ -54,7 +52,6 @@ public class AddRemoveAdmin extends Page implements Serializable {
 		}
 	}
 
-
 	public User getAdmin() {
 		return nAdmin;
 	}
@@ -66,22 +63,32 @@ public class AddRemoveAdmin extends Page implements Serializable {
 	public void addUser() {
 		if (nAdmin.getEmail().isEmpty() || nAdmin.getPassword().isEmpty() || nAdmin.getName().isEmpty())
 			super.notify("Please", "Fill all required fields");
-		if(userMode == null){
+		if (userMode == null) {
 			super.notify("Please", "Select type: Admin or User");
 		}
-		else {
-			if(userMode.equals("Admin")){nAdmin.setAdmin(true);}
-			else{nAdmin.setAdmin(false);}
+		if (ifUserExist(nAdmin)) {
+			super.notify("User Already Exists", "Change username");
+		} else {
+			if (userMode.equals("Admin")) {
+				nAdmin.setAdmin(true);
+			} else {
+				nAdmin.setAdmin(false);
+			}
 			nAdmin.setOrders(arr);
+			nAdmin.setAddress("---"); // otherwise, you cannot edit the field
+			nAdmin.setCity("---");
+			nAdmin.setPostcode(0000);
+			nAdmin.setPhone("---");
 			super.insertDB(nAdmin);
-			super.notify("" + this.nAdmin.getName(), "added as "+userMode);
+			super.notify("" + this.nAdmin.getName(), "added as " + userMode);
 			nAdmin = new User();
 			init();
 		}
 	}
 
 	public void removeUser(User u) {
-		if(u.getName().equals(AuthenticationBean.activeUser.getName()) && u.getPassword().equals(AuthenticationBean.activeUser.getPassword())){
+		if (u.getName().equals(AuthenticationBean.activeUser.getName())
+				&& u.getPassword().equals(AuthenticationBean.activeUser.getPassword())) {
 			super.notify("Unfortunately", "you cannot remove your own account");
 		} else {
 			super.deleteDB(u);
@@ -90,30 +97,37 @@ public class AddRemoveAdmin extends Page implements Serializable {
 		}
 	}
 
-
 	public void update(User u) {
 		super.updateDB(u);
 		super.notify("Updated", "successfully");
-		init();		
+		init();
 	}
-
 
 	public List<User> getAllUsers() {
 		return allUsers;
 	}
 
-
 	public void setAllUsers(List<User> allUsers) {
 		this.allUsers = allUsers;
 	}
-
 
 	public List<User> getAllAdmins() {
 		return allAdmins;
 	}
 
-
 	public void setAllAdmins(List<User> allAdmins) {
 		this.allAdmins = allAdmins;
+	}
+
+	public boolean ifUserExist(User u) {
+		init();
+		List<User> adminsAndUsers = new ArrayList<User>();
+		adminsAndUsers.addAll(allAdmins);
+		adminsAndUsers.addAll(allUsers);
+		for (int i = 0; i < adminsAndUsers.size(); i++) {
+			if (adminsAndUsers.get(i).getName().equals(u.getName()))
+				return true;
+		}
+		return false;
 	}
 }

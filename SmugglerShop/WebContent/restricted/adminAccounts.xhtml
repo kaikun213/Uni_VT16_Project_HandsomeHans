@@ -29,7 +29,6 @@
 </h:head>
 <f:metadata>
 	<f:viewAction action="#{addRemoveAdmin.init()}" />
-	<f:viewAction action="#{userAccount.init()}" />
 </f:metadata>
 
 <body>
@@ -118,6 +117,26 @@
 											<td>Email</td>
 											<td><p:inplace editor="true"><h:inputText value="#{admin.email}" /></p:inplace></td>
 											</tr>
+											
+											<tr>
+											<td>Phone</td>
+											<td><p:inplace editor="true"><h:inputText value="#{admin.phone}" /></p:inplace></td>
+											</tr>
+											
+											<tr>
+											<td>Address</td>
+											<td><p:inplace editor="true"><h:inputText value="#{admin.address}" /></p:inplace></td>
+											</tr>
+											
+											<tr>
+											<td>City</td>
+											<td><p:inplace editor="true"><h:inputText value="#{admin.city}" /></p:inplace></td>
+											</tr>
+											
+											<tr>
+											<td>Postcode</td>
+											<td><p:inplace editor="true"><h:inputText value="#{admin.postcode}" /></p:inplace></td>
+											</tr>
 
 										</tbody>
 									</table>
@@ -161,22 +180,41 @@
 								<div class=" col-md-9 col-lg-9 ">
 									<table class="table table-user-information">
 										<tbody>
-											<tr>
+												
+												<tr>
 												<td>Username</td>
-											<td><p:inplace editor="true">
-													<p:inputText id="editName" value="#{user.name}">
-														<f:ajax event="change" execute="adminContent:editName" listener="#{userAccount.update(user)}"></f:ajax>
-													</p:inputText>
-												</p:inplace></td>
-											</tr>
-											<tr>
+												<td><p:inplace editor="true"><h:inputText id="editName" value="#{user.name}"/></p:inplace></td>
+												</tr>
+											
+												<tr>
 												<td>Password</td>
-										<td><p:inplace editor="true"><p:inputText value="#{user.password}" /></p:inplace></td>
-											</tr>
-											<tr>
+												<td><p:inplace editor="true"><h:inputText value="#{user.password}" /></p:inplace></td>
+												</tr>
+											
+												<tr>
 												<td>Email</td>
-											<td><p:inplace editor="true"><p:inputText value="#{user.email}" /></p:inplace></td>
-											</tr>
+												<td><p:inplace editor="true"><h:inputText value="#{user.email}" /></p:inplace></td>
+												</tr>
+												
+												<tr>
+												<td>Phone</td>
+												<td><p:inplace editor="true"><h:inputText value="#{user.phone}" /></p:inplace></td>
+												</tr>
+											
+												<tr>
+												<td>Address</td>
+												<td><p:inplace editor="true"><h:inputText value="#{user.address}" /></p:inplace></td>
+												</tr>
+											
+												<tr>
+												<td>City</td>
+												<td><p:inplace editor="true"><h:inputText value="#{user.city}" /></p:inplace></td>
+												</tr>
+											
+												<tr>
+												<td>Postcode</td>
+												<td><p:inplace editor="true"><h:inputText value="#{user.postcode}" /></p:inplace></td>
+												</tr>
 
 										</tbody>
 									</table>
@@ -186,8 +224,8 @@
 						</div>
 
 						<div class="panel-footer">
-							<h:commandButton action="#{userAccount.update(user)}" value="Save" />
-							<h:commandButton action="#{userAccount.deleteUser(user)}" value="Remove" />
+							<h:commandButton action="#{addRemoveAdmin.update(user)}" value="Save" />
+							<h:commandButton action="#{addRemoveAdmin.removeUser(user)}" value="Remove" />
 						</div>
 					</div>
 				</div>

@@ -14,7 +14,7 @@ public class User {
 	private String address; // required
 	private int postcode; // required
 	private String city; // required
-	private String phone = ""; // NOT required
+	private String phone; // NOT required
 	
 	public User(){
 		orders = new ArrayList<Order>();
@@ -162,5 +162,4 @@ public class User {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-
 }

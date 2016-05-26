@@ -36,10 +36,10 @@
 	<!-- Content -->
 	<h:form id="content">
 		<p:growl id="growl" showDetail="true" sticky="true" /> 
-		<ul>
-		<ui:repeat var="product"
+		<ul style="list-style: none">
+		<ui:repeat style="list-style: none" var="product"
 			value="#{productView.getOneProduct(productView.ID)}">
-			<div class="productImage">
+			<div class="productImage" >
 				<img id="item-display" src="#{product.image}" alt="#{product.name}"></img>
 			</div>
 			<div class="item-container">
