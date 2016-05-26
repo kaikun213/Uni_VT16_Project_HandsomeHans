@@ -49,12 +49,14 @@ public class AdminPages extends Page implements Serializable {
 	private Map<Integer,Boolean> prodChecked = new HashMap<Integer,Boolean>();
 
 	
+	// List of all products to display in primefaces selectOneListbox
     @ManagedProperty("#{productList}")
 	private ProductList productService = new ProductList();
 	
-	
+	// all categories to have a list to choose from
 	private List<String> category;
 	private String selectedCat;
+	// the product to edit, add or delete
 	private Product prod = new Product();
 	private Map<Integer,Boolean> checkedProducts = new HashMap<Integer,Boolean>();
 	
@@ -81,21 +83,15 @@ public class AdminPages extends Page implements Serializable {
 	/* ******************************* admin Products **************************************** */
 	
 	public void adminAddProduct(){
+		// insert given product into DB
 		insertDB(prod);
-		prod = new Product();
+		// clear all fields
+		adminClearInputs();
+		// reload list for products so that new item is in list
 		products = productService.getProducts();
 	}
 	public void adminSaveProduct(){
-		
-		for(int i = 0; i<products.size();i++){
-			if(prod.getId()==products.get(i).getId()){
-				updateDB(prod);
-			}
-				else if(i==products.size()-1){
-					insertDB(prod);
-			}
-		}
-		
+		updateDB(prod);
 		products = productService.getProducts();
 		prod = new Product();
 	}
