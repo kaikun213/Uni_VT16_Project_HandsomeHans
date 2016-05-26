@@ -113,9 +113,10 @@
 		
 		<div class="col-sm-1">
 			<h:selectOneMenu value="#{adminPages.state}">
-			<f:ajax event="click" listener="#{adminPages.changeStates}" render="@form"></f:ajax>
+			<f:ajax event="click" listener="#{adminPages.changeCheckedStates()}" render="@form"></f:ajax>
         	<f:selectItems value="#{adminPages.status}" var="status" itemLabel="#{status}" itemValue="#{status}" />
     		</h:selectOneMenu>
+    		<h:commandButton action="#{adminPages.deleteCheckedOrders()}" value="Delete Selected" />
 		
 		</div>
 		</div>
@@ -129,19 +130,20 @@
        			
  						<p:ajax event="rowEdit" listener="#{adminPages.onRowEdit}" update=":adminContent:msgs" />
        					<p:ajax event="rowEditCancel" listener="#{adminPages.onRowCancel}" update=":adminContent:msgs" />
+       					<p:ajax event="sort" skipChildren="false" />
  							
  									
- 							<p:column headerText="Id" style="width:4%">
+ 							<p:column headerText="Id" style="width:4%" sortBy="#{order.orderId}">
            						<p:cellEditor>
                						<f:facet name="output"><h:outputText value="#{order.orderId}" /></f:facet>
                						<f:facet name="input"><h:outputText id="modelInput" value="#{order.orderId}" /></f:facet> 
            						</p:cellEditor>
        						</p:column>
        						
-       						<p:column headerText="Order Date" style="width:11%">
+       						<p:column headerText="Order Date" style="width:11%" sortBy="#{order.orderDate}">
            						<p:cellEditor>
                						<f:facet name="output"><h:outputText value="#{order.orderDate}" /></f:facet>
-               						<f:facet name="input"><p:calendar id="popup" value="#{adminPages.newOrder.orderDate}" label="Order Date" /></f:facet>
+               						<f:facet name="input"><p:calendar id="popup" value="#{order.orderDate}" label="Order Date" /></f:facet>
            						</p:cellEditor>
        						</p:column>
  
@@ -176,29 +178,43 @@
            					</p:cellEditor>
        					</p:column>
  
-       						<p:column headerText="Status" style="width:11%">
+       						<p:column headerText="Status" style="width:11%" sortBy="#{order.orderStatus}">
            						<p:cellEditor>
-               						<f:facet name="output"><h:outputText value="#{order.orderStatus}" /></f:facet>
+               						<f:facet name="output">
+               							<p:inplace label="#{order.orderStatus}">
+											<h:selectOneMenu id="changeStatusMenu" value="#{order.orderStatus}">
+												<f:ajax event="change" listener="#{adminPages.updateDB(order)}" execute="changeStatusMenu" render="@form"></f:ajax>
+                       							<f:selectItems value="#{adminPages.status}" var="status" itemLabel="#{status}" itemValue="#{status}" />
+                   							</h:selectOneMenu>
+               							</p:inplace>
+               						</f:facet>
                						<f:facet name="input">
-                   						<h:selectOneMenu value="#{order.orderStatus}">
+                   						<h:selectOneMenu value="#{order.orderStatus}" style="color:black;">
                        						<f:selectItems value="#{adminPages.status}" var="status" itemLabel="#{status}" itemValue="#{status}" />
                    						</h:selectOneMenu>
                						</f:facet>
            						</p:cellEditor>
        						</p:column>
+       						
+       						<p:column headerText="Total Price" style="width:5%" sortBy="#{order.totalPrice}">
+       							<p:cellEditor>
+       								<f:facet name="output"><h:outputText value="#{order.totalPrice}" /></f:facet>
+               						<f:facet name="input"><h:outputText value="#{order.totalPrice}" /></f:facet>
+               					</p:cellEditor>
+       						</p:column>
  
-       						<p:column headerText="Edit" style="width:5%">
+       						<p:column headerText="Edit" style="width:5%;background-color:#EEEDEB;">
            						<p:rowEditor />
        						</p:column>
 
        						
-       						<p:column headerText="Remove" style="width:10%">
+       						<p:column headerText="Remove" style="width:8%;background-color:#EEEDEB;">
            						<h:commandButton class="btn btn-primary" value="Remove">
            							<f:ajax event="click" listener="#{adminPages.deleteOrder(order)}" render="orders"></f:ajax>
            						</h:commandButton>
        						</p:column>
        						
-       						<p:column headerText="Mark" style="width:10%">
+       						<p:column headerText="Mark" style="width:4%;background-color:#EEEDEB;">
        							<h:selectBooleanCheckbox id="checkbox" value="#{adminPages.checked[order.orderId]}">
        								<f:ajax event="change" execute="checkbox"></f:ajax>
        							</h:selectBooleanCheckbox>

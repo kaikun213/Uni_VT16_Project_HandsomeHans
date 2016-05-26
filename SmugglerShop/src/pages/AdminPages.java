@@ -17,6 +17,8 @@ import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
 import org.primefaces.event.RowEditEvent;
+import org.primefaces.event.SelectEvent;
+import org.primefaces.event.UnselectEvent;
 
 import baseClasses.Order.OrderStatus;
 import baseClasses.Order;
@@ -46,9 +48,9 @@ public class AdminPages extends Page implements Serializable {
 	private OrderStatus state = OrderStatus.IN_PROCESS;
 	
 	// ******************************** admin Product
+	// all products
 	private List<Product> products = new ArrayList<Product>();
-	private Map<Integer,Boolean> prodChecked = new HashMap<Integer,Boolean>();
-	// List of all products to display in primefaces selectOneListbox
+	// List of all products to set all products from DB
     @ManagedProperty("#{productList}")
 	private ProductList productService = new ProductList();
 	
@@ -157,6 +159,16 @@ public class AdminPages extends Page implements Serializable {
 		this.prod = prod;
 	}	
 	
+	public void onRowSelect(SelectEvent event) {
+	        FacesMessage msg = new FacesMessage("Product Selected", Integer.toString(((Product) event.getObject()).getId()));
+	        FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
+	 
+	public void onRowUnselect(UnselectEvent event) {
+	        FacesMessage msg = new FacesMessage("Product Unselected", Integer.toString(((Product) event.getObject()).getId()));
+	        FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
+	
 	
 	
 	/* *************************************** Admin Order Methods ******************************* */
@@ -203,6 +215,7 @@ public class AdminPages extends Page implements Serializable {
     	super.deleteDB(o);
     	init();
     }
+    
     
     /* ************************************** Methods for SelectProductsMenu *************************************************** */
     public void setProductList(ProductList service) {
@@ -288,10 +301,9 @@ public class AdminPages extends Page implements Serializable {
 		this.state = state;
 	}
 	
-	public void changeStates(){
+	public void changeCheckedStates(){
 	    for (Order o : orders) {
 	    	if (checked.containsKey(o.getOrderId())) {
-	    		System.out.println("Checks orderboxes selected ...");
 	        if (checked.get(o.getOrderId())) {
 	    		System.out.println("change state of order: " + o.getOrderId());
 	            o.setOrderStatus(state);
@@ -299,15 +311,20 @@ public class AdminPages extends Page implements Serializable {
 	        }
 	    	}
 	    }
-	    checked.clear();
+	    init();
 	}
-
-	public Map<Integer,Boolean> getProdChecked() {
-		return prodChecked;
-	}
-
-	public void setProdChecked(Map<Integer,Boolean> prodChecked) {
-		this.prodChecked = prodChecked;
+	
+	public void deleteCheckedOrders(){
+		for (Order o : orders) {
+	    	if (checked.containsKey(o.getOrderId())) {
+	        if (checked.get(o.getOrderId())) {
+	    		System.out.println("delete order: " + o.getOrderId());
+	            deleteDB(o);
+	        }
+	    	}
+	    }
+		init();
+	    
 	}
 
 	public Map<Integer,Boolean> getCheckedProducts() {

@@ -76,9 +76,11 @@
      </div>
      
      <div class="form-group ">
+     <h:graphicImage id="imageDisplay" value="#{adminPages.prod.image}" width="400em" alt="Image preview"/>
+     <br />
       <label class="control-label " for="image">Image</label>
       <h:inputText class="form-control" id="image" name="image" placeholder="template-image.png" type="text" value="#{adminPages.prod.image}">
-      	  <f:ajax event="change" execute="image"></f:ajax>
+      	  <f:ajax event="change" execute="image" render="imageDisplay"></f:ajax>
       </h:inputText>
      </div>
      
@@ -135,24 +137,28 @@
 
             <div class="col-xs-6" id="adminProductsList"> 
             <p:outputLabel  value="Products" /> 
-        	<p:selectOneListbox id="advanced" value="#{adminPages.prod}" converter="productConverter" var="t" filter="true" filterMatchMode="contains" showCheckbox="true" style="width:100%">
-            									<f:ajax event="change" render="@form"></f:ajax>
-            									<f:selectItems value="#{adminPages.products}" var="product" itemLabel="#{product.name}" itemValue="#{product}" />
-           
-       			 									<p:column>
-       			 										<h:graphicImage value="#{t.image}" width="100" height="50" class="img-thumbnail" />
+        	<p:dataTable id="eventsDT" value="#{adminPages.products}" var="p" selectionMode="single" selection="#{adminPages.prod}"  style="width:100%" rowKey="#{p.id}">
+            									<p:ajax event="rowSelect" listener="#{adminPages.onRowSelect}" update="@form" />
+       											<p:ajax event="rowUnselect" listener="#{adminPages.onRowUnselect}" update=":adminContent:msgs" /> 
+       											<p:ajax event="sort" skipChildren="false" />
+       											          
+       			 									<p:column headerText="Image" style="width:4%">
+       			 										<h:graphicImage value="#{p.image}" width="100" height="50" class="img-thumbnail" />
        			 									</p:column>
   
-       			 									<p:column>
-       			 										<h:outputText value="#{t.name}" />
-       			 									</p:column>
-       			 									       			 						
-       			 									<p:column>
-       			 										<h:outputText id="inputQuantity" value="#{t.quantity}" a:size="2" />
+       			 									<p:column headerText="Name" style="width:4%" sortBy="#{p.name}">
+       			 										<h:outputText value="#{p.name}" />
        			 									</p:column>
        			 									
-
-       		</p:selectOneListbox>
+       			 									<p:column headerText="Price" style="width:4%" sortBy="#{p.price}">
+       			 										<h:outputText value="#{p.price}" />
+       			 									</p:column>
+       			 									       			 						
+       			 									<p:column headerText="Quantity" style="width:4%" sortBy="#{p.quantity}">
+       			 										<h:outputText id="inputQuantity" value="#{p.quantity}" a:size="2" />
+       			 									</p:column>
+       			 									
+       		</p:dataTable>
      		<h:commandButton class="btn btn-primary " name="delete" type="submit" value="Delete selected">
        			<f:ajax event="click" listener="#{adminPages.adminDeleteProduct()}" render="theHead @form"></f:ajax>
      		</h:commandButton>

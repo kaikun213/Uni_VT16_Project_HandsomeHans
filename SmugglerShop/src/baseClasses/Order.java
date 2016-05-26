@@ -157,6 +157,13 @@ public class Order {
 		return orderList.iterator();
 	}
 	
+	public int getTotalPrice(){
+		int total = 0;
+		System.out.println("Invoked size: " + orderList.size());
+		for (int i=0;i<orderList.size();i++) total+=orderList.get(i).getQuantity()*orderList.get(i).getPrice();
+		return total;
+	}
+	
 	/** Checks if the Order is complete and valid for the DB
 	 * 
 	 * @return
