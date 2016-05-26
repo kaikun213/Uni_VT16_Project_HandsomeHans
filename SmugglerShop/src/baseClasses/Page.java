@@ -35,6 +35,10 @@ public abstract class Page implements PageInterface{
 	}
 	
 	public String getContent(int index, String column){
+		if (content == null) {
+			System.err.println("Error in getting Content from databasem Content is null");
+			return "";
+		}
 		int i = 0;
 		try {
 			content.beforeFirst();

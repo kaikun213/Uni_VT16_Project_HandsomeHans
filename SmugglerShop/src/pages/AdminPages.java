@@ -55,7 +55,7 @@ public class AdminPages extends Page implements Serializable {
 	
 	private List<String> category;
 	private String selectedCat;
-	private Product prod;
+	private Product prod = new Product();
 	private Map<Integer,Boolean> checkedProducts = new HashMap<Integer,Boolean>();
 	
 	// for quantities in adminOrderPage
@@ -81,6 +81,7 @@ public class AdminPages extends Page implements Serializable {
 	/* ******************************* admin Products **************************************** */
 	
 	public void adminAddProduct(){
+		insertDB(prod);
 		prod = new Product();
 		products = productService.getProducts();
 	}
