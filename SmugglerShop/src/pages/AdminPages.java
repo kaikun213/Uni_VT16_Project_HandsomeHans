@@ -36,7 +36,7 @@ public class AdminPages extends Page implements Serializable {
 	/**
 	 * Default serialVersionID generated from eclipse
 	 */
-	
+	// ******************************** admin Order
 	private List<Order> orders = new ArrayList<Order>();
 	private List<OrderStatus> status = new ArrayList<OrderStatus>();
 	private Order nOrder =  new Order();
@@ -45,10 +45,9 @@ public class AdminPages extends Page implements Serializable {
 	private Map<Integer,Boolean> checked = new HashMap<Integer,Boolean>();
 	private OrderStatus state = OrderStatus.IN_PROCESS;
 	
+	// ******************************** admin Product
 	private List<Product> products = new ArrayList<Product>();
 	private Map<Integer,Boolean> prodChecked = new HashMap<Integer,Boolean>();
-
-	
 	// List of all products to display in primefaces selectOneListbox
     @ManagedProperty("#{productList}")
 	private ProductList productService = new ProductList();
@@ -322,6 +321,21 @@ public class AdminPages extends Page implements Serializable {
 	public Map<Integer,Integer> getQuantities(){
 		return quantities;
 	}
-
+	
+	/* ********************************************* admin Categories ********************************************************************* */
+	
+	public void initCategory(){
+		selectedCat = "";
+	}
+	
+	public void deleteCategory(String s){
+		conn.fetch("DELETE FROM category WHERE name=\"" + s + "\";");
+	}
+	
+	public void addCategory(String s){
+		if (selectedCat.isEmpty()) return;
+		conn.fetch("INSERT INTO category (name) VALUES (\""+s+"\");");
+	}
+	
 	
 }

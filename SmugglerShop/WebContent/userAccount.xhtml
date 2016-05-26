@@ -56,14 +56,24 @@
 
 	<!-- Sidebar -->
 	<h:form id="sidebar">
+		<h:form rendered="#{not authenticationBean.activeUser.admin}">
 		<ul id="sidebarlist">
-			<li class="active" id="sidebarstyle"><a id="sidebarlink"
-				href="userAccount.xhtml">My Account</a></li>
-			<li class="active" id="sidebarstyle"><a id="sidebarlink"
-				href="userOrder.xhtml">My Orders</a></li>
-			<li><h:commandButton action="#{authenticationBean.logout}"
-			class="btn btn-primary btn-block" value="Logout"/></li>
+			<li class="active" id="sidebarstyle"><a id="sidebarlink" href="userAccount.xhtml">My Account</a></li>
+			<li class="active" id="sidebarstyle"><a id="sidebarlink" href="userOrder.xhtml">My Orders</a></li>
+			<li><h:commandButton action="#{authenticationBean.logout}" class="btn btn-primary btn-block" value="Logout"/></li>
 			</ul>
+		</h:form>
+		<h:form rendered="#{authenticationBean.activeUser.admin}">
+		<ul id="sidebarlist">
+			<li class="active" id="sidebarstyle"><a id="sidebarlink" href="#{request.contextPath}/restricted/adminProducts.xhtml">Products</a></li>
+			<li class="active" id="sidebarstyle"><a id="sidebarlink" href="#{request.contextPath}/restricted/adminOrders.xhtml">Orders</a></li>
+			<li class="active" id="sidebarstyle"><a id="sidebarlink" href="#{request.contextPath}/restricted/adminAccounts.xhtml">Accounts</a></li>
+			<li class="active" id="sidebarstyle"><a id="sidebarlink" href="#{request.contextPath}/restricted/adminCategories.xhtml">Accounts</a></li>
+			<li class="active" id="sidebarstyle"><a id="sidebarlink" href="#{request.contextPath}/userAccount.xhtml">myAccount</a></li>
+			<li class="active" id="sidebarstyle"><a id="sidebarlink" href="#{request.contextPath}/userOrder.xhtml">myOrders</a></li>
+			</ul>
+			<h:commandButton action="#{authenticationBean.logout}" class="btn btn-primary btn-block" value="Logout" />
+		</h:form>
 	</h:form>
 	<!-- Sidebar finish -->
 
