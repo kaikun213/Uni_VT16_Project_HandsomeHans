@@ -51,9 +51,21 @@
 	<h:form id="adminContent">	
 	<p:growl id="msgs" showDetail="true"/>
 			
-	<p:dataTable var="category" value="#{adminPages.categories}">
-	<p:column headerText="Name" >#{category}</p:column>
-	<p:column  headerText="Delete"> <h:commandButton action="#{adminPages.deleteCategory(category)}" value="Delete"></h:commandButton></p:column>
+	<p:dataTable var="category" value="#{adminPages.categories}" editable="true">
+	 	<p:ajax event="rowEdit" listener="#{adminPages.editCategory}" update=":adminContent:msgs" />
+	    <p:ajax event="sort" skipChildren="false" />
+		<p:column headerText="Name" sortBy="#{category}" >
+			<p:cellEditor>
+               	<f:facet name="output"><h:outputText value="#{category}" /></f:facet>
+               	<f:facet name="input"><h:inputText value="#{adminPages.selectedCat}" style="color:black;"/></f:facet> 
+           	</p:cellEditor>
+		</p:column>
+		<p:column headerText="Edit" style="width:5%;">
+           	<p:rowEditor />
+       	</p:column>
+		<p:column  headerText="Delete" style="width:10%">
+			 <h:commandButton action="#{adminPages.deleteCategory(category)}" value="Delete"></h:commandButton>
+		</p:column>
 	</p:dataTable>
 	<h:inputText value="#{adminPages.selectedCat}"></h:inputText>
 	<h:commandButton action="#{adminPages.addCategory(adminPages.selectedCat)}" value="Add Category" />

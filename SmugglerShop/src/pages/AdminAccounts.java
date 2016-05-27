@@ -3,6 +3,7 @@ package pages;
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.enterprise.context.SessionScoped;
@@ -58,10 +59,6 @@ public class AdminAccounts extends Page implements Serializable {
 			super.notify("User Already Exists", "Change username");
 		} else {
 			nAdmin.setOrders(arr);
-			nAdmin.setAddress("---"); // otherwise, you cannot edit the field
-			nAdmin.setCity("---");
-			nAdmin.setPostcode(0000);
-			nAdmin.setPhone("---");
 			super.insertDB(nAdmin);
 			super.notify("" + this.nAdmin.getName(), "added with privileges " + nAdmin.getAdmin());
 			nAdmin = new User();
@@ -104,4 +101,11 @@ public class AdminAccounts extends Page implements Serializable {
 	public boolean ifUserExist(User u) {
 		return super.exist("SELECT * FROM user WHERE name=\"" + u.getName() + "\";");
 	}
+	
+	@SuppressWarnings("unchecked")
+	public void sortByName(boolean b){
+		if (b) Collections.sort(allAdmins);
+		else Collections.sort(allUsers);
+	}
+	
 }

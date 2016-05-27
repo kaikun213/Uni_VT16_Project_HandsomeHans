@@ -54,6 +54,18 @@ public class Mainpage extends Page implements Serializable {
 		}
 	}
 	
+	public ArrayList<Product> instantSearch(){
+		System.out.println("Instant search invoked");
+		setContent("SELECT * FROM product WHERE UPPER(name) LIKE '"+search.toUpperCase()+"%';");
+		ArrayList<Product> searchResults = new ArrayList<Product>();
+		try {
+			searchResults = toProducts(content);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return searchResults;
+	}
+	
 	/**
 	 * Sets the content and the product list.
 	 * @return the list of products in the database. 

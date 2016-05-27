@@ -38,9 +38,10 @@
 	<!-- Content -->
 	<h:form id="content">
 		<p:growl id="growl" showDetail="true" sticky="true" /> 
+		<p:panelGrid>
+		<p:panel>
 		<ul style="list-style: none">
-		<ui:repeat style="list-style: none" var="product"
-			value="#{productView.getOneProduct(productView.ID)}">
+		<ui:repeat style="list-style: none" var="product" value="#{productView.getOneProduct(productView.ID)}">
 			<div class="productImage" >
 				<img id="item-display" src="#{product.image}" alt="#{product.name}"></img>
 			</div>
@@ -106,8 +107,11 @@
 					</div>
 				</div>
 			</div>
-			
+			</ui:repeat>
+			</ul>
+			</p:panel>
 			<!-- Comment and Rating section -->
+						<p:panel>
 						<div id="commentSection">
 						
 						<!-- add a new comment -->
@@ -129,10 +133,10 @@
 						</ui:repeat>
 						</ul>
 						</div>
+						</p:panel>
 			<!-- End Comment and Rating section -->
 			
-		</ui:repeat>
-		</ul>
+		</p:panelGrid>
 	</h:form>
 	
 	<!-- Footer -->

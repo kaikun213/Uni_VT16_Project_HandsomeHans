@@ -82,8 +82,15 @@
 	<div class="col-sm-5" id="adminPanelContainer">
 	<h3 style="text-align: center;">List of Administrator</h3>
 	<hr></hr>
+	
+	<p:toolbar>
+		<f:facet name="left">
+			 <h:commandButton action="#{adminAccounts.sortByName(true)}" value="ByName"></h:commandButton>
+		</f:facet>
+	</p:toolbar>
+	
 		<ul style="list-style: none">
-			<ui:repeat var="admin" value="#{adminAccounts.allAdmins}">
+		<ui:repeat var="admin" value="#{adminAccounts.allAdmins}">
 
 		<li><div class="container" id="adminPanel">
 			<div class="row">
@@ -161,6 +168,11 @@
 <div class="col-sm-5" id="userPanelContainer">
 <h3 style="text-align: center;">List of Users</h3>
 <hr></hr>
+		<p:toolbar>
+		<f:facet name="left">
+			 <h:commandButton action="#{adminAccounts.sortByName(false)}" value="ByName"></h:commandButton>
+		</f:facet>
+		</p:toolbar>
 		<ul style="list-style: none;">
 		<ui:repeat var="user" value="#{adminAccounts.allUsers}">
 		<li><div class="container" id="adminPanel">

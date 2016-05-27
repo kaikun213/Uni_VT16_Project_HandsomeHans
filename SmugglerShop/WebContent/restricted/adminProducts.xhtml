@@ -61,7 +61,24 @@
 <div class="bootstrap-iso">
  <div class="container-fluid">
  
- 
+ <!-- SearchBar -->
+		<div class="container-fluid" id="adminsearchBar">
+
+			<div class="col-xs-6"></div>
+			<div class="col-xs-3">
+				<div class="form-inline">
+					<h:inputText value="#{adminPages.searchProduct}" id="inputSearch" a:placeholder="Search Product by Name"
+							type="text" class="form-control" size="30"></h:inputText>
+				<h:commandButton action="#{adminPages.searchProduct()}" class="btn btn-success" value="Go!" />
+
+				</div>
+				
+			</div>
+			<div class="col-xs-2">
+				<h:commandButton action="#{adminPages.init()}" value="Show all Products" />
+			</div>	
+		</div>
+	<!-- End SearchBar -->
  
  <!-- Start input fields -->
  <div class="col-xs-4" id="adminproductsforms">
@@ -132,9 +149,8 @@
   <!-- End input fields -->
   
   <div class="col-xs-2"></div>
+  
   <!-- Start product list -->
- 
-
             <div class="col-xs-6" id="adminProductsList"> 
             <p:outputLabel  value="Products" /> 
         	<p:dataTable id="eventsDT" value="#{adminPages.products}" var="p" selectionMode="single" selection="#{adminPages.prod}"  style="width:100%" rowKey="#{p.id}">

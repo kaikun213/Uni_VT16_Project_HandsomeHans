@@ -2,7 +2,7 @@ package baseClasses;
 
 import java.util.ArrayList;
 
-public class User {
+public class User implements Comparable {
 
 	private int id;	// generated
 	private String name;	// required
@@ -161,5 +161,11 @@ public class User {
 
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+
+	@Override
+	public int compareTo(Object o) {
+		if (!(o instanceof User)) return -99;
+		return ((User)o).getName().compareTo(this.name);
 	}
 }

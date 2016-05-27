@@ -55,7 +55,6 @@ public abstract class Page implements PageInterface{
 			content.beforeFirst();
 			while (content.next()) {
 				System.out.println("Round: " + i + "Index: " + index);
-				System.out.println(content.getString("admin") + " : " + content.getString("password"));
 				if (i++ == index) 	return content.getString(column);
 			}
 		} catch (SQLException e) {
@@ -347,6 +346,20 @@ public abstract class Page implements PageInterface{
 			try {
 				ArrayList<Rating> ratings = toRatings(rs);
 				for (int i=0; i< ratings.size();i++) deleteDB(ratings.get(i));
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			// delete all their orders
+			StringBuilder sb = new StringBuilder("SELECT * FROM orders WHERE id=");
+			for (int i=0;i< ((User)o).getOrders().size();i++) {
+				sb.append(((User)o).getOrders().get(i).getOrderId());
+				if (i+1<((User)o).getOrders().size()) sb.append(" OR id=");
+			}
+			sb.append(";");
+			ResultSet rs2 = conn.fetch(sb.toString());
+			try {
+				ArrayList<Order> orders = toOrders(rs2);
+				for (int i=0; i< orders.size();i++) deleteDB(orders.get(i));
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

@@ -53,6 +53,8 @@ public class AdminPages extends Page implements Serializable {
 	// List of all products to set all products from DB
     @ManagedProperty("#{productList}")
 	private ProductList productService = new ProductList();
+    // String to search for a product
+    String searchProduct = "";
 	
 	// all categories to have a list to choose from
 	private List<String> category;
@@ -95,6 +97,18 @@ public class AdminPages extends Page implements Serializable {
 		updateDB(prod);
 		products = productService.getProducts();
 		prod = new Product();
+	}
+	
+	public void searchProduct(){
+		if (searchProduct.isEmpty()) super.notify("Error", "Searching for an empty name sure?");
+		else {
+			setContent("SELECT * FROM product WHERE UPPER(name) LIKE '%"+searchProduct.toUpperCase()+"%';");
+			try {
+				products = toProducts(content);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	public void adminClearInputs(){
@@ -248,6 +262,14 @@ public class AdminPages extends Page implements Serializable {
  	public void setNewOrder(Order o){
  		nOrder = o;
  	}
+ 	
+ 	public void setSearchProduct(String s){
+ 		searchProduct = s;
+ 	}
+ 	
+ 	public String getSearchProduct(){
+ 		return searchProduct;
+ 	}
 
  	public List<String> getCategory() {
  		return category;
@@ -346,12 +368,22 @@ public class AdminPages extends Page implements Serializable {
 	}
 	
 	public void deleteCategory(String s){
-		conn.fetch("DELETE FROM category WHERE name=\"" + s + "\";");
+		setContent("SELECT id FROM category WHERE name='" + s + "';");
+		String categoryID = getContent(0, "id");
+		System.out.println("The category ID:" + categoryID);
+		if (exist("SELECT * FROM product WHERE category=" + categoryID + ";")) super.notify("ERROR", "Can not remove category when product is assigned to.");
+		else conn.fetch("DELETE FROM category WHERE name=\"" + s + "\";");
 	}
 	
 	public void addCategory(String s){
 		if (selectedCat.isEmpty()) return;
 		conn.fetch("INSERT INTO category (name) VALUES (\""+s+"\");");
+		selectedCat = "";
+	}
+	
+	public void editCategory(RowEditEvent event){
+		if (selectedCat.isEmpty()) return;
+		conn.fetch("UPDATE category SET name='" + selectedCat + "' WHERE name='" + event.getObject() + "';");
 	}
 	
 	
