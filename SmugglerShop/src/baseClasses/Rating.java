@@ -2,15 +2,16 @@ package baseClasses;
 
 public class Rating {
 	
+	private int id;
 	private String comment = "";
-	private Integer rating = 0;
+	private Integer stars = 6;
 	private User author = new User();
 	
 	public Rating(){}
 	
-	public Rating(String comment, Integer rating, User author){
+	public Rating(int id, String comment, Integer stars, User author){
 		this.comment = comment;
-		this.rating = rating;
+		this.stars = stars;
 		this.author = author;
 	}
 	
@@ -20,11 +21,11 @@ public class Rating {
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
-	public Integer getRating() {
-		return rating;
+	public Integer getStars() {
+		return stars;
 	}
-	public void setRating(Integer rating) {
-		this.rating = rating;
+	public void setStars(Integer stars) {
+		this.stars = stars;
 	}
 	public User getAuthor() {
 		return author;
@@ -33,4 +34,16 @@ public class Rating {
 		this.author = author;
 	}
 
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	public boolean isComplete(){
+		return (stars!=6 && author != null);
+	}
+	
 }

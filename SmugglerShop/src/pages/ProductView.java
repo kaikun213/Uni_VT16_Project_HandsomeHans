@@ -2,7 +2,9 @@ package pages;
 
 import javax.inject.Named;
 
+import authentification.AuthenticationBean;
 import baseClasses.Product;
+import baseClasses.Rating;
 import baseClasses.Page;
 
 import java.io.Serializable;
@@ -25,6 +27,7 @@ public class ProductView extends Page implements Serializable {
 	// Array with hopefully 1 product
 	private List<Product> products = new ArrayList<Product>();
 	private int id;
+	private Rating nRating = new Rating();
 	
 	public void init() {
 		setProduct(id);
@@ -86,6 +89,30 @@ public class ProductView extends Page implements Serializable {
     		products.get(0).setQuantity(getQuantity(Integer.toString(products.get(0).getId())));
     		super.notify("Error","Sorry, we do not have this amount on stock. The quantity got reset to the maximum.");
     	}
+	}
+	
+	public void submitRating(){
+		nRating.setAuthor(AuthenticationBean.activeUser);
+		products.get(0).getRatings().add(nRating);
+		insertDB(nRating);
+		// read the generated id from DB 
+		setContent("SELECT id FROM rating");
+		try {
+			content.last();
+			nRating.setId(content.getInt("id"));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		updateDB(products.get(0));
+		nRating = new Rating();
+	}
+
+	public Rating getnRating() {
+		return nRating;
+	}
+
+	public void setnRating(Rating nRating) {
+		this.nRating = nRating;
 	}
 	
 }

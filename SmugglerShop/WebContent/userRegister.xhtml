@@ -21,8 +21,7 @@
 	<script src="resources/js/footerFix.js"></script>
 </h:head>
 	<f:metadata>
-	<f:viewAction action="#{userAccount.init()}" />
-</f:metadata>
+	</f:metadata>
 <body>
 	<!-- Header -->
 	<div id="header">
@@ -42,7 +41,7 @@
                 <div class="form-group">
                     <label style="color: Black" for="name">Name</label>
                     <div class="input-group">
-                        <h:inputText type="text" id="name" class="form-control" a:placeholder="John Smith"  value="#{userAccount.user.name}" required="true" />
+                        <h:inputText type="text" id="name" class="form-control" a:placeholder="John Smith"  value="#{adminAccounts.admin.name}" required="true" />
                         <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
                     </div>
                 </div>
@@ -50,7 +49,7 @@
                 <div class="form-group">
                   <label style="color: Black" for="email">Email</label>
                     <div class="input-group">
-                       <h:inputText type="text" id="email" class="form-control" a:placeholder="example@gmail.com" value="#{userAccount.user.email}" required="true" />
+                       <h:inputText type="text" id="email" class="form-control" a:placeholder="example@gmail.com" value="#{adminAccounts.admin.email}" required="true" />
                         <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
                     </div>
                 </div>
@@ -58,7 +57,7 @@
                 <div class="form-group">
                     <label style="color: Black" for="password">Password</label>
                     <div class="input-group">
-                       <h:inputSecret type="text" id="password" class="form-control" a:placeholder="Password" value="#{userAccount.user.password}" required="true" />
+                       <h:inputSecret type="text" id="password" class="form-control" a:placeholder="Password" value="#{adminAccounts.admin.password}" required="true" />
                         <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
                     </div>
                 </div>
@@ -66,7 +65,7 @@
                <div class="form-group">
                    <label style="color: Black" for="phone">Phone</label>
                     <div class="input-group">
-                        <h:inputText type="text" id="phone" class="form-control" a:placeholder="0735781231" value="#{userAccount.user.phone}" required="false" />
+                        <h:inputText type="text" id="phone" class="form-control" a:placeholder="0735781231" value="#{adminAccounts.admin.phone}" required="false" />
                         <span class="input-group-addon"></span>
                     </div>
                 </div>
@@ -74,7 +73,7 @@
                   <div class="form-group">
                     <label style="color: Black" for="address">Address</label>
                     <div class="input-group">
-                        <h:inputText type="text" id="address" class="form-control" a:placeholder="Stallvagen 30"  value="#{userAccount.user.address}" required="true" />
+                        <h:inputText type="text" id="address" class="form-control" a:placeholder="Stallvagen 30"  value="#{adminAccounts.admin.address}" required="true" />
                         <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
                     </div>
                 </div>
@@ -82,7 +81,7 @@
                   <div class="form-group">
                     <label style="color: Black" for="city">City</label>
                     <div class="input-group">
-                      <h:inputText type="text" id="city" class="form-control" a:placeholder="Växjö"  value="#{userAccount.user.city}" required="true" />
+                      <h:inputText type="text" id="city" class="form-control" a:placeholder="Växjö"  value="#{adminAccounts.admin.city}" required="true" />
                         <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
                     </div>
                 </div>
@@ -90,11 +89,11 @@
                 <div class="form-group">
                    <label style="color: Black" for="postcode">Postcode</label>
                     <div class="input-group">
-                        <h:inputText type="text" id="postcode" class="form-control" a:placeholder="35421"  value="#{userAccount.user.postcode}" required="true" />
+                        <h:inputText type="text" id="postcode" class="form-control" a:placeholder="35421"  value="#{adminAccounts.admin.postcode}" required="true" />
                         <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
                     </div>
                 </div>
-                <h:commandButton value="Register me !" class="btn btn-info pull-center" action="#{userAccount.addUser()}" />
+                <h:commandButton value="Register me !" class="btn btn-info pull-center" action="#{adminAccounts.addUser()}" />
             </div>
             
             <div class="col-lg-2"></div>

@@ -3,7 +3,9 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+      
 
 <h:head>
 	<title>#{productView.getOneProduct(productView.ID).name}</title>
@@ -104,6 +106,31 @@
 					</div>
 				</div>
 			</div>
+			
+			<!-- Comment and Rating section -->
+						<div id="commentSection">
+						
+						<!-- add a new comment -->
+						<h:outputText value="To write a comment you need to be logged in as a user." rendered="#{not authenticationBean.loggedIn}" />
+						<h:link value="Not registered yet?" outcome="userRegister" rendered="#{not authenticationBean.loggedIn}" />
+						<h:graphicImage value="#{authenticationBean.activeUser.image}" rendered="#{authenticationBean.loggedIn}"/>
+						<h:inputTextarea value="#{productView.nRating.comment}" rendered="#{authenticationBean.loggedIn}" a:placeholder="400 letters.."/> 
+						<p:rating value="#{productView.nRating.stars}" rendered="#{authenticationBean.loggedIn}" />
+						<h:commandButton action="#{productView.submitRating()}" value=" Comment" rendered="#{authenticationBean.loggedIn}" />
+						
+						<!-- show all comments -->
+						<ul>
+						<ui:repeat var="rating" value="#{product.ratings}">
+							<li>
+								<h:graphicImage value="#{rating.author.image}" />
+								<h:outputText value="#{rating.comment}" />
+								<p:rating value="#{rating.stars}" readonly="true"></p:rating>
+							</li>
+						</ui:repeat>
+						</ul>
+						</div>
+			<!-- End Comment and Rating section -->
+			
 		</ui:repeat>
 		</ul>
 	</h:form>

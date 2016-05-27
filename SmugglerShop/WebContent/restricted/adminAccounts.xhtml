@@ -28,7 +28,7 @@
 	<script src="#{request.contextPath}/resources/js/footerFix.js"></script>
 </h:head>
 <f:metadata>
-	<f:viewAction action="#{addRemoveAdmin.init()}" />
+	<f:viewAction action="#{adminAccounts.init()}" />
 </f:metadata>
 
 <body>
@@ -60,19 +60,19 @@
 	  <p:panel id="newUserPanel" header="New User" style="margin-top:10px">
       	 <h:panelGrid columns="10" id="grid" cellpadding="5">
             <p:outputLabel for="username" value="Username" />
-            <h:inputText id="username" value="#{addRemoveAdmin.admin.name}" />
+            <h:inputText id="username" value="#{adminAccounts.admin.name}" />
             
             <p:outputLabel for="email" value="Email" />
-            <h:inputText id="email" value="#{addRemoveAdmin.admin.email}"/>
+            <h:inputText id="email" value="#{adminAccounts.admin.email}"/>
            
            <p:outputLabel for="password" value="Password" />
-        	<h:inputSecret id="password" value="#{addRemoveAdmin.admin.password}" />
+        	<h:inputSecret id="password" value="#{adminAccounts.admin.password}" />
         
-         <p:selectOneButton value="#{addRemoveAdmin.userMode}">
-            <f:selectItem itemLabel="User" itemValue="User" />
-            <f:selectItem itemLabel="Admin" itemValue="Admin" />
+         <p:selectOneButton value="#{adminAccounts.admin.admin}">
+            <f:selectItem itemLabel="User" itemValue="false" />
+            <f:selectItem itemLabel="Admin" itemValue="true" />
         </p:selectOneButton>
-   	<h:commandButton value="Save" icon="ui-icon-check" action="#{addRemoveAdmin.addUser()}" />
+   	<h:commandButton value="Save" icon="ui-icon-check" action="#{adminAccounts.addUser()}" />
   </h:panelGrid>
     </p:panel>
 				
@@ -83,7 +83,7 @@
 	<h3 style="text-align: center;">List of Administrator</h3>
 	<hr></hr>
 		<ul style="list-style: none">
-			<ui:repeat var="admin" value="#{addRemoveAdmin.allAdmins}">
+			<ui:repeat var="admin" value="#{adminAccounts.allAdmins}">
 
 		<li><div class="container" id="adminPanel">
 			<div class="row">
@@ -146,8 +146,8 @@
 						</div>
 
 						<div class="panel-footer">
-							<h:commandButton action="#{addRemoveAdmin.update(admin)}" value="Save" />
-							<h:commandButton action="#{addRemoveAdmin.removeUser(admin)}" value="Remove" />
+							<h:commandButton action="#{adminAccounts.update(admin)}" value="Save" />
+							<h:commandButton action="#{adminAccounts.removeUser(admin)}" value="Remove" />
 						</div>
 					</div>
 				</div>
@@ -162,7 +162,7 @@
 <h3 style="text-align: center;">List of Users</h3>
 <hr></hr>
 		<ul style="list-style: none;">
-		<ui:repeat var="user" value="#{addRemoveAdmin.allUsers}">
+		<ui:repeat var="user" value="#{adminAccounts.allUsers}">
 		<li><div class="container" id="adminPanel">
 			<div class="row">
 				<div class="panel panel-info">
@@ -224,8 +224,8 @@
 						</div>
 
 						<div class="panel-footer">
-							<h:commandButton action="#{addRemoveAdmin.update(user)}" value="Save" />
-							<h:commandButton action="#{addRemoveAdmin.removeUser(user)}" value="Remove" />
+							<h:commandButton action="#{adminAccounts.update(user)}" value="Save" />
+							<h:commandButton action="#{adminAccounts.removeUser(user)}" value="Remove" />
 						</div>
 					</div>
 				</div>

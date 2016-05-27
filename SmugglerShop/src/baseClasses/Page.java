@@ -30,6 +30,17 @@ public abstract class Page implements PageInterface{
 	protected ConnectionClass conn = new ConnectionClass();
 	protected ResultSet content;
 	
+	public boolean exist(String sql){
+		ResultSet rs = conn.fetch(sql);
+		try {
+			if (rs == null) return false;
+			if (!rs.isBeforeFirst()) return false;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return true;
+	}
+	
 	public void setContent(String sql) {
 		content = conn.fetch(sql);
 	}
@@ -52,6 +63,21 @@ public abstract class Page implements PageInterface{
 		}
 		return "";
 	}
+	
+	public ArrayList<Rating> toRatings(ResultSet ratings) throws SQLException{
+		if (ratings == null) return new ArrayList<Rating>();
+		ratings.beforeFirst();
+		if (!ratings.getMetaData().getTableName(1).equals("rating")) throw new SQLException("This is not a rating list");
+		ArrayList<Rating> arr = new ArrayList<Rating>();
+		
+		while (ratings.next()){
+			ResultSet rs = conn.fetch("Select * FROM user WHERE id=" + ratings.getString("user"));
+			User author = toUsers(rs).get(0);
+			arr.add(new Rating(ratings.getInt("id"), ratings.getString("comment"), ratings.getInt("rating"), author));
+		}
+		
+		return arr;
+	}
 
 	public ArrayList<Product> toProducts(ResultSet products) throws SQLException{
 		if (products == null) return new ArrayList<Product>(); 
@@ -65,13 +91,33 @@ public abstract class Page implements PageInterface{
 			rs.first();
 			String category = rs.getString("name");
 			
+			StringBuilder sb = new StringBuilder(products.getString("ratings"));
+			ArrayList<Rating> ratings = new ArrayList<Rating>();
+			// just if there are ratings
+			if (!sb.toString().isEmpty()) {
+				StringBuilder sqlRatings = new StringBuilder("SELECT * FROM rating WHERE ");
+				int a = 0;
+				for (int i=0;i<sb.length();i++) {
+					if (Character.compare(sb.charAt(i), ';') == 0) {
+						sqlRatings.append("id="+ sb.substring(a, i) +"");
+						a=i+1;
+						if (i+1<sb.length()) sqlRatings.append(" OR ");
+					}
+				}
+				sqlRatings.append(";");
+				ResultSet ratingsRS = conn.fetch(sqlRatings.toString());
+				ratings = toRatings(ratingsRS);
+			}
+			
+			
 			Product p = new Product(products.getString("name"),
 					category,
 					products.getDouble("price"),
 					products.getString("description"),
 					products.getString("image"),
 					products.getInt("quantity"),
-					products.getInt("id"));
+					products.getInt("id"),
+					ratings);
 			arr.add(p);
 		}
 		return arr;
@@ -149,13 +195,19 @@ public abstract class Page implements PageInterface{
 				StringBuilder sqlOrders = new StringBuilder("SELECT * FROM orders WHERE id=");
 				StringBuilder sb = new StringBuilder(users.getString("orders"));
 				int a = 0;
-				for (int i=0;i<sb.length();i++) {
-					if (Character.compare(sb.charAt(i), ';') == 0) {
-					sqlOrders.append(sb.substring(a, i) + " OR id=");
-					a=i+1;
+				// if the user has orders
+				if (!sb.toString().isEmpty() ) {
+					for (int i=0;i<sb.length();i++) {
+						if (Character.compare(sb.charAt(i), ';') == 0) {
+						sqlOrders.append(sb.substring(a, i));
+						if (i+1<sb.length()) sb.append(" OR id=");
+						a=i+1;
+						}
 					}
+					sb.append(";");
 					orders.addAll(toOrders(conn.fetch(sqlOrders.toString())));
 				}
+				
 				
 			    User u = new User(	users.getInt("id"),
 			    					users.getString("name"),
@@ -214,7 +266,11 @@ public abstract class Page implements PageInterface{
 			}
 			sb.append( category+",price=");
 			sb.append(((Product) o).getPrice() +",image=\"");
-			sb.append(((Product) o).getImage() +"\",description=\"");
+			sb.append(((Product) o).getImage() +"\", ratings=\"");
+			for (int i=0;i<((Product) o).getRatings().size();i++){
+				sb.append(((Product) o).getRatings().get(i).getId() + ";");
+			}
+			sb.append("\",description=\"");
 			sb.append(((Product) o).getDescription() + "\",quantity=");
 			sb.append(((Product) o).getQuantity());
 			sb.append(" WHERE id=");
@@ -270,14 +326,45 @@ public abstract class Page implements PageInterface{
 			sb.append(" WHERE id=");
 			sb.append(((User) o).getId() + ";");
 		}
+		else if (o instanceof Rating){
+			sb.append("UPDATE rating SET comment=\"");
+			sb.append(((Rating) o).getComment() + "\", rating=");
+			sb.append(((Rating) o).getStars() + ", user=");
+			sb.append(((Rating) o).getAuthor().getId() + " WHERE id=");
+			sb.append(((Rating) o).getId() + ";");
+		}
 		else System.err.println("This is not an updateable Object");
 		updateDB(sb.toString());
 	}
 
 	public void deleteDB(Object o){
+		// update DB function from connection class
 		if (o instanceof Product) updateDB("DELETE FROM product WHERE id="+ ((Product) o).getId() + ";");
 		else if (o instanceof Order) updateDB("DELETE FROM orders WHERE id="+ ((Order) o).getOrderId() + ";");
-		else if (o instanceof User) updateDB("DELETE FROM user WHERE id=" + ((User) o).getId() +";");
+		else if (o instanceof User) {
+			// delete all comments from the user
+			ResultSet rs = conn.fetch("SELECT * FROM rating WHERE user="+ ((User)o).getId() + ";");
+			try {
+				ArrayList<Rating> ratings = toRatings(rs);
+				for (int i=0; i< ratings.size();i++) deleteDB(ratings.get(i));
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			// delete the user itself
+			updateDB("DELETE FROM user WHERE id=" + ((User) o).getId() +";");
+		}
+		else if (o instanceof Rating) {
+			// delete the rating from the product list
+				try {
+					Product p = toProducts(conn.fetch("SELECT * FROM product WHERE ratings LIKE %" + ((Rating)o).getId() + "%;")).get(0);
+					for (int i=0;i<p.getRatings().size();i++) if (p.getRatings().get(i).getId() == ((Rating)o).getId()) p.getRatings().remove(i);
+					updateDB(p);
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			// delete the rating from DB
+				updateDB("DELETE FROM rating WHERE id=" + ((Rating)o).getId() + ";");
+		}
 		else System.err.println("No deleteable Object-class");
 	}
 
@@ -351,6 +438,12 @@ public abstract class Page implements PageInterface{
 			sb.append(((User) o).getCity() + "\",");
 			sb.append(((User) o).getPostcode() + ",\"");
 			sb.append(((User) o).getPhone() + "\");");
+		}
+		else if (o instanceof Rating){
+			sb.append("INSERT INTO rating (comment, rating, user) VALUES (\"");
+			sb.append(((Rating) o).getComment() +  "\", ");
+			sb.append(((Rating) o).getStars() + ", ");
+			sb.append(((Rating) o).getAuthor().getId() + ");");
 		}
 		else System.err.println("This is not an Object for insertion");
 		updateDB(sb.toString());

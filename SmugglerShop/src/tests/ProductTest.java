@@ -1,10 +1,14 @@
 package tests;
 
 import static org.junit.Assert.*;
+
+import java.util.ArrayList;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import baseClasses.Product;
+import baseClasses.Rating;
 
 /**
  * Simple product test
@@ -30,7 +34,7 @@ public class ProductTest {
 
 	@Test
 	public void testOneProduct() {
-		Product product = new Product("Iphone", "Mobile", 199.99, "Made in China", null, 1, 0);
+		Product product = new Product("Iphone", "Mobile", 199.99, "Made in China", null, 1, 0, new ArrayList<Rating>());
 
 		// check
 		assertEquals("Iphone", product.getName());
@@ -88,8 +92,8 @@ public class ProductTest {
 	@Test
 	public void testEquals() {
 		// same products
-		Product product1 = new Product("Iphone", "Mobile", 199.99, "Made in China", null, 1, 0);
-		Product product2 = new Product("Iphone", "Mobile", 199.99, "Made in China", null, 1, 0);
+		Product product1 = new Product("Iphone", "Mobile", 199.99, "Made in China", null, 1, 0, new ArrayList<Rating>());
+		Product product2 = new Product("Iphone", "Mobile", 199.99, "Made in China", null, 1, 0, new ArrayList<Rating>());
 
 		assertEquals(true, product1.equals(product2));
 

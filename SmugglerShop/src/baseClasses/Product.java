@@ -1,5 +1,7 @@
 package baseClasses;
 
+import java.util.ArrayList;
+
 /**
  * This class represent a product.
  * 
@@ -16,7 +18,7 @@ public class Product {
 	private String description;
 	private int quantity;
 	private int id;
-	
+	private ArrayList<Rating> ratings;
 	
 
 	public int getId() {
@@ -35,12 +37,13 @@ public class Product {
 		image = null;
 		quantity = 0;
 		id = -99;
+		ratings = new ArrayList<Rating>();
 	}
 	
 	/**
 	 * Full Constructor
 	 */
-	public Product(String pname, String cat, double pric, String descr,String img, int amount, int id) {
+	public Product(String pname, String cat, double pric, String descr,String img, int amount, int id, ArrayList<Rating> ratings) {
 		if(price < 0 || amount < 0) throw new IllegalArgumentException("Price and quantity must be greater or equal than 0.");
 
 		name = pname;
@@ -50,6 +53,7 @@ public class Product {
 		image = img;
 		quantity = amount;
 		this.id = id;
+		this.ratings = ratings;
 		
 	}
 
@@ -198,7 +202,16 @@ public class Product {
 	}
 	
 	public Product copy(){
-		return new Product(this.name,this.category, this.price, this.description, this.image, this.quantity, this.id);
+		return new Product(this.name,this.category, this.price, this.description, this.image, this.quantity, this.id, this.ratings);
+	}
+
+	public ArrayList<Rating> getRatings() {
+		return ratings;
+	}
+
+
+	public void setRatings(ArrayList<Rating> ratings) {
+		this.ratings = ratings;
 	}
 
 }

@@ -43,7 +43,6 @@
 </h:head>
 
 <f:metadata>
-	<f:viewAction action="#{userAccount.init()}" />
 </f:metadata>
 
 <h:body>
@@ -146,7 +145,7 @@
 						</div>
 
 						<div class="panel-footer">
-							<h:commandButton action="#{userAccount.update()}" value="Save" />
+							<h:commandButton action="#{adminAccounts.update(authenticationBean.activeUser)}" value="Save" />
 						</div>
 
 					</div>
