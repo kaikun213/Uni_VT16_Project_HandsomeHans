@@ -36,28 +36,45 @@
 	<!-- Header finish -->	
 	
 	<!-- Content -->
-	<h:form id="content">
+	<h:form>
 		<p:growl id="growl" showDetail="true" sticky="true" /> 
-		<p:panelGrid>
-		<p:panel>
-		<ul style="list-style: none">
-		<ui:repeat style="list-style: none" var="product" value="#{productView.getOneProduct(productView.ID)}">
-			<div class="productImage" >
-				<img id="item-display" src="#{product.image}" alt="#{product.name}"></img>
-			</div>
-			<div class="item-container">
-				<div class="col-md-6">
-					<h3>#{product.name}</h3>
-					<div class="product-desc">#{product.description}</div>
-					<hr></hr>
-					<div class="product-price">Price per item: <span>#{product.price}<i class="fa fa-gg-circle"></i></span></div>
-					<hr></hr>
-					<div class="btn-group cart">
-						
-						<!-- Quantity selection -->
-						<div>
-								<!-- When product not in basket -->
-								<h:selectOneMenu id="Quantity" value="#{product.quantity}" class="btn btn-default" rendered="#{product.quantity lt 6 and not basket.productInBasket(product.id)}" >
+		
+		<div class="container-fluid"  id="productViewBox">
+  			<ul style="list-style: none">
+				<ui:repeat style="list-style: none" var="product" value="#{productView.getOneProduct(productView.ID)}">
+  					<li><div class="row" style="margin-top: 30px">
+						<div class="col-sm-4">
+      						<img src="#{product.image}" alt="#{product.name}" class="col-sm-12 img-thumbnail" id="imageBox"></img>
+    						<h4 style="color:white"><h:outputText value="To write a comment you need to be logged in as a user. " rendered="#{not authenticationBean.loggedIn}" />
+    						<h:link style="color:#FEC143" value="Not registered yet?" outcome="userRegister" rendered="#{not authenticationBean.loggedIn}" /></h4>
+    					
+    					</div>
+    					  
+    					  <div class="col-sm-1"></div>
+    					  <div class="col-sm-7" id="productDetails">
+      						<h2 style="color: #FEC143">#{product.name}</h2>     
+      						<p style="color:white">#{product.description}</p>
+    						<p class="text-right" style="color:yellow">Price: <span>#{product.price} <i class="fa fa-gg-circle"></i></span></p>
+    						
+    						<br/>	
+    					<!-- Add basket button -->
+						<h:commandButton style ="padding: 5px" value="Add to Basket" class="btn btn-primary" href="#" disabled="#{basket.productInBasket(product.id)}">
+							<f:ajax event="click" execute="Quantity" listener="#{basket.add(product)}" render="theHead @form"></f:ajax>
+						</h:commandButton>
+			
+						<h:commandButton style ="padding: 5px"  value="Remove from Basket" class="btn btn-primary" href="#" rendered="#{basket.productInBasket(product.id)}">
+							<f:ajax event="click" execute="Quantity" listener="#{basket.remove(product.id)}" render="theHead @form"></f:ajax>
+						</h:commandButton>
+						<span style="font-size:14px"><h:outputText style="color:black" value="Product is already in the basket" rendered="#{basket.productInBasket(product.id)}" /></span>
+								
+						<!-- End Add basket button -->
+    							
+    							
+    							
+    							
+    							
+    								<!-- When product not in basket -->
+								<h:selectOneMenu style="margin: 0 0 0 70px" id="Quantity" value="#{product.quantity}" class="btn btn-default" rendered="#{product.quantity lt 6 and not basket.productInBasket(product.id)}" >
 									<p:ajax event="click" execute="Quantity" update="@form" ></p:ajax>
 									<f:selectItem itemLabel="1" itemValue="1" />
 									<f:selectItem itemLabel="2" itemValue="2" itemDisabled="#{productView.getQuantity(product.id) lt 2}" />
@@ -67,14 +84,13 @@
 									<f:selectItem itemLabel="5+" itemValue="6" itemDisabled="#{productView.getQuantity(product.id) lt 6}" />
 								</h:selectOneMenu>
 								
+								
 								<!-- Value input for greater than 5 -->
-								<h:inputText value="#{product.quantity}" rendered="#{product.quantity gt 5 and not basket.productInBasket(product.id)}" type="number" max="6" size="2" class="quantityBackground">
+								<h:inputText value="#{product.quantity}" rendered="#{product.quantity gt 5 and not basket.productInBasket(product.id)}" type="number" max="6" size="1" class="quantityBackground">
 								    <p:ajax event="change" update="@form" listener="#{productView.notifyQuantity()}" />
 								</h:inputText>
 								
-								<!-- When product is already in basket -->
-								
-								<h:selectOneMenu id="QuantityBasketItem" value="#{basket.productFromBasket(product.id).quantity}" class="btn btn-default" rendered="#{basket.productFromBasket(product.id).quantity lt 6 and basket.productInBasket(product.id)}" >
+									<h:selectOneMenu id="QuantityBasketItem" value="#{basket.productFromBasket(product.id).quantity}" class="btn btn-default" rendered="#{basket.productFromBasket(product.id).quantity lt 6 and basket.productInBasket(product.id)}" >
 									<f:ajax event="click" execute="QuantityBasketItem" render="@form" ></f:ajax>
 									<f:selectItem itemLabel="1" itemValue="1" />
 									<f:selectItem itemLabel="2" itemValue="2" itemDisabled="#{productView.getQuantity(product.id) lt 2}" />
@@ -84,59 +100,60 @@
 									<f:selectItem itemLabel="5+" itemValue="6" itemDisabled="#{productView.getQuantity(product.id) lt 6}" />
 								</h:selectOneMenu>
 								
-								<!-- Value input for greater than 5 -->
-								<h:inputText value="#{basket.productFromBasket(product.id).quantity}" rendered="#{basket.productFromBasket(product.id).quantity gt 5 and basket.productInBasket(product.id)}" type="number" max="6" size="2" class="quantityBackground">
-								    <p:ajax event="change" update="@form" listener="#{productView.notifyQuantity()}" />
-								</h:inputText>
-								
-						</div>		
-						
-						<h:outputText value="There are #{productView.getQuantity(product.id)} on stock left." />				
+								<span style="color: black"><h:outputText style="font-size:14px" value="#{productView.getQuantity(product.id)} stock/s left." rendered="#{!basket.productInBasket(product.id)}"/></span>			
 						<!-- Quantity End -->
-						
-						<!-- Add basket button -->
-						<h:commandButton value="Add to Basket" class="btn btn-primary" href="#" disabled="#{basket.productInBasket(product.id)}">
-							<f:ajax event="click" execute="Quantity" listener="#{basket.add(product)}" render="theHead @form"></f:ajax>
-						</h:commandButton>
-						<h:commandButton value="Remove from Basket" class="btn btn-primary" href="#" rendered="#{basket.productInBasket(product.id)}">
-							<f:ajax event="click" execute="Quantity" listener="#{basket.remove(product.id)}" render="theHead @form"></f:ajax>
-						</h:commandButton>
-						<h:outputText value="Product is already in the basket" rendered="#{basket.productInBasket(product.id)}" />
-						<!-- End Add basket button -->
-												
-					</div>
-				</div>
-			</div>
-			</ui:repeat>
-			</ul>
-			</p:panel>
-			<!-- Comment and Rating section -->
-						<p:panel>
-						<div id="commentSection">
-						
-						<!-- add a new comment -->
-						<h:outputText value="To write a comment you need to be logged in as a user." rendered="#{not authenticationBean.loggedIn}" />
-						<h:link value="Not registered yet?" outcome="userRegister" rendered="#{not authenticationBean.loggedIn}" />
-						<h:graphicImage value="#{authenticationBean.activeUser.image}" rendered="#{authenticationBean.loggedIn}"/>
-						<h:inputTextarea value="#{productView.nRating.comment}" rendered="#{authenticationBean.loggedIn}" a:placeholder="400 letters.."/> 
-						<p:rating value="#{productView.nRating.stars}" rendered="#{authenticationBean.loggedIn}" />
-						<h:commandButton action="#{productView.submitRating()}" value=" Comment" rendered="#{authenticationBean.loggedIn}" />
-						
-						<!-- show all comments -->
-						<ul>
-						<ui:repeat var="rating" value="#{product.ratings}">
-							<li>
-								<h:graphicImage value="#{rating.author.image}" />
-								<h:outputText value="#{rating.comment}" />
-								<p:rating value="#{rating.stars}" readonly="true"></p:rating>
-							</li>
-						</ui:repeat>
-						</ul>
-						</div>
-						</p:panel>
-			<!-- End Comment and Rating section -->
-			
-		</p:panelGrid>
+					
+								
+								
+    					</div> 
+ 					</div></li>		
+ 				</ui:repeat>
+    		</ul>
+    		
+    <div class="col-sm-4" style="margin:10px 0 0 20px" id="ratingBox">
+       		<h:graphicImage value="#{authenticationBean.activeUser.image}" rendered="#{authenticationBean.loggedIn}"/>
+ 				<p:rating value="#{productView.nRating.stars}" rendered="#{authenticationBean.loggedIn}" />
+ 					<h:form rendered="#{authenticationBean.loggedIn}"><p class="text-left" style="color:white">Rate the Product!</p></h:form>
+    </div> 
+   
+   <div class="col-sm-8"></div>
+   <div class="col-sm-6" style="margin:10px 0 0 20px">
+   		<h:graphicImage value="#{authenticationBean.activeUser.image}" rendered="#{authenticationBean.loggedIn}"/>
+			<h:inputTextarea value="#{productView.nRating.comment}" rendered="#{authenticationBean.loggedIn}" rows="4" cols="60" a:placeholder="Write your comment.."/>
+  				<br/> 		
+   				<h:commandButton style="margin: 0 0 0 160px" action="#{productView.submitRating()}" value=" Comment" rendered="#{authenticationBean.loggedIn}" />
+   				
+   			</div>	
+   				
+   				   <div class="col-sm-6" style="margin:10px 0 0 20px">
+   				<h:outputText value="All Comments" rendered="#{authenticationBean.loggedIn}" />
+   				<ul>
+					<ui:repeat var="rating" value="#{product.ratings}">
+						<li><h:graphicImage value="#{rating.author.image}" />
+						<h:outputText value="#{rating.comment}" />
+						<p:rating value="#{rating.stars}" readonly="true"></p:rating>
+						</li>
+					</ui:repeat>
+				</ul>
+				
+   
+   </div>
+   
+   
+   
+    </div>
+
+    					
+    					
+    				
+    				
+    
+
+		
+		
+		
+		
+		
 	</h:form>
 	
 	<!-- Footer -->
