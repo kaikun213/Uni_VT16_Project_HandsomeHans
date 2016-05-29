@@ -110,27 +110,25 @@ nav>ul>li:hover>ul {
 
 /*This helps to keep space between footer and last shown item*/
 
-  .carousel-inner img {
-      min-width: 100%; /* Set width to 100% */
-      max-width: 100%;
-      margin: auto;
-      min-height:97%;
-      max-height:97%;
-  }
 .headingSearch{
 	text-align: center;
 	font-family: Arial, Helvetica, sans-serif;
 	font-style: italic;
-	font-size: 1.8em;
-	text-decoration: underline;
+	font-size: 1.5em;
 }
 
 .notFound{
 	text-align: center;
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 1.5em;
+	margin-top: 3em;
 }
 
+#MainpageSpace {
+	height:100px;
+	width:100%;
+	clear:both;
+}
 
 #items>li {
 	padding:4%;
@@ -138,10 +136,10 @@ nav>ul>li:hover>ul {
 	cursor:pointer;
 }
 
-/*#items>li:hover {
+#items>li:hover {
 	background-color:#eee;
 	height:100%;
-}*/
+}
 
 #items>li>a {
 	display:block;
@@ -161,102 +159,32 @@ nav>ul>li:hover>ul {
 
 #myCarousel {
 	width:100%;
-	/*margin-bottom:80px;
+	margin-bottom:80px;
 	max-height:50%;
 	overflow:visible;
-*/
 }
 
 div.carousel-inner>div.item>img {
-	width: 100%;
-	margin:0;
+	/*width: 100%;*/
+	margin:auto;
 	height:100%;
 }
 
 div.carousel-caption>p {
+	margin:5px auto;
 	white-space:nowrap;
+	width:15em;
 	overflow:hidden;
 	text-overflow:ellipsis;
 }
-/*
+
 .hot>h2 {
 	margin:25px 0 5px 10px;
 }
-*/
-#freshItems{
-	font-weight: bold;
-	text-decoration: blink;
-	font-size: x-large;
-	font-style: oblique;
-	background-color:black;/*#777;*/
-	height: 690px;
-	color: #FEC143;
-}
-#productBox{
-	min-height:300px;
-	max-height:300px;
-}
-.bg-1{
-	min-height:325px;
-	margin-top:-22px;
-	background-color: #86A4C8;
-	font-weight: bold;
-	text-decoration: blink;
-	font-size: x-large;
-	font-style: oblique;
-}
- .bg-1 p {font-style: italic;
- 	text-decoration: blink;
-	font-size:large;
-	font-style: oblique;
-	font-weight: bold;}
-.bg-1 h1{
-	font-weight: bolder;
-	text-decoration: underline;
-	font-size:100;
-	font-family: Didot;
-	text-align:center;
-	font-weight: bold;
-	text-decoration: blink;
-	font-style: oblique;
-} 
-  .thumbnail {
-      padding: 0 0 15px 0;
-      border: none;
-      border-radius: 0;
-  }
-  .thumbnail p {
-      margin-top: 15px;
-      color: #555;
-  }
-  .btn {
-      padding: 10px 20px;
-      background-color: #333;
-      color:#f1f1f1;
-      border-radius: 0;
-      transition: .2s;
-  }
-  .btn:hover, .btn:focus {
-      border: 1px solid #333;
-      background-color:#FEC143;
-      color: #000;
-  }
+
 /* *****************************
 		 productView 
  ***************************** */
-#imageBox{
-	min-height:400px;
-	max-height:400px;
-}
-#productDetails{
-	font-weight: bold;
-	text-decoration: blink;
-	font-size: x-large;
-	font-style: oblique;
-	background-color:#777;
-	color: #FEC143;
-}
-
 .productImage>img {
 	height:300px;
 	width:550px;
@@ -267,34 +195,15 @@ div.carousel-caption>p {
 	right:55%;
 	padding: 5px;
 }
-#ratingBox{
-	font-weight: bold;
-	text-decoration: blink;
-	font-size: 30;
-	font-style: oblique;
-	padding:3px;
-}
-.showMessages{
-	font-weight: bold;
-	text-decoration: blink;
-	font-size:5;
-	font-style: oblique;
-	
-}
-#productViewBox{
-	background-color: #777;
-	overflow-y:auto;
-	min-height:710px;
-	max-height:710px;
-}
-/*.item-container {
+
+.item-container {
 	position:absolute;
 	top:35%;
 	left:50%;
 	padding:5px;
 	max-width:100%;
 	width:50%;
-}*/
+}
 
 .commentSection{
 	position:absolute;
