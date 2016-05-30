@@ -168,4 +168,6 @@ public class User implements Comparable {
 		if (!(o instanceof User)) return -99;
 		return ((User)o).getName().compareTo(this.name);
 	}
+	
+	
 }

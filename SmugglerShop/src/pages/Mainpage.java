@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.enterprise.context.SessionScoped;
@@ -138,6 +139,14 @@ public class Mainpage extends Page implements Serializable {
 			e.printStackTrace();
 		}
 	}
+	
+	public List<Product> getMostWanted(){
+		List<Product> wanted = products;
+		Collections.sort(wanted);
+		
+		return wanted;
+	}
+
 	
 	
 }

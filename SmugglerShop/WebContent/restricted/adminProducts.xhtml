@@ -93,10 +93,16 @@
      <div class="form-group ">
      <h:graphicImage id="imageDisplay" value="#{adminPages.prod.image}" width="400em" alt="Image preview"/>
      <br />
-      <label class="control-label " for="image">Image</label>
-      <h:inputText class="form-control" id="image" name="image" placeholder="template-image.png" type="text" value="#{adminPages.prod.image}">
-      	  <f:ajax event="change" execute="image" render="imageDisplay"></f:ajax>
-      </h:inputText>
+     							 <div id="imageBox" class="col-md-3" align="center" >
+									<img id="userImage" alt="User pic" src="#{adminPages.prod.image}" class="img-circle img-responsive" style="max-width: 75px"/>
+								</div>
+								<div class="col-md-7 col-md-offset-2" >
+										<h:inputText id="inputProductImage" value="#{adminPages.prod.image}" a:size="25">
+											<f:ajax event="change" execute="userImage" listener="#{adminAccounts.test()}" render="imageDisplay"></f:ajax>
+										</h:inputText>
+										<input type="file" id="pages" accept="image/*" />
+									<button type="button" onclick="upload(function(link) { document.getElementById('adminContent:inputProductImage').value=link; $('#userImage').attr('src',link); })" class="btn btn-default">Upload</button>
+								</div>
      </div>
      
      <div class="form-group ">
@@ -131,10 +137,10 @@
      <div class="form-group">
       <div>
        <h:commandButton class="btn btn-primary " name="submit" type="submit" value="New Product">
-       		<f:ajax event="click" listener="#{adminPages.adminAddProduct()}" render="theHead @form"></f:ajax>
+       		<f:ajax event="click" listener="#{adminPages.adminAddProduct()}" execute="inputProductImage" render="theHead @form"></f:ajax>
        </h:commandButton>
        <h:commandButton class="btn btn-primary " name="update" type="submit" value="Save">
-             <f:ajax event="click" listener="#{adminPages.adminSaveProduct()}" render="theHead @form"></f:ajax>
+             <f:ajax event="click" listener="#{adminPages.adminSaveProduct()}" execute="inputProductImage" render="theHead @form"></f:ajax>
        </h:commandButton>
        <h:commandButton class="btn btn-primary " name="clearFields" type="submit" value="Clear">
        		<f:ajax event="click" listener="#{adminPages.adminClearInputs()}" render="theHead @form"></f:ajax>
@@ -190,10 +196,5 @@
 </h:form>
 <!-- End content -->
 	
-	<!-- Footer -->
-	<div id="footerPart">
-		<ui:include src="../footer.xhtml" />
-	</div>
-	<!-- Footer finish -->
 </body>
 </html>

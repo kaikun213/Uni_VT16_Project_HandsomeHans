@@ -76,6 +76,10 @@ public class AdminAccounts extends Page implements Serializable {
 			init();
 		}
 	}
+	
+	public void test(){
+		System.out.println("Changed value:" +  AuthenticationBean.activeUser.getImage());
+	}
 
 	public void removeUser(User u) {
 		if (u.getName().equals(AuthenticationBean.activeUser.getName()) && u.getPassword().equals(AuthenticationBean.activeUser.getPassword())) {
@@ -88,6 +92,8 @@ public class AdminAccounts extends Page implements Serializable {
 	}
 
 	public void update(User u) {
+		System.out.println("ID from changed User:" + u.getId());
+		System.out.println("Image of the user:" + u.getImage());
 		super.updateDB(u);
 		super.notify("Updated", "successfully");
 		init();

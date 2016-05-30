@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * @author SarpreetSingh
  *
  */
-public class Product {
+public class Product implements Comparable {
 
 	// Fields
 	private String name;
@@ -212,6 +212,22 @@ public class Product {
 
 	public void setRatings(ArrayList<Rating> ratings) {
 		this.ratings = ratings;
+	}
+	
+	public double getAverageRating(){
+		double result = 0;
+		for (int i=0;i<ratings.size();i++){
+			result+= ratings.get(i).getStars();
+		}
+		result /= ratings.size();
+		return result;
+	}
+
+
+	@Override
+	public int compareTo(Object o) {
+		if (o instanceof Product) return (int) (this.getAverageRating() - ((Product)o).getAverageRating());
+		else return -99;
 	}
 
 }

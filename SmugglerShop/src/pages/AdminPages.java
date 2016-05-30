@@ -88,6 +88,7 @@ public class AdminPages extends Page implements Serializable {
 	/* ******************************* admin Products **************************************** */
 	
 	public void adminAddProduct(){
+		System.out.println("image:" + prod.getImage());
 		// insert given product into DB
 		insertDB(prod);
 		// clear all fields
