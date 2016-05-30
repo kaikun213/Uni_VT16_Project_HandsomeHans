@@ -15,15 +15,16 @@ public class SendMail {
 					"Hello World", 
 					"This is the first mail sent with java. <h3>Header</h3><p>and a nice paragraph</p>"
 				);
+			System.out.println("sent");
 		} catch (Exception e){
 			e.printStackTrace();
 		}
 	}*/
 	
 	
-	public static void send(String to, String from, String subject, String content) throws SendGridException {
+	public void send(String to, String from, String subject, String content) throws SendGridException {
 		//Henry's API key
-		SendGrid sendgrid = new SendGrid("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");
+		SendGrid sendgrid = new SendGrid(""); //ask me for api.. DO NOT UPLOAD TO GITHUB!!
 		 
 	    SendGrid.Email email = new SendGrid.Email();
 	 
