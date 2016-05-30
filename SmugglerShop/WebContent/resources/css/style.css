@@ -206,11 +206,12 @@ div.carousel-caption>p {
 }
 
 #commentSection{
+	margin: 0 0 0 50px;
 	overflow-y:auto;
 	max-height:300px;
-	max-width:530px;
+	max-width:500px;
 	min-height:300px;
-	min-width:530px;
+	min-width:500px;
 
 }
 
