@@ -72,6 +72,9 @@ public abstract class Page implements PageInterface{
 		while (ratings.next()){
 			ResultSet rs = conn.fetch("Select * FROM user WHERE id=" + ratings.getString("user"));
 			User author = new User();//toUsers(rs).get(0);
+			rs.first();
+			author.setName(rs.getString("name"));
+			author.setImage(rs.getString("image"));
 			arr.add(new Rating(ratings.getInt("id"), ratings.getString("comment"), ratings.getInt("rating"), author));
 		}
 		

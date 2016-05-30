@@ -107,8 +107,8 @@
 		<div class="headingSearch">
 		<h:outputText styleClass="headingSearch" value="Results for '#{mainpage.search}'" rendered="#{not empty mainpage.search}"/>
 		</div>
-		<ul id="items">
-			<ui:repeat var="product" value="#{mainpage.products}">			
+		<ul id="items" style="list-style: none">
+			<ui:repeat style="list-style: none" var="product" value="#{mainpage.products}">			
 				<li class="col-xs-12"><a
 					href="productView.xhtml?id=#{product.id}"> <img
 						class="col-xs-2" src="#{product.image}" alt="ProductImage" />
