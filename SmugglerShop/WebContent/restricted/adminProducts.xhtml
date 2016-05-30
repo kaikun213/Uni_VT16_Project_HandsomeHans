@@ -17,7 +17,6 @@
 	<link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" /> 
 	
 	<!-- script files -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 	<script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 	<script src="#{request.contextPath}/resources/js/footerFix.js"></script>
 	
@@ -67,8 +66,7 @@
 			<div class="col-xs-6"></div>
 			<div class="col-xs-3">
 				<div class="form-inline">
-					<h:inputText value="#{adminPages.searchProduct}" id="inputSearch" a:placeholder="Search Product by Name"
-							type="text" class="form-control" size="30"></h:inputText>
+					<p:autoComplete id="acSimple" value="#{adminPages.searchProduct}" completeMethod="#{mainpage.instantSearch}" size="30" a:placeholder="Search Product by Name"></p:autoComplete>	
 				<h:commandButton action="#{adminPages.searchProduct()}" class="btn btn-success" value="Go!" />
 
 				</div>

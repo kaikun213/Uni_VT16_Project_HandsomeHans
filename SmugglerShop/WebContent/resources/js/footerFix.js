@@ -4,6 +4,10 @@ $(document).ready(function(){
 	setTimeout(function() { //sometimes it is acting weird
 		fixFooter();
 	}, 1000);
+	
+	$('.showDetail').click(function() {
+		$(this).parent().parent().children('.panel-body').hide();
+	});
 });
 
 function fixFooter(){

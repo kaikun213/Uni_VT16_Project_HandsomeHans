@@ -22,8 +22,6 @@
 
 	<!-- script files -->
 	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-	<script
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 	<script src="#{request.contextPath}/resources/js/footerFix.js"></script>
 </h:head>
@@ -57,7 +55,7 @@
 	<h:form id="adminContent">
 		<p:growl id="growl" showDetail="true" sticky="true" />
 	
-	  <p:panel id="newUserPanel" header="New User" style="margin-top:10px">
+	  <p:panel id="toggleable" header="New User" style="margin-top:10px" toggleable="true" collapsed="true">
       	 <h:panelGrid columns="10" id="grid" cellpadding="5">
             <p:outputLabel for="username" value="Username" />
             <h:inputText id="username" value="#{adminAccounts.admin.name}" />
@@ -67,6 +65,13 @@
            
            <p:outputLabel for="password" value="Password" />
         	<h:inputSecret id="password" value="#{adminAccounts.admin.password}" />
+        	
+        	<p:outputLabel for="address" value="Address" />
+            <h:inputText id="address" value="#{adminAccounts.admin.address}" />
+            <p:outputLabel for="postcode" value="Postcode" />
+            <h:inputText id="postcode" value="#{adminAccounts.admin.postcode}" />
+            <p:outputLabel for="city" value="City" />
+            <h:inputText id="city" value="#{adminAccounts.admin.city}" />
         
          <p:selectOneButton value="#{adminAccounts.admin.admin}">
             <f:selectItem itemLabel="User" itemValue="false" />
@@ -75,8 +80,6 @@
    	<h:commandButton value="Save" icon="ui-icon-check" action="#{adminAccounts.addUser()}" />
   </h:panelGrid>
     </p:panel>
-				
-		
 		
 <div class="container-fluid">
 	<div class="col-sm-5" id="adminPanelContainer">
@@ -85,7 +88,14 @@
 	
 	<p:toolbar>
 		<f:facet name="left">
-			 <h:commandButton action="#{adminAccounts.sortByName(true)}" value="ByName"></h:commandButton>
+			 <h:commandButton action="#{adminAccounts.sortByName(true)}" value="SortByName"></h:commandButton>
+		</f:facet>
+		<f:facet name="left">
+					<p:autoComplete id="acSimple" value="#{adminAccounts.adminSearch}" completeMethod="#{adminAccounts.instantSearchAdmin}" size="30" a:placeholder="Search Admins"></p:autoComplete>	
+					<h:commandButton action="#{adminAccounts.searchAccount(true)}" class="btn btn-success" value="Go!" />
+		</f:facet>
+		<f:facet name="right">
+			<h:commandButton action="#{adminAccounts.showAllAdmins}" value="Show all" />
 		</f:facet>
 	</p:toolbar>
 	
@@ -94,9 +104,11 @@
 
 		<li><div class="container" id="adminPanel">
 			<div class="row">
+			<p:panel id="toggleable" header="#{admin.name}" class="panel-heading" toggleable="true" collapsed="true">
 				<div class="panel panel-info">
 						<div class="panel-heading">
 							<h3 class="panel-title">#{admin.name}</h3>
+
 						</div>
 						<div class="panel-body">
 							<div class="row">
@@ -157,6 +169,7 @@
 							<h:commandButton action="#{adminAccounts.removeUser(admin)}" value="Remove" />
 						</div>
 					</div>
+				</p:panel>
 				</div>
 			</div>
 			</li>
@@ -170,7 +183,14 @@
 <hr></hr>
 		<p:toolbar>
 		<f:facet name="left">
-			 <h:commandButton action="#{adminAccounts.sortByName(false)}" value="ByName"></h:commandButton>
+			 <h:commandButton action="#{adminAccounts.sortByName(false)}" value="SortByName"></h:commandButton>
+		</f:facet>
+		<f:facet name="left">
+			<p:autoComplete id="acMaxResults" maxResults="5" value="#{adminAccounts.userSearch}" completeMethod="#{adminAccounts.instantSearchUser}" size="30" a:placeholder="Search Users"></p:autoComplete>	
+			<h:commandButton action="#{adminAccounts.searchAccount(false)}" class="btn btn-success" value="Go!" />
+		</f:facet>
+		<f:facet name="right">
+			<h:commandButton action="#{adminAccounts.showAllUsers}" value="Show all" />
 		</f:facet>
 		</p:toolbar>
 		<ul style="list-style: none;">
@@ -180,6 +200,7 @@
 				<div class="panel panel-info">
 						<div class="panel-heading">
 							<h3 class="panel-title">#{user.name}</h3>
+							<button class="showDetail"><i class="fa fa-plus"></i></button> 
 						</div>
 						<div class="panel-body">
 							<div class="row">

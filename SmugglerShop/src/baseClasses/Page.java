@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -72,6 +73,9 @@ public abstract class Page implements PageInterface{
 		while (ratings.next()){
 			ResultSet rs = conn.fetch("Select * FROM user WHERE id=" + ratings.getString("user"));
 			User author = new User();//toUsers(rs).get(0);
+			rs.first();
+			author.setName(rs.getString("name"));
+			author.setImage(rs.getString("image"));
 			arr.add(new Rating(ratings.getInt("id"), ratings.getString("comment"), ratings.getInt("rating"), author));
 		}
 		
@@ -167,7 +171,7 @@ public abstract class Page implements PageInterface{
 						break;
 				}
 								
-			    Order o = new Order(orders.getInt("id"),
+			    Order o = new Order(orders.getString("id"),
 			    					productList,
 			    					orders.getDate("date"),
 			    					status);
@@ -191,15 +195,15 @@ public abstract class Page implements PageInterface{
 			while (users.next()) {
 				ArrayList<Order> orders = new ArrayList<Order>();
 				
-				StringBuilder sqlOrders = new StringBuilder("SELECT * FROM orders WHERE id=");
+				StringBuilder sqlOrders = new StringBuilder("SELECT * FROM orders WHERE id=\"");
 				StringBuilder sb = new StringBuilder(users.getString("orders"));
 				int a = 0;
 				// if the user has orders
 				if (!sb.toString().isEmpty() ) {
 					for (int i=0;i<sb.length();i++) {
 						if (Character.compare(sb.charAt(i), ';') == 0) {
-						sqlOrders.append(sb.substring(a, i));
-						if (i+1<sb.length()) sb.append(" OR id=");
+						sqlOrders.append(sb.substring(a, i)+"\"");
+						if (i+1<sb.length()) sb.append(" OR id=\"");
 						a=i+1;
 						}
 					}
@@ -303,8 +307,8 @@ public abstract class Page implements PageInterface{
 			// date
 			sb.append(new Date(((Order) o).getOrderDate().getTime()) +"\"");
 			// finish request
-			sb.append(" WHERE id=");
-			sb.append(((Order) o).getOrderId() +";");
+			sb.append(" WHERE id=\"");
+			sb.append(((Order) o).getOrderId() +"\";");
 		}
 		else if (o instanceof User){
 			sb.append("UPDATE user SET name=\"");
@@ -339,7 +343,7 @@ public abstract class Page implements PageInterface{
 	public void deleteDB(Object o){
 		// update DB function from connection class
 		if (o instanceof Product) updateDB("DELETE FROM product WHERE id="+ ((Product) o).getId() + ";");
-		else if (o instanceof Order) updateDB("DELETE FROM orders WHERE id="+ ((Order) o).getOrderId() + ";");
+		else if (o instanceof Order) updateDB("DELETE FROM orders WHERE id=\""+ ((Order) o).getOrderId() + "\";");
 		else if (o instanceof User) {
 			// delete all comments from the user
 			ResultSet rs = conn.fetch("SELECT * FROM rating WHERE user="+ ((User)o).getId() + ";");
@@ -350,10 +354,10 @@ public abstract class Page implements PageInterface{
 				e.printStackTrace();
 			}
 			// delete all their orders
-			StringBuilder sb = new StringBuilder("SELECT * FROM orders WHERE id=");
+			StringBuilder sb = new StringBuilder("SELECT * FROM orders WHERE id=\"");
 			for (int i=0;i< ((User)o).getOrders().size();i++) {
-				sb.append(((User)o).getOrders().get(i).getOrderId());
-				if (i+1<((User)o).getOrders().size()) sb.append(" OR id=");
+				sb.append(((User)o).getOrders().get(i).getOrderId() + "\"");
+				if (i+1<((User)o).getOrders().size()) sb.append(" OR id=\"");
 			}
 			sb.append(";");
 			ResultSet rs2 = conn.fetch(sb.toString());
@@ -403,7 +407,8 @@ public abstract class Page implements PageInterface{
 			sb.append(");");
 		}
 		else if (o instanceof Order){
-			sb.append("INSERT INTO orders (orderStatus, products, price, date) VALUES (");
+			sb.append("INSERT INTO orders (id, orderStatus, products, price, date) VALUES (\"");
+			sb.append(UUID.randomUUID().toString() + "\",");
 			// orderStatus
 			switch (((Order) o).getOrderStatus()) {
 			case IN_PROCESS : sb.append("1,");

@@ -59,7 +59,7 @@
     						<hr/>	
     					
     					<!-- Add basket button -->
-						<h:commandButton  value="Add to Basket" class="btn btn-primary" href="#" disabled="#{basket.productInBasket(product.id)}">
+						<h:commandButton  value="Add to Basket" class="btn btn-primary" href="#" disabled="#{basket.productInBasket(product.id) or product.quantity lt 1}">
 							<f:ajax event="click" execute="Quantity" listener="#{basket.add(product)}" render="theHead @form"></f:ajax>
 						</h:commandButton>
 			
@@ -70,7 +70,7 @@
 						<!-- End Add basket button -->
     							
     					<!-- When product not in basket -->
-								<h:selectOneMenu style="margin: 0 0 0 80px" id="Quantity" value="#{product.quantity}" class="btn btn-default" rendered="#{product.quantity lt 6 and not basket.productInBasket(product.id)}" >
+								<h:selectOneMenu style="margin: 0 0 0 80px" id="Quantity" value="#{product.quantity}" class="btn btn-default" rendered="#{product.quantity lt 6 and not basket.productInBasket(product.id) and product.quantity gt 0}" >
 									<p:ajax event="click" execute="Quantity" update="@form" ></p:ajax>
 									<f:selectItem itemLabel="1" itemValue="1" />
 									<f:selectItem itemLabel="2" itemValue="2" itemDisabled="#{productView.getQuantity(product.id) lt 2}" />

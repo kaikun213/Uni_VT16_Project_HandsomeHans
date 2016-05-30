@@ -10,16 +10,6 @@
         <managed-bean-class>authentification.AuthenticationBean</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
-    
-    <navigation-rule>
-   <from-view-id>contactForm.xhtml</from-view-id>
-   <navigation-case>
-      <from-action>#{contactPage.submitOrder}</from-action>
-      <from-outcome>mainpage</from-outcome>
-      <to-view-id>mainpage.xhtml</to-view-id>
-   </navigation-case>
-  </navigation-rule>
-    
 
 </faces-config>
 

@@ -44,7 +44,7 @@ public class AdminPages extends Page implements Serializable {
 	private Order nOrder =  new Order();
 	private String searchOrder = "";
 	// for change many states at once (checkboxes)
-	private Map<Integer,Boolean> checked = new HashMap<Integer,Boolean>();
+	private Map<String,Boolean> checked = new HashMap<String,Boolean>();
 	private OrderStatus state = OrderStatus.IN_PROCESS;
 	
 	// ******************************** admin Product
@@ -80,6 +80,8 @@ public class AdminPages extends Page implements Serializable {
 		for (Product p : products) quantities.put(p.getId(), 1);
 		setStatus();
 		products = productService.getProducts();
+		prod = new Product();
+		searchProduct = "";
 		for (Product p : products) checkedProducts.put(p.getId(), false);
 	}
 	
@@ -188,13 +190,13 @@ public class AdminPages extends Page implements Serializable {
 	/* *************************************** Admin Order Methods ******************************* */
 	
 	public void onRowEdit(RowEditEvent event) {
-        FacesMessage msg = new FacesMessage("Order Edited", "Selected Order: " + Integer.toString(((Order) event.getObject()).getOrderId()));
+        FacesMessage msg = new FacesMessage("Order Edited", "Selected Order: " + ((Order) event.getObject()).getOrderId());
         FacesContext.getCurrentInstance().addMessage(null, msg);
         super.updateDB(((Order) event.getObject()));
     }
      
     public void onRowCancel(RowEditEvent event) {
-        FacesMessage msg = new FacesMessage("Edit Cancelled", "Selected Order: " +Integer.toString(((Order) event.getObject()).getOrderId()));
+        FacesMessage msg = new FacesMessage("Edit Cancelled", "Selected Order: " +((Order) event.getObject()).getOrderId());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
     
@@ -307,11 +309,11 @@ public class AdminPages extends Page implements Serializable {
  		searchOrder = s;
  	}
 
-	public Map<Integer,Boolean> getChecked() {
+	public Map<String,Boolean> getChecked() {
 		return checked;
 	}
 	
-	public void setChecked(Map<Integer,Boolean> checked){
+	public void setChecked(Map<String,Boolean> checked){
 		this.checked = checked;
 	}
 

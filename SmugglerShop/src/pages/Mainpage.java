@@ -54,15 +54,20 @@ public class Mainpage extends Page implements Serializable {
 		}
 	}
 	
-	public ArrayList<Product> instantSearch(){
-		System.out.println("Instant search invoked");
-		setContent("SELECT * FROM product WHERE UPPER(name) LIKE '"+search.toUpperCase()+"%';");
-		ArrayList<Product> searchResults = new ArrayList<Product>();
+	public ArrayList<String> instantSearch(String query){
+		// <!--<p:autoComplete id="acSimple" completeMethod="#{mainpage.instantSearch}" a:placeholder="Search By Product"></p:autoComplete> -->
+		System.out.println("Instant search invoked with query: " + query);
+		setContent("SELECT * FROM product WHERE UPPER(name) LIKE '%"+query.toUpperCase()+"%';");
+		ArrayList<String> searchResults = new ArrayList<String>();
 		try {
-			searchResults = toProducts(content);
+			ArrayList<Product> searchedProducts = toProducts(content);
+			System.out.println("Size ProductList:" + searchedProducts.size());
+
+			for (int i=0;i<searchedProducts.size();i++) searchResults.add(searchedProducts.get(i).getName());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		System.out.println("Size:" + searchResults.size());
 		return searchResults;
 	}
 	
@@ -133,5 +138,6 @@ public class Mainpage extends Page implements Serializable {
 			e.printStackTrace();
 		}
 	}
+	
 	
 }

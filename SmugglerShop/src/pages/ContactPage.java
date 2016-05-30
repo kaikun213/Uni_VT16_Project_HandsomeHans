@@ -85,7 +85,7 @@ public class ContactPage extends Page implements Serializable {
 		
 		// update userAccount orderList if user is logged in
 		if (AuthenticationBean.AUTH_KEY != null) {
-			o.setOrderId(Integer.parseInt(oID));
+			o.setOrderId(oID);
 			AuthenticationBean.activeUser.getOrders().add(o);
 			updateDB(AuthenticationBean.activeUser);
 		}

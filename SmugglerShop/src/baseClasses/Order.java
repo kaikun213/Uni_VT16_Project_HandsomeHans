@@ -19,7 +19,7 @@ public class Order {
 	}
 
 	protected OrderStatus orderStatus;
-	private int orderId;
+	private String orderId;
 	private List<Product> orderList = new ArrayList<Product>();
 	private Date orderDate;
 
@@ -37,7 +37,7 @@ public class Order {
 	 * @param orderDate
 	 * @param orderStatus
 	 */
-	public Order(int orderId, List<Product> orderList, Date orderDate, OrderStatus orderStatus) {
+	public Order(String orderId, List<Product> orderList, Date orderDate, OrderStatus orderStatus) {
 		this.orderStatus = orderStatus;
 		this.orderId = orderId;
 		this.orderList = orderList;
@@ -82,7 +82,7 @@ public class Order {
 	 * 
 	 * @return long
 	 */
-	public int getOrderId() {
+	public String getOrderId() {
 		return orderId;
 	}
 
@@ -91,7 +91,7 @@ public class Order {
 	 * 
 	 * @param orderId
 	 */
-	public void setOrderId(int orderId) {
+	public void setOrderId(String orderId) {
 		this.orderId = orderId;
 	}
 
