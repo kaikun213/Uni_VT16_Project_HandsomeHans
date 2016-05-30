@@ -71,17 +71,15 @@
 				<!-- Wrapper for slides -->
 				<div class="carousel-inner" role="listbox">
 					<div class="item active">
-						<img src="resources/img/CertificateLogo.jpg" alt="placeholder" />
+						<img src="#{mainpage.mostWanted.get(0).image}" alt="placeholder" style="height: 400px;"/>
 						<div class="carousel-caption">
-							<h3>A nice logo!</h3>
-							<p>And some very short message</p>
+							<h3 style="color:yellow;">#{mainpage.mostWanted.get(0).name}</h3>
 						</div>
 					</div>
 					<div class="item">
-						<img src="resources/img/CertificateLogo.jpg" alt="placeholder" />
+						<img src="#{mainpage.mostWanted.get(1).image}" alt="placeholder" style="height: 400px;" />
 						<div class="carousel-caption">
-							<h3>Name</h3>
-							<p>But if i am too long i will simply go away</p>
+							<h3 style="color:yellow;">#{mainpage.mostWanted.get(1).name}</h3>
 						</div>
 					</div>
 				</div>

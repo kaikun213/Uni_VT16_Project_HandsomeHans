@@ -111,10 +111,8 @@
     		
     		<h:form rendered="#{authenticationBean.loggedIn}">
     			<div class="col-sm-6" id="ratingBox">
-       				<h:graphicImage value="#{authenticationBean.activeUser.image}" rendered="#{authenticationBean.loggedIn}"/>
  						<p:rating value="#{productView.nRating.stars}" rendered="#{authenticationBean.loggedIn}" />
  							<p class="text-left">Rate the Product!</p>
-    				<h:graphicImage value="#{authenticationBean.activeUser.image}" rendered="#{authenticationBean.loggedIn}"/>
 						<h:inputTextarea value="#{productView.nRating.comment}" rendered="#{authenticationBean.loggedIn}" rows="5" cols="50" a:placeholder="Write your comment (max 400 words)"/>
   				 		<br/>
   				 		<h:commandButton style="margin: 0 0 0 130px" action="#{productView.submitRating()}" value=" Comment" rendered="#{authenticationBean.loggedIn}" />
@@ -135,7 +133,7 @@
 						<ui:repeat style="list-style: none" var="rating" value="#{product.ratings}">
 							<li><p:panelGrid columns="2">
     							<f:facet name="header">
-       								<p:graphicImage><span class="glyphicon glyphicon-user"></span></p:graphicImage>
+       								<p:graphicImage value="#{rating.author.image}" style="height:80px"></p:graphicImage>
     							</f:facet>
  
     							<h:outputText value="Name" />
