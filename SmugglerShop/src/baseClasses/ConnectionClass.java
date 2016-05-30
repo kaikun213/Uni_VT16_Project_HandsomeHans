@@ -21,10 +21,10 @@ import java.sql.SQLException;
  */
 public class ConnectionClass {
 
-	/*
-	private static final String connection_url = "jdbc:mysql://localhost:3306/webshopDB";
+	
+	/*private static final String connection_url = "jdbc:mysql://localhost:3306/webshopDB";
 	private String username = "root";
-	private String password = "password1";
+	private String password = "sunny";
 	private Connection connectionDB;
 	*/
 

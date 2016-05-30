@@ -40,8 +40,8 @@
 						
 			<!-- Basket Items -->
 			<div class="container-fluid">
-			<ul id="basketItems">
-				<ui:repeat var="basketItem" value="#{basket.basket}">
+			<ul style="list-style:none"  id="basketItems">
+				<ui:repeat style="list-style:none" var="basketItem" value="#{basket.basket}">
 					<li>
 					
 					<a href="productView.xhtml?id=#{basketItem.id}"> 
