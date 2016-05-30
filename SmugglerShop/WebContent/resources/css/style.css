@@ -205,11 +205,13 @@ div.carousel-caption>p {
 	width:50%;
 }
 
-.commentSection{
-	position:absolute;
-	top: 60%;
-	right: 30%;
-	padding: 5px;
+#commentSection{
+	overflow-y:auto;
+	max-height:300px;
+	max-width:530px;
+	min-height:300px;
+	min-width:530px;
+
 }
 
 /* *****************************
