@@ -24,7 +24,7 @@ public class SendMail {
 	
 	public static void send(String to, String from, String subject, String content) throws SendGridException {
 		//Henry's API key
-		SendGrid sendgrid = new SendGrid("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"); //ask me for api.. DO NOT UPLOAD TO GITHUB!!
+		SendGrid sendgrid = new SendGrid(""); //ask me for api.. DO NOT UPLOAD TO GITHUB!!
 		 
 	    SendGrid.Email email = new SendGrid.Email();
 	 
