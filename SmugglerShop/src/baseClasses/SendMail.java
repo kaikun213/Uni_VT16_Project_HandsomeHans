@@ -22,7 +22,7 @@ public class SendMail {
 	}*/
 	
 	
-	public void send(String to, String from, String subject, String content) throws SendGridException {
+	public static void send(String to, String from, String subject, String content) throws SendGridException {
 		//Henry's API key
 		SendGrid sendgrid = new SendGrid(""); //ask me for api.. DO NOT UPLOAD TO GITHUB!!
 		 

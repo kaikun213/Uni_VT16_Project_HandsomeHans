@@ -64,7 +64,7 @@ public class AdminAccounts extends Page implements Serializable {
 			super.notify("User Already Exists", "Change username");
 		} else {
 			nAdmin.setOrders(arr);
-			nAdmin.setPhone("");
+			nAdmin.setPhone("---");
 			super.insertDB(nAdmin);
 			try {
 				SendMail.send(nAdmin.getEmail(), "SmugglerShop@Smugglers.project", "Your Smuggler User Account!", "Congrats to register a User account!");

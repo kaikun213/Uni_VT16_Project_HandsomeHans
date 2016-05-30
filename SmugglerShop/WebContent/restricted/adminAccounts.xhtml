@@ -98,18 +98,17 @@
 			<h:commandButton action="#{adminAccounts.showAllAdmins}" value="Show all" />
 		</f:facet>
 	</p:toolbar>
-	
+		<br></br>
 		<ul style="list-style: none">
 		<ui:repeat var="admin" value="#{adminAccounts.allAdmins}">
 
 		<li><div class="container" id="adminPanel">
 			<div class="row">
-			<p:panel id="toggleable" header="#{admin.name}" class="panel-heading" toggleable="true" collapsed="true">
 				<div class="panel panel-info">
 						<div class="panel-heading">
-							<h3 class="panel-title">#{admin.name}</h3>
-
+							<h3 class="panel-title">#{admin.name}<button class="showDetail btn btn-xs btn-defualt" type="button"><i class="fa fa-minus"></i></button> </h3>
 						</div>
+						<div class="panel-container" style="display:none">
 						<div class="panel-body">
 							<div class="row">
 								<div class="col-md-3 col-lg-3 " align="center">
@@ -124,37 +123,37 @@
 											
 											<tr>
 											<td>Username</td>
-											<td><p:inplace editor="true"><h:inputText value="#{admin.name}" /></p:inplace></td>
+											<td><p:inplace ><h:inputText value="#{admin.name}" /></p:inplace></td>
 											</tr>
 											
 											<tr>
 											<td>Password</td>
-											<td><p:inplace editor="true"><h:inputText value="#{admin.password}" /></p:inplace></td>
+											<td><p:inplace ><h:inputText value="#{admin.password}" /></p:inplace></td>
 											</tr>
 											
 											<tr>
 											<td>Email</td>
-											<td><p:inplace editor="true"><h:inputText value="#{admin.email}" /></p:inplace></td>
+											<td><p:inplace ><h:inputText value="#{admin.email}" /></p:inplace></td>
 											</tr>
 											
 											<tr>
 											<td>Phone</td>
-											<td><p:inplace editor="true"><h:inputText value="#{admin.phone}" /></p:inplace></td>
+											<td><p:inplace ><h:inputText value="#{admin.phone}" /></p:inplace></td>
 											</tr>
 											
 											<tr>
 											<td>Address</td>
-											<td><p:inplace editor="true"><h:inputText value="#{admin.address}" /></p:inplace></td>
+											<td><p:inplace ><h:inputText value="#{admin.address}" /></p:inplace></td>
 											</tr>
 											
 											<tr>
 											<td>City</td>
-											<td><p:inplace editor="true"><h:inputText value="#{admin.city}" /></p:inplace></td>
+											<td><p:inplace ><h:inputText value="#{admin.city}" /></p:inplace></td>
 											</tr>
 											
 											<tr>
 											<td>Postcode</td>
-											<td><p:inplace editor="true"><h:inputText value="#{admin.postcode}" /></p:inplace></td>
+											<td><p:inplace ><h:inputText value="#{admin.postcode}" /></p:inplace></td>
 											</tr>
 
 										</tbody>
@@ -168,8 +167,8 @@
 							<h:commandButton action="#{adminAccounts.update(admin)}" value="Save" />
 							<h:commandButton action="#{adminAccounts.removeUser(admin)}" value="Remove" />
 						</div>
+						</div>
 					</div>
-				</p:panel>
 				</div>
 			</div>
 			</li>
@@ -193,15 +192,17 @@
 			<h:commandButton action="#{adminAccounts.showAllUsers}" value="Show all" />
 		</f:facet>
 		</p:toolbar>
+		<br></br>
 		<ul style="list-style: none;">
 		<ui:repeat var="user" value="#{adminAccounts.allUsers}">
 		<li><div class="container" id="adminPanel">
 			<div class="row">
 				<div class="panel panel-info">
 						<div class="panel-heading">
-							<h3 class="panel-title">#{user.name}</h3>
-							<button class="showDetail"><i class="fa fa-plus"></i></button> 
+							<h3 class="panel-title">#{user.name}<button class="showDetail btn btn-xs btn-defualt" type="button"><i class="fa fa-minus"></i></button> </h3>
+							
 						</div>
+						<div class="panel-container" style="display:none">
 						<div class="panel-body">
 							<div class="row">
 								<div class="col-md-3 col-lg-3 " align="center">
@@ -216,37 +217,37 @@
 												
 												<tr>
 												<td>Username</td>
-												<td><p:inplace editor="true"><h:inputText id="editName" value="#{user.name}"/></p:inplace></td>
+												<td><p:inplace ><h:inputText id="editName" value="#{user.name}"/></p:inplace></td>
 												</tr>
 											
 												<tr>
 												<td>Password</td>
-												<td><p:inplace editor="true"><h:inputText value="#{user.password}" /></p:inplace></td>
+												<td><p:inplace ><h:inputText value="#{user.password}" /></p:inplace></td>
 												</tr>
 											
 												<tr>
 												<td>Email</td>
-												<td><p:inplace editor="true"><h:inputText value="#{user.email}" /></p:inplace></td>
+												<td><p:inplace ><h:inputText value="#{user.email}" /></p:inplace></td>
 												</tr>
 												
 												<tr>
 												<td>Phone</td>
-												<td><p:inplace editor="true"><h:inputText value="#{user.phone}" /></p:inplace></td>
+												<td><p:inplace ><h:inputText value="#{user.phone}" /></p:inplace></td>
 												</tr>
 											
 												<tr>
 												<td>Address</td>
-												<td><p:inplace editor="true"><h:inputText value="#{user.address}" /></p:inplace></td>
+												<td><p:inplace ><h:inputText value="#{user.address}" /></p:inplace></td>
 												</tr>
 											
 												<tr>
 												<td>City</td>
-												<td><p:inplace editor="true"><h:inputText value="#{user.city}" /></p:inplace></td>
+												<td><p:inplace ><h:inputText value="#{user.city}" /></p:inplace></td>
 												</tr>
 											
 												<tr>
 												<td>Postcode</td>
-												<td><p:inplace editor="true"><h:inputText value="#{user.postcode}" /></p:inplace></td>
+												<td><p:inplace ><h:inputText value="#{user.postcode}" /></p:inplace></td>
 												</tr>
 
 										</tbody>
@@ -259,6 +260,7 @@
 						<div class="panel-footer">
 							<h:commandButton action="#{adminAccounts.update(user)}" value="Save" />
 							<h:commandButton action="#{adminAccounts.removeUser(user)}" value="Remove" />
+						</div>
 						</div>
 					</div>
 				</div>
