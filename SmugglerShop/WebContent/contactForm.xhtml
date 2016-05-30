@@ -80,6 +80,9 @@
 	<!-- Content -->
 	<h:form id="content">
 		<p:growl id="growl" showDetail="true" sticky="true" /> 
+		<p:dialog header="Basic Dialog" widgetVar="dlg1" minHeight="40">
+    		<h:outputText value="Resistance to PrimeFaces is futile!" />
+		</p:dialog>
 		<div class="container-fluid">
 			<div class="col-xs-4" id="basketforms">
 				
@@ -132,7 +135,7 @@
 				</div>
 				
 				<div class="col-xs-5"></div>
-					<h:commandButton action="#{contactPage.submitOrder}" value="Submit" class="btn btn-primary active"/>
+					<h:commandButton action="#{contactPage.submitOrder}" value="Submit" class="btn btn-primary active" onclick="PF('dlg1').show();"/>
 					<br/>
 					<h:outputText value="* required fields" />
 			</div>

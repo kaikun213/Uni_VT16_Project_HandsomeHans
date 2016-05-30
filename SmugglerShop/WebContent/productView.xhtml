@@ -57,7 +57,7 @@
     					
     							<!-- When product not in basket -->
 							<span style="margin: 0 0 0 350px">
-								<h:selectOneMenu id="Quantity" value="#{product.quantity}" class="btn btn-default" rendered="#{product.quantity lt 6 and not basket.productInBasket(product.id) and product.quantity gt 0}" >
+								<h:selectOneMenu id="Quantity" value="#{product.quantity}" class="btn btn-default" rendered="#{product.quantity lt 6 and not basket.productInBasket(product.id) and basket.getQuantity(product.id) gt 0}" >
 									<p:ajax event="click" execute="Quantity" update="@form" ></p:ajax>
 									<f:selectItem itemLabel="1" itemValue="1" />
 									<f:selectItem itemLabel="2" itemValue="2" itemDisabled="#{productView.getQuantity(product.id) lt 2}" />
@@ -94,7 +94,7 @@
 						
 								<!-- Add basket button -->
 								
-								<h:commandButton  value="Add to Basket" class="btn btn-primary" href="#" disabled="#{basket.productInBasket(product.id) or product.quantity lt 1}">
+								<h:commandButton  value="Add to Basket" class="btn btn-primary" href="#" disabled="#{basket.productInBasket(product.id) or basket.getQuantity(product.id) lt 1}">
 									<f:ajax event="click" execute="Quantity" listener="#{basket.add(product)}" render="theHead @form"></f:ajax>
 								</h:commandButton>
 						
@@ -142,7 +142,7 @@
     							<h:outputText value="Comment" />
     							<h:outputText value="#{rating.comment}" />
  
-    							<h:outputText value="Ratings" />
+    							<h:outputText value="Rating" />
     							<p:rating value="#{rating.stars}" readonly="true"></p:rating>
  							</p:panelGrid>
 							<br/>

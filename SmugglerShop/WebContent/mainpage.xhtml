@@ -59,13 +59,14 @@
 		<!-- Slider for Hot Items -->
 		<h:form class="hot"
 			rendered="#{empty mainpage.category and empty mainpage.search}">
-			<h2>Fresh items!</h2>
+			<h2 class="text-center">Best rated Products!</h2>
 			<div id="myCarousel" class="carousel slide" data-ride="carousel">
 
 				<!-- Indicators -->
 				<ol class="carousel-indicators">
 					<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
 					<li data-target="#myCarousel" data-slide-to="1"></li>
+					<li data-target="#myCarousel" data-slide-to="2"></li>
 				</ol>
 
 				<!-- Wrapper for slides -->
@@ -73,14 +74,24 @@
 					<div class="item active">
 						<img src="#{mainpage.mostWanted.get(0).image}" alt="placeholder" style="height: 400px;"/>
 						<div class="carousel-caption">
-							<h3 style="color:yellow;">#{mainpage.mostWanted.get(0).name}</h3>
+							<h3 style="color:yellow;">#{mainpage.mostWanted.get(0).name}
+							</h3>
 						</div>
+						<p><p:rating value="#{mainpage.mostWanted.get(0).averageRatingAsInt}" readonly="true" style="margin-left: 48%;margin-top:20px;"></p:rating></p>
 					</div>
 					<div class="item">
 						<img src="#{mainpage.mostWanted.get(1).image}" alt="placeholder" style="height: 400px;" />
 						<div class="carousel-caption">
 							<h3 style="color:yellow;">#{mainpage.mostWanted.get(1).name}</h3>
 						</div>
+						<h1><p:rating value="#{mainpage.mostWanted.get(1).averageRatingAsInt}" readonly="true" style="margin-left: 48%;margin-top:20px;"></p:rating></h1>
+					</div>
+					<div class="item">
+						<img src="#{mainpage.mostWanted.get(2).image}" alt="placeholder" style="height: 400px;" />
+						<div class="carousel-caption">
+							<h3 style="color:yellow;">#{mainpage.mostWanted.get(2).name}</h3>
+						</div>
+						<p><p:rating value="#{mainpage.mostWanted.get(2).averageRatingAsInt}" readonly="true" style="margin-left: 48%;margin-top:20px;"></p:rating></p>
 					</div>
 				</div>
 

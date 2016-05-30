@@ -222,12 +222,19 @@ public class Product implements Comparable {
 		result /= ratings.size();
 		return result;
 	}
+	
+	public int getAverageRatingAsInt(){
+		return (int) getAverageRating();
+	}
 
 
 	@Override
 	public int compareTo(Object o) {
-		if (o instanceof Product) return (int) (this.getAverageRating() - ((Product)o).getAverageRating());
-		else return -99;
+		if (o instanceof Product) return (int) (Double.compare(this.getAverageRating(), ((Product)o).getAverageRating()));
+		else {
+			System.err.println("This is not a compareable product rating");
+			return -99;
+		}
 	}
 
 }

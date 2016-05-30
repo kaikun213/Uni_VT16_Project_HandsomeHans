@@ -93,7 +93,6 @@ public class ProductView extends Page implements Serializable {
 	
 	public void submitRating(){
 		nRating.setAuthor(AuthenticationBean.activeUser);
-		products.get(0).getRatings().add(nRating);
 		insertDB(nRating);
 		// read the generated id from DB 
 		setContent("SELECT id FROM rating");
@@ -103,7 +102,11 @@ public class ProductView extends Page implements Serializable {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		for (int i=0;i<products.get(0).getRatings().size();i++) System.out.println("ID Rating: " + products.get(0).getRatings().get(i).getId());
+		products.get(0).getRatings().add(nRating);
+		products.get(0).setQuantity(super.getQuantity(Integer.toString(products.get(0).getId())));
 		updateDB(products.get(0));
+		products.get(0).setQuantity(1);
 		nRating = new Rating();
 	}
 

@@ -76,7 +76,9 @@ public abstract class Page implements PageInterface{
 			rs.first();
 			author.setName(rs.getString("name"));
 			author.setImage(rs.getString("image"));
-			arr.add(new Rating(ratings.getInt("id"), ratings.getString("comment"), ratings.getInt("rating"), author));
+			int id = ratings.getInt("id");
+			System.out.println("toRatings ID of Ratings: " + id);
+			arr.add(new Rating(id, ratings.getString("comment"), ratings.getInt("rating"), author));
 		}
 		
 		return arr;
@@ -108,8 +110,10 @@ public abstract class Page implements PageInterface{
 					}
 				}
 				sqlRatings.append(";");
+				System.out.println("toProducts RatingSQL: " + sqlRatings.toString());
 				ResultSet ratingsRS = conn.fetch(sqlRatings.toString());
 				ratings = toRatings(ratingsRS);
+				for (int j=0;j<ratings.size();j++) System.out.println("toProducts Rating ID of Rating Object: " + ratings.get(j).getId());
 			}
 			
 			
@@ -198,6 +202,7 @@ public abstract class Page implements PageInterface{
 				StringBuilder sqlOrders = new StringBuilder("SELECT * FROM orders WHERE id=\"");
 				StringBuilder sb = new StringBuilder(users.getString("orders"));
 				int a = 0;
+								
 				// if the user has orders
 				if (!sb.toString().isEmpty() ) {
 					for (int i=0;i<sb.length();i++) {
@@ -207,7 +212,8 @@ public abstract class Page implements PageInterface{
 						a=i+1;
 						}
 					}
-					sb.append(";");
+					sqlOrders.append(";");
+					System.out.println(sqlOrders.toString());
 					orders.addAll(toOrders(conn.fetch(sqlOrders.toString())));
 				}
 				
@@ -270,9 +276,12 @@ public abstract class Page implements PageInterface{
 			sb.append( category+",price=");
 			sb.append(((Product) o).getPrice() +",image=\"");
 			sb.append(((Product) o).getImage() +"\", ratings=\"");
+			System.out.println("Size ratings: " + ((Product) o).getRatings().size());
 			for (int i=0;i<((Product) o).getRatings().size();i++){
+				System.out.println("IDs for SQL: " + ((Product) o).getRatings().get(i).getId());
 				sb.append(((Product) o).getRatings().get(i).getId() + ";");
 			}
+			System.out.println("SQL Rating: " +  sb.toString());
 			sb.append("\",description=\"");
 			sb.append(((Product) o).getDescription() + "\",quantity=");
 			sb.append(((Product) o).getQuantity());
@@ -354,6 +363,7 @@ public abstract class Page implements PageInterface{
 				e.printStackTrace();
 			}
 			// delete all their orders
+			if (((User)o).getOrders().size()>0) {
 			StringBuilder sb = new StringBuilder("SELECT * FROM orders WHERE id=\"");
 			for (int i=0;i< ((User)o).getOrders().size();i++) {
 				sb.append(((User)o).getOrders().get(i).getOrderId() + "\"");
@@ -367,13 +377,14 @@ public abstract class Page implements PageInterface{
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
+			}
 			// delete the user itself
 			updateDB("DELETE FROM user WHERE id=" + ((User) o).getId() +";");
 		}
 		else if (o instanceof Rating) {
 			// delete the rating from the product list
 				try {
-					Product p = toProducts(conn.fetch("SELECT * FROM product WHERE ratings LIKE %" + ((Rating)o).getId() + "%;")).get(0);
+					Product p = toProducts(conn.fetch("SELECT * FROM product WHERE ratings LIKE '%" + ((Rating)o).getId() + "%';")).get(0);
 					for (int i=0;i<p.getRatings().size();i++) if (p.getRatings().get(i).getId() == ((Rating)o).getId()) p.getRatings().remove(i);
 					updateDB(p);
 				} catch (SQLException e) {
@@ -408,7 +419,9 @@ public abstract class Page implements PageInterface{
 		}
 		else if (o instanceof Order){
 			sb.append("INSERT INTO orders (id, orderStatus, products, price, date) VALUES (\"");
-			sb.append(UUID.randomUUID().toString() + "\",");
+			String orderID = UUID.randomUUID().toString();
+			orderID = orderID.replaceAll("\"", "'");
+			sb.append(orderID + "\",");
 			// orderStatus
 			switch (((Order) o).getOrderStatus()) {
 			case IN_PROCESS : sb.append("1,");

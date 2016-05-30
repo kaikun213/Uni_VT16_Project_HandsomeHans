@@ -11,11 +11,14 @@ import java.util.ArrayList;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
+import com.sendgrid.SendGridException;
+
 import authentification.AuthenticationBean;
 import baseClasses.Order;
 import baseClasses.Order.OrderStatus;
 import baseClasses.Page;
 import baseClasses.Product;
+import baseClasses.SendMail;
 import baseClasses.User;
 
 /**
@@ -45,19 +48,19 @@ public class ContactPage extends Page implements Serializable {
 	}
 	
 	
-	public String submitOrder(){
+	public void submitOrder(){
 		user.setPassword("temporary");
 
 		// if all fields are filled and user is not logged in
 		if (!user.isComplete() && AuthenticationBean.AUTH_KEY == null) { //|| phone.isEmpty() || address.isEmpty() || postcode.isEmpty() || city.isEmpty()) {
 			super.notify("Error!", "Please enter your contact details completely");
-			return "contactForm";
+			return;
 		}
 		
 		// if no items are in the basket
 		if (Basket.products.size() <= 0) {
 			super.notify("Error!", "You don't have Items in your basket!");
-			return "contactForm";
+			return;
 		}
 
 		Order o = new Order(Basket.products,new Date(),OrderStatus.IN_PROCESS);
@@ -81,7 +84,7 @@ public class ContactPage extends Page implements Serializable {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		super.notify("Successfully!", "New Order placed! Your Order Number:" + oID);
+		super.notify("Successfully!", "New Order placed! You also got an email with your Order Number:" + oID);
 		
 		// update userAccount orderList if user is logged in
 		if (AuthenticationBean.AUTH_KEY != null) {
@@ -91,8 +94,11 @@ public class ContactPage extends Page implements Serializable {
 		}
 		
 		// send email
-		
-		return "mainpage?faces-redirect=true";
+		try {
+			SendMail.send(AuthenticationBean.activeUser.getEmail(), "Smugglers@Smuggler.com", "You placed a new Order", "The Order Number is:" + oID);
+		} catch (SendGridException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	

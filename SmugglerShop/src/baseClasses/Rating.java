@@ -4,12 +4,13 @@ public class Rating {
 	
 	private int id;
 	private String comment = "";
-	private Integer stars = 6;
+	private Integer stars = 5;
 	private User author = new User();
 	
 	public Rating(){}
 	
 	public Rating(int id, String comment, Integer stars, User author){
+		this.id = id;
 		this.comment = comment;
 		this.stars = stars;
 		this.author = author;
