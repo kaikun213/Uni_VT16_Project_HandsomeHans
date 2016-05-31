@@ -91,14 +91,26 @@ public class ContactPage extends Page implements Serializable {
 			o.setOrderId(oID);
 			AuthenticationBean.activeUser.getOrders().add(o);
 			updateDB(AuthenticationBean.activeUser);
+			
+			try {
+				if (AuthenticationBean.activeUser != null) if (AuthenticationBean.activeUser.getEmail() != null) if (!AuthenticationBean.activeUser.getEmail().isEmpty()) SendMail.send(AuthenticationBean.activeUser.getEmail(), "Smugglers@Smuggler.com", "You placed a new Order", "The Order Number is:" + oID);
+			} catch (SendGridException e) {
+				e.printStackTrace();
+			}
+			
+		}
+		else {
+			// send email
+			
+			try {
+				if (user != null) if (user.getEmail() != null) if (!user.getEmail().isEmpty())
+				SendMail.send(user.getEmail(), "Smugglers@Smuggler.com", "You placed a new Order", "The Order Number is:" + oID);
+			} catch (SendGridException e) {
+				e.printStackTrace();
+			}
+			
 		}
 		
-		// send email
-		try {
-			SendMail.send(AuthenticationBean.activeUser.getEmail(), "Smugglers@Smuggler.com", "You placed a new Order", "The Order Number is:" + oID);
-		} catch (SendGridException e) {
-			e.printStackTrace();
-		}
 	}
 	
 	

@@ -17,6 +17,8 @@ import javax.inject.Named;
 
 import baseClasses.Page;
 import baseClasses.Product;
+import baseClasses.Rating;
+import baseClasses.User;
 
 /**
  * @author kaikun
@@ -141,9 +143,23 @@ public class Mainpage extends Page implements Serializable {
 	}
 	
 	public List<Product> getMostWanted(){
-		List<Product> wanted = products;
+		setContent("select * from product");
+		List<Product> allProducts = new ArrayList<Product>();
+		try {
+			allProducts = toProducts(content);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		List<Product> wanted = allProducts;
 		Collections.sort(wanted);
-		
+		// Quickfix mainpage best products
+		while (wanted.size() < 3) {
+			Product logo = new Product();
+			logo.setImage("http://i.imgur.com/dXnRDSg.jpg");
+			logo.setName("Our Logo");
+			logo.getRatings().add(new Rating(-99,"Logo", 5, new User()));
+			wanted.add(logo);
+		}
 		return wanted;
 	}
 
