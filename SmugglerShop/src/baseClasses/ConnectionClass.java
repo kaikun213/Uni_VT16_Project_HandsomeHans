@@ -22,19 +22,20 @@ import java.sql.SQLException;
 public class ConnectionClass {
 
 	
-	/*private static final String connection_url = "jdbc:mysql://localhost:3306/webshopDB";
+	private static final String connection_url = "jdbc:mysql://localhost:3306/webshopDB";
 	private String username = "root";
-	private String password = "sunny";
+	private String password = "team2";
 	private Connection connectionDB;
-	*/
+	
 
 	//use this database instead of local!! /henry
+	/*
 	private static final String connection_url = "jdbc:mysql://sql7.freesqldatabase.com:3306/sql7117861"; 
 	  private final String username = "sql7117861"; 
 	  private final String password = "h19r2rQv1b"; 
 	  private Connection connectionDB; 
 	  public static final String dbName = "sql7117861";
-	
+	*/
 	
 	/**
 	 * Constructor method creates a connection to the database.
